@@ -13,8 +13,10 @@ public:
 	~sessionConnection();
 
 
-	void read_data();
-	void write_data(std::size_t length);
+	void recieve_data();
+	void write_data(/*std::size_t length*/);
+
+	void disconnected();
 
 private:
 

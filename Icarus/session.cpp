@@ -4,10 +4,14 @@
 
 session::session(sessionConnection session_connection) : session_connection(session_connection) {
 
-	printf("testing");
 }
 
 
 session::~session()
 {
+}
+
+void session::disconnected() {
+
+	printf("testing");
 }
