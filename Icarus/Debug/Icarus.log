@@ -1,5 +1,4 @@
 ﻿  Icarus.cpp
-c:\users\alex\documents\github\icarus\icarus\icarus.cpp(54): warning C4101: 'e': unreferenced local variable
-  LINK : C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.exe not found or not built by the last incremental link; performing full link
+c:\users\alex\documents\github\icarus\icarus\icarus.cpp(26): warning C4101: 'e': unreferenced local variable
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.exe
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.pdb (Full PDB)

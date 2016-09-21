@@ -42,6 +42,9 @@
     <ClInclude Include="NetworkConnection.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
+    <ClInclude Include="NetworkServer.h">
+      <Filter>Header Files\Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -54,6 +57,9 @@
       <Filter>Source Files\Clients</Filter>
     </ClCompile>
     <ClCompile Include="NetworkConnection.cpp">
+      <Filter>Source Files\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkServer.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
   </ItemGroup>

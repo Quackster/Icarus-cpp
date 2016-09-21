@@ -9,13 +9,14 @@ using boost::asio::ip::tcp;
 class NetworkConnection : public std::enable_shared_from_this<NetworkConnection>
 {
 	public:
-		NetworkConnection(tcp::socket socket);
+		NetworkConnection(int connectionID, tcp::socket socket);
 		~NetworkConnection();
 		void recieve_data();
 		void write_data();
 		void disconnected();
 
 	private:
+		int connectionID;
 		tcp::socket socket_;
 		enum { max_length = 1024 };
 		char data_read[max_length];

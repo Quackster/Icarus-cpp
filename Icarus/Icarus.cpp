@@ -9,36 +9,8 @@
 //
 
 #include "stdafx.h"
-#include "Session.h"
+#include "NetworkServer.h"
 
-using boost::asio::ip::tcp;
-
-class server
-{
-public:
-	server(boost::asio::io_service& io_service, short port) : acceptor_(io_service, tcp::endpoint(tcp::v4(), port)), socket_(io_service) {
-		do_accept();
-	}
-
-private:
-
-	void do_accept()  {
-		acceptor_.async_accept(socket_, [this](boost::system::error_code ec) {
-			
-			if (!ec) {
-				printf("Server connected.\n");
-
-				Session* session = new Session(std::make_shared<NetworkConnection>(std::move(socket_)));
-				session->getNetworkConnection()->recieve_data();
-			}
-
-			do_accept();
-		});
-	}
-
-	tcp::acceptor acceptor_;
-	tcp::socket socket_;
-};
 
 int main(int argc, char* argv[])
 {
@@ -46,10 +18,10 @@ int main(int argc, char* argv[])
 	{
 
 		boost::asio::io_service io_service;
-
-		server s(io_service, 3242);
-
+		NetworkServer server(io_service, 3242);
 		io_service.run();
+
+		printf("sup fam");
 	}
 	catch (std::exception& e)
 	{
