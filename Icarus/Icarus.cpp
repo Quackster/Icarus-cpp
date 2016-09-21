@@ -11,12 +11,6 @@
 #include "stdafx.h"
 #include "sessionConnection.h"
 
-#include <cstdlib>
-#include <iostream>
-#include <memory>
-#include <utility>
-#include <boost/asio.hpp>
-
 using boost::asio::ip::tcp;
 
 class server

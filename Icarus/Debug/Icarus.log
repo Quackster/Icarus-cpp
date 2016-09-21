@@ -1,9 +1,7 @@
 ﻿  sessionConnection.cpp
   session.cpp
-  Icarus.cpp
-c:\users\alex\documents\github\icarus\icarus\icarus.cpp(58): warning C4101: 'e': unreferenced local variable
   Generating Code...
-cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
-  LINK : C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.exe not found or not built by the last incremental link; performing full link
+  Skipping... (no relevant changes detected)
+  Icarus.cpp
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.exe
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.pdb (Full PDB)
