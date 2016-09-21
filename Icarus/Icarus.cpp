@@ -28,7 +28,7 @@ private:
 			if (!ec) {
 				printf("Server connected.\n");
 
-				Session* session = new Session(std::make_shared<SessionConnection>(std::move(socket_)));
+				Session* session = new Session(std::make_shared<NetworkConnection>(std::move(socket_)));
 				session->getNetworkConnection()->recieve_data();
 			}
 

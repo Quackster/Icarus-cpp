@@ -1,4 +1,4 @@
-#include "SessionConnection.h"
+#include "NetworkConnection.h"
 
 using boost::asio::ip::tcp;
 
@@ -6,15 +6,15 @@ using boost::asio::ip::tcp;
 class Session
 {
 public:
-	Session(std::shared_ptr<SessionConnection> session_connection);
+	Session(std::shared_ptr<NetworkConnection> session_connection);
 	~Session();
 	void disconnected();
 
 private:
-	std::shared_ptr<SessionConnection> session_connection;
+	std::shared_ptr<NetworkConnection> networkConnection;
 
 public:
-	std::shared_ptr<SessionConnection> getNetworkConnection() {
-		return session_connection;
+	std::shared_ptr<NetworkConnection> getNetworkConnection() {
+		return networkConnection;
 	}
 };

@@ -13,17 +13,17 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Managers">
-      <UniqueIdentifier>{3b979f70-1176-45aa-b7cf-83376837a7d0}</UniqueIdentifier>
+    <Filter Include="Source Files\Clients">
+      <UniqueIdentifier>{61a8d180-50d5-438a-af71-6a1acac10d90}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Managers\Clients">
+    <Filter Include="Source Files\Network">
+      <UniqueIdentifier>{c594b3df-0515-43b6-b490-e69ae30117f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Clients">
       <UniqueIdentifier>{2c56dddc-6b30-475e-85ff-256d8f1c8bb3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Managers">
-      <UniqueIdentifier>{f7ba2d21-c28f-4ea7-83e7-b84d21c501f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Managers\Clients">
-      <UniqueIdentifier>{61a8d180-50d5-438a-af71-6a1acac10d90}</UniqueIdentifier>
+    <Filter Include="Header Files\Network">
+      <UniqueIdentifier>{9731e1eb-922d-4271-87ed-c05dba8561de}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -37,10 +37,10 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Session.h">
-      <Filter>Header Files\Managers\Clients</Filter>
+      <Filter>Header Files\Clients</Filter>
     </ClInclude>
-    <ClInclude Include="SessionConnection.h">
-      <Filter>Header Files\Managers\Clients</Filter>
+    <ClInclude Include="NetworkConnection.h">
+      <Filter>Header Files\Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -51,10 +51,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Session.cpp">
-      <Filter>Source Files\Managers\Clients</Filter>
+      <Filter>Source Files\Clients</Filter>
     </ClCompile>
-    <ClCompile Include="SessionConnection.cpp">
-      <Filter>Source Files\Managers\Clients</Filter>
+    <ClCompile Include="NetworkConnection.cpp">
+      <Filter>Source Files\Network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
