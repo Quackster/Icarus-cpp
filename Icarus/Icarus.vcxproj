@@ -150,9 +150,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Icarus.h" />
     <ClInclude Include="NetworkServer.h" />
     <ClInclude Include="Session.h" />
     <ClInclude Include="NetworkConnection.h" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Icarus.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="NetworkServer.cpp" />
     <ClCompile Include="Session.cpp" />
     <ClCompile Include="NetworkConnection.cpp" />

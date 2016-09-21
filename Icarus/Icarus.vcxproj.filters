@@ -25,9 +25,12 @@
     <Filter Include="Header Files\Network">
       <UniqueIdentifier>{9731e1eb-922d-4271-87ed-c05dba8561de}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <Filter Include="Source Files\Environment">
+      <UniqueIdentifier>{8dcceb17-24e8-407c-8924-20d862c778c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Environment">
+      <UniqueIdentifier>{271dfbf3-45e6-4cfc-81fe-e8fe903454e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -45,12 +48,12 @@
     <ClInclude Include="NetworkServer.h">
       <Filter>Header Files\Network</Filter>
     </ClInclude>
+    <ClInclude Include="Icarus.h">
+      <Filter>Header Files\Environment</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Icarus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Session.cpp">
@@ -62,5 +65,14 @@
     <ClCompile Include="NetworkServer.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Icarus.cpp">
+      <Filter>Source Files\Environment</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.md" />
   </ItemGroup>
 </Project>

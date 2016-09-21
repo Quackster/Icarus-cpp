@@ -8,6 +8,6 @@ class NetworkServer
 		~NetworkServer();
 	private:
 		void listen();
-		tcp::acceptor acceptor_;
-		tcp::socket socket_;
+		tcp::acceptor acceptor;
+		tcp::socket socket;
 };

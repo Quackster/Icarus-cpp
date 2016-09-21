@@ -1,3 +1,4 @@
+#pragma once
 #include "NetworkConnection.h"
 
 using boost::asio::ip::tcp;
