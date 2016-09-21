@@ -33,7 +33,7 @@ private:
 			
 			if (!ec) {
 				printf("Server connected.\n");
-				std::make_shared<sessionConnection>(std::move(socket_))->read_data();
+				std::make_shared<sessionConnection>(std::move(socket_))->recieve_data();
 			}
 
 			do_accept();
