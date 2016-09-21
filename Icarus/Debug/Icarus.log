@@ -1,7 +1,8 @@
-﻿  sessionConnection.cpp
-  session.cpp
+﻿  Session.cpp
+  Icarus.cpp
+c:\users\alex\documents\github\icarus\icarus\icarus.cpp(54): warning C4101: 'e': unreferenced local variable
   Generating Code...
   Skipping... (no relevant changes detected)
-  Icarus.cpp
+  SessionConnection.cpp
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.exe
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.pdb (Full PDB)

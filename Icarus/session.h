@@ -1,15 +1,20 @@
-#include "sessionConnection.h"
+#include "SessionConnection.h"
 
 using boost::asio::ip::tcp;
 
 
-class session
+class Session
 {
 public:
-	session(sessionConnection* session_connection);
-	~session();
+	Session(std::shared_ptr<SessionConnection> session_connection);
+	~Session();
 	void disconnected();
 
 private:
-	sessionConnection* session_connection;
+	std::shared_ptr<SessionConnection> session_connection;
+
+public:
+	std::shared_ptr<SessionConnection> getNetworkConnection() {
+		return session_connection;
+	}
 };

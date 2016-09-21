@@ -9,7 +9,7 @@
 //
 
 #include "stdafx.h"
-#include "sessionConnection.h"
+#include "Session.h"
 
 using boost::asio::ip::tcp;
 
@@ -27,7 +27,9 @@ private:
 			
 			if (!ec) {
 				printf("Server connected.\n");
-				std::make_shared<sessionConnection>(std::move(socket_))->recieve_data();
+
+				Session* session = new Session(std::make_shared<SessionConnection>(std::move(socket_)));
+				session->getNetworkConnection()->recieve_data();
 			}
 
 			do_accept();

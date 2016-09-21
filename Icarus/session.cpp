@@ -1,16 +1,16 @@
 #include "stdafx.h"
-#include "session.h"
+#include "Session.h"
 
-session::session(sessionConnection* session_connection) : session_connection(session_connection) {
+Session::Session(std::shared_ptr<SessionConnection> session_connection) : session_connection(session_connection) {
 
 }
 
 
-session::~session()
+Session::~Session()
 {
 }
 
-void session::disconnected() {
+void Session::disconnected() {
 
 	printf("testing");
 }

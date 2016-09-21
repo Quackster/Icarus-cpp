@@ -1,17 +1,17 @@
 #include "stdafx.h"
-#include "sessionConnection.h"
+#include "SessionConnection.h"
 
 
-sessionConnection::sessionConnection(tcp::socket socket) : socket_(std::move(socket))
+SessionConnection::SessionConnection(tcp::socket socket) : socket_(std::move(socket))
 {
 }
 
 
-sessionConnection::~sessionConnection()
+SessionConnection::~SessionConnection()
 {
 }
 
-void sessionConnection::recieve_data() {
+void SessionConnection::recieve_data() {
 
 	auto self(shared_from_this());
 
@@ -31,7 +31,7 @@ void sessionConnection::recieve_data() {
 	});
 }
 
-void sessionConnection::write_data(/*std::size_t length*/) {
+void SessionConnection::write_data(/*std::size_t length*/) {
 
 	auto self(shared_from_this());
 
@@ -46,7 +46,7 @@ void sessionConnection::write_data(/*std::size_t length*/) {
 	});
 }
 
-void sessionConnection::disconnected() {
+void SessionConnection::disconnected() {
 
 
 }

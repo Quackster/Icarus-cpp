@@ -36,10 +36,10 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="session.h">
+    <ClInclude Include="Session.h">
       <Filter>Header Files\Managers\Clients</Filter>
     </ClInclude>
-    <ClInclude Include="sessionConnection.h">
+    <ClInclude Include="SessionConnection.h">
       <Filter>Header Files\Managers\Clients</Filter>
     </ClInclude>
   </ItemGroup>
@@ -50,10 +50,10 @@
     <ClCompile Include="Icarus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sessionConnection.cpp">
+    <ClCompile Include="Session.cpp">
       <Filter>Source Files\Managers\Clients</Filter>
     </ClCompile>
-    <ClCompile Include="session.cpp">
+    <ClCompile Include="SessionConnection.cpp">
       <Filter>Source Files\Managers\Clients</Filter>
     </ClCompile>
   </ItemGroup>
