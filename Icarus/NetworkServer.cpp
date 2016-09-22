@@ -1,5 +1,10 @@
+#include <string>
+#include <iostream>
+
 #include "stdafx.h"
 #include "NetworkServer.h"
+
+using namespace std;
 
 /*
 	@source: http://www.rohitab.com/discuss/topic/26991-cc-how-to-code-a-multi-client-server-in-c-using-threads/
@@ -16,8 +21,6 @@ NetworkServer::~NetworkServer() {
 void NetworkServer::startServer() {
 
 	SOCKET sock;
-	DWORD thread;
-
 	WSADATA wsaData;
 	sockaddr_in server;
 
@@ -54,10 +57,15 @@ void NetworkServer::startServer() {
 		client = accept(sock, (struct sockaddr*)&from, &fromlen);
 		printf("Client connected\n");
 
-		this->handleClient(client);
+		//this->handleClient(client);
 
 		// create our recv_cmds thread and parse client socket as a parameter
-		//CreateThread(NULL, 0, receive_cmds, (LPVOID)client, 0, &thread);
+		//CreateThread(NULL, 0, handleClient, (LPVOID)client, 0, &thread);
+
+		DWORD myThreadID;
+		HANDLE myHandle = CreateThread(0, 0, NetworkServer::handleClient, &client, 0, &myThreadID);
+
+		//sstd::thread connection(&NetworkServer::handleClient, this, client);
 	}
 
 	closesocket(sock);
@@ -65,9 +73,12 @@ void NetworkServer::startServer() {
 
 }
 
-void NetworkServer::handleClient(SOCKET client) {
+DWORD WINAPI NetworkServer::handleClient(LPVOID lpParameter)
+{
+	SOCKET& client = *((SOCKET*)lpParameter);
 
 	char buffer[1024];
+
 	int receiveCount = 0;
 	bool connected = true;
 
@@ -75,11 +86,21 @@ void NetworkServer::handleClient(SOCKET client) {
 		receiveCount = recv(client, buffer, sizeof(buffer), 0); // recv cmds
 		
 		if (receiveCount > 0) {
-			printf("Receive: %s\n", buffer);
+			printf("Receive: %i\n", buffer[0]);
+
+			if (buffer[0] == 60) {
+
+				char* policy = "<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0";
+				printf("Sent policy: %s", policy);
+				send(client, policy, strlen(policy), 0);
+			}
+
 		}
 		else {
 			connected = false;
 			printf("Client disconnected.\n");
 		}
 	}
+
+	return 0;
 }

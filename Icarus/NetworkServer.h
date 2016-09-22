@@ -13,7 +13,7 @@ class NetworkServer {
 		NetworkServer(short port);
 		~NetworkServer();
 		void startServer();
-		void handleClient(SOCKET client);
+		static DWORD WINAPI handleClient(LPVOID lpParameter);
 
 	private:
 		short serverPort;
