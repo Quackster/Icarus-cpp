@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "NetworkServer.h"
+#include "Session.h"
 
 using namespace std;
 
@@ -39,7 +40,7 @@ void NetworkServer::startServer() {
 	if (sock == INVALID_SOCKET) {
 		return;
 	}
- 
+
 	if (bind(sock, (sockaddr*)&server, sizeof(server)) != 0) {
 		return;
 	}
@@ -62,8 +63,8 @@ void NetworkServer::startServer() {
 		// create our recv_cmds thread and parse client socket as a parameter
 		//CreateThread(NULL, 0, handleClient, (LPVOID)client, 0, &thread);
 
-		DWORD myThreadID;
-		HANDLE myHandle = CreateThread(0, 0, NetworkServer::handleClient, &client, 0, &myThreadID);
+		NetworkConnection* connection = new NetworkConnection(1, client);
+		Session* session = new Session(connection);
 
 		//sstd::thread connection(&NetworkServer::handleClient, this, client);
 	}
@@ -71,36 +72,4 @@ void NetworkServer::startServer() {
 	closesocket(sock);
 	WSACleanup();
 
-}
-
-DWORD WINAPI NetworkServer::handleClient(LPVOID lpParameter)
-{
-	SOCKET& client = *((SOCKET*)lpParameter);
-
-	char buffer[1024];
-
-	int receiveCount = 0;
-	bool connected = true;
-
-	while (connected) {
-		receiveCount = recv(client, buffer, sizeof(buffer), 0); // recv cmds
-		
-		if (receiveCount > 0) {
-			printf("Receive: %i\n", buffer[0]);
-
-			if (buffer[0] == 60) {
-
-				char* policy = "<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0";
-				printf("Sent policy: %s", policy);
-				send(client, policy, strlen(policy), 0);
-			}
-
-		}
-		else {
-			connected = false;
-			printf("Client disconnected.\n");
-		}
-	}
-
-	return 0;
 }
