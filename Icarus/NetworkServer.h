@@ -1,13 +1,20 @@
 #pragma once
-#include "Session.h"
 
-class NetworkServer
-{
+#pragma comment(lib, "Ws2_32.lib")
+
+#include <windows.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <winsock.h>
+
+class NetworkServer {
+
 	public:
-		NetworkServer(boost::asio::io_service& io_service, short port);
+		NetworkServer(short port);
 		~NetworkServer();
+		void startServer();
+		void handleClient(SOCKET client);
+
 	private:
-		void listen();
-		tcp::acceptor acceptor;
-		tcp::socket socket;
+		short serverPort;
 };

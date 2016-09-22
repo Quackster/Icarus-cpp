@@ -3,13 +3,11 @@
 
 
 void Icarus::initialiseServer() {
-	boost::asio::io_service io_service;
-	NetworkServer server(io_service, 3242);
-	io_service.run();
+	NetworkServer server = NetworkServer(3242);
+	server.startServer();
 }
 
-void Icarus::boot()
-{
-	printf("Booting server...");
+void Icarus::boot() {
+	printf("Booting server...\n");
 	initialiseServer();
 }

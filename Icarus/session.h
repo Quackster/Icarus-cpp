@@ -1,21 +1,17 @@
 #pragma once
 #include "NetworkConnection.h"
 
-using boost::asio::ip::tcp;
-
-
-class Session
-{
+class Session {
 public:
-	Session(std::shared_ptr<NetworkConnection> session_connection);
+	Session(NetworkConnection session_connection);
 	~Session();
 	void disconnected();
 
 private:
-	std::shared_ptr<NetworkConnection> networkConnection;
+	NetworkConnection networkConnection;
 
 public:
-	std::shared_ptr<NetworkConnection> getNetworkConnection() {
+	NetworkConnection getNetworkConnection() {
 		return networkConnection;
 	}
 };

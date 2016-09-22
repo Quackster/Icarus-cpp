@@ -1,16 +1,10 @@
 #pragma once
-#include <cstdlib>
-#include <iostream>
-#include <memory>
-#include <utility>
-#include <boost/asio.hpp>
+#pragma once
 
-using boost::asio::ip::tcp;
+class NetworkConnection {
 
-class NetworkConnection : public std::enable_shared_from_this<NetworkConnection>
-{
 	public:
-		NetworkConnection(int connectionID, tcp::socket socket);
+		NetworkConnection(int connectionID);
 		~NetworkConnection();
 		void recieve_data();
 		void write_data();
@@ -18,7 +12,6 @@ class NetworkConnection : public std::enable_shared_from_this<NetworkConnection>
 
 	private:
 		int connectionID;
-		tcp::socket socket_;
 		enum { max_length = 1024 };
 		char data_read[max_length];
 		char data_write[max_length];

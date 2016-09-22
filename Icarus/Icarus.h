@@ -2,8 +2,8 @@
 #include "Session.h"
 #include "NetworkServer.h"
 
-class Icarus
-{
+class Icarus {
+
 	public:
 		NetworkServer server;
 		static void boot();

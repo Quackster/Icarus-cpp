@@ -1,16 +1,13 @@
 #include "stdafx.h"
 #include "Session.h"
 
-Session::Session(std::shared_ptr<NetworkConnection> session_connection) : networkConnection(session_connection) {
+Session::Session(NetworkConnection session_connection) : networkConnection(session_connection) {
 
 }
 
-
-Session::~Session()
-{
+Session::~Session() {
 }
 
 void Session::disconnected() {
-
 	printf("testing");
 }
