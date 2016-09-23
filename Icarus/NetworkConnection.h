@@ -22,6 +22,8 @@ class NetworkConnection {
 	private:
 		int connectionID;
 		SOCKET socket;
+		DWORD thread;
+
 		enum { max_length = 1024 };
 		char data_read[max_length];
 		char data_write[max_length];

@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "stdafx.h"
 #include "NetworkConnection.h"
 
@@ -5,13 +7,13 @@ DWORD WINAPI receive_data(LPVOID lpParameter);
 
 NetworkConnection::NetworkConnection(int connectionID, SOCKET socket) : connectionID(connectionID), socket(socket) {
 	printf("Client connected with ID: %i\n", this->connectionID);
-
-	DWORD thread; {
-		CreateThread(NULL, 0, receive_data, (LPVOID)this, 0, &thread);
-	}
+	CreateThread(NULL, 0, receive_data, (LPVOID)this, 0, &thread);
 }
 
 NetworkConnection::~NetworkConnection() {
+
+
+	CloseHandle(&thread);
 }
 
 DWORD WINAPI receive_data(LPVOID lpParameter) {
@@ -38,9 +40,16 @@ DWORD WINAPI receive_data(LPVOID lpParameter) {
 			}
 			else {
 
+				int index = 0;
 
+				int length = (buffer[index] << 24) | (buffer[index++] << 16) | (buffer[index++] << 8) | buffer[index++];
+				short header = (buffer[index++] << 8) | buffer[index++];
+
+				printf("header: %i \n", (int)header);
 			}
 
+			strcpy_s(buffer, "");
+			
 		}
 		else {
 			connected = false;
