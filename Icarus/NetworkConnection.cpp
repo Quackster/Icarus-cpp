@@ -3,7 +3,7 @@
 #include "stdafx.h"
 #include "NetworkConnection.h"
 
-DWORD WINAPI receive_data(LPVOID lpParameter);
+unsigned long /*DWORD*/ WINAPI receive_data(LPVOID lpParameter);
 
 NetworkConnection::NetworkConnection(int connectionID, SOCKET socket) : connectionID(connectionID), socket(socket) {
 	printf("Client connected with ID: %i\n", this->connectionID);
@@ -16,7 +16,7 @@ NetworkConnection::~NetworkConnection() {
 	CloseHandle(&thread);
 }
 
-DWORD WINAPI receive_data(LPVOID lpParameter) {
+unsigned long WINAPI receive_data(LPVOID lpParameter) {
 
 	NetworkConnection& connection = *((NetworkConnection*)lpParameter);
 	SOCKET socket = connection.getSocket();
@@ -29,8 +29,8 @@ DWORD WINAPI receive_data(LPVOID lpParameter) {
 	while (connected) {
 		receiveCount = recv(socket, buffer, sizeof(buffer), 0); // recv cmds
 
-		if (receiveCount > 0) {
-			printf("Receive: (%i) %s\n", strlen(buffer), buffer);
+		if (receiveCount > 6) {
+			//printf("Receive: (%i) %s\n", strlen(buffer), buffer);
 
 			if (buffer[0] == 60) {
 
@@ -39,13 +39,10 @@ DWORD WINAPI receive_data(LPVOID lpParameter) {
 				send(connection.getSocket(), policy, strlen(policy) + 1, 0);
 			}
 			else {
+				int length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3];
+				short header = ((unsigned char)buffer[5]) | (((unsigned char)buffer[4]) << 8);
 
-				int index = 0;
-
-				int length = (buffer[index] << 24) | (buffer[index++] << 16) | (buffer[index++] << 8) | buffer[index++];
-				short header = (buffer[index++] << 8) | buffer[index++];
-
-				printf("header: %i \n", (int)header);
+				printf("received header: %i\n", header);
 			}
 
 			strcpy_s(buffer, "");
