@@ -20,14 +20,16 @@ class NetworkConnection {
 		~NetworkConnection();
 		void write_data();
 		void handle_data(char* data, int length);
-		void disconnected();
 
-		SOCKET getSocket() {
-			return socket;
-		};
-
+		int getConnectionId() { return connectionID; }
+		bool getConnectionState() { return connected; }
+		void setConnectionState(bool state) { connected = state; }
+		SOCKET getSocket() { return socket; };
+		DWORD getThread() { return thread; }
+		
 	private:
 		int connectionID;
+		bool connected;
 		SOCKET socket;
 		DWORD thread;
 

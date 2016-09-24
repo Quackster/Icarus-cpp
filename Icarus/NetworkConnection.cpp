@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "NetworkConnection.h"
+#include "Session.h"
+#include "Icarus.h"
+#include "Definitions.h"
 
 unsigned long /*DWORD*/ WINAPI receive_data(LPVOID lpParameter);
 
@@ -9,9 +12,8 @@ NetworkConnection::NetworkConnection(int connectionID, SOCKET socket) : connecti
 }
 
 NetworkConnection::~NetworkConnection() {
-
-
 	CloseHandle(&thread);
+	printf("deconstructor called");
 }
 
 unsigned long WINAPI receive_data(LPVOID lpParameter) {
@@ -22,15 +24,15 @@ unsigned long WINAPI receive_data(LPVOID lpParameter) {
 	char buffer[1024];
 
 	int receiveCount = 0;
-	bool connected = true;
 
-	while (connected) {
+	while (connection.getConnectionState()) {
 		receiveCount = recv(socket, buffer, sizeof(buffer), 0); // recv cmds
 
 		if (receiveCount >= 6) {
 			connection.handle_data(buffer, receiveCount);
 		} else {
-			connection.disconnected();
+			Icarus::getSessionManager().getSession(connection.getConnectionId())->disconnected();
+			connection.setConnectionState(false);
 		}
 	}
 
@@ -54,40 +56,23 @@ void NetworkConnection::handle_data(char* buffer, int length) {
 
 
 			vector<char> message;
-			std::stringstream stream;
+			//std::stringstream stream;
 
 			for (int i = 0; i < length; i++) {
 				message.push_back(buffer[i]);
-				stream << buffer[i];
+				//stream << buffer[i];
 			}
 
-			cout << "packet: " << stream.str() << "\n";
+			#ifdef DEBUG_MODE
 
-
-			/*cout << "Received packet: " << header << " / ";
-
-			for (int i = 0; i < length; i++) {
-
-				int char_id = message[i];
-
-				if (char_id >= 0 && char_id <= 13) {
-					cout << "[" << char_id << "]";
-				}
-				else {
-					cout << message[i];
-				}
-			}
-
-			cout << endl;*/
+			printf("Received: %i\n", header);
+			//cout << "Received packet: " << header << " / " << stream.str() << "\n";
+			#endif
 		}
 	}
 
 }
 
 void NetworkConnection::write_data() {
-
-}
-
-void NetworkConnection::disconnected() {
 
 }

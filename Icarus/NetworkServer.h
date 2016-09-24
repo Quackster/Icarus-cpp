@@ -15,5 +15,6 @@ class NetworkServer {
 		void startServer();
 
 	private:
+		int connectionID;
 		short serverPort;
 };

@@ -31,6 +31,9 @@
     <Filter Include="Header Files\Environment">
       <UniqueIdentifier>{271dfbf3-45e6-4cfc-81fe-e8fe903454e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Misc">
+      <UniqueIdentifier>{09b687b4-0226-4ed6-a2a4-8b623e3e6876}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -51,6 +54,12 @@
     <ClInclude Include="Icarus.h">
       <Filter>Header Files\Environment</Filter>
     </ClInclude>
+    <ClInclude Include="Definitions.h">
+      <Filter>Header Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="SessionManager.h">
+      <Filter>Header Files\Clients</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -70,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="Icarus.cpp">
       <Filter>Source Files\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="SessionManager.cpp">
+      <Filter>Source Files\Clients</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

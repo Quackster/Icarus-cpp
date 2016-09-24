@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "NetworkServer.h"
 #include "Session.h"
+#include "Icarus.h"
 
 using namespace std;
 
@@ -13,6 +14,8 @@ using namespace std;
 
 NetworkServer::NetworkServer(short serverPort) 
 	: serverPort(serverPort){
+
+	this->connectionID = 0;
 
 }
 
@@ -57,8 +60,10 @@ void NetworkServer::startServer() {
 	while (true) {
 		client = accept(sock, (struct sockaddr*)&from, &fromlen);
 
-		NetworkConnection* connection = new NetworkConnection(1, client);
-		Session* session = new Session(connection);
+		NetworkConnection *connection = new NetworkConnection(connectionID++, client);
+		Session *session = new Session(connection);
+
+		Icarus::getSessionManager().addSession(session, connection->getConnectionId());
 	}
 
 	closesocket(sock);

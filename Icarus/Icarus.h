@@ -1,13 +1,21 @@
 #pragma once
-#include "Session.h"
-#include "NetworkServer.h"
-
+#include "SessionManager.h"
 
 class Icarus {
 
 	public:
-		NetworkServer server;
+		
+		static SessionManager sessionManager;
 		static void boot();
 		static void initialiseServer();
+		static SessionManager getSessionManager() {
+			return sessionManager;
+		}
+		
+	private:
+		
+		Icarus() {}
+
+
 };
 
