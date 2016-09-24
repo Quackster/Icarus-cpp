@@ -8,12 +8,11 @@ unsigned long /*DWORD*/ WINAPI receive_data(LPVOID lpParameter);
 
 NetworkConnection::NetworkConnection(int connectionID, SOCKET socket) : connectionID(connectionID), socket(socket) {
 	printf("Client connected with ID: %i\n", this->connectionID);
-	CreateThread(NULL, 0, receive_data, (LPVOID)this, 0, &thread);
+	this->createThread();
 }
 
-NetworkConnection::~NetworkConnection() {
-	CloseHandle(&thread);
-	printf("deconstructor called");
+void NetworkConnection::createThread() {
+	CreateThread(NULL, 0, receive_data, (LPVOID)this, 0, &thread_id);
 }
 
 unsigned long WINAPI receive_data(LPVOID lpParameter) {
