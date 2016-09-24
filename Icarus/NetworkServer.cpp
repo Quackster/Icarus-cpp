@@ -56,17 +56,9 @@ void NetworkServer::startServer() {
 
 	while (true) {
 		client = accept(sock, (struct sockaddr*)&from, &fromlen);
-		printf("Client connected\n");
-
-		//this->handleClient(client);
-
-		// create our recv_cmds thread and parse client socket as a parameter
-		//CreateThread(NULL, 0, handleClient, (LPVOID)client, 0, &thread);
 
 		NetworkConnection* connection = new NetworkConnection(1, client);
 		Session* session = new Session(connection);
-
-		//sstd::thread connection(&NetworkServer::handleClient, this, client);
 	}
 
 	closesocket(sock);

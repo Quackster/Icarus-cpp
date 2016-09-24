@@ -6,12 +6,20 @@
 #include <stdio.h>
 #include <winsock.h>
 
+// constructing vectors
+#include <iostream>
+#include <vector>
+#include <sstream> 
+
+using namespace std;
+
 class NetworkConnection {
 
 	public:
 		NetworkConnection(int connectionID, SOCKET socket);
 		~NetworkConnection();
 		void write_data();
+		void handle_data(char* data, int length);
 		void disconnected();
 
 		SOCKET getSocket() {
