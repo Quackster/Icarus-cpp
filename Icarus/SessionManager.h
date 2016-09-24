@@ -15,5 +15,5 @@ class SessionManager {
 		Session* getSession(int connectionID);
 
 	private:
-		map<int, Session*> sessions;
+		map<int, Session*>* sessions;
 };

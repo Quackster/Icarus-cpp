@@ -63,7 +63,7 @@ void NetworkServer::startServer() {
 		NetworkConnection *connection = new NetworkConnection(connectionID++, client);
 		Session *session = new Session(connection);
 
-		Icarus::getSessionManager().addSession(session, connection->getConnectionId());
+		Icarus::getSessionManager()->addSession(session, connection->getConnectionId());
 	}
 
 	closesocket(sock);

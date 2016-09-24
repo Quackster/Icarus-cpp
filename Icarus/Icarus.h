@@ -5,10 +5,10 @@ class Icarus {
 
 	public:
 		
-		static SessionManager sessionManager;
+		static SessionManager* sessionManager;
 		static void boot();
 		static void initialiseServer();
-		static SessionManager getSessionManager() {
+		static SessionManager* getSessionManager() {
 			return sessionManager;
 		}
 		

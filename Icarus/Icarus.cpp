@@ -2,10 +2,10 @@
 #include "Icarus.h"
 #include "NetworkServer.h";
 
-SessionManager Icarus::sessionManager;
+SessionManager* Icarus::sessionManager = new SessionManager();
 
 void Icarus::initialiseServer() {
-	NetworkServer server = NetworkServer(3242);
+	NetworkServer server = NetworkServer(30000);
 	server.startServer();
 }
 

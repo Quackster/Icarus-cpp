@@ -2,7 +2,7 @@
 #include "Session.h"
 
 Session::Session(NetworkConnection *&session_connection) : networkConnection(session_connection) {
-
+	cout << this->networkConnection->getConnectionId();
 }
 
 Session::~Session() {
