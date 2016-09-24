@@ -3,15 +3,15 @@
 
 class Session {
 public:
-	Session(NetworkConnection *&session_connection);
+	Session(NetworkConnection *session_connection);
 	~Session();
 	void disconnected();
 
 private:
-	NetworkConnection* networkConnection;
+	NetworkConnection *networkConnection;
 
 public:
-	NetworkConnection* getNetworkConnection() {
+	NetworkConnection *getNetworkConnection() {
 		return networkConnection;
 	}
 };

@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Session.h"
 
-Session::Session(NetworkConnection *&session_connection) : networkConnection(session_connection) {
-
+Session::Session(NetworkConnection *session_connection) : networkConnection(session_connection) {
+	
 }
 
 Session::~Session() {
@@ -10,18 +10,12 @@ Session::~Session() {
 
 void Session::disconnected() {
 
-	try {
+	/*try {
 		
-		if (this->networkConnection != NULL) {
-			printf("Client number %i disconnected\n", this->networkConnection->getConnectionId());
-			//delete networkConnection;
-		}
-		else {
-			printf("NETWORK CONNECTION IS NULL\n");
-		}
+		printf("Client number %i disconnected\n", this->networkConnection->getConnectionId());
 	}
 	catch (std::exception &e) {
 
 		printf("Caught exception: %s\n", e.what());
-	}
+	}*/
 }

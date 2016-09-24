@@ -31,8 +31,8 @@ unsigned long WINAPI receive_data(LPVOID lpParameter) {
 		if (receiveCount >= 6) {
 			connection.handle_data(buffer, receiveCount);
 		} else {
-			Icarus::getSessionManager().getSession(connection.getConnectionId())->disconnected();
 			connection.setConnectionState(false);
+			Icarus::getSessionManager().getSession(connection.getConnectionId())->disconnected();
 		}
 	}
 
