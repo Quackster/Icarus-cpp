@@ -1,3 +1,11 @@
-﻿  Session.cpp
+﻿  main.cpp
+  SessionManager.cpp
+  Session.cpp
+  NetworkServer.cpp
+  NetworkConnection.cpp
+  Icarus.cpp
+c:\users\alex\documents\github\icarus\icarus\icarus.cpp(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Generating Code...
+  LINK : C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.exe not found or not built by the last incremental link; performing full link
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.exe
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.pdb (Full PDB)

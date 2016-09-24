@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "Session.h"
 
-Session::Session(NetworkConnection *&session_connection) : networkConnection(session_connection) {
-	cout << this->networkConnection->getConnectionId();
+Session::Session(NetworkConnection *session_connection) : networkConnection(session_connection) {
+
 }
 
 Session::~Session() {
