@@ -3,18 +3,18 @@
 #include "Icarus.h"
 
 Session::Session(NetworkConnection *networkConnection) : networkConnection(networkConnection) {
-	printf("Created session for connection: %i\n", networkConnection->getConnectionId());
+	printf(" [SESSION] Created session for connection: %i\n", networkConnection->getConnectionId());
 }
 
 Session::~Session() {
 	
-	printf("Removed session for connection: %i\n", networkConnection->getConnectionId());
+	printf(" [SESSION] Removed session for connection: %i\n", networkConnection->getConnectionId());
 
 	// Dispose network connection
 	Icarus::getNetworkServer()->removeNetworkConnection(this->networkConnection);
 }
 
-void Session::disconnected() {
+void Session::clear() {
 
 	try {
 

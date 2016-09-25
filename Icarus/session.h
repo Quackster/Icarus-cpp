@@ -5,7 +5,7 @@ class Session {
 public:
 	Session(NetworkConnection *session_connection);
 	~Session();
-	void disconnected();
+	void clear();
 
 private:
 	NetworkConnection *networkConnection;

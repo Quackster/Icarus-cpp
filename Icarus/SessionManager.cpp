@@ -38,8 +38,11 @@ void SessionManager::removeSession(int connectionID) {
 		// Find session to delete
 		Session *session = this->getSession(connectionID);
 
-		// Remove session from map
+		// Remove session from map, remove it early to prevent any issues
 		this->sessions->erase(connectionID);
+
+		// Clear session of any responsibilites
+		session->clear();
 
 		// Clear session from memory
 		delete session;

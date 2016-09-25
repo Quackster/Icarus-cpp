@@ -89,14 +89,11 @@ void NetworkConnection::handle_data(char* buffer, int length) {
 			Icarus::getSessionManager()->addSession(session, this->getConnectionId());
 		}
 
+
 		Request request = Request(buffer);
+		printf(" [SESSION] [MESSAGE] Received header: %i\n", request.getMessageId());
 
-		printf("Received header: %i\n", request.getMessageId());
-
-		if (request.getMessageId() == 4000) {
-			printf("Received string: %s\n", request.readString());
-		}
-
+		 
 	}
 }
 

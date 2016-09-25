@@ -1,12 +1,8 @@
 #pragma once
-
 #pragma comment(lib, "Ws2_32.lib")
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <winsock.h>
-
-// constructing vectors
 #include <iostream>
 #include <vector>
 #include <sstream> 
