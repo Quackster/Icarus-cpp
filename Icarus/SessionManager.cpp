@@ -35,8 +35,15 @@ void SessionManager::removeSession(int connectionID) {
 
 	if (this->sessions->count(connectionID)) {
 
-		// Delete it??
+		// Find session to delete
+		Session *session = this->getSession(connectionID);
+
+		// Remove session from map
 		this->sessions->erase(connectionID);
+
+		// Clear session from memory
+		delete session;
+		
 	}
 }
 
@@ -57,7 +64,7 @@ the session doesn't exist
 @param connectionID integer
 @return Session* instance
 */
-Session* SessionManager::getSession(int connectionID) {
+Session *SessionManager::getSession(int connectionID) {
 
 	if (this->sessions->count(connectionID)) {
 		return this->sessions->find(connectionID)->second;

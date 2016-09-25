@@ -1,3 +1,10 @@
-﻿  Request.cpp
+﻿  main.cpp
+  SessionManager.cpp
+  Session.cpp
+  NetworkServer.cpp
+  NetworkConnection.cpp
+  Icarus.cpp
+  Generating Code...
+  LINK : C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.exe not found or not built by the last incremental link; performing full link
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.exe
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.pdb (Full PDB)

@@ -16,7 +16,6 @@ Constructor for NetworkConnection, takes Windows socket instance and connection 
 @return none
 */
 NetworkConnection::NetworkConnection(int connectionID, SOCKET socket) : connectionID(connectionID), socket(socket) {
-	printf("Client connected with ID: %i\n", this->connectionID);
 	this->createThread();
 }
 
@@ -52,7 +51,7 @@ unsigned long WINAPI receive_data(LPVOID lpParameter) {
 
 			// Handle session disconnect
 			if (Icarus::getSessionManager()->containsSession(connection.getConnectionId())) {
-				Icarus::getSessionManager()->getSession(connection.getConnectionId())->disconnected();
+				Icarus::getSessionManager()->removeSession(connection.getConnectionId());
 			} else {
 				// Remove connection if it was just a policy request
 				Icarus::getNetworkServer()->removeNetworkConnection(&connection);
@@ -82,7 +81,7 @@ void NetworkConnection::handle_data(char* buffer, int length) {
 	else {
 
 		// Once we passed through the policy, create a session and handle it
-		if (Icarus::getSessionManager()->containsSession(connectionID) == FALSE) {
+		if (!Icarus::getSessionManager()->containsSession(connectionID)) {
 			Session *session = new Session(this);
 			Icarus::getSessionManager()->addSession(session, this->getConnectionId());
 		}
