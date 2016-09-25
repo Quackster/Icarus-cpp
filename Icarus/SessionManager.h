@@ -8,13 +8,13 @@ using namespace std;
 
 class SessionManager {
 
-	public:
-		SessionManager();
-		void addSession(Session *session, int connectionID);
-		void removeSession(int connectionID);
-		bool containsSession(int connectionID);
-		Session* getSession(int connectionID);
+public:
+	SessionManager();
+	void addSession(Session *session, int connectionID);
+	void removeSession(int connectionID);
+	bool containsSession(int connectionID);
+	Session* getSession(int connectionID);
 
-	private:
-		map<int, Session*>* sessions;
+private:
+	map<int, Session*>* sessions;
 };

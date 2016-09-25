@@ -2,7 +2,7 @@
 #include "Session.h"
 #include "Icarus.h"
 
-Session::Session(NetworkConnection *session_connection) : networkConnection(session_connection) {
+Session::Session(NetworkConnection *networkConnection) : networkConnection(networkConnection) {
 
 }
 
@@ -13,6 +13,7 @@ void Session::disconnected() {
 
 	try {
 
+		// Dispose network connection
 		Icarus::getNetworkServer()->removeNetworkConnection(this->networkConnection);
 	}
 	catch (std::exception &e) {

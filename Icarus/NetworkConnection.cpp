@@ -1,8 +1,10 @@
 #include "stdafx.h"
+
+#include "Icarus.h"
 #include "NetworkConnection.h"
 #include "Session.h"
-#include "Icarus.h"
-#include "Definitions.h"
+
+#include "Request.h"
 
 unsigned long /*DWORD*/ WINAPI receive_data(LPVOID lpParameter);
 
@@ -87,6 +89,8 @@ void NetworkConnection::handle_data(char* buffer, int length) {
 
 		int length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3];
 		short header = ((unsigned char)buffer[5]) | (((unsigned char)buffer[4]) << 8);
+
+		Request request = Request(header, buffer);
 
 		printf("Received header: %i\n", header);
 

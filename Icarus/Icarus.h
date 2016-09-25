@@ -3,27 +3,24 @@
 #include "NetworkServer.h"
 
 class Icarus {
-
-	public:
+public:
 		
-		static SessionManager* sessionManager;
-		static NetworkServer* networkServer;
+	static SessionManager* sessionManager;
+	static NetworkServer* networkServer;
 
-		static void boot();
-		static void initialiseServer();
+	static void boot();
+	static void initialiseServer();
 
-		static SessionManager* getSessionManager() {
-			return sessionManager;
-		}
+	static SessionManager* getSessionManager() {
+		return sessionManager;
+	}
 
-		static NetworkServer* getNetworkServer() {
-			return networkServer;
-		}
+	static NetworkServer* getNetworkServer() {
+		return networkServer;
+	}
 		
-	private:
-		
-		Icarus() {}
-
+private:
+	Icarus() {} // Stop people from trying to init Icarus class, as it's static!
 
 };
 

@@ -10,12 +10,12 @@
 
 class NetworkServer {
 
-	public:
-		NetworkServer();
-		~NetworkServer();
-		void startServer(int serverPort);
-		void removeNetworkConnection(NetworkConnection *connection);
+public:
+	NetworkServer();
+	~NetworkServer();
+	void startServer(int serverPort);
+	void removeNetworkConnection(NetworkConnection *connection);
 
-	private:
-		int connectionID;
+private:
+	int connectionID;
 };
