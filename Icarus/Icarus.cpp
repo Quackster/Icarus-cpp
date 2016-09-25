@@ -1,14 +1,27 @@
 #include "stdafx.h"
 #include "Icarus.h"
-#include "NetworkServer.h";
+#include "NetworkServer.h"
 
+/*
+Initialise the static variables
+*/
 SessionManager* Icarus::sessionManager = new SessionManager();
+NetworkServer* Icarus::networkServer = new NetworkServer();
 
+/*
+Method to call when starting the server
+
+@return none
+*/
 void Icarus::initialiseServer() {
-	NetworkServer server = NetworkServer(30000);
-	server.startServer();
+	Icarus::networkServer->startServer(30000);
 }
 
+/*
+Console application boot appearance, along with handling the startup of the server
+
+@return none
+*/
 void Icarus::boot() {
 	printf("\n");
 	printf(" ##################################\n");

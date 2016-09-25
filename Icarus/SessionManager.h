@@ -12,6 +12,7 @@ class SessionManager {
 		SessionManager();
 		void addSession(Session *session, int connectionID);
 		void removeSession(int connectionID);
+		bool containsSession(int connectionID);
 		Session* getSession(int connectionID);
 
 	private:

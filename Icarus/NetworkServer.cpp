@@ -2,27 +2,31 @@
 #include <iostream>
 
 #include "stdafx.h"
-#include "NetworkServer.h"
 #include "Session.h"
 #include "Icarus.h"
 
 using namespace std;
 
-/*
-	@source: http://www.rohitab.com/discuss/topic/26991-cc-how-to-code-a-multi-client-server-in-c-using-threads/
+/**
+Constructor for NetworkServer
+
+@param server port for listening
+@return none
 */
-
-NetworkServer::NetworkServer(short serverPort) 
-	: serverPort(serverPort){
-
+NetworkServer::NetworkServer()  {
 	this->connectionID = 0;
-
 }
 
 NetworkServer::~NetworkServer() {
 }
 
-void NetworkServer::startServer() {
+/**
+Create server for listening on packets, TCP protocol
+Source:  http://www.rohitab.com/discuss/topic/26991-cc-how-to-code-a-multi-client-server-in-c-using-threads/
+
+@return none
+*/
+void NetworkServer::startServer(int serverPort) {
 
 	SOCKET sock;
 	WSADATA wsaData;
@@ -36,7 +40,7 @@ void NetworkServer::startServer() {
 
 	server.sin_family = AF_INET;
 	server.sin_addr.s_addr = INADDR_ANY;
-	server.sin_port = htons(this->serverPort); // listen on telnet port 23
+	server.sin_port = htons(serverPort); 
 
 	sock = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -61,12 +65,24 @@ void NetworkServer::startServer() {
 		client = accept(sock, (struct sockaddr*)&from, &fromlen);
 
 		NetworkConnection *connection = new NetworkConnection(connectionID++, client);
-		Session *session = new Session(connection);
-
-		Icarus::getSessionManager()->addSession(session, connection->getConnectionId());
 	}
 
 	closesocket(sock);
 	WSACleanup();
 
+}
+
+/**
+Stops network connection from listening for more packets and deletes it from memory
+
+@param NetworkConnection pointer to delete
+@return none
+*/
+void NetworkServer::removeNetworkConnection(NetworkConnection *connection) {
+
+	// Tell connnection to stop looping for more incoming packets
+	connection->setConnectionState(false);
+
+	// Clear connection from memory
+	delete connection;
 }

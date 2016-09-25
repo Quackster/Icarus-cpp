@@ -1,5 +1,4 @@
 #pragma once
-
 #pragma comment(lib, "Ws2_32.lib")
 
 #include <windows.h>
@@ -7,14 +6,16 @@
 #include <stdio.h>
 #include <winsock.h>
 
+#include "NetworkServer.h"
+
 class NetworkServer {
 
 	public:
-		NetworkServer(short port);
+		NetworkServer();
 		~NetworkServer();
-		void startServer();
+		void startServer(int serverPort);
+		void removeNetworkConnection(NetworkConnection *connection);
 
 	private:
 		int connectionID;
-		short serverPort;
 };
