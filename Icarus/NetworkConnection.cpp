@@ -6,7 +6,8 @@
 
 #include "Request.h"
 
-unsigned long /*DWORD*/ WINAPI receive_data(LPVOID lpParameter);
+/*DWORD WINAPI*/
+unsigned long __stdcall  receive_data(LPVOID lpParameter);
 
 /**
 Constructor for NetworkConnection, takes Windows socket instance and connection ID
@@ -33,7 +34,7 @@ Windows.h thread handler for recieving packets
 
 @param the parameter (cast to NetworkConnection) given when creating thre thread
 */
-unsigned long WINAPI receive_data(LPVOID lpParameter) {
+unsigned long __stdcall receive_data(LPVOID lpParameter) {
 
 	NetworkConnection& connection = *((NetworkConnection*)lpParameter);
 	SOCKET socket = connection.getSocket();
@@ -43,11 +44,13 @@ unsigned long WINAPI receive_data(LPVOID lpParameter) {
 	int receiveCount = 0;
 
 	while (connection.getConnectionState()) {
+
 		receiveCount = recv(socket, buffer, sizeof(buffer), 0);
 
 		if (receiveCount >= 6) {
 			connection.handle_data(buffer, receiveCount);
-		} else {
+		} 
+		else {
 
 			// Handle session disconnect
 			if (Icarus::getSessionManager()->containsSession(connection.getConnectionId())) {
@@ -66,7 +69,7 @@ unsigned long WINAPI receive_data(LPVOID lpParameter) {
 
 }
 
-/**
+/*
 Handle incoming data from the client
 
 @param buffer array
@@ -86,12 +89,13 @@ void NetworkConnection::handle_data(char* buffer, int length) {
 			Icarus::getSessionManager()->addSession(session, this->getConnectionId());
 		}
 
-		int length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | buffer[3];
-		short header = ((unsigned char)buffer[5]) | (((unsigned char)buffer[4]) << 8);
+		Request request = Request(buffer);
 
-		Request request = Request(header, buffer);
+		printf("Received header: %i\n", request.getMessageId());
 
-		printf("Received header: %i\n", header);
+		if (request.getMessageId() == 4000) {
+			printf("Received string: %s\n", request.readString());
+		}
 
 	}
 }

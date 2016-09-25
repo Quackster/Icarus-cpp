@@ -1,14 +1,22 @@
 #pragma once
+#include <string>
+
 class Request {
 public:
-	Request(int header, char* full_message);
+	Request(char *full_message);
 	~Request();
-	int readInt();
-	int readString();
+
 	int readShort();
+	int readInt();
+	char *readString();
+
+	int getMessageLength() { return length; }
+	int getMessageId() { return header;  }
+
 private:
 	int header;
+	int length;
+
 	int index;
-	char* full_message;
-	char* message_body;
+	char *full_message;
 };
