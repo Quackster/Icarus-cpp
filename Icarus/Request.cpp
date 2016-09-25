@@ -42,6 +42,7 @@ int Request::readInt() {
 		| (this->full_message[this->index + 1] << 16)
 		| (this->full_message[this->index + 2] << 8)
 		| (this->full_message[this->index + 3]);
+
 	index = index + 4;
 	return number;
 
