@@ -93,9 +93,23 @@ void NetworkConnection::handle_data(char* buffer, int length) {
 		Request request = Request(buffer);
 		printf(" [SESSION] [MESSAGE] Received header: %i\n", request.getMessageId());
 
+		if (request.getMessageId() == 4000) {
+			printf(" [CLIENT] Production release: %s\n", request.readString());
+		}
+
 		if (request.getMessageId() == 1490) {
 
 			Response response = Response(1552);
+			send(this->getSocket(), response.getData(), response.getBytesWritten(), 0);
+
+			response = Response(1351);
+			response.writeString("");
+			response.writeString("");
+			send(this->getSocket(), response.getData(), response.getBytesWritten(), 0);
+
+			response = Response(704);
+			response.writeInt(0);
+			response.writeInt(0);
 			send(this->getSocket(), response.getData(), response.getBytesWritten(), 0);
 
 			response = Response(773);

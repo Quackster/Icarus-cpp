@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "Request.h"
 
-
-
 #include <string>
 #include <iostream>
 
