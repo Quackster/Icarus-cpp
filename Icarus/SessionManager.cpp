@@ -8,7 +8,7 @@ Constructor for Session Manager
 Initialises the map for storing sessions along with their connection ID
 */
 SessionManager::SessionManager() {
-	this->sessions = new map<int, Session*>();
+    this->sessions = new map<int, Session*>();
 }
 
 /*
@@ -19,9 +19,9 @@ Adds a session to the map if their connection ID doesn't already exist
 */
 void SessionManager::addSession(Session *session, int connectionID) {
 
-	if (!this->sessions->count(connectionID)) {
-		this->sessions->insert(std::make_pair(connectionID, session));
-	}
+    if (!this->sessions->count(connectionID)) {
+        this->sessions->insert(std::make_pair(connectionID, session));
+    }
 }
 
 
@@ -33,21 +33,21 @@ Removes session from map if their connection ID exists
 */
 void SessionManager::removeSession(int connectionID) {
 
-	if (this->sessions->count(connectionID)) {
+    if (this->sessions->count(connectionID)) {
 
-		// Find session to delete
-		Session *session = this->getSession(connectionID);
+        // Find session to delete
+        Session *session = this->getSession(connectionID);
 
-		// Remove session from map, remove it early to prevent any issues
-		this->sessions->erase(connectionID);
+        // Remove session from map, remove it early to prevent any issues
+        this->sessions->erase(connectionID);
 
-		// Clear session of any responsibilites
-		session->clear();
+        // Clear session of any responsibilites
+        session->clear();
 
-		// Clear session from memory
-		delete session;
-		
-	}
+        // Clear session from memory
+        delete session;
+        
+    }
 }
 
 /*
@@ -57,7 +57,7 @@ Checks whether or not the connection ID with session exists
 @return whether or not connection ID exists
 */
 bool SessionManager::containsSession(int connectionID) {
-	return this->sessions->count(connectionID) == 1 ? true : false;
+    return this->sessions->count(connectionID) == 1 ? true : false;
 }
 
 /*
@@ -69,10 +69,10 @@ the session doesn't exist
 */
 Session *SessionManager::getSession(int connectionID) {
 
-	if (this->sessions->count(connectionID)) {
-		return this->sessions->find(connectionID)->second;
-	}
-	else {
-		return NULL;
-	}
+    if (this->sessions->count(connectionID)) {
+        return this->sessions->find(connectionID)->second;
+    }
+    else {
+        return NULL;
+    }
 }

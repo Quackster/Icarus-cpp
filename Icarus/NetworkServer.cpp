@@ -14,7 +14,7 @@ Constructor for NetworkServer
 @return none
 */
 NetworkServer::NetworkServer()  {
-	this->connectionID = 0;
+    this->connectionID = 0;
 }
 
 NetworkServer::~NetworkServer() {
@@ -28,47 +28,47 @@ Source:  http://www.rohitab.com/discuss/topic/26991-cc-how-to-code-a-multi-clien
 */
 void NetworkServer::startServer(int serverPort) {
 
-	SOCKET sock;
-	WSADATA wsaData;
-	sockaddr_in server;
+    SOCKET sock;
+    WSADATA wsaData;
+    sockaddr_in server;
 
-	int ret = WSAStartup(0x101, &wsaData); // use highest version of winsock avalible
+    int ret = WSAStartup(0x101, &wsaData); // use highest version of winsock avalible
 
-	if (ret != 0) {
-		return;
-	}
+    if (ret != 0) {
+        return;
+    }
 
-	server.sin_family = AF_INET;
-	server.sin_addr.s_addr = INADDR_ANY;
-	server.sin_port = htons(serverPort); 
+    server.sin_family = AF_INET;
+    server.sin_addr.s_addr = INADDR_ANY;
+    server.sin_port = htons(serverPort); 
 
-	sock = socket(AF_INET, SOCK_STREAM, 0);
+    sock = socket(AF_INET, SOCK_STREAM, 0);
 
-	if (sock == INVALID_SOCKET) {
-		return;
-	}
+    if (sock == INVALID_SOCKET) {
+        return;
+    }
 
-	if (bind(sock, (sockaddr*)&server, sizeof(server)) != 0) {
-		return;
-	}
+    if (bind(sock, (sockaddr*)&server, sizeof(server)) != 0) {
+        return;
+    }
 
-	if (listen(sock, 5) != 0) {
-		return;
-	}
+    if (listen(sock, 5) != 0) {
+        return;
+    }
 
-	SOCKET client;
+    SOCKET client;
 
-	sockaddr_in from;
-	int fromlen = sizeof(from);
+    sockaddr_in from;
+    int fromlen = sizeof(from);
 
-	while (true) {
-		client = accept(sock, (struct sockaddr*)&from, &fromlen);
+    while (true) {
+        client = accept(sock, (struct sockaddr*)&from, &fromlen);
 
-		NetworkConnection *connection = new NetworkConnection(connectionID++, client);
-	}
+        NetworkConnection *connection = new NetworkConnection(connectionID++, client);
+    }
 
-	closesocket(sock);
-	WSACleanup();
+    closesocket(sock);
+    WSACleanup();
 
 }
 
@@ -80,9 +80,9 @@ Stops network connection from listening for more packets and deletes it from mem
 */
 void NetworkServer::removeNetworkConnection(NetworkConnection *connection) {
 
-	// Tell connnection to stop looping for more incoming packets
-	connection->setConnectionState(false);
+    // Tell connnection to stop looping for more incoming packets
+    connection->setConnectionState(false);
 
-	// Clear connection from memory
-	delete connection;
+    // Clear connection from memory
+    delete connection;
 }
