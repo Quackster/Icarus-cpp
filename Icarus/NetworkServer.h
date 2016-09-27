@@ -8,14 +8,16 @@
 
 #include "NetworkServer.h"
 
-class NetworkServer {
+class NetworkServer 
+{
 
 public:
-	NetworkServer();
-	~NetworkServer();
-	void startServer(int serverPort);
-	void removeNetworkConnection(NetworkConnection *connection);
+    NetworkServer();
+    ~NetworkServer();
+    void startServer(int serverPort);
+    void removeNetworkConnection(NetworkConnection *connection);
 
 private:
-	int connectionID;
+    int connectionID;
+
 };

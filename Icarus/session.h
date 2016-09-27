@@ -1,17 +1,16 @@
 #pragma once
 #include "NetworkConnection.h"
 
-class Session {
+class Session 
+{
+
 public:
-	Session(NetworkConnection *session_connection);
-	~Session();
-	void clear();
+    Session(NetworkConnection *session_connection);
+    ~Session();
+    void clear();
+    NetworkConnection *getNetworkConnection() { return networkConnection; }
 
 private:
-	NetworkConnection *networkConnection;
+    NetworkConnection *networkConnection;
 
-public:
-	NetworkConnection *getNetworkConnection() {
-		return networkConnection;
-	}
 };

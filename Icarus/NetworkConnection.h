@@ -9,22 +9,25 @@
 
 using namespace std;
 
-class NetworkConnection {
+class NetworkConnection 
+{
 
 public:
-	NetworkConnection(int connectionID, SOCKET socket);
-	void write_data();
-	void handle_data(char* data, int length);
-	void sendPolicy();
-	int getConnectionId() { return connectionID; }
-	bool getConnectionState() { return connected; }
-	void setConnectionState(bool state) { connected = state; }
-	SOCKET getSocket() { return socket; };
-	DWORD getThreadId() { return thread_id; }
+    NetworkConnection(int connectionID, SOCKET socket);
+    void write_data();
+    void handle_data(char* data, int length);
+    void sendPolicy();
+    int getConnectionId() { return connectionID; }
+    bool getConnectionState() { return connected; }
+    void setConnectionState(bool state) { connected = state; }
+    SOCKET getSocket() { return socket; };
+    DWORD getThreadId() { return thread_id; }
+
 private:
-	int connectionID;
-	bool connected;
-	SOCKET socket;
-	DWORD thread_id;
-	void createThread();
+    int connectionID;
+    bool connected;
+    SOCKET socket;
+    DWORD thread_id;
+    void createThread();
+
 };
