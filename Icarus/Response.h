@@ -11,11 +11,12 @@ public:
 	~Response();
 	char* writeInt(int number);
 	char* writeShort(short numberr);
+	void writeString(char* str);
 	char* getData();
 	char* toBytes();
 	char* getBytes(short num);
 	char* getBytes(int num, bool reverse = false);
-	int getBytesWritten() { return bytes_written;  }
+	int getBytesWritten() { return bytes_written + 4/*the length at the start*/;  }
 	deque<char> getMessage() { return message; }
 
 private:

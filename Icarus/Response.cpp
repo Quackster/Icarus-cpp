@@ -17,7 +17,6 @@ Response::Response(short header) : header(header) {
 
 Response::~Response() { }
 
-
 /*
 Converts a short (16 bits) to little-endian represented in a char array
 
@@ -59,7 +58,8 @@ char* Response::getBytes(int i, bool reverse) {
 }
 
 /*
-Writes a given integer to 4 bytes in little-endian to the deque
+Writes a given integer in 4 bytes in little-endian format to the deque
+and increases the bytes written by 4
 
 @return char array
 */
@@ -76,7 +76,8 @@ char* Response::writeInt(int number) {
 }
 
 /*
-Gets the entire collection of chars from deque into a single char array
+Writes a given short in 2 bytes in little-endian format to the deque
+and increases the bytes written by 2
 
 @return none
 */
@@ -91,6 +92,25 @@ char* Response::writeShort(short number) {
 	this->bytes_written = this->bytes_written + 2;
 	return bytes;
 }
+
+/*
+Writes a given string with length prefixed in UTF-8 format
+and increases the bytes written by 2
+
+@return none
+*/
+void Response::writeString(char* str) {
+
+	short length = strlen(str);
+	this->writeShort(length);
+
+	for (int i = 0; i < length; i++) {
+		this->message.push_back(str[i]);
+	}
+
+	this->bytes_written = this->bytes_written + length;
+}
+
 
 /*
 Gets the entire collection of chars from deque into a single char array

@@ -16,15 +16,11 @@ public:
 	void write_data();
 	void handle_data(char* data, int length);
 	void sendPolicy();
-	/*
-	Getter and setters
-	*/
 	int getConnectionId() { return connectionID; }
 	bool getConnectionState() { return connected; }
 	void setConnectionState(bool state) { connected = state; }
 	SOCKET getSocket() { return socket; };
 	DWORD getThreadId() { return thread_id; }
-		
 private:
 	int connectionID;
 	bool connected;
