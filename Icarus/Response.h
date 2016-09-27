@@ -1,6 +1,5 @@
 #pragma once
 #include <deque>
-#include <vector>
 #include <iostream>
 
 using namespace std;
@@ -22,6 +21,7 @@ public:
 private:
 	short header;
 	int bytes_written;
+	bool used;
 	deque <char> message;
 };
 

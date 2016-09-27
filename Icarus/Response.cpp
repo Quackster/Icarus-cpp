@@ -1,10 +1,6 @@
 #include "stdafx.h"
 #include "Response.h"
 
-#include <Windows.h>
-#include <algorithm>
-#include <iterator>
-
 /*
 Response constructor, it will initialise the deque, and append the header in raw bytes
 
@@ -13,6 +9,7 @@ Response constructor, it will initialise the deque, and append the header in raw
 */
 Response::Response(short header) : header(header) {
 	this->bytes_written = 0;
+	this->used = false;
 	this->message = deque <char>(0);
 	this->writeShort(header);
 
@@ -103,12 +100,17 @@ with 32 bit length prefixed
 */
 char* Response::getData() {
 	
-	char* size_raw = this->getBytes(this->bytes_written, true);
+	if (!this->used) {
+		char* size_raw = this->getBytes(this->bytes_written, true);
+		this->bytes_written = this->bytes_written + 4; // increase bytes written
 
-	for (int i = 0; i < 4; i++) {
-		this->message.push_front(size_raw[i]);
+		for (int i = 0; i < 4; i++) {
+			this->message.push_front(size_raw[i]);
+		}
+
+		this->used = true;
 	}
-
+		
 	return toBytes();
 }
 

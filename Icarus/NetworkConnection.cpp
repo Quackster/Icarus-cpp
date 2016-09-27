@@ -105,7 +105,10 @@ void NetworkConnection::handle_data(char* buffer, int length) {
 		if (request.getMessageId() == 1490) {
 			
 			Response response = Response(1552);
-			send(this->getSocket(), response.getData(), 6, 0);
+			char* data = response.getData();
+
+			printf("bytes written: %i\n", response.getBytesWritten());
+			send(this->getSocket(), response.getData(), response.getBytesWritten(), 0);
 
 			//for (int i = 0; i < response.getBytesWritten() + 4; i++) {
 				//std::cout << response.getData()[i] << "[" << (int)response.getData()[i] << "]";
