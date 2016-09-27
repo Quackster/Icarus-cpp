@@ -93,15 +93,42 @@ void NetworkConnection::handle_data(char* buffer, int length) {
 		Request request = Request(buffer);
 		printf(" [SESSION] [MESSAGE] Received header: %i\n", request.getMessageId());
 
-		if (request.getMessageId() == 1490) {
-			Response response(1552);
-			char* packet = response.getData();
-			send(this->socket, packet, 6, 0);
+		/*
+		
+		Header: 1552
+		[6][16]
+		Len: 2
+		[0][0][0][2]
+		
+		*/
 
-			for (int i = 0; i < response.getBytesWritten(); i++) {
-				cout << packet[i] << "\n";
-			}
+		if (request.getMessageId() == 1490) {
 			
+			Response response = Response(1552);
+			send(this->getSocket(), response.getData(), 6, 0);
+
+			//for (int i = 0; i < response.getBytesWritten() + 4; i++) {
+				//std::cout << response.getData()[i] << "[" << (int)response.getData()[i] << "]";
+			//}
+
+
+			/*int i = 2;
+			
+			char* output = new char[4]{
+				(char)(i >> 24),
+				(char)(i >> 16),
+				(char)(i >> 8),
+				(char)i
+			};*/
+
+			
+			char* output = response.getData();
+
+			for (int i = 0; i < 4; i++) {
+				std::cout << output[i] << "[" << (int)output[i] << "]";
+			}
+
+			std::cout << "\n";
 		}
 		 
 	}
