@@ -10,8 +10,8 @@ class Response
 public:
     Response(short header);
     ~Response();
-    char* writeInt(int number);
-    char* writeShort(short numberr);
+    void writeInt(int number);
+    void writeShort(short numberr);
     void writeString(char* str);
     char* getData();
     char* toBytes();

@@ -63,7 +63,7 @@ and increases the bytes written by 4
 
 @return char array
 */
-char* Response::writeInt(int number) {
+void Response::writeInt(int number) {
 
     char* bytes = this->getBytes(number);
 
@@ -72,7 +72,7 @@ char* Response::writeInt(int number) {
     }
 
     this->bytes_written = this->bytes_written + 4;
-    return bytes;
+    delete[] bytes;
 }
 
 /*
@@ -81,7 +81,7 @@ and increases the bytes written by 2
 
 @return none
 */
-char* Response::writeShort(short number) {
+void Response::writeShort(short number) {
 
     char* bytes = this->getBytes(number);
     
@@ -90,7 +90,7 @@ char* Response::writeShort(short number) {
     }
 
     this->bytes_written = this->bytes_written + 2;
-    return bytes;
+    delete[] bytes;
 }
 
 /*
