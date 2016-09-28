@@ -23,13 +23,13 @@ This should compile out of the box if you open up *Icarus.vcxproj* with Visual S
 If you see files look like this (how there's no folders etc):
 
 <p>
-  <img src="http://i.imgur.com/I7gPDL1.png"/>
+  <img src="http://i.imgur.com/Lk0B36u.png"/>
 </p>
 
 Click second "Icarus" down from the top and select "show all files" and it will look like this:
 
 <p>
-  <img src="http://i.imgur.com/1vcRV06.png"/>
+  <img src="http://i.imgur.com/tB5LXbG.png"/>
 </p>
 
 Because I like my files being seperated into actual meaningful folders instead of some filters.
