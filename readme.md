@@ -4,9 +4,15 @@ Icarus is a Habbo Hotel private server written in C++ designed for version *PROD
 
 This should compile out of the box if you open up *Icarus.vcxproj* with Visual Studio 2015 C++
 
+---
+
 ## Installation
 
+This project isn't anywhere near being completed, don't even bother doing anything yet
+
 1. None.
+
+---
 
 ## Compile
 
