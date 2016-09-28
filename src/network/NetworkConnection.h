@@ -5,7 +5,8 @@
 #include <winsock.h>
 #include <iostream>
 #include <vector>
-#include <sstream> 
+#include <sstream>
+#include "Response.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ class NetworkConnection
 public:
     NetworkConnection(int connectionID, SOCKET socket);
     ~NetworkConnection();
-    void write_data();
+    void write_data(Response response);
     void handle_data(char* data, int length);
     void sendPolicy();
     int getConnectionId() { return connectionID; }

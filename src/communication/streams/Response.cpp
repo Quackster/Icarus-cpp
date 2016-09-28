@@ -121,14 +121,14 @@ with 32 bit length prefixed
 char* Response::getData() {
     
     if (!this->used) {
+        this->used = true;
+
         char* size_raw = this->getBytes(this->bytes_written, true);
         this->bytes_written = this->bytes_written + 4; // increase bytes written
 
         for (int i = 0; i < 4; i++) {
             this->message.push_front(size_raw[i]);
         }
-
-        this->used = true;
     }
         
     return toBytes();
@@ -142,7 +142,7 @@ Gets the entire collection of chars from deque into a single char array
 char* Response::toBytes() {
 
     int size = this->message.size();
-    char* output = new char[size];
+    char output[MAX_RESPONSE_SIZE];
 
     for (int i = 0; i < size; i++) {
         output[i] = this->message[i];

@@ -1,11 +1,8 @@
 #include "stdafx.h"
-
 #include "Icarus.h"
 #include "NetworkConnection.h"
 #include "Session.h"
-
 #include "Request.h"
-#include "Response.h"
 
 /*DWORD WINAPI*/
 unsigned long __stdcall  receive_data(LPVOID lpParameter);
@@ -95,6 +92,39 @@ void NetworkConnection::handle_data(char* buffer, int length) {
 
         Request request = Request(buffer);
         printf(" [SESSION] [MESSAGE] Received header: %i\n", request.getMessageId());
+
+        if (request.getMessageId() == 1490) {
+
+            Response response(1552);
+            this->write_data(response);
+
+            response = Response(1351);
+            response.writeString("");
+            response.writeString("");
+            this->write_data(response);
+
+            response = Response(704);
+            response.writeInt(0);
+            response.writeInt(0);
+            this->write_data(response);
+
+            response = Response(773);
+            response.writeInt(1);
+            response.writeString("sup fam");
+            this->write_data(response);
+
+        }
+    }
+}
+
+void NetworkConnection::write_data(Response response) {
+    try {
+
+        // Send data to socket
+        send(this->socket, response.getData(), response.getBytesWritten(), 0);
+    } 
+    catch (std::exception &e) {
+        printf("Caught exception: %s\n", e.what());
     }
 }
 
@@ -106,8 +136,4 @@ Send policy to the socket
 void NetworkConnection::sendPolicy() {
     char* policy = "<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0";
     send(this->getSocket(), policy, (int)strlen(policy) + 1, 0);
-}
-
-void NetworkConnection::write_data(/*char* buffer*/) {
-
 }
