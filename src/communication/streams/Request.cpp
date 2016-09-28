@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "Request.h"
 
-#include <string>
-#include <iostream>
-
 /*
 Request constructor
 
@@ -51,16 +48,18 @@ Read a string with a 16bit length prefixed
 
 @return string
 */
-char *Request::readString() {
+std::string Request::readString() {
 
     int length = readShort();
-    char* str = new char[length];
+    //char* str = new char[length + 1];
+    std::string str;
     
+
     for (int i = 0; i < length; i++) {
-        str[i] = this->full_message[index++];
+        str += this->full_message[index++];
     }
 
-    str[length] = '\0'; // Null terminate, needed for C++
+    ///str[length] = '\0'; // Null terminate, needed for C++
     return str;
 }
 

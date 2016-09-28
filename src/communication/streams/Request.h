@@ -1,4 +1,10 @@
 #pragma once
+
+#include <string>
+#include <iostream>
+
+using namespace std;
+
 class Request 
 {
 
@@ -7,7 +13,7 @@ public:
     ~Request();
     int readShort();
     int readInt();
-    char *readString();
+    string readString();
     int getMessageLength() { return length; }
     int getMessageId() { return header;  }
 

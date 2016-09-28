@@ -14,6 +14,7 @@ class NetworkConnection
 
 public:
     NetworkConnection(int connectionID, SOCKET socket);
+    ~NetworkConnection();
     void write_data();
     void handle_data(char* data, int length);
     void sendPolicy();

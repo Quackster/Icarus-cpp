@@ -1,14 +1,3 @@
-﻿  stdafx.cpp
-  SessionManager.cpp
-  NetworkConnection.cpp
-  Session.cpp
-  Response.cpp
-c:\users\alex\documents\github\icarus\icarus\src\communication\streams\response.cpp(104): warning C4267: 'initializing': conversion from 'size_t' to 'short', possible loss of data
-c:\users\alex\documents\github\icarus\icarus\src\communication\streams\response.cpp(144): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Request.cpp
-  NetworkServer.cpp
-  main.cpp
-  Icarus.cpp
-  Generating Code...
+﻿  NetworkConnection.cpp
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\x64\Debug\Icarus.exe
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\x64\Debug\Icarus.pdb (Full PDB)

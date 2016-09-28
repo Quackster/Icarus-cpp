@@ -21,6 +21,10 @@ NetworkConnection::NetworkConnection(int connectionID, SOCKET socket) : connecti
     this->createThread();
 }
 
+NetworkConnection::~NetworkConnection() {
+    //delete this->buffer;
+}
+
 /**
 Creates thread for handling packets
 
@@ -41,7 +45,6 @@ unsigned long __stdcall receive_data(LPVOID lpParameter) {
     SOCKET socket = connection.getSocket();
 
     char buffer[1024];
-
     int receiveCount = 0;
 
     while (connection.getConnectionState()) {
@@ -92,32 +95,6 @@ void NetworkConnection::handle_data(char* buffer, int length) {
 
         Request request = Request(buffer);
         printf(" [SESSION] [MESSAGE] Received header: %i\n", request.getMessageId());
-
-        if (request.getMessageId() == 4000) {
-            printf(" [CLIENT] Production release: %s\n", request.readString());
-        }
-
-        if (request.getMessageId() == 1490) {
-
-            Response response = Response(1552);
-            send(this->getSocket(), response.getData(), response.getBytesWritten(), 0);
-
-            response = Response(1351);
-            response.writeString("");
-            response.writeString("");
-            send(this->getSocket(), response.getData(), response.getBytesWritten(), 0);
-
-            response = Response(704);
-            response.writeInt(0);
-            response.writeInt(0);
-            send(this->getSocket(), response.getData(), response.getBytesWritten(), 0);
-
-            response = Response(773);
-            response.writeInt(1);
-            response.writeString("sup fam");
-            send(this->getSocket(), response.getData(), response.getBytesWritten(), 0);
-
-        }
     }
 }
 
