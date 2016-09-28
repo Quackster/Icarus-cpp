@@ -1,11 +1,6 @@
 #pragma once
-#pragma comment(lib, "Ws2_32.lib")
-#include <stdlib.h>
-#include <stdio.h>
 #include <winsock.h>
-#include <iostream>
-#include <vector>
-#include <sstream> 
+#include "Response.h"
 
 using namespace std;
 
@@ -15,8 +10,8 @@ class NetworkConnection
 public:
     NetworkConnection(int connectionID, SOCKET socket);
     ~NetworkConnection();
-    void write_data();
     void handle_data(char* data, int length);
+    void write_data(Response request);
     void sendPolicy();
     int getConnectionId() { return connectionID; }
     bool getConnectionState() { return connected; }

@@ -99,15 +99,30 @@ void NetworkConnection::handle_data(char* buffer, int length) {
 }
 
 /*
+    Writes response back to client, will clear buffer at the end
+
+    @param Response class to send
+    @return void
+*/
+void NetworkConnection::write_data(Response response) {
+
+    // Get data to free from memory
+    char* data = response.getData();
+
+    // Send data to socket
+    send(this->socket, data, response.getBytesWritten(), 0);
+    
+    // Delete data
+    delete[] data;
+}
+
+/*
 Send policy to the socket
 
 @return none
 */
 void NetworkConnection::sendPolicy() {
+
     char* policy = "<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0";
     send(this->getSocket(), policy, (int)strlen(policy) + 1, 0);
-}
-
-void NetworkConnection::write_data(/*char* buffer*/) {
-
 }
