@@ -1,38 +1,40 @@
-## Outbreak Server
+========================================================================
+    CONSOLE APPLICATION : Icarus Project Overview
+========================================================================
 
-Icarus is a Habbo Hotel private server written in C++ designed for version *PRODUCTION-201512012203-525044429*.
+AppWizard has created this Icarus application for you.
 
-There is **no Linux version available**, the only supported operating system is Windows.
+This file contains a summary of what you will find in each of the files that
+make up your Icarus application.
 
-## Install
 
-*For Windows Server 2008 (or higher)*
+Icarus.vcxproj
+    This is the main project file for VC++ projects generated using an Application Wizard.
+    It contains information about the version of Visual C++ that generated the file, and
+    information about the platforms, configurations, and project features selected with the
+    Application Wizard.
 
-**Required:**
+Icarus.vcxproj.filters
+    This is the filters file for VC++ projects generated using an Application Wizard. 
+    It contains information about the association between the files in your project 
+    and the filters. This association is used in the IDE to show grouping of files with
+    similar extensions under a specific node (for e.g. ".cpp" files are associated with the
+    "Source Files" filter).
 
-- A Steam account that has Arma 3 purchased (Arma's server binaries)
+Icarus.cpp
+    This is the main application source file.
 
-**Installation steps**
+/////////////////////////////////////////////////////////////////////////////
+Other standard files:
 
-1. Download the Windows SteamCMD found [here](https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip), this will allow us to download Arma 3 without using the default Steam client.
+StdAfx.h, StdAfx.cpp
+    These files are used to build a precompiled header (PCH) file
+    named Icarus.pch and a precompiled types file named StdAfx.obj.
 
-- Extract the file somewhere and open *steamcmd.exe*
+/////////////////////////////////////////////////////////////////////////////
+Other notes:
 
-- Once opened, type the commands below to login *(from [https://developer.valvesoftware.com/wiki/SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD))*
->
->```
- >   login <username>
->```
->
->Next enter your password.
->
->If Steam Guard is activated on the user account, check your e-mail for a Steam Guard access code and enter it. This is only required the first time you log in (as well as when you delete the files where SteamCMD stores the login information).
->
->You should see a message stating that you have successfully logged in with your account.
+AppWizard uses "TODO:" comments to indicate parts of the source code you
+should add to or customize.
 
-- Once logged in type the following ```force_install_dir c:/arma3``` where *c:/arma3* is your desired path to download and setup the Arma 3 server
-
-- After that, to download Arma 3, type in ```app_update 107410 -update``` which will prepare and start to download Arma 3
-
-- Once that is done, navigate to the folder where you downloaded Arma 3 and extract the @OutbreakServer folder from this repository inside of it. So it's in the same directory as arma3server.exe
-
+/////////////////////////////////////////////////////////////////////////////
