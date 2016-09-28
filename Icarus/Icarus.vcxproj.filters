@@ -45,61 +45,61 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\network\NetworkConnection.h">
+      <Filter>Header Files\Network</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\network\NetworkServer.h">
+      <Filter>Header Files\Network</Filter>
     </ClInclude>
-    <ClInclude Include="Session.h">
+    <ClInclude Include="src\managers\session\Session.h">
       <Filter>Header Files\Clients</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkConnection.h">
-      <Filter>Header Files\Network</Filter>
+    <ClInclude Include="src\managers\session\SessionManager.h">
+      <Filter>Header Files\Clients</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkServer.h">
-      <Filter>Header Files\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Icarus.h">
+    <ClInclude Include="src\Icarus.h">
       <Filter>Header Files\Environment</Filter>
     </ClInclude>
-    <ClInclude Include="SessionManager.h">
-      <Filter>Header Files\Clients</Filter>
+    <ClInclude Include="src\vs\stdafx.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Request.h">
+    <ClInclude Include="src\vs\targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\streams\Request.h">
       <Filter>Header Files\Communication\Streams</Filter>
     </ClInclude>
-    <ClInclude Include="Response.h">
+    <ClInclude Include="src\communication\streams\Response.h">
       <Filter>Header Files\Communication\Streams</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\communication\streams\Request.cpp">
+      <Filter>Source Files\Communication\Streams</Filter>
     </ClCompile>
-    <ClCompile Include="Session.cpp">
-      <Filter>Source Files\Clients</Filter>
+    <ClCompile Include="src\communication\streams\Response.cpp">
+      <Filter>Source Files\Communication\Streams</Filter>
     </ClCompile>
-    <ClCompile Include="NetworkConnection.cpp">
+    <ClCompile Include="src\network\NetworkConnection.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
-    <ClCompile Include="NetworkServer.cpp">
+    <ClCompile Include="src\network\NetworkServer.cpp">
       <Filter>Source Files\Network</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Icarus.cpp">
+    <ClCompile Include="src\Icarus.cpp">
       <Filter>Source Files\Environment</Filter>
     </ClCompile>
-    <ClCompile Include="SessionManager.cpp">
+    <ClCompile Include="src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\session\Session.cpp">
       <Filter>Source Files\Clients</Filter>
     </ClCompile>
-    <ClCompile Include="Request.cpp">
-      <Filter>Source Files\Communication\Streams</Filter>
+    <ClCompile Include="src\managers\session\SessionManager.cpp">
+      <Filter>Source Files\Clients</Filter>
     </ClCompile>
-    <ClCompile Include="Response.cpp">
-      <Filter>Source Files\Communication\Streams</Filter>
+    <ClCompile Include="src\vs\stdafx.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

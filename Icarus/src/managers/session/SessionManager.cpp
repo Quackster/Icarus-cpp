@@ -24,7 +24,6 @@ void SessionManager::addSession(Session *session, int connectionID) {
     }
 }
 
-
 /*
 Removes session from map if their connection ID exists
 

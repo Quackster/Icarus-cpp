@@ -88,8 +88,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS </PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src/managers;src/managers/session;src/network;src/vs;src/communication/streams</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -105,8 +104,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS </PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src/managers;src/managers/session;src/network;src/vs;src/communication/streams</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,8 +122,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS </PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src/managers;src/managers/session;src/network;src/vs;src/communication/streams</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,8 +142,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS </PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;src/managers;src/managers/session;src/network;src/vs;src/communication/streams</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,26 +157,26 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Icarus.h" />
-    <ClInclude Include="NetworkServer.h" />
-    <ClInclude Include="Request.h" />
-    <ClInclude Include="Response.h" />
-    <ClInclude Include="Session.h" />
-    <ClInclude Include="NetworkConnection.h" />
-    <ClInclude Include="SessionManager.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
+    <ClInclude Include="src\Icarus.h" />
+    <ClInclude Include="src\network\NetworkServer.h" />
+    <ClInclude Include="src\communication\streams\Request.h" />
+    <ClInclude Include="src\communication\streams\Response.h" />
+    <ClInclude Include="src\managers\session\Session.h" />
+    <ClInclude Include="src\network\NetworkConnection.h" />
+    <ClInclude Include="src\managers\session\SessionManager.h" />
+    <ClInclude Include="src\vs\stdafx.h" />
+    <ClInclude Include="src\vs\targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Icarus.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="NetworkServer.cpp" />
-    <ClCompile Include="Request.cpp" />
-    <ClCompile Include="Response.cpp" />
-    <ClCompile Include="Session.cpp" />
-    <ClCompile Include="NetworkConnection.cpp" />
-    <ClCompile Include="SessionManager.cpp" />
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="src\Icarus.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\network\NetworkServer.cpp" />
+    <ClCompile Include="src\communication\streams\Request.cpp" />
+    <ClCompile Include="src\communication\streams\Response.cpp" />
+    <ClCompile Include="src\managers\session\Session.cpp" />
+    <ClCompile Include="src\network\NetworkConnection.cpp" />
+    <ClCompile Include="src\managers\session\SessionManager.cpp" />
+    <ClCompile Include="src\vs\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
