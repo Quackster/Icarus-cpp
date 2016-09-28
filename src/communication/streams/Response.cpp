@@ -25,12 +25,12 @@ Converts a short (16 bits) to little-endian represented in a char array
 */
 char* Response::getBytes(short i) {
 
-    char bytes[2];
-    
-    bytes[0] = (char)(i >> 8);
-    bytes[1] = (char)i;
+    char* output = new char[2] {
+        (char)(i >> 8),
+        (char)i
+    };
 
-    return bytes;
+    return output;
 }
 
 /*
@@ -41,22 +41,20 @@ Converts a integer (32 bits) to little-endian represented in a char array
 */
 char* Response::getBytes(int i, bool reverse) {
 
-    char bytes[4];
-
     if (reverse) {
-        bytes[0] = (char)i;
-        bytes[1] = (char)(i >> 8);
-        bytes[2] = (char)(i >> 16);
-        bytes[3] = (char)(i >> 24);
+        return new char[4]{
+        (char)i,
+        (char)(i >> 8),
+        (char)(i >> 16),
+        (char)(i >> 24) };
 
     } else {
-        bytes[3] = (char)i;
-        bytes[2] = (char)(i >> 8);
-        bytes[1] = (char)(i >> 16);
-        bytes[0] = (char)(i >> 24);
+        return new char[4]{
+        (char)(i >> 24),
+        (char)(i >> 16),
+        (char)(i >> 8),
+        (char)i };
     };
-
-    return bytes;
 }
 
 /*

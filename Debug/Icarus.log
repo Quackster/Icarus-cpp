@@ -1,8 +1,5 @@
-﻿  NetworkConnection.cpp
-  Response.cpp
-c:\users\alex\documents\github\icarus\src\communication\streams\response.cpp(106): warning C4267: 'initializing': conversion from 'size_t' to 'short', possible loss of data
+﻿  Request.cpp
+  NetworkConnection.cpp
   Generating Code...
-c:\users\alex\documents\github\icarus\src\communication\streams\response.cpp(59): warning C4172: returning address of local variable or temporary: bytes
-c:\users\alex\documents\github\icarus\src\communication\streams\response.cpp(33): warning C4172: returning address of local variable or temporary: bytes
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.exe
   Icarus.vcxproj -> C:\Users\Alex\Documents\GitHub\Icarus\Debug\Icarus.pdb (Full PDB)
