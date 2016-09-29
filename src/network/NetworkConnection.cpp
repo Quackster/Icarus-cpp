@@ -28,12 +28,13 @@ void NetworkConnection::recieve_data() {
 
 	auto self(shared_from_this());
 
-	socket_.async_read_some(boost::asio::buffer(this->data_read, this->max_length), [this, self]( boost::system::error_code ec, std::size_t length) {
+	socket_.async_read_some(boost::asio::buffer(buffer, sizeof(buffer)), [this, self]( boost::system::error_code ec, std::size_t length) {
 
-		if ( !ec ) {
-			printf("%s\n", data_read);
-			this->recieve_data();
-		} else {
+        if (!ec) {
+            this->handle_data();
+            this->recieve_data();
+        }
+        else {
 			printf("disconnection \n");
 		}
 
@@ -41,19 +42,76 @@ void NetworkConnection::recieve_data() {
 }
 
 /*
+Handle incoming data
+
+@return none
+*/
+void NetworkConnection::handle_data() {
+
+    if (buffer[0] == 60) {
+        this->sendPolicy();
+    }
+    else {
+
+        Request request(buffer);
+
+        cout << "header: " << request.getMessageId() << endl;
+
+        if (request.getMessageId() == 1490) {
+
+            Response response(1552);
+            this->send(response);
+
+            response = Response(1351);
+            response.writeString("");
+            response.writeString("");
+            this->send(response);
+
+            response = Response(704);
+            response.writeInt(0);
+            response.writeInt(0);
+            this->send(response);
+        }
+    }
+
+}
+
+
+/*
 Write data handle
 
 @return none
 */
-void NetworkConnection::write_data() {
+void NetworkConnection::write_data(char* data, int length) {
 
 	auto self(shared_from_this());
 	
-	boost::asio::async_write(socket_,boost::asio::buffer(this->data_write, this->max_length), [this, self](boost::system::error_code ec, std::size_t length) {
+	boost::asio::async_write(socket_,boost::asio::buffer(data, /*this->max_length*/length), [this, self, data](boost::system::error_code ec, std::size_t length) {
 		if ( !ec ) {
-			printf("%s\n", data_read);
+            // send success
 		}
 	});
+}
+
+/*
+Send response class to socket
+
+@return none
+*/
+void NetworkConnection::send(Response response) {
+    this->write_data(response.getData(), response.getBytesWritten());
+}
+
+
+/*
+Send policy to the socket
+
+@return void
+
+*/
+void NetworkConnection::sendPolicy() {
+    char* policy = "<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0";
+    this->write_data(policy, (int)strlen(policy) + 1);
 }
 
 /*
