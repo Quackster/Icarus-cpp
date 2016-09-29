@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Request.h"
+#include "windows.h"
 
 /*
 Request constructor
@@ -21,7 +22,11 @@ Read an integer represented as 16 bits
 @return integer
 */
 int Request::readShort() {
-    short number = ((unsigned char)this->full_message[this->index + 1]) | (((unsigned char)this->full_message[this->index]) << 8);
+
+    short number = (short)(
+        (0xff & full_message[index]) << 8 |
+        (0xff & full_message[index + 1]) << 0);
+
     index = index + 2;
     return number;
 }
