@@ -1,23 +1,13 @@
 #pragma once
-#pragma comment(lib, "Ws2_32.lib")
+#include "Session.h"
 
-#include <windows.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <winsock.h>
-
-#include "NetworkServer.h"
-
-class NetworkServer 
+class NetworkServer
 {
-
-public:
-    NetworkServer();
-    ~NetworkServer();
-    void startServer(int serverPort);
-    void removeNetworkConnection(NetworkConnection *connection);
-
-private:
-    int connectionID;
-
+	public:
+		NetworkServer(boost::asio::io_service& io_service, short port);
+		~NetworkServer();
+	private:
+		void listen();
+		tcp::acceptor acceptor;
+		tcp::socket socket;
 };

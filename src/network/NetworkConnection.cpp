@@ -1,189 +1,45 @@
 #include "stdafx.h"
-#include "Icarus.h"
 #include "NetworkConnection.h"
-#include "Session.h"
-#include "Request.h"
 
-/*DWORD WINAPI*/
-unsigned long __stdcall  receive_data(LPVOID lpParameter);
 
-/**
-Constructor for NetworkConnection, takes Windows socket instance and connection ID
-
-@param connection ID counter, this is the same ID used to fetch the session from session manager
-@param windows socket
-@return none
-*/
-NetworkConnection::NetworkConnection(int connectionID, SOCKET socket) : connectionID(connectionID), socket(socket) {
-    this->createThread();
+NetworkConnection::NetworkConnection(int connectionID, tcp::socket socket) : connectionID(connectionID), socket_(std::move(socket))
+{
+	printf("Client connected with ID: %i\n", this->connectionID);
 }
 
-NetworkConnection::~NetworkConnection() { }
 
-/**
-Creates thread for handling packets
-
-@return none
-*/
-void NetworkConnection::createThread() {
-    CreateThread(NULL, 0, receive_data, (LPVOID)this, 0, &thread_id);
+NetworkConnection::~NetworkConnection()
+{
 }
 
-/**
-Windows.h thread handler for recieving packets
+void NetworkConnection::recieve_data() {
 
-@param the parameter (cast to NetworkConnection) given when creating thre thread
-@return thread long
-*/
-unsigned long __stdcall receive_data(LPVOID lpParameter) {
+	auto self(shared_from_this());
 
-    NetworkConnection& connection = *((NetworkConnection*)lpParameter);
-    SOCKET socket = connection.getSocket();
+	socket_.async_read_some(boost::asio::buffer(this->data_read, this->max_length), [this, self]( boost::system::error_code ec, std::size_t length) {
 
-    char buffer[1024];
-    int receiveCount = 0;
+		if ( !ec ) {
+			printf("%s\n", data_read);
+			this->recieve_data();
+		} else {
+			printf("disconnection \n");
+		}
 
-    while (connection.getConnectionState()) {
-
-        receiveCount = connection.readData(buffer, 4);
-
-        if (receiveCount >= 4) {
-
-            if (buffer[0] == 60) {
-                connection.sendPolicy();
-                receiveCount = connection.readData(buffer, 20); // read rest of socket...
-            }
-            else {
-
-                int length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | (buffer[3]);
-
-                receiveCount = connection.readData(buffer, length);
-                connection.handle_data(buffer, length);
-            }
-        } 
-        else {
-
-            // Handle session disconnect
-            if (Icarus::getSessionManager()->containsSession(connection.getConnectionId())) {
-                Icarus::getSessionManager()->removeSession(connection.getConnectionId());
-            } else {
-                // Remove connection if it was just a policy request
-                Icarus::getNetworkServer()->removeNetworkConnection(&connection);
-            }
-
-            // Stop more code from executing
-            return 0;
-        }
-    }
-
-    return 0;
-
+	});
 }
 
-/*
-Handle incoming data from the client
+void NetworkConnection::write_data() {
 
-@param buffer array
-@param the size of the recieved data
-@return none
-*/
-void NetworkConnection::handle_data(char* buffer, int length) {
-
-    try {
-
-        // Once we passed through the policy, create a session and handle it
-        if (!Icarus::getSessionManager()->containsSession(connectionID)) {
-            Session *session = new Session(this);
-            Icarus::getSessionManager()->addSession(session, this->getConnectionId());
-        }
-
-        Request request = Request(buffer);
-        cout << " [SESSION] [MESSAGE] Received header: " << request.getMessageId() << " / ";
-
-        cout << endl;
-
-
-        /*if (request.getMessageId() == 1490) {
-
-            string authenticationTicket = request.readString();
-            cout << "<request> [LOGIN] Received SSO ticket: " << authenticationTicket << endl;
-
-            Response response(1552);
-            this->write_data(response);
-
-            response = Response(1351);
-            response.writeString("");
-            response.writeString("");
-            this->write_data(response);
-
-            response = Response(704);
-            response.writeInt(0);
-            response.writeInt(0);
-            this->write_data(response);
-        }*/
-
-    }
-    catch (...) {
-        cout << " Caught exception: " << endl;
-    }
+	auto self(shared_from_this());
+	
+	boost::asio::async_write(socket_,boost::asio::buffer(this->data_write, this->max_length), [this, self](boost::system::error_code ec, std::size_t length) {
+		if ( !ec ) {
+			printf("%s\n", data_read);
+		}
+	});
 }
 
-/*
-Handle Response data to send to client
+void NetworkConnection::disconnected() {
 
-@param response class with data appended to it
-@return void
-*/
-void NetworkConnection::write_data(Response response) {
-    try {
-        this->sendRaw(response.getData(), response.getBytesWritten());
-    } 
-    catch (std::exception &e) {
-        cout << " Caught exception: " << e.what() << endl;
-    }
-}
 
-/*
-Send policy to the socket
-
-@return void
-
-*/
-void NetworkConnection::sendPolicy() {
-    char* policy = "<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0";
-    this->sendRaw(policy, (int)strlen(policy) + 1);
-}
-
-/*
-Send raw bytes to socket
-
-@param byte buffer to send
-@param the length of byte buffer
-@return total number of bytes sent (which can be fewer than the number requested to be sent), or SOCKET_ERROR id is returned
-        according to: https://msdn.microsoft.com/en-us/library/windows/desktop/ms740149(v=vs.85).aspx
-*/
-void NetworkConnection::sendRaw(char* buffer, int len) {
-    int socketCode = send(this->socket, buffer, len, 0);
-
-    if (socketCode > 0) {
-        if (socketCode < len) {
-            cout << " Failure, amount of bytes sent did not reach expected length: << " << socketCode << " bytes sent" << endl;
-        }
-    }
-}
-
-/*
-Read raw bytes from socket
-
-@param byte buffer to manipulate
-@param the length of byte buffer
-@return total number of bytes received
-*/
-int NetworkConnection::readData(char* buffer, int len) {
-
-    if (len == 0) {
-        len = sizeof(buffer);
-    }
-
-    return recv(this->socket, buffer, len, 0);
 }

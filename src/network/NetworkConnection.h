@@ -1,42 +1,25 @@
 #pragma once
-#pragma comment(lib, "Ws2_32.lib")
-#include <stdlib.h>
-#include <stdio.h>
-#include <winsock.h>
+#include <cstdlib>
 #include <iostream>
-#include <string>
+#include <memory>
+#include <utility>
+#include <boost/asio.hpp>
 
-#include "Response.h"
+using boost::asio::ip::tcp;
 
-using namespace std;
-
-class NetworkConnection 
+class NetworkConnection : public std::enable_shared_from_this<NetworkConnection>
 {
+	public:
+		NetworkConnection(int connectionID, tcp::socket socket);
+		~NetworkConnection();
+		void recieve_data();
+		void write_data();
+		void disconnected();
 
-public:
-    NetworkConnection(int connectionID, SOCKET socket);
-    ~NetworkConnection();
-    
-    int readData(char* buffer, int len = 0);
-    void sendPolicy();
-    void sendRaw(char* buffer, int len);
-    void write_data(Response response);
-    void handle_data(char* data, int length);
-    
-    /*
-        Getters and setters
-    */
-    int getConnectionId() { return connectionID; }
-    bool getConnectionState() { return connected; }
-    void setConnectionState(bool state) { connected = state; }
-    SOCKET getSocket() { return socket; };
-    DWORD getThreadId() { return thread_id; }
-
-private:
-    int connectionID;
-    bool connected;
-    SOCKET socket;
-    DWORD thread_id;
-    void createThread();
-
+	private:
+		int connectionID;
+		tcp::socket socket_;
+		enum { max_length = 1024 };
+		char data_read[max_length];
+		char data_write[max_length];
 };
