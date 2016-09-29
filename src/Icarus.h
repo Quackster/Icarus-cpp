@@ -1,6 +1,10 @@
 #pragma once
+#include <string>
+
 #include "SessionManager.h"
 #include "NetworkServer.h"
+
+using namespace std;
 
 class Icarus 
 {

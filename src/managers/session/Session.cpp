@@ -3,12 +3,12 @@
 #include "Icarus.h"
 
 Session::Session(NetworkConnection *networkConnection) : networkConnection(networkConnection) {
-    printf(" [SESSION] Created session for connection: %i\n", networkConnection->getConnectionId());
+    cout << " [SESSION] Created session for connection: " << networkConnection->getConnectionId() << endl;
 }
 
 Session::~Session() {
     
-    printf(" [SESSION] Removed session for connection: %i\n", networkConnection->getConnectionId());
+    cout << " [SESSION] Removed session for connection: " << networkConnection->getConnectionId() << endl;
 
     // Dispose network connection
     Icarus::getNetworkServer()->removeNetworkConnection(this->networkConnection);
@@ -22,6 +22,6 @@ void Session::clear() {
     }
     catch (std::exception &e) {
 
-        printf("Caught exception: %s\n", e.what());
+        cout << " Caught exception: " << e.what() << endl;
     }
 }

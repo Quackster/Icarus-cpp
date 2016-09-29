@@ -28,9 +28,7 @@ private:
     int bytes_written;
     bool used;
     vector <char> message;
-
     void writeCChar(const char* str);
-
     enum { MAX_RESPONSE_SIZE = 1024 };
 };
 

@@ -33,6 +33,7 @@ void NetworkConnection::createThread() {
 Windows.h thread handler for recieving packets
 
 @param the parameter (cast to NetworkConnection) given when creating thre thread
+@return thread long
 */
 unsigned long __stdcall receive_data(LPVOID lpParameter) {
 
@@ -89,9 +90,12 @@ void NetworkConnection::handle_data(char* buffer, int length) {
         }
 
         Request request = Request(buffer);
-        printf(" [SESSION] [MESSAGE] Received header: %i\n", request.getMessageId());
+        cout << " [SESSION] [MESSAGE] Received header: " << request.getMessageId() << endl;
 
         if (request.getMessageId() == 1490) {
+
+            string authenticationTicket = request.readString();
+            cout << "<request> [LOGIN] Received SSO ticket: " << authenticationTicket << endl;
 
             Response response(1552);
             this->write_data(response);
@@ -106,34 +110,50 @@ void NetworkConnection::handle_data(char* buffer, int length) {
             response.writeInt(0);
             this->write_data(response);
 
-            string greetingZ = "sup fam";
-
-            response = Response(773);
-            response.writeInt(1);
-            response.writeString(greetingZ);
-            this->write_data(response);
-
         }
     }
 }
 
+/*
+Handle Response data to send to client
+
+@param response class with data appended to it
+@return void
+*/
 void NetworkConnection::write_data(Response response) {
     try {
-
-        // Send data to socket
-        send(this->socket, response.getData(), response.getBytesWritten(), 0);
+        this->sendRaw(response.getData(), response.getBytesWritten());
     } 
     catch (std::exception &e) {
-        printf("Caught exception: %s\n", e.what());
+        cout << " Caught exception: " << e.what() << endl;
     }
 }
 
 /*
 Send policy to the socket
 
-@return none
+@return void
+
 */
 void NetworkConnection::sendPolicy() {
     char* policy = "<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0";
-    send(this->getSocket(), policy, (int)strlen(policy) + 1, 0);
+    this->sendRaw(policy, (int)strlen(policy) + 1);
+}
+
+/*
+Send raw bytes to socket
+
+@param byte buffer to send
+@param the length of byte buffer
+@return total number of bytes sent (which can be fewer than the number requested to be sent), or SOCKET_ERROR id is returned
+        according to: https://msdn.microsoft.com/en-us/library/windows/desktop/ms740149(v=vs.85).aspx
+*/
+void NetworkConnection::sendRaw(char* buffer, int len) {
+    int socketCode = send(this->socket, buffer, len, 0);
+
+    if (socketCode > 0) {
+        if (socketCode < len) {
+            cout << " Failure, amount of bytes sent did not reach expected length: << " << socketCode << " bytes sent" << endl;
+        }
+    }
 }
