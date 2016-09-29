@@ -2,4 +2,7 @@
 # Ignore directories #
 
 Debug/
-x64/Debug/
+x64/
+x86/
+.vs/
+Icarus.VC.db
