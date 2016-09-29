@@ -10,7 +10,7 @@ Response constructor, it will initialise the deque, and append the header in raw
 Response::Response(short header) : header(header) {
     this->bytes_written = 0;
     this->used = false;
-    this->message = deque <char>(0);
+    this->message = vector <char>(0);
     this->writeShort(header);
 
 }
@@ -127,26 +127,9 @@ char* Response::getData() {
         this->bytes_written = this->bytes_written + 4; // increase bytes written
 
         for (int i = 0; i < 4; i++) {
-            this->message.push_front(size_raw[i]);
+            this->message.insert(this->message.begin(), size_raw[i]);
         }
     }
         
-    return toBytes();
-}
-
-/*
-Gets the entire collection of chars from deque into a single char array
-
-@return char array of collection
-*/
-char* Response::toBytes() {
-
-    int size = this->message.size();
-    static char output[MAX_RESPONSE_SIZE];
-
-    for (int i = 0; i < size; i++) {
-        output[i] = this->message[i];
-    }
-
-    return output;
+    return this->message.data();
 }
