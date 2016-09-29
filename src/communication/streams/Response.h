@@ -1,6 +1,7 @@
 #pragma once
 #include <deque>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -13,6 +14,7 @@ public:
     void writeInt(int number);
     void writeShort(short numberr);
     void writeString(char* str);
+    void writeString(string str) { this->writeString(str.c_str()); };
     char* getData();
     char* toBytes();
     char* getBytes(short num);

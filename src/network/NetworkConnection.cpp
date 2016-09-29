@@ -18,9 +18,7 @@ NetworkConnection::NetworkConnection(int connectionID, SOCKET socket) : connecti
     this->createThread();
 }
 
-NetworkConnection::~NetworkConnection() {
-    //delete this->buffer;
-}
+NetworkConnection::~NetworkConnection() { }
 
 /**
 Creates thread for handling packets
