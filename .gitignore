@@ -1,5 +1,5 @@
-Debug/*.obj
-Debug/*.pdb
-Debug/*.ilk
-Debug/*.obj.enc
-Debug/*.idb
+
+# Ignore directories #
+
+Debug/
+x64/Debug/
