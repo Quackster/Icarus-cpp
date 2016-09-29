@@ -1,7 +1,14 @@
 #include "stdafx.h"
 #include "NetworkConnection.h"
 
+/*
+NetworkConnection constructor
 
+@param connection id
+@param tcp::socket connection socket
+
+@return instance
+*/
 NetworkConnection::NetworkConnection(int connectionID, tcp::socket socket) : connectionID(connectionID), socket_(std::move(socket))
 {
 	printf("Client connected with ID: %i\n", this->connectionID);
@@ -12,6 +19,11 @@ NetworkConnection::~NetworkConnection()
 {
 }
 
+/*
+Receive data handle
+
+@return none
+*/
 void NetworkConnection::recieve_data() {
 
 	auto self(shared_from_this());
@@ -28,6 +40,11 @@ void NetworkConnection::recieve_data() {
 	});
 }
 
+/*
+Write data handle
+
+@return none
+*/
 void NetworkConnection::write_data() {
 
 	auto self(shared_from_this());
@@ -39,6 +56,11 @@ void NetworkConnection::write_data() {
 	});
 }
 
+/*
+Disconnect handle
+
+@return none
+*/
 void NetworkConnection::disconnected() {
 
 
