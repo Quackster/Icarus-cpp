@@ -45,10 +45,21 @@ unsigned long __stdcall receive_data(LPVOID lpParameter) {
 
     while (connection.getConnectionState()) {
 
-        receiveCount = recv(socket, buffer, sizeof(buffer), 0);
+        receiveCount = connection.readData(buffer, 4);
 
-        if (receiveCount >= 6) {
-            connection.handle_data(buffer, receiveCount);
+        if (receiveCount >= 4) {
+
+            if (buffer[0] == 60) {
+                connection.sendPolicy();
+                receiveCount = connection.readData(buffer, 20); // read rest of socket...
+            }
+            else {
+
+                int length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | (buffer[3]);
+
+                receiveCount = connection.readData(buffer, length);
+                connection.handle_data(buffer, length);
+            }
         } 
         else {
 
@@ -78,10 +89,7 @@ Handle incoming data from the client
 */
 void NetworkConnection::handle_data(char* buffer, int length) {
 
-    if (buffer[0] == 60) {
-        this->sendPolicy();
-    }
-    else {
+    try {
 
         // Once we passed through the policy, create a session and handle it
         if (!Icarus::getSessionManager()->containsSession(connectionID)) {
@@ -90,9 +98,12 @@ void NetworkConnection::handle_data(char* buffer, int length) {
         }
 
         Request request = Request(buffer);
-        cout << " [SESSION] [MESSAGE] Received header: " << request.getMessageId() << endl;
+        cout << " [SESSION] [MESSAGE] Received header: " << request.getMessageId() << " / ";
 
-        if (request.getMessageId() == 1490) {
+        cout << endl;
+
+
+        /*if (request.getMessageId() == 1490) {
 
             string authenticationTicket = request.readString();
             cout << "<request> [LOGIN] Received SSO ticket: " << authenticationTicket << endl;
@@ -109,8 +120,11 @@ void NetworkConnection::handle_data(char* buffer, int length) {
             response.writeInt(0);
             response.writeInt(0);
             this->write_data(response);
+        }*/
 
-        }
+    }
+    catch (...) {
+        cout << " Caught exception: " << endl;
     }
 }
 
@@ -156,4 +170,20 @@ void NetworkConnection::sendRaw(char* buffer, int len) {
             cout << " Failure, amount of bytes sent did not reach expected length: << " << socketCode << " bytes sent" << endl;
         }
     }
+}
+
+/*
+Read raw bytes from socket
+
+@param byte buffer to manipulate
+@param the length of byte buffer
+@return total number of bytes received
+*/
+int NetworkConnection::readData(char* buffer, int len) {
+
+    if (len == 0) {
+        len = sizeof(buffer);
+    }
+
+    return recv(this->socket, buffer, len, 0);
 }

@@ -10,7 +10,7 @@ Request constructor
 Request::Request(char *full_message) : full_message(full_message) {
     this->index = 0;
 
-    this->length = this->readInt();
+    //this->length = this->readInt();
     this->header = this->readShort();
 }
 

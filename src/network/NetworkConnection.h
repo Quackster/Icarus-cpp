@@ -17,6 +17,7 @@ public:
     NetworkConnection(int connectionID, SOCKET socket);
     ~NetworkConnection();
     
+    int readData(char* buffer, int len = 0);
     void sendPolicy();
     void sendRaw(char* buffer, int len);
     void write_data(Response response);
