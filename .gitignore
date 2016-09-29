@@ -6,3 +6,5 @@ x64/
 x86/
 .vs/
 Icarus.VC.db
+Icarus.VC.VC.opendb
+ipch/
