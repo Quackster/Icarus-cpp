@@ -48,6 +48,22 @@ void NetworkConnection::recieve_data() {
 }
 
 /*
+Write data handle
+
+@return none
+*/
+void NetworkConnection::write_data(char* data, int length) {
+
+    auto self(shared_from_this());
+
+    boost::asio::async_write(socket_, boost::asio::buffer(data, /*this->max_length*/length), [this, self, data](boost::system::error_code ec, std::size_t length) {
+        if (!ec) {
+            // send success
+        }
+    });
+}
+
+/*
 Handle incoming data
 
 @return none
@@ -67,7 +83,7 @@ void NetworkConnection::handle_data() {
 
         Request request(buffer);
 
-        cout << "header: " << request.getMessageId() << endl;
+        cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
 
         if (request.getMessageId() == 1490) {
 
@@ -86,23 +102,6 @@ void NetworkConnection::handle_data() {
         }
     }
 
-}
-
-
-/*
-Write data handle
-
-@return none
-*/
-void NetworkConnection::write_data(char* data, int length) {
-
-	auto self(shared_from_this());
-	
-	boost::asio::async_write(socket_,boost::asio::buffer(data, /*this->max_length*/length), [this, self, data](boost::system::error_code ec, std::size_t length) {
-		if ( !ec ) {
-            // send success
-		}
-	});
 }
 
 /*

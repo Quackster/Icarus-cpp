@@ -16,6 +16,7 @@ class NetworkConnection : public std::enable_shared_from_this<NetworkConnection>
 public:
 	NetworkConnection(int connectionID, tcp::socket socket);
 	~NetworkConnection();
+
 	void recieve_data();
     void handle_data();
     void send(Response response);
@@ -31,7 +32,7 @@ private:
 	int connectionID;
     bool connectionState;
 	tcp::socket socket_;
+
 	enum { max_length = 1024 };
 	char buffer[max_length];
-	//char data_write[max_length];
 };

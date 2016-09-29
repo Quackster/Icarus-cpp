@@ -5,14 +5,16 @@
 
 class Icarus
 {
-    public:
-        static SessionManager *sessionManager;
-		static NetworkServer *networkServer;
 
-		static void boot();
-		static void initialiseServer();
+public:
+    static SessionManager *sessionManager;
+	static NetworkServer *networkServer;
 
-        static SessionManager *getSessionManager() { return sessionManager; }
-        static NetworkServer *getNetworkServer() { return networkServer; }
+	static void boot();
+	static void initialiseServer(int server_port);
+
+    static SessionManager *getSessionManager() { return sessionManager; }
+    static NetworkServer *getNetworkServer() { return networkServer; }
+
 };
 

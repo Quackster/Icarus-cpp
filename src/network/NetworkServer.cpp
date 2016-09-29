@@ -26,9 +26,10 @@ Start accepting clients
 void NetworkServer::start_accept() {
 	acceptor.async_accept(socket, [this](boost::system::error_code ec) {
 
-		if (!ec) {
-            std::make_shared<NetworkConnection>(this->connectionID++, std::move(socket))->recieve_data();
-		}
+        if (!ec) {
+            shared_ptr<NetworkConnection> connection = std::make_shared<NetworkConnection>(this->connectionID++, std::move(socket));
+            connection->recieve_data(); // start with 4 bytes at first
+        }
 
 		this->start_accept();
 	});

@@ -5,7 +5,8 @@ int main(int argc, char* argv[]) {
 	try {
 		Icarus::boot();
 	} catch (std::exception& e) {
-		printf("Error occurred: %s", e.what());
+        cout << endl << " Error occurred: " << e.what() << endl;
+        while (true);
 	}
 	return 0;
 }
