@@ -51,7 +51,6 @@ Read a string with a 16bit length prefixed
 std::string Request::readString() {
 
     int length = readShort();
-    //char* str = new char[length + 1];
     std::string str;
     
 
@@ -59,7 +58,6 @@ std::string Request::readString() {
         str += this->full_message[index++];
     }
 
-    ///str[length] = '\0'; // Null terminate, needed for C++
     return str;
 }
 

@@ -101,7 +101,7 @@ and increases the bytes written by 2
 */
 void Response::writeString(char* str) {
 
-    short length = strlen(str);
+    short length = (short)strlen(str);
     this->writeShort(length);
 
     for (int i = 0; i < length; i++) {
@@ -142,7 +142,7 @@ Gets the entire collection of chars from deque into a single char array
 char* Response::toBytes() {
 
     int size = this->message.size();
-    char output[MAX_RESPONSE_SIZE];
+    static char output[MAX_RESPONSE_SIZE];
 
     for (int i = 0; i < size; i++) {
         output[i] = this->message[i];
