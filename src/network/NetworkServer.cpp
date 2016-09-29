@@ -33,3 +33,17 @@ void NetworkServer::start_accept() {
 		this->start_accept();
 	});
 }
+
+/**
+Stops network connection from listening for more packets and deletes it from memory
+@param NetworkConnection pointer to delete
+@return none
+*/
+void NetworkServer::removeNetworkConnection(NetworkConnection *connection) {
+
+    // Tell connnection to stop looping for more incoming packets
+    connection->setConnectionState(false);
+
+    // Clear connection from memory
+    //delete connection;
+}

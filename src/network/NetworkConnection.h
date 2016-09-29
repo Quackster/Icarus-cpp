@@ -23,8 +23,13 @@ public:
     void sendPolicy();
 	void disconnected();
 
+    int getConnectionId() { return connectionID; };
+    bool getConnectionState() { return connectionState; };
+    void setConnectionState(bool connectionState) { this->connectionState = connectionState; };
+
 private:
 	int connectionID;
+    bool connectionState;
 	tcp::socket socket_;
 	enum { max_length = 1024 };
 	char buffer[max_length];

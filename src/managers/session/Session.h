@@ -5,12 +5,12 @@ class Session
 {
 
 public:
-	Session(std::shared_ptr<NetworkConnection> session_connection);
+	Session(NetworkConnection *networkConnection);
 	~Session();
 	void clear();
-    std::shared_ptr<NetworkConnection> getNetworkConnection() { return networkConnection; }
+    NetworkConnection *getNetworkConnection() { return networkConnection; }
 
 private:
-	std::shared_ptr<NetworkConnection> networkConnection;
+    NetworkConnection *networkConnection;
 	
 };

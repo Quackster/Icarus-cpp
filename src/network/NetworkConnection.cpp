@@ -1,4 +1,6 @@
 #include "stdafx.h"
+
+#include "Icarus.h"
 #include "NetworkConnection.h"
 
 /*
@@ -9,15 +11,11 @@ NetworkConnection constructor
 
 @return instance
 */
-NetworkConnection::NetworkConnection(int connectionID, tcp::socket socket) : connectionID(connectionID), socket_(std::move(socket))
-{
-	printf("Client connected with ID: %i\n", this->connectionID);
+NetworkConnection::NetworkConnection(int connectionID, tcp::socket socket) : connectionID(connectionID), socket_(std::move(socket)) {
+    this->connectionState = true;
 }
 
-
-NetworkConnection::~NetworkConnection()
-{
-}
+NetworkConnection::~NetworkConnection() { }
 
 /*
 Receive data handle
@@ -35,7 +33,15 @@ void NetworkConnection::recieve_data() {
             this->recieve_data();
         }
         else {
-			printf("disconnection \n");
+            
+            // Handle session disconnect
+            if (Icarus::getSessionManager()->containsSession(this->connectionID)) {
+                Icarus::getSessionManager()->removeSession(this->connectionID);
+            }
+            else {
+                // Remove connection if it was just a policy request
+                Icarus::getNetworkServer()->removeNetworkConnection(this);
+            }
 		}
 
 	});
@@ -52,6 +58,12 @@ void NetworkConnection::handle_data() {
         this->sendPolicy();
     }
     else {
+
+        // Once we passed through the policy, create a session and handle it
+        if (!Icarus::getSessionManager()->containsSession(connectionID)) {
+            Session *session = new Session(this);
+            Icarus::getSessionManager()->addSession(session, this->getConnectionId());
+        }
 
         Request request(buffer);
 

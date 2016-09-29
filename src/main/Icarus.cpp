@@ -5,6 +5,7 @@
 Initialise the static variables
 */
 SessionManager* Icarus::sessionManager = new SessionManager();
+NetworkServer* Icarus::networkServer;
 
 /*
 Call Boost Asio API to start server
@@ -13,7 +14,7 @@ Call Boost Asio API to start server
 */
 void Icarus::initialiseServer() {
 	boost::asio::io_service io_service;
-	NetworkServer server(io_service, 30000);
+    networkServer = new NetworkServer(io_service, 30000);
 	io_service.run();
 }
 
