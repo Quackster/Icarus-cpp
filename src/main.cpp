@@ -1,13 +1,12 @@
-#include <stdexcept>
-
 #include "stdafx.h"
 #include "Icarus.h"
 
-#define DEBUG_MODE 1
-
-using namespace std;
-
 int main(int argc, char* argv[]) {
-	Icarus::boot();
+	try {
+		Icarus::boot();
+	} catch (std::exception& e) {
+        cout << endl << " Error occurred: " << e.what() << endl;
+        while (true);
+	}
 	return 0;
 }

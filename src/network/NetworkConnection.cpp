@@ -1,147 +1,159 @@
 #include "stdafx.h"
+
 #include "Icarus.h"
 #include "NetworkConnection.h"
-#include "Session.h"
-#include "Request.h"
 
-/*DWORD WINAPI*/
-unsigned long __stdcall  receive_data(LPVOID lpParameter);
+/*
+NetworkConnection constructor
 
-/**
-Constructor for NetworkConnection, takes Windows socket instance and connection ID
+@param connection id
+@param tcp::socket connection socket
 
-@param connection ID counter, this is the same ID used to fetch the session from session manager
-@param windows socket
-@return none
+@return instance
 */
-NetworkConnection::NetworkConnection(int connectionID, SOCKET socket) : connectionID(connectionID), socket(socket) {
-    this->createThread();
+NetworkConnection::NetworkConnection(int connectionID, tcp::socket socket) : connectionID(connectionID), socket_(std::move(socket)) {
+    this->connectionState = true;
 }
 
 NetworkConnection::~NetworkConnection() { }
 
-/**
-Creates thread for handling packets
+/*
+Receive data handle
 
 @return none
 */
-void NetworkConnection::createThread() {
-    CreateThread(NULL, 0, receive_data, (LPVOID)this, 0, &thread_id);
-}
+void NetworkConnection::recieve_data() {
 
-/**
-Windows.h thread handler for recieving packets
+    auto self(shared_from_this());
 
-@param the parameter (cast to NetworkConnection) given when creating thre thread
-@return thread long
-*/
-unsigned long __stdcall receive_data(LPVOID lpParameter) {
+    // only 4 bytes for now, the length
+    socket_.async_read_some(boost::asio::buffer(buffer, 4), [this, self](boost::system::error_code ec, std::size_t length) {
 
-    NetworkConnection& connection = *((NetworkConnection*)lpParameter);
-    SOCKET socket = connection.getSocket();
-
-    char buffer[1024];
-    int receiveCount = 0;
-
-    while (connection.getConnectionState()) {
-
-        receiveCount = connection.readData(buffer, 4);
-
-        if (receiveCount >= 4) {
+        if (!ec) {
 
             if (buffer[0] == 60) {
-                connection.sendPolicy();
-                receiveCount = connection.readData(buffer, 20); // read rest of socket...
+                this->sendPolicy();
+
+                // Read rest of policy request
+                socket_.async_read_some(boost::asio::buffer(buffer, 18), [this, self](boost::system::error_code ec, std::size_t length) {});
             }
             else {
 
-                int length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | (buffer[3]);
+                // Use bitwise operators to get the length needed to read the rest of the message
+                int message_length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | (buffer[3]);
 
-                receiveCount = connection.readData(buffer, length);
-                connection.handle_data(buffer, length);
+                // Read rest of message, to prevent any combined packets
+                socket_.async_read_some(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
+
+                    if (length > 0) {
+                        Request request(buffer);
+
+                        if (request.getMessageId() > 0) {
+                            this->handle_data(request);
+                        }
+                    }
+                });
             }
-        } 
+
+            this->recieve_data();
+        }
         else {
 
             // Handle session disconnect
-            if (Icarus::getSessionManager()->containsSession(connection.getConnectionId())) {
-                Icarus::getSessionManager()->removeSession(connection.getConnectionId());
-            } else {
-                // Remove connection if it was just a policy request
-                Icarus::getNetworkServer()->removeNetworkConnection(&connection);
+            if (Icarus::getSessionManager()->containsSession(this->connectionID)) {
+                Icarus::getSessionManager()->removeSession(this->connectionID);
             }
-
-            // Stop more code from executing
-            return 0;
+            else {
+                // Remove connection if it was just a policy request
+                Icarus::getNetworkServer()->removeNetworkConnection(this);
+            }
         }
-    }
 
-    return 0;
-
+    });
 }
+/*void NetworkConnection::recieve_data() {
+
+	auto self(shared_from_this());
+
+	socket_.async_read_some(boost::asio::buffer(buffer, sizeof(buffer)), [this, self]( boost::system::error_code ec, std::size_t length) {
+
+        if (!ec) {
+            this->handle_data();
+            this->recieve_data();
+        }
+        else {
+            
+            // Handle session disconnect
+            if (Icarus::getSessionManager()->containsSession(this->connectionID)) {
+                Icarus::getSessionManager()->removeSession(this->connectionID);
+            }
+            else {
+                // Remove connection if it was just a policy request
+                Icarus::getNetworkServer()->removeNetworkConnection(this);
+            }
+		}
+
+	});
+}*/
 
 /*
-Handle incoming data from the client
+Write data handle
 
-@param buffer array
-@param the size of the recieved data
 @return none
 */
-void NetworkConnection::handle_data(char* buffer, int length) {
+void NetworkConnection::write_data(char* data, int length) {
 
-    try {
+    auto self(shared_from_this());
 
-        // Once we passed through the policy, create a session and handle it
-        if (!Icarus::getSessionManager()->containsSession(connectionID)) {
-            Session *session = new Session(this);
-            Icarus::getSessionManager()->addSession(session, this->getConnectionId());
+    boost::asio::async_write(socket_, boost::asio::buffer(data, /*this->max_length*/length), [this, self, data](boost::system::error_code ec, std::size_t length) {
+        if (!ec) {
+            // send success
         }
-
-        Request request = Request(buffer);
-        cout << " [SESSION] [MESSAGE] Received header: " << request.getMessageId() << " / ";
-
-        cout << endl;
-
-
-        /*if (request.getMessageId() == 1490) {
-
-            string authenticationTicket = request.readString();
-            cout << "<request> [LOGIN] Received SSO ticket: " << authenticationTicket << endl;
-
-            Response response(1552);
-            this->write_data(response);
-
-            response = Response(1351);
-            response.writeString("");
-            response.writeString("");
-            this->write_data(response);
-
-            response = Response(704);
-            response.writeInt(0);
-            response.writeInt(0);
-            this->write_data(response);
-        }*/
-
-    }
-    catch (...) {
-        cout << " Caught exception: " << endl;
-    }
+    });
 }
 
 /*
-Handle Response data to send to client
+Handle incoming data
 
-@param response class with data appended to it
-@return void
+@return none
 */
-void NetworkConnection::write_data(Response response) {
-    try {
-        this->sendRaw(response.getData(), response.getBytesWritten());
-    } 
-    catch (std::exception &e) {
-        cout << " Caught exception: " << e.what() << endl;
+void NetworkConnection::handle_data(Request request) {
+
+    // Once we passed through the policy, create a session and handle it
+    if (!Icarus::getSessionManager()->containsSession(connectionID)) {
+        Session *session = new Session(this);
+        Icarus::getSessionManager()->addSession(session, this->getConnectionId());
     }
+
+    cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
+
+    if (request.getMessageId() == 1490) {
+
+        Response response(1552);
+        this->send(response);
+
+        response = Response(1351);
+        response.writeString("");
+        response.writeString("");
+        this->send(response);
+
+        response = Response(704);
+        response.writeInt(0);
+        response.writeInt(0);
+        this->send(response);
+    }
+
 }
+
+/*
+Send response class to socket
+
+@return none
+*/
+void NetworkConnection::send(Response response) {
+    this->write_data(response.getData(), response.getBytesWritten());
+}
+
 
 /*
 Send policy to the socket
@@ -151,39 +163,15 @@ Send policy to the socket
 */
 void NetworkConnection::sendPolicy() {
     char* policy = "<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0";
-    this->sendRaw(policy, (int)strlen(policy) + 1);
+    this->write_data(policy, (int)strlen(policy) + 1);
 }
 
 /*
-Send raw bytes to socket
+Disconnect handle
 
-@param byte buffer to send
-@param the length of byte buffer
-@return total number of bytes sent (which can be fewer than the number requested to be sent), or SOCKET_ERROR id is returned
-        according to: https://msdn.microsoft.com/en-us/library/windows/desktop/ms740149(v=vs.85).aspx
+@return none
 */
-void NetworkConnection::sendRaw(char* buffer, int len) {
-    int socketCode = send(this->socket, buffer, len, 0);
+void NetworkConnection::disconnected() {
 
-    if (socketCode > 0) {
-        if (socketCode < len) {
-            cout << " Failure, amount of bytes sent did not reach expected length: << " << socketCode << " bytes sent" << endl;
-        }
-    }
-}
 
-/*
-Read raw bytes from socket
-
-@param byte buffer to manipulate
-@param the length of byte buffer
-@return total number of bytes received
-*/
-int NetworkConnection::readData(char* buffer, int len) {
-
-    if (len == 0) {
-        len = sizeof(buffer);
-    }
-
-    return recv(this->socket, buffer, len, 0);
 }

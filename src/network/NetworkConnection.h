@@ -1,42 +1,38 @@
 #pragma once
-#pragma comment(lib, "Ws2_32.lib")
-#include <stdlib.h>
-#include <stdio.h>
-#include <winsock.h>
+#include <cstdlib>
 #include <iostream>
-#include <string>
+#include <memory>
+#include <utility>
+#include <boost/asio.hpp>
 
+#include "Request.h"
 #include "Response.h"
 
-using namespace std;
 
-class NetworkConnection 
+using boost::asio::ip::tcp;
+
+class NetworkConnection : public std::enable_shared_from_this<NetworkConnection>
 {
-
 public:
-    NetworkConnection(int connectionID, SOCKET socket);
-    ~NetworkConnection();
-    
-    int readData(char* buffer, int len = 0);
+	NetworkConnection(int connectionID, tcp::socket socket);
+	~NetworkConnection();
+
+	void recieve_data();
+    void handle_data(Request request);
+    void send(Response response);
+	void write_data(char* data, int length);
     void sendPolicy();
-    void sendRaw(char* buffer, int len);
-    void write_data(Response response);
-    void handle_data(char* data, int length);
-    
-    /*
-        Getters and setters
-    */
-    int getConnectionId() { return connectionID; }
-    bool getConnectionState() { return connected; }
-    void setConnectionState(bool state) { connected = state; }
-    SOCKET getSocket() { return socket; };
-    DWORD getThreadId() { return thread_id; }
+	void disconnected();
+
+    int getConnectionId() { return connectionID; };
+    bool getConnectionState() { return connectionState; };
+    void setConnectionState(bool connectionState) { this->connectionState = connectionState; };
 
 private:
-    int connectionID;
-    bool connected;
-    SOCKET socket;
-    DWORD thread_id;
-    void createThread();
+	int connectionID;
+    bool connectionState;
+	tcp::socket socket_;
 
+	enum { max_length = 512 };
+	char buffer[max_length];
 };

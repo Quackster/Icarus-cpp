@@ -1,24 +1,25 @@
 #include "stdafx.h"
 #include "Icarus.h"
-#include "NetworkServer.h"
 
 /*
 Initialise the static variables
 */
 SessionManager* Icarus::sessionManager = new SessionManager();
-NetworkServer* Icarus::networkServer = new NetworkServer();
+NetworkServer* Icarus::networkServer;
 
 /*
-Method to call when starting the server
+Call Boost Asio API to start server
 
 @return none
 */
-void Icarus::initialiseServer() {
-    Icarus::networkServer->startServer(30000);
+void Icarus::initialiseServer(int serverPort) {
+	boost::asio::io_service io_service;
+    networkServer = new NetworkServer(io_service, serverPort);
+	io_service.run();
 }
 
 /*
-Console application boot appearance, along with handling the startup of the server
+Method to boot server with nice print
 
 @return none
 */
@@ -33,9 +34,8 @@ void Icarus::boot() {
     cout << " This is a Habbo Hotel private server written in C++ built for Windows." << endl;
     cout << endl;
 
-    cout << " [BOOT] Starting server" << endl;
-    initialiseServer();
+    int serverPort = 30000;
+    cout << " [BOOT] Starting server on port: " << serverPort << endl;
+    initialiseServer(serverPort);
 
-    cout << " [BOOT] Finished!" << endl;
-    cout << endl;
 }
