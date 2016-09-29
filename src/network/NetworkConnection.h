@@ -18,7 +18,7 @@ public:
 	~NetworkConnection();
 
 	void recieve_data();
-    void handle_data();
+    void handle_data(Request request);
     void send(Response response);
 	void write_data(char* data, int length);
     void sendPolicy();
@@ -33,6 +33,6 @@ private:
     bool connectionState;
 	tcp::socket socket_;
 
-	enum { max_length = 1024 };
+	enum { max_length = 512 };
 	char buffer[max_length];
 };

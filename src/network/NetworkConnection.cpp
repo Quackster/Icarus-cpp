@@ -24,6 +24,53 @@ Receive data handle
 */
 void NetworkConnection::recieve_data() {
 
+    auto self(shared_from_this());
+
+    // only 4 bytes for now, the length
+    socket_.async_read_some(boost::asio::buffer(buffer, 4), [this, self](boost::system::error_code ec, std::size_t length) {
+
+        if (!ec) {
+
+            if (buffer[0] == 60) {
+                this->sendPolicy();
+
+                // Read rest of policy request
+                socket_.async_read_some(boost::asio::buffer(buffer, 18), [this, self](boost::system::error_code ec, std::size_t length) {});
+            }
+            else {
+
+                int message_length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | (buffer[3]);
+
+                socket_.async_read_some(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
+
+                    if (length > 0) {
+                        Request request(buffer);
+
+                        if (request.getMessageId() > 0) {
+                            this->handle_data(request);
+                        }
+                    }
+                });
+            }
+
+            this->recieve_data();
+        }
+        else {
+
+            // Handle session disconnect
+            if (Icarus::getSessionManager()->containsSession(this->connectionID)) {
+                Icarus::getSessionManager()->removeSession(this->connectionID);
+            }
+            else {
+                // Remove connection if it was just a policy request
+                Icarus::getNetworkServer()->removeNetworkConnection(this);
+            }
+        }
+
+    });
+}
+/*void NetworkConnection::recieve_data() {
+
 	auto self(shared_from_this());
 
 	socket_.async_read_some(boost::asio::buffer(buffer, sizeof(buffer)), [this, self]( boost::system::error_code ec, std::size_t length) {
@@ -45,7 +92,7 @@ void NetworkConnection::recieve_data() {
 		}
 
 	});
-}
+}*/
 
 /*
 Write data handle
@@ -68,38 +115,30 @@ Handle incoming data
 
 @return none
 */
-void NetworkConnection::handle_data() {
+void NetworkConnection::handle_data(Request request) {
 
-    if (buffer[0] == 60) {
-        this->sendPolicy();
+    // Once we passed through the policy, create a session and handle it
+    if (!Icarus::getSessionManager()->containsSession(connectionID)) {
+        Session *session = new Session(this);
+        Icarus::getSessionManager()->addSession(session, this->getConnectionId());
     }
-    else {
 
-        // Once we passed through the policy, create a session and handle it
-        if (!Icarus::getSessionManager()->containsSession(connectionID)) {
-            Session *session = new Session(this);
-            Icarus::getSessionManager()->addSession(session, this->getConnectionId());
-        }
+    cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
 
-        Request request(buffer);
+    if (request.getMessageId() == 1490) {
 
-        cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
+        Response response(1552);
+        this->send(response);
 
-        if (request.getMessageId() == 1490) {
+        response = Response(1351);
+        response.writeString("");
+        response.writeString("");
+        this->send(response);
 
-            Response response(1552);
-            this->send(response);
-
-            response = Response(1351);
-            response.writeString("");
-            response.writeString("");
-            this->send(response);
-
-            response = Response(704);
-            response.writeInt(0);
-            response.writeInt(0);
-            this->send(response);
-        }
+        response = Response(704);
+        response.writeInt(0);
+        response.writeInt(0);
+        this->send(response);
     }
 
 }
