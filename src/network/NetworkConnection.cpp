@@ -106,9 +106,11 @@ void NetworkConnection::handle_data(char* buffer, int length) {
             response.writeInt(0);
             this->write_data(response);
 
+            string greetingZ = "sup fam";
+
             response = Response(773);
             response.writeInt(1);
-            response.writeString("sup fam");
+            response.writeString(greetingZ);
             this->write_data(response);
 
         }

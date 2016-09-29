@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <winsock.h>
 #include <iostream>
-#include <vector>
-#include <sstream>
+#include <string>
+
 #include "Response.h"
 
 using namespace std;

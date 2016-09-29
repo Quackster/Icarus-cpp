@@ -99,7 +99,7 @@ and increases the bytes written by 2
 
 @return none
 */
-void Response::writeString(char* str) {
+void Response::writeCChar(const char* str) {
 
     short length = (short)strlen(str);
     this->writeShort(length);

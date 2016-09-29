@@ -13,8 +13,8 @@ public:
     ~Response();
     void writeInt(int number);
     void writeShort(short numberr);
-    void writeString(char* str);
-    void writeString(string str) { this->writeString(str.c_str()); };
+    void writeString(const char* str) { this->writeCChar(str); };
+    void writeString(string str) { this->writeCChar(str.c_str()); };
     char* getData();
     char* toBytes();
     char* getBytes(short num);
@@ -28,6 +28,8 @@ private:
     int bytes_written;
     bool used;
     deque <char> message;
+
+    void writeCChar(const char* str);
 
     enum { MAX_RESPONSE_SIZE = 1024 };
 };
