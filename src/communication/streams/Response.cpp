@@ -126,7 +126,6 @@ char* Response::getData() {
         // Get the size in raw 4 int 32 length prefixed, but reversed
         // as this needs to be inserted at the front
         char* size_raw = this->getBytes(this->bytes_written, true);
-        this->bytes_written = this->bytes_written + 4; // increase bytes written
 
         for (int i = 0; i < 4; i++) {
 
