@@ -155,7 +155,7 @@
   <ItemGroup>
     <ClInclude Include="src\communication\streams\Request.h" />
     <ClInclude Include="src\communication\streams\Response.h" />
-    <ClInclude Include="src\main\Icarus.h" />
+    <ClInclude Include="src\communication\streams\main\Icarus.h" />
     <ClInclude Include="src\network\NetworkServer.h" />
     <ClInclude Include="src\managers\session\Session.h" />
     <ClInclude Include="src\network\NetworkConnection.h" />
@@ -166,7 +166,7 @@
   <ItemGroup>
     <ClCompile Include="src\communication\streams\Request.cpp" />
     <ClCompile Include="src\communication\streams\Response.cpp" />
-    <ClCompile Include="src\main\Icarus.cpp" />
+    <ClCompile Include="src\communication\streams\main\Icarus.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\network\NetworkServer.cpp" />
     <ClCompile Include="src\managers\session\Session.cpp" />
