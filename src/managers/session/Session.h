@@ -5,14 +5,14 @@ class Session
 {
 
 public:
-	Session(NetworkConnection *networkConnection);
-	~Session();
+    Session(NetworkConnection *networkConnection);
+    ~Session();
 
-	void clear();
+    void clear();
 
     NetworkConnection *getNetworkConnection() { return networkConnection; }
 
 private:
     NetworkConnection *networkConnection;
-	
+    
 };

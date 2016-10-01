@@ -73,9 +73,9 @@ void NetworkConnection::recieve_data() {
 }
 /*void NetworkConnection::recieve_data() {
 
-	auto self(shared_from_this());
+    auto self(shared_from_this());
 
-	socket_.async_read_some(boost::asio::buffer(buffer, sizeof(buffer)), [this, self]( boost::system::error_code ec, std::size_t length) {
+    socket_.async_read_some(boost::asio::buffer(buffer, sizeof(buffer)), [this, self]( boost::system::error_code ec, std::size_t length) {
 
         if (!ec) {
             this->handle_data();
@@ -91,9 +91,9 @@ void NetworkConnection::recieve_data() {
                 // Remove connection if it was just a policy request
                 Icarus::getNetworkServer()->removeNetworkConnection(this);
             }
-		}
+        }
 
-	});
+    });
 }*/
 
 /*

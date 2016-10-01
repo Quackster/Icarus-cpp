@@ -12,5 +12,5 @@ Session::~Session() {
 
 void Session::clear() {
 
-	
+    
 }
