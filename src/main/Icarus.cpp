@@ -13,9 +13,9 @@ Call Boost Asio API to start server
 @return none
 */
 void Icarus::initialiseServer(int serverPort) {
-	boost::asio::io_service io_service;
+    boost::asio::io_service io_service;
     networkServer = new NetworkServer(io_service, serverPort);
-	io_service.run();
+    io_service.run();
 }
 
 /*

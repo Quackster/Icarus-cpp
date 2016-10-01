@@ -13,7 +13,7 @@ public:
 	static void boot();
 	static void initialiseServer(int server_port);
 
-    static SessionManager *getSessionManager() { return sessionManager; }
+    static SessionManager *getSessionManager() { return NULL; }
     static NetworkServer *getNetworkServer() { return networkServer; }
 
 };
