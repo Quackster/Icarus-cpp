@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Request.h"
-#include "windows.h"
 
 /*
 Request constructor
