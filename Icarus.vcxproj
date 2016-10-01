@@ -88,32 +88,43 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;%(AdditionalIncludeDirectories);src;src/main;src/managers;src/managers/session;src/network;src/communication;src/communication/streams;include;include/main;include/managers;include/managers/session;include/network;include/communication;include/communication/streams</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\lib\boost_1_62_0\stage\win32\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\lib\boost_1_62_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>D:\lib\boost_1_62_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\communication\streams\Request.h" />
-    <ClInclude Include="include\communication\streams\Response.h" />
-    <ClInclude Include="include\main\Icarus.h" />
-    <ClInclude Include="include\network\NetworkServer.h" />
-    <ClInclude Include="include\managers\Session.h" />
-    <ClInclude Include="include\network\NetworkConnection.h" />
-    <ClInclude Include="include\managers\SessionManager.h" />
-    <ClInclude Include="include\stdafx.h" />
-    <ClInclude Include="include\targetver.h" />
+    <ClInclude Include="includes\communication\incoming\login\AuthenticateMessageEvent.h" />
+    <ClInclude Include="includes\communication\streams\Request.h" />
+    <ClInclude Include="includes\communication\streams\Response.h" />
+    <ClInclude Include="includes\headers\Incoming.h" />
+    <ClInclude Include="includes\boot\Icarus.h" />
+    <ClInclude Include="includes\network\NetworkServer.h" />
+    <ClInclude Include="includes\managers\session\Session.h" />
+    <ClInclude Include="includes\network\NetworkConnection.h" />
+    <ClInclude Include="includes\managers\session\SessionManager.h" />
+    <ClInclude Include="includes\stdafx.h" />
+    <ClInclude Include="includes\targetver.h" />
+    <ClInclude Include="includes\communication\messages\IncomingMessage.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\communication\streams\Request.cpp" />
     <ClCompile Include="src\communication\streams\Response.cpp" />
-    <ClCompile Include="src\main\Icarus.cpp" />
+    <ClCompile Include="src\boot\Icarus.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\network\NetworkServer.cpp" />
     <ClCompile Include="src\managers\session\Session.cpp" />

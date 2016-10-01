@@ -5,8 +5,8 @@
 #include <utility>
 #include <boost/asio.hpp>
 
-#include "Request.h"
-#include "Response.h"
+#include "communication/streams/Request.h"
+#include "communication/streams/Response.h"
 
 
 using boost::asio::ip::tcp;

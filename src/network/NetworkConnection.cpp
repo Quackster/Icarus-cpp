@@ -1,7 +1,9 @@
 #include "stdafx.h"
 
-#include "Icarus.h"
-#include "NetworkConnection.h"
+#include "boot/Icarus.h"
+#include "network/NetworkConnection.h"
+#include "communication/messages/IncomingMessage.h"
+#include "communication/incoming/login/AuthenticateMessageEvent.h"
 
 /*
 NetworkConnection constructor
@@ -126,6 +128,13 @@ void NetworkConnection::handle_data(Request request) {
     }
 
     cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
+
+    /*map<int, IncomingMessage*> messages;
+    messages.insert(std::make_pair(1490, new AuthenticateMessageEvent()));
+
+    if (messages.count(request.getMessageId())) {
+        messages.find(request.getMessageId())->second->read(request);
+    }*/
 
     if (request.getMessageId() == 1490) {
 

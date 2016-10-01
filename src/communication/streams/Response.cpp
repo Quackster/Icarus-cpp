@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Response.h"
+#include "communication/streams/Response.h"
 
 /*
 Response constructor, it will initialise the deque, and append the header in raw bytes

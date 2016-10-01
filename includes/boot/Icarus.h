@@ -1,7 +1,8 @@
 #pragma once
-#include "Session.h"
-#include "NetworkServer.h"
-#include "SessionManager.h"
+#include "managers/session/SessionManager.h"
+#include "managers/session/Session.h"
+#include "network/NetworkServer.h"
+
 
 class Icarus
 {

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Session.h"
+#include "managers/session/Session.h"
 
 Session::Session(NetworkConnection *session_connection) : networkConnection(session_connection) {
     cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << endl;

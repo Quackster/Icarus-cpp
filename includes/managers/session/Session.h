@@ -1,5 +1,5 @@
 #pragma once
-#include "NetworkConnection.h"
+#include "network/NetworkConnection.h"
 
 class Session
 {

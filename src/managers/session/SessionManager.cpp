@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "Session.h"
-#include "SessionManager.h"
+#include "managers/session/Session.h"
+#include "managers/session/SessionManager.h"
 
 /*
 Constructor for Session Manager

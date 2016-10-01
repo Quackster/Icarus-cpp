@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "NetworkServer.h"
+#include "network/NetworkServer.h"
 
 /*
 Network server constructor

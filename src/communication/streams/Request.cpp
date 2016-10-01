@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Request.h"
+#include "communication/streams/Request.h"
 
 /*
 Request constructor
