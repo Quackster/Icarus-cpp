@@ -35,6 +35,9 @@ void Session::clear() {
 /*
     Session deconstructor, called when session disconnects, 
     is deleted from SessionManager class
+
+    networkManager->connectionState has already been set to false 
+    so there won't be any more packet receiving
 */
 Session::~Session() {
     cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << endl;

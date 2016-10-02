@@ -24,12 +24,21 @@ Receive data handle
 */
 void NetworkConnection::recieve_data() {
 
+    if (!this->connectionState) {
+        return; // Person disconnected, stop listing for data, in case somehow it still is (when it shouldn't) ;)
+    }
+
+    cout << "topkek";
+
     auto self(shared_from_this());
 
     // only 4 bytes for now, the length
     socket_.async_read_some(boost::asio::buffer(buffer, 4), [this, self](boost::system::error_code ec, std::size_t length) {
 
         if (!ec) {
+
+            // If the first part of the packet starts with '<'
+            //    then we send the flash policy back
 
             if (buffer[0] == 60) {
                 this->sendPolicy();
