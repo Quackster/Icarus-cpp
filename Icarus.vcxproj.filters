@@ -13,76 +13,40 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\communication">
-      <UniqueIdentifier>{4e8b5300-2b3d-4ad0-8001-228276babaa9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\communication\streams">
-      <UniqueIdentifier>{d0d335f6-432a-4dbe-b07e-37e6148d4d4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\managers">
-      <UniqueIdentifier>{6f31957d-10df-4082-965e-9cb7308b8fb8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\network">
-      <UniqueIdentifier>{52b11b5e-7945-4e6b-a1f3-b499e84ecc37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\managers\session">
-      <UniqueIdentifier>{7bb388d7-dd61-4c82-9de0-57e29586a0a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\communication">
-      <UniqueIdentifier>{e1cc8310-b14b-4ead-bbe8-644eaaa18910}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\communication\streams">
-      <UniqueIdentifier>{999f0035-a541-4392-8450-261ea9dfb333}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\managers">
-      <UniqueIdentifier>{d403eaca-20a1-4943-b530-6969cab7a86a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\managers\session">
-      <UniqueIdentifier>{75ab9ab7-cdfd-4087-89f5-8e6a1071f91b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\network">
-      <UniqueIdentifier>{7d5aabeb-88b6-4704-9862-753dbfb8965d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\communication\incoming">
-      <UniqueIdentifier>{9a92e5f2-4cc6-4cb6-8e0c-b7cd4af59737}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\communication\incoming\login">
-      <UniqueIdentifier>{35e118c6-ff2f-4ac9-b8e5-cb0afc0d4e9c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\boot">
-      <UniqueIdentifier>{ec3947cc-57be-47c7-bae4-8730ac29c24c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\boot">
-      <UniqueIdentifier>{ee369ce6-25bd-4df3-8c7e-16488ffa17ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\communication\outgoing">
-      <UniqueIdentifier>{689e4197-62b2-42ca-a8ff-8647234c1f61}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\communication\outgoing\login">
-      <UniqueIdentifier>{e4c69e62-4fcc-47bd-a787-0ee95bc8bf42}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\communication\outgoing\MessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="includes\communication\streams\Request.h">
-      <Filter>Header Files\communication\streams</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\login\AuthenticateMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\incoming\MessageHandler.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\communication\streams\Response.h">
-      <Filter>Header Files\communication\streams</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\headers\Incoming.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="includes\headers\Outgoing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="includes\managers\session\Session.h">
-      <Filter>Header Files\managers\session</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\managers\session\SessionManager.h">
-      <Filter>Header Files\managers\session</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\network\NetworkConnection.h">
-      <Filter>Header Files\network</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\network\NetworkServer.h">
-      <Filter>Header Files\network</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\stdafx.h">
       <Filter>Header Files</Filter>
@@ -91,15 +55,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\boot\Icarus.h">
-      <Filter>Header Files\boot</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\communication\outgoing\MessageComposer.h">
-      <Filter>Header Files\communication\outgoing</Filter>
+    <ClInclude Include="includes\communication\incoming\MessageEvent.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\communication\outgoing\login\AuthenticateMessageComposer.h">
-      <Filter>Header Files\communication\outgoing\login</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\headers\Outgoing.h">
+    <ClInclude Include="includes\communication\incoming\login\AuthenticateMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -110,26 +71,29 @@
     <ClCompile Include="src\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\network\NetworkConnection.cpp">
-      <Filter>Source Files\network</Filter>
-    </ClCompile>
-    <ClCompile Include="src\network\NetworkServer.cpp">
-      <Filter>Source Files\network</Filter>
+    <ClCompile Include="src\communication\streams\Request.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\communication\streams\Response.cpp">
-      <Filter>Source Files\communication\streams</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\communication\streams\Request.cpp">
-      <Filter>Source Files\communication\streams</Filter>
-    </ClCompile>
-    <ClCompile Include="src\managers\session\SessionManager.cpp">
-      <Filter>Source Files\managers\session</Filter>
+    <ClCompile Include="src\communication\incoming\MessageHandler.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\managers\session\Session.cpp">
-      <Filter>Source Files\managers\session</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\session\SessionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\NetworkConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\NetworkServer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\boot\Icarus.cpp">
-      <Filter>Source Files\boot</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

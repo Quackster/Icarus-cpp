@@ -11,12 +11,13 @@ class SessionManager
 
 public:
     SessionManager();
+    ~SessionManager();
     void addSession(Session *session, int connectionID);
     void removeSession(int connectionID);
     bool containsSession(int connectionID);
     Session* getSession(int connectionID);
 
 private:
-    map<int, Session*>* sessions;
+    map<int, Session*> *sessions;
 
 };

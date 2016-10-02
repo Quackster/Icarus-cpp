@@ -4,7 +4,6 @@
 class AuthenticateMessageComposer : public MessageComposer {
 
 public:
-
     AuthenticateMessageComposer() { }
 
     Response compose() {
@@ -15,5 +14,4 @@ public:
     int getHeader() {
         return Outgoing::AuthenticationOKMessageComposer;
     }
-
 };

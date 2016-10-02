@@ -12,6 +12,24 @@ SessionManager::SessionManager() {
 }
 
 /*
+Deconstructor for Session Manager
+
+Deletes all pointer variables
+*/
+SessionManager::~SessionManager() {
+
+    for (auto pair : *sessions) {      
+        delete pair.second; // Delete session pointer
+    }
+
+    // Empty out nullptr values
+    this->sessions->clear();
+
+    // Delete sessions map
+    delete sessions;
+}
+
+/*
 Adds a session to the map if their connection ID doesn't already exist
 
 @param Session pointer

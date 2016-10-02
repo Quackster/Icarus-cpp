@@ -1,5 +1,6 @@
 #pragma once
 #include "managers/session/Session.h"
+#include "communication/incoming/MessageHandler.h"
 
 class NetworkServer
 {
@@ -8,6 +9,7 @@ public:
 	~NetworkServer();
     void start_accept();
     void removeNetworkConnection(NetworkConnection *connection);
+
 private:
     int connectionID;
 	tcp::acceptor acceptor;

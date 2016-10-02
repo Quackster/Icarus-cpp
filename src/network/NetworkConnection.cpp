@@ -120,34 +120,13 @@ Handle incoming data
 void NetworkConnection::handle_data(Request request) {
 
     // Once we passed through the policy, create a session and handle it
-    if (!Icarus::getSessionManager()->containsSession(connectionID)) {
+    if (!Icarus::getSessionManager()->containsSession(this->connectionID)) {
         Session *session = new Session(this);
         Icarus::getSessionManager()->addSession(session, this->getConnectionId());
     }
 
     cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
-
-    /*map<int, IncomingMessage*> messages;
-    messages.insert(std::make_pair(1490, new AuthenticateMessageEvent()));
-
-    if (messages.count(request.getMessageId())) {
-        messages.find(request.getMessageId())->second->read(request);
-    }*/
-
-    if (request.getMessageId() == 1490) {
-
-        this->send(new AuthenticateMessageComposer());
-
-        Response response = Response(1351);
-        response.writeString("");
-        response.writeString("");
-        this->send(response);
-
-        response = Response(704);
-        response.writeInt(0);
-        response.writeInt(0);
-        this->send(response);
-    }
+    Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getSessionManager()->getSession(this->connectionID));
 
 }
 
@@ -167,8 +146,13 @@ Send compose class to socket
 */
 void NetworkConnection::send(MessageComposer *composer) {
 
+    // Compose message
     Response response = composer->compose();
+
+    // Write to socket
     this->write_data(response.getData(), response.getBytesWritten());
+
+    // Delete composer
     delete composer;
 }
 

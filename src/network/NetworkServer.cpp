@@ -7,8 +7,8 @@ Network server constructor
 @return none
 */
 NetworkServer::NetworkServer(boost::asio::io_service& io_service, short port) : acceptor(io_service, tcp::endpoint(tcp::v4(), port)), socket(io_service) {
-    this->start_accept();
     this->connectionID = 0;
+    this->start_accept();
 }
 
 /*
@@ -16,7 +16,9 @@ Network server deconstructor
 
 @return none
 */
-NetworkServer::~NetworkServer() { }
+NetworkServer::~NetworkServer() { 
+
+}
 
 /*
 Start accepting clients
