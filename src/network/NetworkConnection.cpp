@@ -11,7 +11,7 @@ NetworkConnection constructor
 
 @return instance
 */
-NetworkConnection::NetworkConnection(int connectionID, tcp::socket socket) : connectionID(connectionID), socket_(std::move(socket)) {
+NetworkConnection::NetworkConnection(int connectionID, tcp::socket socket) : connectionID(connectionID), socket(std::move(socket)) {
     this->connectionState = true;
 }
 
@@ -28,12 +28,10 @@ void NetworkConnection::recieve_data() {
         return; // Person disconnected, stop listing for data, in case somehow it still is (when it shouldn't) ;)
     }
 
-    cout << "topkek";
-
     auto self(shared_from_this());
 
     // only 4 bytes for now, the length
-    socket_.async_read_some(boost::asio::buffer(buffer, 4), [this, self](boost::system::error_code ec, std::size_t length) {
+    socket.async_read_some(boost::asio::buffer(buffer, 4), [this, self](boost::system::error_code ec, std::size_t length) {
 
         if (!ec) {
 
@@ -44,7 +42,7 @@ void NetworkConnection::recieve_data() {
                 this->sendPolicy();
 
                 // Read rest of policy request
-                socket_.async_read_some(boost::asio::buffer(buffer, 18), [this, self](boost::system::error_code ec, std::size_t length) {});
+                socket.async_read_some(boost::asio::buffer(buffer, 18), [this, self](boost::system::error_code ec, std::size_t length) {});
             }
             else {
 
@@ -52,7 +50,7 @@ void NetworkConnection::recieve_data() {
                 int message_length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | (buffer[3]);
 
                 // Read rest of message, to prevent any combined packets
-                socket_.async_read_some(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
+                socket.async_read_some(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
 
                     if (length > 0) {
                         Request request(buffer);
@@ -114,7 +112,7 @@ void NetworkConnection::write_data(char* data, int length) {
 
     auto self(shared_from_this());
 
-    boost::asio::async_write(socket_, boost::asio::buffer(data, /*this->max_length*/length), [this, self, data](boost::system::error_code ec, std::size_t length) {
+    boost::asio::async_write(socket, boost::asio::buffer(data, /*this->max_length*/length), [this, self, data](boost::system::error_code ec, std::size_t length) {
         if (!ec) {
             // send success
         }

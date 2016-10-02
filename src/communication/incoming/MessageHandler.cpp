@@ -61,7 +61,7 @@ void MessageHandler::invoke(int header, Request request, Session *session) {
 /* 
     MessageHandler deconstructor
 
-    Deletes all messages and their message event ptr
+    Deletes all message event ptr's and clears the map, then finally deletes the map
 */
 MessageHandler::~MessageHandler() { 
 
@@ -72,6 +72,6 @@ MessageHandler::~MessageHandler() {
     // Empty out nullptr values
     this->messages->clear();
 
-    // Delete sessions map
+    // Delete messages map
     delete messages;
 }

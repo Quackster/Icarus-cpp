@@ -33,7 +33,7 @@ public:
 private:
     int connectionID;
     bool connectionState;
-    tcp::socket socket_;
+    tcp::socket socket;
 
     enum { max_length = 512 };
     char buffer[max_length];

@@ -13,4 +13,5 @@ public:
     virtual Response compose() = 0;
     virtual int getHeader() = 0;
     Response createResponse() { return Response(this->getHeader()); }
+
 };
