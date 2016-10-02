@@ -1,9 +1,7 @@
 #include "stdafx.h"
-
 #include "boot/Icarus.h"
 #include "network/NetworkConnection.h"
-#include "communication/messages/IncomingMessage.h"
-#include "communication/incoming/login/AuthenticateMessageEvent.h"
+#include "communication/outgoing/login/AuthenticateMessageComposer.h"
 
 /*
 NetworkConnection constructor
@@ -138,10 +136,9 @@ void NetworkConnection::handle_data(Request request) {
 
     if (request.getMessageId() == 1490) {
 
-        Response response(1552);
-        this->send(response);
+        this->send(new AuthenticateMessageComposer());
 
-        response = Response(1351);
+        Response response = Response(1351);
         response.writeString("");
         response.writeString("");
         this->send(response);
@@ -161,6 +158,18 @@ Send response class to socket
 */
 void NetworkConnection::send(Response response) {
     this->write_data(response.getData(), response.getBytesWritten());
+}
+
+/*
+Send compose class to socket
+
+@return none
+*/
+void NetworkConnection::send(MessageComposer *composer) {
+
+    Response response = composer->compose();
+    this->write_data(response.getData(), response.getBytesWritten());
+    delete composer;
 }
 
 

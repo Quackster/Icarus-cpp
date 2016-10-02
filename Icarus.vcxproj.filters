@@ -43,9 +43,6 @@
     <Filter Include="Header Files\network">
       <UniqueIdentifier>{7d5aabeb-88b6-4704-9862-753dbfb8965d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\communication\messages">
-      <UniqueIdentifier>{689e4197-62b2-42ca-a8ff-8647234c1f61}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\communication\incoming">
       <UniqueIdentifier>{9a92e5f2-4cc6-4cb6-8e0c-b7cd4af59737}</UniqueIdentifier>
     </Filter>
@@ -58,14 +55,14 @@
     <Filter Include="Source Files\boot">
       <UniqueIdentifier>{ee369ce6-25bd-4df3-8c7e-16488ffa17ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\communication\outgoing">
+      <UniqueIdentifier>{689e4197-62b2-42ca-a8ff-8647234c1f61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\communication\outgoing\login">
+      <UniqueIdentifier>{e4c69e62-4fcc-47bd-a787-0ee95bc8bf42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="includes\communication\incoming\login\AuthenticateMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\communication\messages\IncomingMessage.h">
-      <Filter>Header Files\communication\messages</Filter>
-    </ClInclude>
     <ClInclude Include="includes\communication\streams\Request.h">
       <Filter>Header Files\communication\streams</Filter>
     </ClInclude>
@@ -95,6 +92,15 @@
     </ClInclude>
     <ClInclude Include="includes\boot\Icarus.h">
       <Filter>Header Files\boot</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\MessageComposer.h">
+      <Filter>Header Files\communication\outgoing</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\login\AuthenticateMessageComposer.h">
+      <Filter>Header Files\communication\outgoing\login</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\headers\Outgoing.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,8 @@ Response::Response(short header) : header(header) {
     this->message = vector <char>(0);
     this->writeShort(header);
 
+    printf("response create: %i\n", header);
+
 }
 
 Response::~Response() { }

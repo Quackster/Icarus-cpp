@@ -108,9 +108,10 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="includes\communication\incoming\login\AuthenticateMessageEvent.h" />
+    <ClInclude Include="includes\communication\outgoing\login\AuthenticateMessageComposer.h" />
     <ClInclude Include="includes\communication\streams\Request.h" />
     <ClInclude Include="includes\communication\streams\Response.h" />
+    <ClInclude Include="includes\headers\Outgoing.h" />
     <ClInclude Include="includes\headers\Incoming.h" />
     <ClInclude Include="includes\boot\Icarus.h" />
     <ClInclude Include="includes\network\NetworkServer.h" />
@@ -119,7 +120,7 @@
     <ClInclude Include="includes\managers\session\SessionManager.h" />
     <ClInclude Include="includes\stdafx.h" />
     <ClInclude Include="includes\targetver.h" />
-    <ClInclude Include="includes\communication\messages\IncomingMessage.h" />
+    <ClInclude Include="includes\communication\outgoing\MessageComposer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\communication\streams\Request.cpp" />
