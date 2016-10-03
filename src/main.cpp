@@ -2,6 +2,7 @@
 #include "boot/Icarus.h"
 
 int main(int argc, char* argv[]) {
+
 	try {
 		Icarus::boot();
 	} catch (std::exception& e) {
