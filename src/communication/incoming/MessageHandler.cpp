@@ -50,6 +50,10 @@ void MessageHandler::createEvent(int header, MessageEvent *event) {
 /*
     Invokes a message handler with the requested header, if the header doesn't exist
     the method silently fails
+
+    @param message header
+    @param message request ptr
+    @return none
 */
 void MessageHandler::invoke(int header, Request request, Session *session) {
 

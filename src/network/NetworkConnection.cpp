@@ -176,11 +176,33 @@ void NetworkConnection::sendPolicy() {
 }
 
 /*
-Disconnect handle
+Returns the connection ID (incremented from 0 when server starts)
+This is used to get the session from Session Manager
+
+WARNING: If the user hasn't passed the flash policy, using this to get the session
+         is utterly useless
+
+@return connectionID integer
+*/
+int NetworkConnection::getConnectionId() { 
+    return connectionID; 
+};
+
+/*
+Gets the connection state of the user. True for connected, false for disconnected
+
+@return connection flag
+*/
+bool NetworkConnection::getConnectionState() { 
+    return connectionState; 
+};
+
+/*
+Sets the connection state, if set to false, the user will no longer receive
+any incoming packets
 
 @return none
 */
-void NetworkConnection::disconnected() {
-
-
-}
+void NetworkConnection::setConnectionState(bool connectionState) {
+    this->connectionState = connectionState; 
+};

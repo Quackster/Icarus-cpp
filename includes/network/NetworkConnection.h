@@ -25,10 +25,9 @@ public:
     void send(MessageComposer *composer);
     void write_data(char* data, int length);
     void sendPolicy();
-    void disconnected();
-    int getConnectionId() { return connectionID; };
-    bool getConnectionState() { return connectionState; };
-    void setConnectionState(bool connectionState) { this->connectionState = connectionState; };
+    int getConnectionId();// { return connectionID; };
+    bool getConnectionState();// { return connectionState; };
+    void setConnectionState(bool connectionState);// { this->connectionState = connectionState; };
 
 private:
     int connectionID;
