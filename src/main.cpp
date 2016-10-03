@@ -3,11 +3,16 @@
 
 int main(int argc, char* argv[]) {
 
-	try {
+    try {
 		Icarus::boot();
 	} catch (std::exception& e) {
         cout << endl << " Error occurred: " << e.what() << endl;
-        while (true);
 	}
+
+    while (true)
+    {
+
+    }
+
 	return 0;
 }

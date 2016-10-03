@@ -106,6 +106,24 @@
       <AdditionalDependencies>mysqlcppconn.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;includes;D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\include;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\lib\opt;D:\lib\boost_1_62_0\stage\x64\lib;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>mysqlcppconn.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;includes;D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\include;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\lib\opt;D:\lib\boost_1_62_0\stage\x64\lib;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>mysqlcppconn.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="readme.md" />
   </ItemGroup>
@@ -115,6 +133,7 @@
     <ClInclude Include="includes\communication\outgoing\login\AuthenticateMessageComposer.h" />
     <ClInclude Include="includes\communication\streams\Request.h" />
     <ClInclude Include="includes\communication\streams\Response.h" />
+    <ClInclude Include="includes\database\DatabaseManager.h" />
     <ClInclude Include="includes\headers\Outgoing.h" />
     <ClInclude Include="includes\headers\Incoming.h" />
     <ClInclude Include="includes\boot\Icarus.h" />
@@ -132,6 +151,7 @@
     <ClCompile Include="src\communication\streams\Request.cpp" />
     <ClCompile Include="src\communication\streams\Response.cpp" />
     <ClCompile Include="src\boot\Icarus.cpp" />
+    <ClCompile Include="src\database\DatabaseManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\network\NetworkServer.cpp" />
     <ClCompile Include="src\managers\session\Session.cpp" />
