@@ -48,22 +48,19 @@ public:
 	};
 
 	// Any exceptions thrown here should be caught elsewhere
-    boost::shared_ptr<Connection> create() {
+    std::shared_ptr<Connection> create() {
 
 		// Get the driver
 		sql::Driver *driver = get_driver_instance();
 
-		// Create the connection
-        boost::shared_ptr<MySQLConnection>conn(new MySQLConnection());
+        // Create the connection
+        shared_ptr<MySQLConnection>conn(new MySQLConnection());
 
-        boost::shared_ptr<sql::Connection> sqlCon = boost::shared_ptr<sql::Connection>(driver->connect(this->server, this->username, this->password));
-        sqlCon->setSchema(this->database);
+        // Connect
+        conn->sql_connection = boost::shared_ptr<sql::Connection>(driver->connect(this->server, this->username, this->password));
+        conn->sql_connection->setSchema(this->database);
 
-		// Connect
-		conn->sql_connection = sqlCon;
-        //conn->sql_connection->setSchema(database);
-
-		return boost::static_pointer_cast<Connection>(conn);
+		return std::static_pointer_cast<Connection>(conn);
 	};
 
 private:
