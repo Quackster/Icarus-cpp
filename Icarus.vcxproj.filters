@@ -66,6 +66,12 @@
     <ClInclude Include="includes\database\DatabaseManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="includes\database\lib\ConnectionPool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\database\lib\MySQLConnection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">

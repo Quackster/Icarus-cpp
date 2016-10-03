@@ -13,7 +13,7 @@ Initialise the static variables
 SessionManager *Icarus::sessionManager;
 NetworkServer *Icarus::networkServer;
 MessageHandler *Icarus::messageHandler;
-DatabaseManager Icarus::databaseManager;
+DatabaseManager *Icarus::databaseManager;
 
 /*
 Method to boot server with nice print
@@ -42,9 +42,9 @@ void Icarus::boot() {
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
     cout << " [BOOT] Testing MySQL connection" << endl;
-    Icarus::databaseManager = DatabaseManager("tcp://127.0.0.1:3306", "root", "123456", "testb");
+    Icarus::databaseManager = new DatabaseManager("tcp://127.0.0.1:3306", "root", "123456", "test");
 
-    if (Icarus::databaseManager.testConnection()) {
+    if (Icarus::databaseManager->testConnection()) {
         cout << " [SUCCESS] Connection to database was successful " << endl;
         
     }
@@ -101,7 +101,7 @@ Gets the database manager instance
 
 @return: DatabaseManager ptr
 */
-DatabaseManager Icarus::getDatabaseManager() {
+DatabaseManager *Icarus::getDatabaseManager() {
     return databaseManager;
 }
 
@@ -113,5 +113,5 @@ Icarus::~Icarus() {
     delete Icarus::sessionManager;
     delete Icarus::networkServer;
     delete Icarus::messageHandler;
-    ///delete Icarus::databaseManager;
+    delete Icarus::databaseManager;
 }

@@ -13,13 +13,13 @@ public:
     static SessionManager *getSessionManager();// { return sessionManager; }
     static NetworkServer *getNetworkServer();
     static MessageHandler *getMessageHandler();// { return networkServer; }
-    static DatabaseManager getDatabaseManager();
+    static DatabaseManager *getDatabaseManager();
 
 private:
     static SessionManager *sessionManager;
     static NetworkServer *networkServer;
     static MessageHandler *messageHandler;
-    static DatabaseManager databaseManager;
+    static DatabaseManager *databaseManager;
 
 };
 

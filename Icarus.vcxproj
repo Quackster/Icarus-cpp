@@ -134,6 +134,8 @@
     <ClInclude Include="includes\communication\streams\Request.h" />
     <ClInclude Include="includes\communication\streams\Response.h" />
     <ClInclude Include="includes\database\DatabaseManager.h" />
+    <ClInclude Include="includes\database\lib\ConnectionPool.h" />
+    <ClInclude Include="includes\database\lib\MySQLConnection.h" />
     <ClInclude Include="includes\headers\Outgoing.h" />
     <ClInclude Include="includes\headers\Incoming.h" />
     <ClInclude Include="includes\boot\Icarus.h" />

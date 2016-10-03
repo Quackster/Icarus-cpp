@@ -1,5 +1,4 @@
 #include "database/DatabaseManager.h"
-#include <cppconn/exception.h>
 
 DatabaseManager::DatabaseManager() {
 
@@ -13,25 +12,26 @@ DatabaseManager::DatabaseManager(string host, string username, string password, 
 bool DatabaseManager::testConnection() {
 
     try {
-        sql::Driver *driver = nullptr;
-        sql::Connection *con = nullptr;
+        this->mysql_connection_factory = new MySQLConnectionFactory(this->host, this->username, this->password, this->database);
+        this->mysql_pool = new ConnectionPool<MySQLConnection>(5, mysql_connection_factory));
 
-        driver = get_driver_instance();
-
-        con = driver->connect(this->host, this->username, this->password);
-        con->setSchema(this->database);
+        boost::shared_ptr<MySQLConnection> conn = mysql_pool->borrow();
+        mysql_pool->unborrow(conn);
     }
     catch (sql::SQLException &e) {
-        cout << endl;
-        cout << " [ERROR] SQLException in " << __FILE__ << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
-        cout << " [ERROR] Message: " << e.what() << endl;
-        cout << " [ERROR] Error code: " << e.getErrorCode() << endl;
-        cout << " [ERROR] SQLState: " << e.getSQLState() << endl;
-        cout << endl;
+        cout << endl << " [ERROR] SQLException in " << __FILE__ << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
+        this->printException(e);
         return false;
     }
 
     return true;
+}        
+
+void DatabaseManager::printException(sql::SQLException &e) {
+    cout << " [ERROR] Message: " << e.what() << endl;
+    cout << " [ERROR] Error code: " << e.getErrorCode() << endl;
+    cout << " [ERROR] SQLState: " << e.getSQLState() << endl;
+    cout << endl;
 }
 
 DatabaseManager::~DatabaseManager() {

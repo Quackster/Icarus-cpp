@@ -1,12 +1,11 @@
 #pragma once
 #include <string>
+#include <cppconn/exception.h>
 
 #include "mysql_connection.h"
+#include "database/lib/MySQLConnection.h"
 
-#include <cppconn/driver.h>
-#include <cppconn/exception.h>
-#include <cppconn/resultset.h>
-#include <cppconn/statement.h>
+
 
 using namespace std;
 
@@ -18,11 +17,15 @@ public:
     DatabaseManager(string host, string username, string password, string database);
     ~DatabaseManager();
     bool testConnection();
+    void printException(sql::SQLException &e);
     
 private:
     string host;
     string username;
     string password;
     string database;
+    
+    MySQLConnectionFactory *mysql_connection_factory;
+    ConnectionPool<MySQLConnection> *mysql_pool;
 
 };
