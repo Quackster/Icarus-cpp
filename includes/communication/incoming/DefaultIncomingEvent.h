@@ -1,14 +1,11 @@
 #pragma once
 #pragma once
 #include "communication/incoming/MessageEvent.h"
-#include "communication/outgoing/login/AuthenticateMessageComposer.h"
 
-#include "dao/UserDao.h"
-
-class UniqueIDMessageEvent : public MessageEvent {
+class DefaultIncomingMessageEvent : public MessageEvent {
 
 public:
-    UniqueIDMessageEvent() { }
+    DefaultIncomingMessageEvent() { }
 
     void handle(Session *session, Request request) {
 

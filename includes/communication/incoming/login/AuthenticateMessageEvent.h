@@ -2,6 +2,10 @@
 #pragma once
 #include "communication/incoming/MessageEvent.h"
 #include "communication/outgoing/login/AuthenticateMessageComposer.h"
+#include "communication/outgoing/login/UniqueMachineIDMessageComposer.h"
+#include "communication/outgoing/login/HomeRoomMessageComposer.h"
+#include "communication/outgoing/login/LandingWidgetMessageComposer.h"
+
 
 #include "dao/UserDao.h"
 
@@ -23,15 +27,8 @@ public:
         }
 
         session->send(AuthenticateMessageComposer());
-
-        Response response = Response(1351);
-        response.writeString("");
-        response.writeString("");
-        session->getNetworkConnection()->send(response);
-
-        response = Response(704);
-        response.writeInt(0);
-        response.writeInt(0);
-        session->getNetworkConnection()->send(response);
+        session->send(UniqueMachineIDMessageComposer(session->getUniqueId()));
+        session->send(HomeRoomMessageComposer(0, false));
+        session->send(LandingWidgetMessageComposer());
     }
 };

@@ -14,6 +14,7 @@ public:
     Response(short header);
     ~Response();
     void writeInt(int number);
+    void writeInt(bool flag) { this->writeInt(flag ? 1 : 0); }
     void writeShort(short numberr);
     void writeString(const char* str) { this->writeCChar(str); };
     void writeString(string str) { this->writeCChar(str.c_str()); };

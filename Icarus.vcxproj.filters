@@ -143,5 +143,17 @@
     <ClInclude Include="includes\communication\incoming\login\VersionCheckMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\DefaultComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\login\UniqueMachineIDMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\login\HomeRoomMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\login\LandingWidgetMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
