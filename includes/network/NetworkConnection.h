@@ -23,7 +23,7 @@ public:
     void recieve_data();
     void handle_data(Request request);
     void send(Response response);
-    void send(MessageComposer *composer);
+    void send(MessageComposer &composer);
     void write_data(char* data, int length);
     void sendPolicy();
     int getConnectionId();// { return connectionID; };

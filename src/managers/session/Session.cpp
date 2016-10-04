@@ -20,7 +20,7 @@ Session::Session(NetworkConnection *session_connection) : networkConnection(sess
     @param MessageComposer ptr
     @return none
 */
-void Session::send(MessageComposer *composer) {
+void Session::send(MessageComposer &composer) {
     this->networkConnection->send(composer);
 }
 

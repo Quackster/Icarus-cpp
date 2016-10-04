@@ -151,16 +151,16 @@ Send compose class to socket
 
 @return none
 */
-void NetworkConnection::send(MessageComposer *composer) {
+void NetworkConnection::send(MessageComposer &composer) {
 
     // Compose message
-    Response response = composer->compose();
+    Response response = composer.compose();
 
     // Write to socket
     this->write_data(response.getData(), response.getBytesWritten());
 
     // Delete composer
-    delete composer;
+    //delete composer;
 }
 
 
