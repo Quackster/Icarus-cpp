@@ -9,10 +9,7 @@ int main(int argc, char* argv[]) {
         cout << endl << " Error occurred: " << e.what() << endl;
 	}
 
-    while (true)
-    {
-        cout << "roflcunt";
-    }
+    while (true);
 
 	return 0;
 }

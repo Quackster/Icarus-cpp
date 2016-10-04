@@ -16,7 +16,7 @@ private:
     UserDao() { };
 
 public:
-    static void authenticate(Session *session, string ssoTicket);
+    static bool authenticate(Session *session, string ssoTicket);
 
 };
 

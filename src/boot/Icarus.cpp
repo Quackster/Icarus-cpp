@@ -62,6 +62,7 @@ void Icarus::boot() {
         configuration->getString("database.password"),
         configuration->getString("database.database"));
 
+
     if (Icarus::databaseManager->testConnection()) {
         cout << " [SUCCESS] Connection to mysql server (database name: " << configuration->getString("database.database") << ") was successful " << endl;    
     } else {

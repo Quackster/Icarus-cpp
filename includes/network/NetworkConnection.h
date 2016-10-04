@@ -29,6 +29,7 @@ public:
     int getConnectionId();// { return connectionID; };
     bool getConnectionState();// { return connectionState; };
     void setConnectionState(bool connectionState);// { this->connectionState = connectionState; };
+    tcp::socket &getSocket() { return this->socket; };
 
 private:
     int connectionID;

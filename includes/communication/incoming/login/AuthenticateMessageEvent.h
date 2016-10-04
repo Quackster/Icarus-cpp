@@ -12,7 +12,11 @@ public:
 
     void handle(Session *session, Request request) {
 
-        UserDao::authenticate(session, request.readString());
+        // Can't find user? Close their damn connection! :)
+        if (!UserDao::authenticate(session, request.readString())) {
+            session->getNetworkConnection()->getSocket().close();
+            return;
+        }
 
         session->send(new AuthenticateMessageComposer());
 

@@ -86,41 +86,44 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>CPPCONN_PUBLIC_FUNC=</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;includes;D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\include;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\lib\opt;D:\lib\boost_1_62_0\stage\x64\lib;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\lib\opt;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\lib;D:\lib\boost_1_62_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>mysqlcppconn.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;includes;D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\include;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>CPPCONN_PUBLIC_FUNC=</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\lib\opt;D:\lib\boost_1_62_0\stage\x64\lib;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\lib\opt;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\lib;D:\lib\boost_1_62_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>mysqlcppconn.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;includes;D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\include;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>CPPCONN_PUBLIC_FUNC=</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\lib\opt;D:\lib\boost_1_62_0\stage\x64\lib;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\lib\opt;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\lib;D:\lib\boost_1_62_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>mysqlcppconn.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;includes;D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\include;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>CPPCONN_PUBLIC_FUNC=</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\lib\opt;D:\lib\boost_1_62_0\stage\x64\lib;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\lib\opt;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\lib;D:\lib\boost_1_62_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>mysqlcppconn.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
