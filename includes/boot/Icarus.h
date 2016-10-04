@@ -3,8 +3,7 @@
 #include "database/DatabaseManager.h"
 #include "network/NetworkServer.h"
 #include "communication/incoming/MessageHandler.h"
-
-#include "boot/Configuration.h"
+#include "misc/Configuration.h"
 
 class Icarus
 {

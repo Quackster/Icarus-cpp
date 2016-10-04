@@ -1,5 +1,4 @@
 #pragma once
-#include <vector>
 #include <map>
 #include <string>
 
@@ -14,7 +13,6 @@ public:
     string getString(string key);
     int getInt(string key);
     map<string, string> *getValues();
-    vector<string> split(const string &s, char delim);
 
 private:
     string file;

@@ -4,15 +4,15 @@
 #include <iostream>
 #include <sstream>
 
-#include "boot\Configuration.h"
+#include "misc\Configuration.h"
+#include "misc\Utilities.h"
 
 /*
     Constructor for Configuration, it will parse it when a new instance of Configuration is created
 
     @param file path
 */
-Configuration::Configuration(string file) : file(file)
-{
+Configuration::Configuration(string file) : file(file) {
     this->values = new map<string, string>();
     this->parse();
 }
@@ -50,7 +50,7 @@ void Configuration::parse() {
             line.find(";") != string::npos) {
             line.pop_back(); // remove ';'
 
-            vector<string> split = this->split(line, '=');
+            vector<string> split = Utilities::split(line, '=');
 
             this->values->insert(make_pair(split[0], split[1]));
         }
@@ -90,23 +90,3 @@ map<string, string> *Configuration::getValues() {
     return this->values;
 }
 
-/*
-    Splits a given string by delimeter
-
-    @param string to split
-    @param delimenter
-    @return vector which has split up the string
-*/
-vector<string> Configuration::split(const string &s, char delim) {
-
-    stringstream ss(s);
-    string item;
-    vector<string> tokens;
-
-    while (getline(ss, item, delim)) {
-        tokens.push_back(item);
-    }
-    return tokens;
-}
-
-Configuration::~Configuration() { }

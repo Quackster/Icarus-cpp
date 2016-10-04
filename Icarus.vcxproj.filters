@@ -72,7 +72,10 @@
     <ClInclude Include="includes\database\lib\MySQLConnection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\boot\Configuration.h">
+    <ClInclude Include="includes\misc\Configuration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\misc\Utilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -104,13 +107,16 @@
     <ClCompile Include="src\network\NetworkServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\boot\Icarus.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\database\DatabaseManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\boot\Configuration.cpp">
+    <ClCompile Include="src\misc\Utilities.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\boot\Icarus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\misc\Configuration.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
