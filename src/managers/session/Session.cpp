@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "managers/session/Session.h"
+#include "managers/session/SessionDetails.h"
 
 /*
     Session constructor
@@ -8,6 +9,7 @@
     @return session instance
 */
 Session::Session(NetworkConnection *session_connection) : networkConnection(session_connection) {
+    this->sessionDetails = new SessionDetails();
     cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << endl;
 }
 
@@ -41,4 +43,6 @@ void Session::clear() {
 */
 Session::~Session() {
     cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << endl;
+
+    delete sessionDetails;
 }

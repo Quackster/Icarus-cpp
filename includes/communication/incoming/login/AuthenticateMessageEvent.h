@@ -3,12 +3,16 @@
 #include "communication/incoming/MessageEvent.h"
 #include "communication/outgoing/login/AuthenticateMessageComposer.h"
 
+#include "dao/UserDao.h"
+
 class AuthenticateMessageEvent : public MessageEvent {
 
 public:
     AuthenticateMessageEvent() { }
 
     void handle(Session *session, Request request) {
+
+        UserDao::authenticate(session, request.readString());
 
         session->send(new AuthenticateMessageComposer());
 

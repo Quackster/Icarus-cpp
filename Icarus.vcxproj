@@ -128,47 +128,46 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="includes\misc\Configuration.h" />
-    <ClInclude Include="includes\communication\incoming\login\AuthenticateMessageEvent.h" />
-    <ClInclude Include="includes\communication\incoming\MessageEvent.h" />
-    <ClInclude Include="includes\communication\outgoing\login\AuthenticateMessageComposer.h" />
-    <ClInclude Include="includes\communication\streams\Request.h" />
-    <ClInclude Include="includes\communication\streams\Response.h" />
-    <ClInclude Include="includes\database\DatabaseManager.h" />
-    <ClInclude Include="includes\database\lib\ConnectionPool.h" />
-    <ClInclude Include="includes\database\lib\MySQLConnection.h" />
-    <ClInclude Include="includes\headers\Outgoing.h" />
-    <ClInclude Include="includes\headers\Incoming.h" />
-    <ClInclude Include="includes\boot\Icarus.h" />
-    <ClInclude Include="includes\network\NetworkServer.h" />
-    <ClInclude Include="includes\managers\session\Session.h" />
-    <ClInclude Include="includes\network\NetworkConnection.h" />
-    <ClInclude Include="includes\managers\session\SessionManager.h" />
-    <ClInclude Include="includes\stdafx.h" />
-    <ClInclude Include="includes\targetver.h" />
-    <ClInclude Include="includes\communication\outgoing\MessageComposer.h" />
-    <ClInclude Include="includes\communication\incoming\MessageHandler.h" />
-    <ClInclude Include="includes\misc\Utilities.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\misc\Configuration.cpp" />
+    <ClCompile Include="src\boot\Icarus.cpp" />
     <ClCompile Include="src\communication\incoming\MessageHandler.cpp" />
     <ClCompile Include="src\communication\streams\Request.cpp" />
     <ClCompile Include="src\communication\streams\Response.cpp" />
-    <ClCompile Include="src\boot\Icarus.cpp" />
+    <ClCompile Include="src\dao\UserDao.cpp" />
     <ClCompile Include="src\database\DatabaseManager.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\network\NetworkServer.cpp" />
     <ClCompile Include="src\managers\session\Session.cpp" />
-    <ClCompile Include="src\network\NetworkConnection.cpp" />
+    <ClCompile Include="src\managers\session\SessionDetails.cpp" />
     <ClCompile Include="src\managers\session\SessionManager.cpp" />
-    <ClCompile Include="src\stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="src\misc\Configuration.cpp" />
     <ClCompile Include="src\misc\Utilities.cpp" />
+    <ClCompile Include="src\network\NetworkConnection.cpp" />
+    <ClCompile Include="src\network\NetworkServer.cpp" />
+    <ClCompile Include="src\stdafx.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="includes\boot\Icarus.h" />
+    <ClInclude Include="includes\communication\incoming\login\AuthenticateMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\MessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\MessageHandler.h" />
+    <ClInclude Include="includes\communication\outgoing\login\AuthenticateMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\MessageComposer.h" />
+    <ClInclude Include="includes\communication\streams\Request.h" />
+    <ClInclude Include="includes\communication\streams\Response.h" />
+    <ClInclude Include="includes\dao\UserDao.h" />
+    <ClInclude Include="includes\database\DatabaseManager.h" />
+    <ClInclude Include="includes\database\lib\ConnectionPool.h" />
+    <ClInclude Include="includes\database\lib\MySQLConnection.h" />
+    <ClInclude Include="includes\headers\Incoming.h" />
+    <ClInclude Include="includes\headers\Outgoing.h" />
+    <ClInclude Include="includes\managers\session\Session.h" />
+    <ClInclude Include="includes\managers\session\SessionDetails.h" />
+    <ClInclude Include="includes\managers\session\SessionManager.h" />
+    <ClInclude Include="includes\misc\Configuration.h" />
+    <ClInclude Include="includes\misc\Utilities.h" />
+    <ClInclude Include="includes\network\NetworkConnection.h" />
+    <ClInclude Include="includes\network\NetworkServer.h" />
+    <ClInclude Include="includes\stdafx.h" />
+    <ClInclude Include="includes\targetver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

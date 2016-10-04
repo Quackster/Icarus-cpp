@@ -17,7 +17,10 @@ public:
     ~DatabaseManager();
     bool testConnection();
     void printException(sql::SQLException &e);
-    
+
+    MySQLConnectionFactory *getConnectionFactory() { return this->mysql_connection_factory; }
+    ConnectionPool<MySQLConnection> *getConnectionPool() { return this->mysql_pool; }
+
 private:
     string host;
     string port;

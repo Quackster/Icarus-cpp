@@ -59,7 +59,7 @@ void Icarus::boot() {
         configuration->getString("database.hostname"), 
         configuration->getString("database.port"), 
         configuration->getString("database.username"), 
-        configuration->getString("database.username"),
+        configuration->getString("database.password"),
         configuration->getString("database.database"));
 
     if (Icarus::databaseManager->testConnection()) {

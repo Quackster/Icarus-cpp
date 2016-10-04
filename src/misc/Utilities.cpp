@@ -1,10 +1,6 @@
 #include "stdafx.h"
-
 #include <sstream>
-
 #include "misc/Utilities.h"
-
-
 
 /*
 Splits a given string by delimeter
@@ -22,5 +18,6 @@ vector<string> Utilities::split(const string &s, char delim) {
     while (getline(ss, item, delim)) {
         tokens.push_back(item);
     }
+
     return tokens;
 }

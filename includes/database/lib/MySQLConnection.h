@@ -31,7 +31,7 @@ public:
 		}
 	};
 
-	boost::shared_ptr<sql::Connection> sql_connection;
+	std::shared_ptr<sql::Connection> sql_connection;
 	int a;
 };
 
@@ -57,7 +57,7 @@ public:
         shared_ptr<MySQLConnection>conn(new MySQLConnection());
 
         // Connect
-        conn->sql_connection = boost::shared_ptr<sql::Connection>(driver->connect(this->server, this->username, this->password));
+        conn->sql_connection = std::shared_ptr<sql::Connection>(driver->connect(this->server, this->username, this->password));
         conn->sql_connection->setSchema(this->database);
 
 		return std::static_pointer_cast<Connection>(conn);

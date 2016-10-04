@@ -4,6 +4,7 @@
 
 DatabaseManager::DatabaseManager(string host, string port, string username, string password, string database) :
     host(host), port(port), username(username), password(password), database(database) {
+    this->tested_connection = false;
 
 }
 
