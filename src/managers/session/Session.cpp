@@ -9,7 +9,7 @@
     @return session instance
 */
 Session::Session(NetworkConnection *session_connection) : networkConnection(session_connection) {
-    this->sessionDetails = new SessionDetails();
+    this->sessionDetails = nullptr;
     cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << endl;
 }
 

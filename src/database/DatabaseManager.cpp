@@ -19,15 +19,15 @@ bool DatabaseManager::testConnection() {
         }
     }
     catch (sql::SQLException &e) {
-        cout << endl << " [ERROR] SQLException in " << __FILE__ << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
-        this->printException(e);
+        this->printException(e, __FILE__, __FUNCTION__, __LINE__);
         return false;
     }
 
     return true;
 }        
 
-void DatabaseManager::printException(sql::SQLException &e) {
+void DatabaseManager::printException(sql::SQLException &e, char* file, char* function, int line) {
+    cout << endl << " [ERROR] SQLException in " << file << "(" << function << ") on line " << line << endl;
     cout << " [ERROR] Message: " << e.what() << endl;
     cout << " [ERROR] Error code: " << e.getErrorCode() << endl;
     cout << " [ERROR] SQLState: " << e.getSQLState() << endl;

@@ -16,9 +16,8 @@ private:
     bool authenticated;
 
 public:
-    SessionDetails();
+    SessionDetails(int id, string username, string motto, string figure, int rank, int credits);
     ~SessionDetails();
-    void fill(int id, string username, string motto, string figure, int rank, int credits);
 
     int getId() { return id; }
     string getUsername() { return username; }

@@ -13,6 +13,7 @@ public:
 
     NetworkConnection *getNetworkConnection() { return networkConnection; }
     SessionDetails *getSessionDetails() { return sessionDetails; }
+    void setSessionDetails(SessionDetails *details) { sessionDetails = details; }
 
 private:
     NetworkConnection *networkConnection;

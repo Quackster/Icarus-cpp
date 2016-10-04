@@ -16,7 +16,7 @@ public:
     DatabaseManager(string host, string port, string username, string password, string database);
     ~DatabaseManager();
     bool testConnection();
-    void printException(sql::SQLException &e);
+    void printException(sql::SQLException &e, char* file, char* function, int line);
 
     MySQLConnectionFactory *getConnectionFactory() { return this->mysql_connection_factory; }
     ConnectionPool<MySQLConnection> *getConnectionPool() { return this->mysql_pool; }
