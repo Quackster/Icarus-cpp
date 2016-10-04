@@ -4,6 +4,8 @@
 #include "network/NetworkServer.h"
 #include "communication/incoming/MessageHandler.h"
 
+#include "boot/Configuration.h"
+
 class Icarus
 {
 
@@ -14,12 +16,14 @@ public:
     static NetworkServer *getNetworkServer();
     static MessageHandler *getMessageHandler();// { return networkServer; }
     static DatabaseManager *getDatabaseManager();
+    static Configuration *getConfiguration();
 
 private:
     static SessionManager *sessionManager;
     static NetworkServer *networkServer;
     static MessageHandler *messageHandler;
     static DatabaseManager *databaseManager;
+    static Configuration *configuration;
 
 };
 

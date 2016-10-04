@@ -13,17 +13,18 @@ using namespace std;
 class DatabaseManager {
 
 public:
-    DatabaseManager();
-    DatabaseManager(string host, string username, string password, string database);
+    DatabaseManager(string host, string port, string username, string password, string database);
     ~DatabaseManager();
     bool testConnection();
     void printException(sql::SQLException &e);
     
 private:
     string host;
+    string port;
     string username;
     string password;
     string database;
+    bool tested_connection;
     
     MySQLConnectionFactory *mysql_connection_factory;
     ConnectionPool<MySQLConnection> *mysql_pool;

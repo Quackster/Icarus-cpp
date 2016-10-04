@@ -1,24 +1,21 @@
+#include "stdafx.h"
 #include "database/DatabaseManager.h"
 
-DatabaseManager::DatabaseManager() {
 
-}
-
-DatabaseManager::DatabaseManager(string host, string username, string password, string database) :
-    host(host), username(username), password(password), database(database) {
+DatabaseManager::DatabaseManager(string host, string port, string username, string password, string database) :
+    host(host), port(port), username(username), password(password), database(database) {
 
 }
 
 bool DatabaseManager::testConnection() {
 
     try {
-        this->mysql_connection_factory = new MySQLConnectionFactory(this->host, this->username, this->password, this->database);
-        this->mysql_pool = new ConnectionPool<MySQLConnection>(5, mysql_connection_factory);
 
-        /*shared_ptr<MySQLConnection> conn = mysql_pool->borrow();
-        std::shared_ptr<sql::Statement> stmt = std::shared_ptr<sql::Statement>(conn->sql_connection->createStatement());
-        stmt->execute("INSERT INTO testing (id) VALUES (1)");
-        mysql_pool->unborrow(conn);*/
+        if (!tested_connection) {
+            this->mysql_connection_factory = new MySQLConnectionFactory(this->host, this->port, this->username, this->password, this->database);
+            this->mysql_pool = new ConnectionPool<MySQLConnection>(5, mysql_connection_factory);
+            this->tested_connection = true;
+        }
     }
     catch (sql::SQLException &e) {
         cout << endl << " [ERROR] SQLException in " << __FILE__ << "(" << __FUNCTION__ << ") on line " << __LINE__ << endl;
@@ -37,6 +34,9 @@ void DatabaseManager::printException(sql::SQLException &e) {
 }
 
 DatabaseManager::~DatabaseManager() {
-
-
+    
+    if (tested_connection) {
+        delete this->mysql_connection_factory;
+        delete this->mysql_pool;
+    }
 }

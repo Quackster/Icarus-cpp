@@ -12,6 +12,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+
 #include "ConnectionPool.h"
 #include "mysql_connection.h"
 #include <cppconn/driver.h>
@@ -38,9 +39,8 @@ public:
 class MySQLConnectionFactory : public ConnectionFactory {
 
 public:
-	MySQLConnectionFactory(std::string server, std::string username, std::string password, std::string database) {
-
-		this->server=server;
+	MySQLConnectionFactory(std::string server, std::string port, ::string username, std::string password, std::string database) {
+        this->server = "tcp://" + server + ":" + port;
 		this->username=username;
 		this->password=password;
         this->database = database;

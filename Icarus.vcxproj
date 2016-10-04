@@ -128,6 +128,7 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\boot\Configuration.h" />
     <ClInclude Include="includes\communication\incoming\login\AuthenticateMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\MessageEvent.h" />
     <ClInclude Include="includes\communication\outgoing\login\AuthenticateMessageComposer.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="includes\communication\incoming\MessageHandler.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\boot\Configuration.cpp" />
     <ClCompile Include="src\communication\incoming\MessageHandler.cpp" />
     <ClCompile Include="src\communication\streams\Request.cpp" />
     <ClCompile Include="src\communication\streams\Response.cpp" />

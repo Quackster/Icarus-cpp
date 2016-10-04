@@ -25,10 +25,9 @@
 
 #include <set>
 #include <deque>
-
-#include <boost/shared_ptr.hpp>
-#include <boost/thread/mutex.hpp>
 #include <exception>
+
+#include <boost/thread/mutex.hpp>
 
 using namespace std;
 

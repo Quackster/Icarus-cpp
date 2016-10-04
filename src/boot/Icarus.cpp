@@ -14,6 +14,7 @@ SessionManager *Icarus::sessionManager;
 NetworkServer *Icarus::networkServer;
 MessageHandler *Icarus::messageHandler;
 DatabaseManager *Icarus::databaseManager;
+Configuration *Icarus::configuration;
 
 /*
 Method to boot server with nice print
@@ -41,12 +42,15 @@ void Icarus::boot() {
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    cout << " [BOOT] Testing MySQL connection" << endl;
-    Icarus::databaseManager = new DatabaseManager("tcp://127.0.0.1:3306", "root", "123456", "test");
+    cout << " [BOOT] [Configuration] Loading configuration" << endl;
+    Icarus::configuration = new Configuration("configuration.ini");
 
+    cout << endl;
+    cout << " [BOOT] Testing MySQL connection" << endl;
+
+    Icarus::databaseManager = new DatabaseManager("127.0.0.1", "3306", "root", "123456", "test");
     if (Icarus::databaseManager->testConnection()) {
-        cout << " [SUCCESS] Connection to database was successful " << endl;
-        
+        cout << " [SUCCESS] Connection to database was successful " << endl;    
     }
     else {
         cout << " [ATTENTION] Connection to database failed " << endl;
@@ -103,6 +107,15 @@ Gets the database manager instance
 */
 DatabaseManager *Icarus::getDatabaseManager() {
     return databaseManager;
+}
+
+/*
+Gets the configuration instance
+
+@return: Configuration ptr
+*/
+Configuration *Icarus::getConfiguration() {
+    return configuration;
 }
 
 
