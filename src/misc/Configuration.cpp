@@ -37,6 +37,7 @@ void Configuration::parse() {
         outputFile << "database.username=user;" << endl;
         outputFile << "database.password=changeme;" << endl;
         outputFile << "database.database=icarus;" << endl;
+        outputFile << "database.pool.size=5;" << endl;
         outputFile << endl;
         outputFile << "tcp.server.port=30000;" << endl;
         outputFile.close();

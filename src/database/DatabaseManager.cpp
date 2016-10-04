@@ -5,7 +5,7 @@
     Constructor for database manager
 */
 DatabaseManager::DatabaseManager(string host, string port, string username, string password, string database, int pool_size) :
-    host(host), port(port), username(username), password(password), database(database) {
+    host(host), port(port), username(username), password(password), database(database), pool_size(pool_size){
     this->tested_connection = false;
 
 }
@@ -22,10 +22,11 @@ bool DatabaseManager::testConnection() {
 
     try {
 
-        if (!tested_connection) {
-            this->mysql_connection_factory = new MySQLConnectionFactory(this->host, this->port, this->username, this->password, this->database);
-            this->mysql_pool = new ConnectionPool<MySQLConnection>(5, mysql_connection_factory);
+        if (this->tested_connection != true) {
             this->tested_connection = true;
+            this->mysql_connection_factory = new MySQLConnectionFactory(this->host, this->port, this->username, this->password, this->database);
+            this->mysql_pool = new ConnectionPool<MySQLConnection>(this->pool_size, this->mysql_connection_factory);
+            
         }
     }
     catch (sql::SQLException &e) {

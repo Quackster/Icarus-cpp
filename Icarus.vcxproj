@@ -150,8 +150,11 @@
   <ItemGroup>
     <ClInclude Include="includes\boot\Icarus.h" />
     <ClInclude Include="includes\communication\incoming\login\AuthenticateMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\login\VersionCheckMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\MessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\MessageHandler.h" />
+    <ClInclude Include="includes\communication\incoming\login\UniqueIDMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\DefaultIncomingEvent.h" />
     <ClInclude Include="includes\communication\outgoing\login\AuthenticateMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\MessageComposer.h" />
     <ClInclude Include="includes\communication\streams\Request.h" />

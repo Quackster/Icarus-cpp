@@ -5,6 +5,8 @@
 
 // Login
 #include "communication/incoming/login/AuthenticateMessageEvent.h"
+#include "communication/incoming/login/UniqueIDMessageEvent.h"
+#include "communication/incoming/login/VersionCheckMessageEvent.h"
 
 /*
     MessageHandler constructor
@@ -14,6 +16,8 @@
 MessageHandler::MessageHandler() {
 
     this->messages = new map<int, MessageEvent*>();
+    this->createEvent(Incoming::VersionCheckMessageEvent, new VersionCheckMessageEvent());
+    this->createEvent(Incoming::UniqueIDMessageEvent, new UniqueIDMessageEvent());
     this->createEvent(Incoming::AuthenticateMessageEvent, new AuthenticateMessageEvent());
 }
 
