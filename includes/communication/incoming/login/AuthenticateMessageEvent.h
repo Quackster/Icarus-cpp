@@ -12,10 +12,15 @@ public:
 
     void handle(Session *session, Request request) {
 
+        SessionDetails *details = UserDao::findUserByTicket(session, request.readString());
+
         // Can't find user? Close their damn connection! :)
-        if (!UserDao::authenticate(session, request.readString())) {
+        if (details != nullptr) {
             session->getNetworkConnection()->getSocket().close();
             return;
+        }
+        else {
+            session->setSessionDetails(details);
         }
 
         session->send(new AuthenticateMessageComposer());
