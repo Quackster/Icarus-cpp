@@ -14,8 +14,7 @@ public:
 
         SessionDetails *details = UserDao::findUserByTicket(session, request.readString());
 
-        // Can't find user? Close their damn connection! :)
-        if (details != nullptr) {
+        if (details == nullptr) {
             session->getNetworkConnection()->getSocket().close();
             return;
         }
@@ -23,7 +22,7 @@ public:
             session->setSessionDetails(details);
         }
 
-        session->send(new AuthenticateMessageComposer());
+        session->send(AuthenticateMessageComposer());
 
         Response response = Response(1351);
         response.writeString("");
