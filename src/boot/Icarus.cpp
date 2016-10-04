@@ -23,6 +23,9 @@ Method to boot server with nice print
 */
 void Icarus::boot() {
 
+    typedef std::chrono::high_resolution_clock Time;
+    typedef std::chrono::milliseconds ms;
+
     cout << endl;
     cout << " ##################################" << endl;
     cout << " ###       Icarus Emulator       ##" << endl;
@@ -33,39 +36,54 @@ void Icarus::boot() {
     cout << endl;
     cout << " @author: Quackster" << endl;
     cout << endl;
-    
     cout << " @contributors: " << endl     
         << " - LeonHartley " << endl 
         << " - Cecer " << endl;
-    
     cout << endl;
-
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
+    /*
+        Load configuration
+    */
     cout << " [BOOT] [Configuration] Loading configuration" << endl;
     Icarus::configuration = new Configuration("configuration.ini");
+    cout << " [BOOT] [Configuration] Loaded " << configuration->getValues()->size() << " values" << endl;
 
+    /*
+        Test MySQL connection
+    */
     cout << endl;
     cout << " [BOOT] Testing MySQL connection" << endl;
 
-    Icarus::databaseManager = new DatabaseManager("127.0.0.1", "3306", "root", "123456", "test");
+    Icarus::databaseManager = new DatabaseManager(
+        configuration->getString("database.hostname"), 
+        configuration->getString("database.port"), 
+        configuration->getString("database.username"), 
+        configuration->getString("database.username"),
+        configuration->getString("database.database"));
+
     if (Icarus::databaseManager->testConnection()) {
-        cout << " [SUCCESS] Connection to database was successful " << endl;    
-    }
-    else {
-        cout << " [ATTENTION] Connection to database failed " << endl;
+        cout << " [SUCCESS] Connection to mysql server (database name: " << configuration->getString("database.database") << ") was successful " << endl;    
+    } else {
+        cout << " [ATTENTION] Connection to mysql server failed " << endl;
         return;
     }
 
-    cout << endl;
+    /*
+        Load managers
+    */
 
+    cout << endl;
     cout << " [BOOT] [SessionManager] Creating session manager " << endl;
     Icarus::sessionManager = new SessionManager();
 
     cout << " [BOOT] [MessageHandler] Creating message handler " << endl << endl;
     Icarus::messageHandler = new MessageHandler();
 
-    int serverPort = 30000;
+    /*
+        Start server
+    */
+    int serverPort = configuration->getInt("tcp.server.port");
     cout << endl  << " [BOOT] [NetworkServer] Starting server on port " << serverPort << endl;
     boost::asio::io_service io_service;
     networkServer = new NetworkServer(io_service, serverPort);

@@ -33,9 +33,12 @@ void Configuration::parse() {
         outputFile << "##########################" << endl;
         outputFile << endl;
         outputFile << "database.hostname=127.0.0.1;" << endl;
+        outputFile << "database.port=3306;" << endl;
         outputFile << "database.username=user;" << endl;
         outputFile << "database.password=changeme;" << endl;
         outputFile << "database.database=icarus;" << endl;
+        outputFile << endl;
+        outputFile << "tcp.server.port=30000;" << endl;
         outputFile.close();
     }
 
