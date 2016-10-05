@@ -17,4 +17,5 @@ void ExampleRunnable::run() {
 
     ExampleRunnable *new_run = new ExampleRunnable(i);
     Icarus::getGame()->getExecutorService()->schedule(new_run);
+
 }
