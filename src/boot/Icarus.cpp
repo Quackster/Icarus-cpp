@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "boot/Icarus.h"
-
+#include "thread/ExampleRunnable.h"
 using namespace std;
 
 /*
@@ -90,15 +90,18 @@ void Icarus::boot() {
     cout << " [BOOT] [Game] Creating game instance" << endl;
     Icarus::game = new Game();
 
+    ExampleRunnable *runnable = new ExampleRunnable();
+    game->getExecutorService();
+
     /*
         Start server
     */
     int serverPort = configuration->getInt("tcp.server.port");
     cout << endl  << " [BOOT] [NetworkServer] Starting server on port " << serverPort << endl;
+    
     boost::asio::io_service io_service;
     networkServer = new NetworkServer(io_service, serverPort);
     io_service.run();
-
 }
 
 /*
