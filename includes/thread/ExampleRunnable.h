@@ -4,6 +4,7 @@
 class ExampleRunnable : public Runnable {
 
 public:
-    ExampleRunnable();
+    ExampleRunnable(int i);
     void run();
+    int i = 0;
 };

@@ -90,8 +90,8 @@ void Icarus::boot() {
     cout << " [BOOT] [Game] Creating game instance" << endl;
     Icarus::game = new Game();
 
-    ExampleRunnable *runnable = new ExampleRunnable();
-    game->getExecutorService();
+    ExampleRunnable *runnable = new ExampleRunnable(0);
+    game->getExecutorService()->schedule(runnable);
 
     /*
         Start server

@@ -133,7 +133,7 @@
   <ItemGroup>
     <ClCompile Include="src\thread\ExampleRunnable.cpp" />
     <ClCompile Include="src\thread\ExecutorService.cpp" />
-    <ClCompile Include="includes\game\Game.cpp" />
+    <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\navigator\NavigatorCategory.cpp" />
     <ClCompile Include="src\dao\NavigatorDao.cpp" />
     <ClCompile Include="src\game\navigator\NavigatorManager.cpp" />
@@ -166,7 +166,7 @@
     <ClInclude Include="includes\communication\outgoing\navigator\FlatCategoriesMessageComposer.h" />
     <ClInclude Include="includes\game\navigator\NavigatorCategory.h" />
     <ClInclude Include="includes\thread\BlockingQueue.h" />
-    <ClInclude Include="src\game\Game.h" />
+    <ClInclude Include="includes\game\Game.h" />
     <ClInclude Include="includes\boot\Icarus.h" />
     <ClInclude Include="includes\communication\incoming\login\AuthenticateMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\login\VersionCheckMessageEvent.h" />

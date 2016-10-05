@@ -19,16 +19,17 @@ class BlockingQueue {
 private:
     mutex mutex_;
     queue<T> queue_;
+
 public:
     T pop() {
         this->mutex_.lock();
         T value;
-        if (!this->queue_.empty())
-        {
-            value = this->queue_.front();  // undefined behavior if queue_ is empty
-                                           // may segfault, may throw, etc.
+
+        if (!this->queue_.empty()) {
+            value = this->queue_.front();
             this->queue_.pop();
         }
+
         this->mutex_.unlock();
         return value;
     }
@@ -44,5 +45,9 @@ public:
         bool check = this->queue_.empty();
         this->mutex_.unlock();
         return check;
+    }
+
+    queue<T> getQueue() {
+        return queue_;
     }
 };

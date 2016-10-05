@@ -1,12 +1,19 @@
 #include "stdafx.h"
+
+#include "boot/Icarus.h"
 #include "thread/ExampleRunnable.h"
 
-ExampleRunnable::ExampleRunnable() {
+ExampleRunnable::ExampleRunnable(int i = 0) {
 
-
+    this->i = i;
 }
 
 void ExampleRunnable::run() {
 
-    cout << "topkek" << endl;
+    this->i++;
+
+    cout << "topkek " << i << endl;
+
+    ExampleRunnable *new_run = new ExampleRunnable(i);
+    Icarus::getGame()->getExecutorService()->schedule(new_run);
 }
