@@ -138,9 +138,9 @@
     <ClCompile Include="src\dao\UserDao.cpp" />
     <ClCompile Include="src\database\DatabaseManager.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\managers\session\Session.cpp" />
-    <ClCompile Include="src\managers\session\SessionDetails.cpp" />
-    <ClCompile Include="src\managers\session\SessionManager.cpp" />
+    <ClCompile Include="src\game\session\Session.cpp" />
+    <ClCompile Include="src\game\session\SessionDetails.cpp" />
+    <ClCompile Include="src\game\session\SessionManager.cpp" />
     <ClCompile Include="src\misc\Configuration.cpp" />
     <ClCompile Include="src\misc\Utilities.cpp" />
     <ClCompile Include="src\network\NetworkConnection.cpp" />
@@ -169,9 +169,9 @@
     <ClInclude Include="includes\database\lib\MySQLConnection.h" />
     <ClInclude Include="includes\headers\Incoming.h" />
     <ClInclude Include="includes\headers\Outgoing.h" />
-    <ClInclude Include="includes\managers\session\Session.h" />
-    <ClInclude Include="includes\managers\session\SessionDetails.h" />
-    <ClInclude Include="includes\managers\session\SessionManager.h" />
+    <ClInclude Include="includes\game\session\Session.h" />
+    <ClInclude Include="includes\game\session\SessionDetails.h" />
+    <ClInclude Include="includes\game\session\SessionManager.h" />
     <ClInclude Include="includes\misc\Configuration.h" />
     <ClInclude Include="includes\misc\Utilities.h" />
     <ClInclude Include="includes\network\NetworkConnection.h" />

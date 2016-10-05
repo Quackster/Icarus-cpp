@@ -5,7 +5,7 @@
 #include "mysql_connection.h"
 #include "mysql.h"
 
-#include "managers/session/Session.h"
+#include "game/session/Session.h"
 
 using namespace std;
 

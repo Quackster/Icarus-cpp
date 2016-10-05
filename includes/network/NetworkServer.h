@@ -1,5 +1,5 @@
 #pragma once
-#include "managers/session/Session.h"
+#include "game/session/Session.h"
 #include "communication/incoming/MessageHandler.h"
 
 class NetworkServer

@@ -1,5 +1,6 @@
 #include "stdafx.h"
-#include "managers/session/SessionDetails.h"
+
+#include "game/session/SessionDetails.h"
 
 /*
     Constructor for session details

@@ -1,6 +1,7 @@
 #include "stdafx.h"
-#include "managers/session/Session.h"
-#include "managers/session/SessionDetails.h"
+
+#include "game/session/Session.h"
+#include "game/session/SessionDetails.h"
 
 /*
     Session constructor

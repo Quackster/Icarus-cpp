@@ -1,6 +1,6 @@
 #pragma once
 #include "network/NetworkConnection.h"
-#include "managers/session/SessionDetails.h"
+#include "game/session/SessionDetails.h"
 
 class Session
 {

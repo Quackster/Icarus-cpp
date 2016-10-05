@@ -39,15 +39,6 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\managers\session\Session.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\managers\session\SessionDetails.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\managers\session\SessionManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\misc\Configuration.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -61,6 +52,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\session\Session.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\session\SessionDetails.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\session\SessionManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -107,15 +107,6 @@
     <ClInclude Include="includes\headers\Outgoing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\managers\session\Session.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\managers\session\SessionDetails.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\managers\session\SessionManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\misc\Configuration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -153,6 +144,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\communication\outgoing\login\LandingWidgetMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\session\Session.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\session\SessionDetails.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\session\SessionManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

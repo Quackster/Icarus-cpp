@@ -1,5 +1,5 @@
 #pragma once
-#include "managers/session/SessionManager.h"
+#include "game/session/SessionManager.h"
 #include "database/DatabaseManager.h"
 #include "network/NetworkServer.h"
 #include "communication/incoming/MessageHandler.h"
