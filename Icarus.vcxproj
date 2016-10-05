@@ -131,6 +131,7 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\navigator\NavigatorTab.cpp" />
     <ClCompile Include="src\boot\Icarus.cpp" />
     <ClCompile Include="src\communication\incoming\MessageHandler.cpp" />
     <ClCompile Include="src\communication\streams\Request.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="includes\network\NetworkServer.h" />
     <ClInclude Include="includes\stdafx.h" />
     <ClInclude Include="includes\targetver.h" />
+    <ClInclude Include="includes\game\navigator\NavigatorTab.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

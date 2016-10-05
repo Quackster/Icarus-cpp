@@ -63,6 +63,9 @@
     <ClCompile Include="src\game\session\SessionManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\navigator\NavigatorTab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\boot\Icarus.h">
@@ -153,6 +156,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\game\session\SessionManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\navigator\NavigatorTab.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
