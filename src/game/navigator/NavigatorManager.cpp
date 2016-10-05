@@ -26,7 +26,6 @@ NavigatorTab* NavigatorManager::getTab(string tab_name) {
         }
     }
 
-
     return nullptr;
 }
 
@@ -47,7 +46,6 @@ vector<NavigatorTab*> NavigatorManager::getParentTabs() {
     return tabs;
 }
 
-
 /*
 Deconstructor for Navigator Manager
 
@@ -59,8 +57,8 @@ NavigatorManager::~NavigatorManager() {
         delete tab; // Delete tab pointer
     }
 
-    for (auto tab : *this->categories) {
-        delete tab; // Delete categories pointer
+    for (auto category : *this->categories) {
+        delete category; // Delete categories pointer
     }
 
     // Empty out nullptr values

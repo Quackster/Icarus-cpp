@@ -56,6 +56,8 @@ void Configuration::parse() {
             this->values->insert(make_pair(split[0], split[1]));
         }
     }
+
+    infile.close();
 }
 
 /*
