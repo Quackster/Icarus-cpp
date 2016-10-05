@@ -182,5 +182,8 @@
     <ClInclude Include="includes\game\navigator\NavigatorCategory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\navigator\FlatCategoriesMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

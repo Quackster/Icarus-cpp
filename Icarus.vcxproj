@@ -154,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\communication\incoming\navigator\NewNavigatorMessageEvent.h" />
+    <ClInclude Include="includes\communication\outgoing\navigator\FlatCategoriesMessageComposer.h" />
     <ClInclude Include="includes\game\navigator\NavigatorCategory.h" />
     <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="includes\boot\Icarus.h" />

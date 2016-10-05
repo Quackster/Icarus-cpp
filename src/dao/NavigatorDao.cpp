@@ -10,7 +10,7 @@
     @param child id
     @return list of tabs
 */
-vector<NavigatorTab*> *NavigatorDao::findTabsByChildId(int child_id) {
+vector<NavigatorTab*> *NavigatorDao::getTabsByChildId(int child_id) {
 
     vector<NavigatorTab*> *tabs = new vector<NavigatorTab*>();
     
@@ -38,7 +38,7 @@ vector<NavigatorTab*> *NavigatorDao::findTabsByChildId(int child_id) {
             tabs->push_back(tab);
             
             // Also add child tabs
-            auto child_tabs = shared_ptr<vector<NavigatorTab*>>(findTabsByChildId(tab->getId()));
+            auto child_tabs = shared_ptr<vector<NavigatorTab*>>(getTabsByChildId(tab->getId()));
             tabs->insert(tabs->end(), child_tabs->begin(), child_tabs->end());
         }
 
@@ -50,4 +50,43 @@ vector<NavigatorTab*> *NavigatorDao::findTabsByChildId(int child_id) {
     Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
 
     return tabs;
+}
+
+/*
+    Get all categories
+
+    @return vector ptr categories
+*/
+vector<NavigatorCategory*> *NavigatorDao::getCategories() {
+
+    vector<NavigatorCategory*> *categories = new vector<NavigatorCategory*>();
+
+    shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+    bool has_user = false;
+
+    try {
+
+        shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+        shared_ptr<sql::Statement> statement = shared_ptr<sql::Statement>(sql_connection->createStatement());
+        shared_ptr<sql::ResultSet> result_set = shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, title, min_rank FROM navigator_categories"));
+
+        while (result_set->next()) {
+
+            NavigatorCategory *category = new NavigatorCategory(
+                result_set->getInt("id"),
+                result_set->getString("title"),
+                result_set->getInt("min_rank")
+            );
+
+            categories->push_back(category);
+        }
+
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
+
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+    return categories;
 }

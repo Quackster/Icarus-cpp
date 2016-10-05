@@ -8,7 +8,8 @@ Constructor for Navigator Manager
 Initialises the list for storing navigator tabs
 */
 NavigatorManager::NavigatorManager() {
-    this->tabs = NavigatorDao::findTabsByChildId(-1);
+    this->tabs = NavigatorDao::getTabsByChildId(-1);
+    this->categories = NavigatorDao::getCategories();
 }
 
 /*
@@ -22,9 +23,15 @@ NavigatorManager::~NavigatorManager() {
         delete tab; // Delete tab pointer
     }
 
+    for (auto tab : *this->categories) {
+        delete tab; // Delete categories pointer
+    }
+
     // Empty out nullptr values
+    this->categories->clear();
     this->tabs->clear();
 
-    // Delete tab list
+    // Delete lists
+    delete categories;
     delete tabs;
 }
