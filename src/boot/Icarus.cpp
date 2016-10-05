@@ -33,7 +33,7 @@ void Icarus::boot() {
     cout << " ###        by Quackster         ##" << endl;
     cout << " ##################################" << endl;
     cout << endl;
-    cout << " This is a Habbo Hotel private server written in C++ built for Windows, Linux and other Unix-like systems." << endl;
+    cout << " This is a server written in C++ built for Windows, Linux and other Unix-like systems." << endl;
     cout << endl;
     cout << " @author: Quackster" << endl;
     cout << endl;
