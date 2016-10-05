@@ -20,7 +20,17 @@ ExecutorService *ExecutorService::createSchedulerService(int threads) {
 }
 
 void ExecutorService::schedule(Runnable *runnable) {
-    this->tasks->push(runnable);
+
+    if (std::find(this->tasks->getQueue().begin(), this->tasks->getQueue().end(), runnable) == this->tasks->getQueue().end())
+    {
+this->tasks->push(runnable);
+    
+     
+    }
+    else {
+           delete runnable;
+
+    }
 }
 
 
