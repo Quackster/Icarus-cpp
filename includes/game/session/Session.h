@@ -12,7 +12,7 @@ public:
     void send(MessageComposer &composer);
 
     NetworkConnection *getNetworkConnection() { return this->networkConnection; }
-    SessionDetails *getSessionDetails() { return this->sessionDetails; }
+    SessionDetails *getDetails() { return this->sessionDetails; }
     void setSessionDetails(SessionDetails *details) { this->sessionDetails = details; }
     
     string getUniqueId() { return this->unique_id;  }

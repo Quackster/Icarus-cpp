@@ -15,6 +15,7 @@ public:
     ~Response();
     void writeInt(int number);
     void writeInt(bool flag) { this->writeInt(flag ? 1 : 0);  }
+    void writeInt(size_t number) { this->writeInt((int)number); }
     void writeBool(bool flag) {
         this->message.push_back(flag ? (char)1 : (char)0);
         this->bytes_written = this->bytes_written + 1;

@@ -13,6 +13,42 @@ NavigatorManager::NavigatorManager() {
 }
 
 /*
+    Gets tab by name
+
+    @param tab name
+    @return tab ptr
+*/
+NavigatorTab* NavigatorManager::getTab(string tab_name) {
+
+    for (auto tab : *this->tabs) {
+        if (tab->getTabName() == tab_name) {
+            return tab;
+        }
+    }
+
+
+    return nullptr;
+}
+
+/*
+    Returns all parent tabs, (those who have -1 as child id
+    @return vector list of parent tabs
+*/
+vector<NavigatorTab*> NavigatorManager::getParentTabs() {
+
+    vector<NavigatorTab*> tabs = vector<NavigatorTab*>();
+
+    for (auto tab : *this->tabs) {
+        if (tab->getChildId() == -1) {
+            tabs.push_back(tab);
+        }
+    }
+
+    return tabs;
+}
+
+
+/*
 Deconstructor for Navigator Manager
 
 Deletes all pointer variables

@@ -10,6 +10,7 @@
 
 // Navigator
 #include "communication/incoming/navigator/NewNavigatorMessageEvent.h"
+#include "communication/incoming/navigator/SearchNewNavigatorEvent.h"
 
 /*
     MessageHandler constructor
@@ -27,6 +28,7 @@ MessageHandler::MessageHandler() {
 
     // Navigator
     this->createEvent(Incoming::NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
+    this->createEvent(Incoming::SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
 }
 
 /*

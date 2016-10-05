@@ -2,6 +2,8 @@
 #include "boot/Icarus.h"
 #include "communication/incoming/MessageEvent.h"
 #include "communication/outgoing/navigator/FlatCategoriesMessageComposer.h"
+#include "communication/outgoing/navigator/NavigatorCategoriesComposer.h"
+#include "communication/outgoing/navigator/NavigatorMetaDataComposer.h"
 
 class NewNavigatorMessageEvent : public MessageEvent {
 
@@ -10,7 +12,13 @@ public:
 
     void handle(Session *session, Request request) {
 
-        session->send(FlatCategoriesMessageComposer(Icarus::getGame()->getNavigatorManager()->getCategories(), session->getSessionDetails()->getRank()));
+        auto categories = Icarus::getGame()->getNavigatorManager()->getCategories();
+        
+        session->send(FlatCategoriesMessageComposer(categories, session->getDetails()->getRank()));
+        session->send(NavigatorCategoriesComposer(categories));
+        session->send(NavigatorMetaDataComposer());
+
+
 
     }
 };

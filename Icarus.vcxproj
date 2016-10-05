@@ -153,7 +153,11 @@
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\communication\incoming\navigator\SearchNewNavigatorEvent.h" />
     <ClInclude Include="includes\communication\incoming\navigator\NewNavigatorMessageEvent.h" />
+    <ClInclude Include="includes\communication\outgoing\navigator\SearchResultSetComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\navigator\NavigatorMetaDataComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\navigator\NavigatorCategoriesComposer.h" />
     <ClInclude Include="includes\communication\outgoing\navigator\FlatCategoriesMessageComposer.h" />
     <ClInclude Include="includes\game\navigator\NavigatorCategory.h" />
     <ClInclude Include="src\game\Game.h" />
