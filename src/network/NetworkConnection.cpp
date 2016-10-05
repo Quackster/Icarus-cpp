@@ -132,7 +132,7 @@ void NetworkConnection::handle_data(Request request) {
         Icarus::getSessionManager()->addSession(session, this->getConnectionId());
     }
 
-    cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
+    //cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
     Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getSessionManager()->getSession(this->connectionID));
 
 }

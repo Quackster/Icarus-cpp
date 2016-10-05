@@ -73,7 +73,11 @@ void MessageHandler::invoke(int header, Request request, Session *session) {
 
     if (this->messages->count(header)) {
         this->messages->find(header)->second->handle(session, request);
+        cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages->find(header)->second).name() << ") " << endl;
+    } else {
+        cout << " [MessageHandler] Unhandled message " << header << endl;
     }
+
 
 }
 /* 

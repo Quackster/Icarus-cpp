@@ -14,8 +14,6 @@ public:
 
         string revision = request.readString();
 
-        cout << revision << endl;
-
         if (revision != "PRODUCTION-201512012203-525044429") {
             session->getNetworkConnection()->getSocket().close();
         }
