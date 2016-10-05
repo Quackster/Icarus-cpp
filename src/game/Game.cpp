@@ -3,7 +3,7 @@
 
 Game::Game() {
     this->navigatorManager = new NavigatorManager();
-    this->executorService = ExecutorService::createSchedulerService(4);
+    this->executorService = ExecutorService::createSchedulerService(configuration->getInt("room.thread.pool.size"));
 }
 
 

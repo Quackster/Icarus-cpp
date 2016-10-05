@@ -1,43 +1,33 @@
-#pragma once
-#include <thread>
 #include <mutex>
-#include <iostream>
+#include <condition_variable>
 #include <deque>
-#include <string>
-#include <functional>
-#include <iostream>
-
-using namespace std;
 
 template <typename T>
-class BlockingQueue {
+class BlockingQueue
+{
 private:
-    mutex mutex_;
-    deque<T> queue_;
-
+    std::mutex              d_mutex;
+    std::condition_variable d_condition;
+    std::deque<T>           d_queue;
 public:
+    void push(T const& value) {
+        {
+            std::unique_lock<std::mutex> lock(this->d_mutex);
+            d_queue.push_front(value);
+        }
+        this->d_condition.notify_one();
+    }
     T pop() {
-        this->mutex_.lock();
-        T value = this->queue_.front();
-        this->queue_.pop_front();
-        this->mutex_.unlock();
-        return value;
+        std::unique_lock<std::mutex> lock(this->d_mutex);
+        this->d_condition.wait(lock, [=] { return !this->d_queue.empty(); });
+        T rc(std::move(this->d_queue.back()));
+        this->d_queue.pop_back();
+        return rc;
     }
 
-    void push(T value) {
-        this->mutex_.lock();
-        this->queue_.push_back(value);
-        this->mutex_.unlock();
-    }
-
-    bool empty() {
-        this->mutex_.lock();
-        bool check = this->queue_.empty();
-        this->mutex_.unlock();
+   /* bool empty() {
+        std::unique_lock<std::mutex> lock(this->d_mutex);
+        bool check = this->d_queue.empty();
         return check;
-    }
-
-    deque<T> getQueue() {
-        return queue_;
-    }
+    }*/
 };

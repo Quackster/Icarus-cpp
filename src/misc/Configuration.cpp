@@ -40,6 +40,7 @@ void Configuration::parse() {
         outputFile << "database.pool.size=5;" << endl;
         outputFile << endl;
         outputFile << "tcp.server.port=30000;" << endl;
+        outputFile << "room.thread.pool.size=4;" << endl;
         outputFile.close();
     }
 
