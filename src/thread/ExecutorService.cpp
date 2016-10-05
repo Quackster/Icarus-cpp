@@ -29,21 +29,18 @@ void ExecutorService::tick(thread *thread) {
 
     while (this->running) {
 
-        //if (this->tasks->empty()) {
-         //   continue;
-        //}
-
-       
-
         Runnable *runnable = this->tasks->pop();
 
         if (runnable != nullptr) {
+            
+            std::this_thread::sleep_for(std::chrono::milliseconds(500));
+
             runnable->run();
             delete runnable;
         }
 
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        
     }
 }
 
