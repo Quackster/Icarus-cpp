@@ -41,6 +41,9 @@ void ExecutorService::tick(thread *thread) {
             runnable->run();
             delete runnable;
         }
+
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
 }
 
