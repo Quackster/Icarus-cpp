@@ -8,6 +8,9 @@
 #include "communication/incoming/login/UniqueIDMessageEvent.h"
 #include "communication/incoming/login/VersionCheckMessageEvent.h"
 
+// Navigator
+#include "communication/incoming/navigator/NewNavigatorMessageEvent.h"
+
 /*
     MessageHandler constructor
 
@@ -16,9 +19,14 @@
 MessageHandler::MessageHandler() {
 
     this->messages = new map<int, MessageEvent*>();
+    
+    // Login
     this->createEvent(Incoming::VersionCheckMessageEvent, new VersionCheckMessageEvent());
     this->createEvent(Incoming::UniqueIDMessageEvent, new UniqueIDMessageEvent());
     this->createEvent(Incoming::AuthenticateMessageEvent, new AuthenticateMessageEvent());
+
+    // Navigator
+    this->createEvent(Incoming::NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
 }
 
 /*

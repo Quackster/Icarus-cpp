@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="includes\game\Game.cpp" />
+    <ClCompile Include="src\game\navigator\NavigatorCategory.cpp" />
     <ClCompile Include="src\dao\NavigatorDao.cpp" />
     <ClCompile Include="src\game\navigator\NavigatorManager.cpp" />
     <ClCompile Include="src\game\navigator\NavigatorTab.cpp" />
@@ -152,6 +153,8 @@
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\communication\incoming\navigator\NewNavigatorMessageEvent.h" />
+    <ClInclude Include="includes\game\navigator\NavigatorCategory.h" />
     <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="includes\boot\Icarus.h" />
     <ClInclude Include="includes\communication\incoming\login\AuthenticateMessageEvent.h" />

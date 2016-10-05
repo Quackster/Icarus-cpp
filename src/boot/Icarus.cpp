@@ -66,7 +66,6 @@ void Icarus::boot() {
 
 
     if (Icarus::databaseManager->testConnection()) {
-
         cout << " [BOOT] [DatabaseManager] Connection to MySQL server was successful" << endl;
         cout << " [BOOT] [DatabaseManager] Started database pooling (database name: " << configuration->getString("database.database") << ") with a pool size of " << configuration->getInt("database.pool.size") << endl;
     } else {

@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "dao/NavigatorDao.h"
 #include "game/navigator/NavigatorManager.h"
 
 /*
@@ -7,7 +8,7 @@ Constructor for Navigator Manager
 Initialises the list for storing navigator tabs
 */
 NavigatorManager::NavigatorManager() {
-    this->tabs = new vector<NavigatorTab*>();
+    this->tabs = NavigatorDao::findTabsByChildId(-1);
 }
 
 /*

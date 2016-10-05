@@ -16,7 +16,7 @@ private:
     NavigatorDao() { };
 
 public:
-    static vector<NavigatorTab> *findTabsByChildId(int child_id);
+    static vector<NavigatorTab*> *findTabsByChildId(int child_id);
 
 };
 

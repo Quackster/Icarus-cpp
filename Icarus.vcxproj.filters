@@ -75,6 +75,9 @@
     <ClCompile Include="includes\game\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\navigator\NavigatorCategory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\boot\Icarus.h">
@@ -170,10 +173,13 @@
     <ClInclude Include="includes\game\navigator\NavigatorManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\dao\UserDao.h">
+    <ClInclude Include="src\game\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\Game.h">
+    <ClInclude Include="includes\communication\incoming\navigator\NewNavigatorMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\navigator\NavigatorCategory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

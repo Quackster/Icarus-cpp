@@ -10,9 +10,9 @@
     @param child id
     @return list of tabs
 */
-vector<NavigatorTab> *NavigatorDao::findTabsByChildId(int child_id) {
+vector<NavigatorTab*> *NavigatorDao::findTabsByChildId(int child_id) {
 
-    vector<NavigatorTab> *tabs = new vector<NavigatorTab>();
+    vector<NavigatorTab*> *tabs = new vector<NavigatorTab*>();
     
     shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
     bool has_user = false;
@@ -20,8 +20,8 @@ vector<NavigatorTab> *NavigatorDao::findTabsByChildId(int child_id) {
     try {
 
         shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
-        shared_ptr<sql::PreparedStatement> statement = shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, child_id, tab_name, title, button_type, closed, thumbnail, room_populator FROM navigator_tabs WHERE child_id = " + child_id));
-        shared_ptr<sql::ResultSet> result_set = shared_ptr<sql::ResultSet>(statement->executeQuery());
+        shared_ptr<sql::Statement> statement = shared_ptr<sql::Statement>(sql_connection->createStatement());
+        shared_ptr<sql::ResultSet> result_set = shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, child_id, tab_name, title, button_type, closed, thumbnail, room_populator FROM navigator_tabs WHERE child_id = " + std::to_string(child_id)));
 
         while (result_set->next()) {
 
@@ -34,6 +34,12 @@ vector<NavigatorTab> *NavigatorDao::findTabsByChildId(int child_id) {
                 result_set->getBoolean("closed"),
                 result_set->getBoolean("thumbnail")
             );
+
+            tabs->push_back(tab);
+            
+            // Also add child tabs
+            auto child_tabs = shared_ptr<vector<NavigatorTab*>>(findTabsByChildId(tab->getId()));
+            tabs->insert(tabs->end(), child_tabs->begin(), child_tabs->end());
         }
 
     }
