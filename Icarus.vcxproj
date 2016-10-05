@@ -131,6 +131,9 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="includes\game\Game.cpp" />
+    <ClCompile Include="src\dao\NavigatorDao.cpp" />
+    <ClCompile Include="src\game\navigator\NavigatorManager.cpp" />
     <ClCompile Include="src\game\navigator\NavigatorTab.cpp" />
     <ClCompile Include="src\boot\Icarus.cpp" />
     <ClCompile Include="src\communication\incoming\MessageHandler.cpp" />
@@ -149,6 +152,7 @@
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="includes\boot\Icarus.h" />
     <ClInclude Include="includes\communication\incoming\login\AuthenticateMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\login\VersionCheckMessageEvent.h" />
@@ -164,7 +168,6 @@
     <ClInclude Include="includes\communication\outgoing\MessageComposer.h" />
     <ClInclude Include="includes\communication\streams\Request.h" />
     <ClInclude Include="includes\communication\streams\Response.h" />
-    <ClInclude Include="includes\dao\UserDao.h" />
     <ClInclude Include="includes\database\DatabaseManager.h" />
     <ClInclude Include="includes\database\lib\ConnectionPool.h" />
     <ClInclude Include="includes\database\lib\MySQLConnection.h" />
@@ -180,6 +183,7 @@
     <ClInclude Include="includes\stdafx.h" />
     <ClInclude Include="includes\targetver.h" />
     <ClInclude Include="includes\game\navigator\NavigatorTab.h" />
+    <ClInclude Include="includes\game\navigator\NavigatorManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

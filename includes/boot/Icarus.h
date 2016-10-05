@@ -4,6 +4,7 @@
 #include "network/NetworkServer.h"
 #include "communication/incoming/MessageHandler.h"
 #include "misc/Configuration.h"
+#include "game/Game.h"
 
 class Icarus
 {
@@ -16,6 +17,7 @@ public:
     static MessageHandler *getMessageHandler();// { return networkServer; }
     static DatabaseManager *getDatabaseManager();
     static Configuration *getConfiguration();
+    static Game *getGame();
 
 private:
     static SessionManager *sessionManager;
@@ -23,6 +25,7 @@ private:
     static MessageHandler *messageHandler;
     static DatabaseManager *databaseManager;
     static Configuration *configuration;
+    static Game *game;
 
 };
 

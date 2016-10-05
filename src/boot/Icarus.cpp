@@ -15,6 +15,7 @@ NetworkServer *Icarus::networkServer;
 MessageHandler *Icarus::messageHandler;
 DatabaseManager *Icarus::databaseManager;
 Configuration *Icarus::configuration;
+Game *Icarus::game;
 
 /*
 Method to boot server with nice print
@@ -84,6 +85,11 @@ void Icarus::boot() {
     cout << " [BOOT] [MessageHandler] Creating message handler " << endl << endl;
     Icarus::messageHandler = new MessageHandler();
 
+    cout << endl;
+
+    cout << " [BOOT] [Game] Creating game instance" << endl;
+    Icarus::game = new Game();
+
     /*
         Start server
     */
@@ -93,6 +99,15 @@ void Icarus::boot() {
     networkServer = new NetworkServer(io_service, serverPort);
     io_service.run();
 
+}
+
+/*
+Gets the game instance
+
+@return: Game ptr
+*/
+Game *Icarus::getGame() {
+    return game;
 }
 
 /*
@@ -149,4 +164,5 @@ Icarus::~Icarus() {
     delete Icarus::networkServer;
     delete Icarus::messageHandler;
     delete Icarus::databaseManager;
+    delete Icarus::game;
 }
