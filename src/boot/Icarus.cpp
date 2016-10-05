@@ -37,9 +37,10 @@ void Icarus::boot() {
     cout << endl;
     cout << " @author: Quackster" << endl;
     cout << endl;
-    cout << " @contributors: " << endl     
-        << " - LeonHartley " << endl 
-        << " - Cecer " << endl;
+    cout << " @contributors: " << endl 
+         << " - active911 " << endl
+         << " - LeonHartley " << endl 
+         << " - Cecer " << endl;
     cout << endl;
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
