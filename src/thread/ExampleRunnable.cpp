@@ -3,7 +3,7 @@
 #include "boot/Icarus.h"
 #include "thread/ExampleRunnable.h"
 
-ExampleRunnable::ExampleRunnable(int i = 0) {
+ExampleRunnable::ExampleRunnable(int i) {
 
     this->i = i;
 }
@@ -14,7 +14,7 @@ void ExampleRunnable::run() {
 
     cout << "Threaded task: " << i << endl;
 
-    ExampleRunnable *new_run = new ExampleRunnable(i);
-    Icarus::getGame()->getGameScheduler()->schedule(new_run);
+    ExampleRunnable *newRunnable = new ExampleRunnable(i);
+    Icarus::getGame()->getGameScheduler()->schedule(newRunnable);
 
 }

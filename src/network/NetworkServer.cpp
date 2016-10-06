@@ -8,7 +8,7 @@ Network server constructor
 */
 NetworkServer::NetworkServer(boost::asio::io_service& io_service, short port) : acceptor(io_service, tcp::endpoint(tcp::v4(), port)), socket(io_service) {
     this->connectionID = 0;
-    this->start_accept();
+    this->startAccept();
 }
 
 /*
@@ -25,15 +25,15 @@ Start accepting clients
 
 @return none
 */
-void NetworkServer::start_accept() {
+void NetworkServer::startAccept() {
     acceptor.async_accept(socket, [this](boost::system::error_code ec) {
 
         if (!ec) {
             shared_ptr<NetworkConnection> connection = std::make_shared<NetworkConnection>(this->connectionID++, std::move(socket));
-            connection->recieve_data(); // start with 4 bytes at first
+            connection->recieveData(); // start with 4 bytes at first
         }
 
-        this->start_accept();
+        this->startAccept();
     });
 }
 

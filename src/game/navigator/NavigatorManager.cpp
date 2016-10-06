@@ -18,10 +18,10 @@ NavigatorManager::NavigatorManager() {
     @param tab name
     @return tab ptr
 */
-NavigatorTab* NavigatorManager::getTab(string tab_name) {
+NavigatorTab* NavigatorManager::getTab(string tabName) {
 
     for (auto tab : *this->tabs) {
-        if (tab->getTabName() == tab_name) {
+        if (tab->getTabName() == tabName) {
             return tab;
         }
     }

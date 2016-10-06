@@ -1,6 +1,6 @@
 ## Icarus
 
-Icarus is a Habbo Hotel private server written in C++ designed for version *PRODUCTION-201512012203-525044429*. There is **no Linux version available**, the only supported operating system is Windows.
+Icarus is a server written in C++ designed for version *PRODUCTION-201512012203-525044429*. 
 
 This should compile out of the box if you open up *Icarus.vcxproj* with Visual Studio 2015 C++
 

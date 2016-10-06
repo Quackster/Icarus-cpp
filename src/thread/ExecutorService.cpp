@@ -13,8 +13,8 @@ ExecutorService::ExecutorService(int threads, chrono::milliseconds duration) : d
     this->threads = new vector<std::thread*>();
 
     for (int i = 0; i < threads; i++) {
-        thread *new_thread = new thread(&ExecutorService::tick, this);
-        this->threads->push_back(new_thread);
+        thread *newThread = new thread(&ExecutorService::tick, this);
+        this->threads->push_back(newThread);
     }
 }
 

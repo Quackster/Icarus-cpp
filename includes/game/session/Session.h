@@ -15,11 +15,11 @@ public:
     SessionDetails *getDetails() { return this->sessionDetails; }
     void setSessionDetails(SessionDetails *details) { this->sessionDetails = details; }
     
-    string getUniqueId() { return this->unique_id;  }
-    void setUniqueId(string unique_id) { this->unique_id = unique_id; }
+    string getUniqueId() { return this->uniqueId;  }
+    void setUniqueId(string unique_id) { this->uniqueId = unique_id; }
 
 private:
     NetworkConnection *networkConnection;
     SessionDetails *sessionDetails;
-    string unique_id;
+    string uniqueId;
 };

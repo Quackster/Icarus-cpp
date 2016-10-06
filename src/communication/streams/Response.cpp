@@ -8,7 +8,7 @@ Response constructor, it will initialise the deque, and append the header in raw
 @return response instance
 */
 Response::Response(short header) : header(header) {
-    this->bytes_written = 0;
+    this->bytesWritten = 0;
     this->used = false;
     this->message = vector <char>(0);
     this->writeShort(header);
@@ -70,7 +70,7 @@ void Response::writeInt(int number) {
         this->message.push_back(bytes[i]);
     }
 
-    this->bytes_written = this->bytes_written + 4;
+    this->bytesWritten = this->bytesWritten + 4;
     delete[] bytes;
 }
 
@@ -88,7 +88,7 @@ void Response::writeShort(short number) {
         this->message.push_back(bytes[i]);
     }
 
-    this->bytes_written = this->bytes_written + 2;
+    this->bytesWritten = this->bytesWritten + 2;
     delete[] bytes;
 }
 
@@ -107,7 +107,7 @@ void Response::writeCChar(const char* str) {
         this->message.push_back(str[i]);
     }
 
-    this->bytes_written = this->bytes_written + length;
+    this->bytesWritten = this->bytesWritten + length;
 }
 
 
@@ -124,12 +124,12 @@ char* Response::getData() {
 
         // Get the size in raw 4 int 32 length prefixed, but reversed
         // as this needs to be inserted at the front
-        char* size_raw = this->getBytes(this->bytes_written, true);
+        char* size = this->getBytes(this->bytesWritten, true);
 
         for (int i = 0; i < 4; i++) {
 
             // Insert at the front of vector
-            this->message.insert(this->message.begin(), size_raw[i]);
+            this->message.insert(this->message.begin(), size[i]);
         }
     }
         

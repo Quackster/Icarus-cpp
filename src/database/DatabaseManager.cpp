@@ -4,9 +4,9 @@
 /*
     Constructor for database manager
 */
-DatabaseManager::DatabaseManager(string host, string port, string username, string password, string database, int pool_size) :
-    host(host), port(port), username(username), password(password), database(database), pool_size(pool_size){
-    this->tested_connection = false;
+DatabaseManager::DatabaseManager(string host, string port, string username, string password, string database, int poolSize) :
+    host(host), port(port), username(username), password(password), database(database), poolSize(poolSize){
+    this->testedConnection = false;
 
 }
 
@@ -22,10 +22,10 @@ bool DatabaseManager::testConnection() {
 
     try {
 
-        if (this->tested_connection != true) {
-            this->tested_connection = true;
-            this->mysql_connection_factory = new MySQLConnectionFactory(this->host, this->port, this->username, this->password, this->database);
-            this->mysql_pool = new ConnectionPool<MySQLConnection>(this->pool_size, this->mysql_connection_factory);
+        if (this->testedConnection != true) {
+            this->testedConnection = true;
+            this->mysqlConnectionFactory = new MySQLConnectionFactory(this->host, this->port, this->username, this->password, this->database);
+            this->mysqlPool = new ConnectionPool<MySQLConnection>(this->poolSize, this->mysqlConnectionFactory);
             
         }
     }
@@ -59,8 +59,8 @@ void DatabaseManager::printException(sql::SQLException &e, char* file, char* fun
 */
 DatabaseManager::~DatabaseManager() {
     
-    if (tested_connection) {
-        delete this->mysql_connection_factory;
-        delete this->mysql_pool;
+    if (this->testedConnection) {
+        delete this->mysqlConnectionFactory;
+        delete this->mysqlPool;
     }
 }

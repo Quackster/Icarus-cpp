@@ -3,6 +3,8 @@
 
 int main(int argc, char* argv[]) {
 
+    printf("%c[%dmHELLO!\n", 0x1B, 32);
+
     try {
 		Icarus::boot();
 	} catch (std::exception& e) {

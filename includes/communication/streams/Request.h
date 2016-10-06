@@ -9,7 +9,7 @@ class Request
 {
 
 public:
-    Request(char *full_message);
+    Request(char *fullMessage);
     ~Request();
 
     int readShort();
@@ -24,5 +24,5 @@ private:
     int length;
     int index;
 
-    char *full_message;
+    char *fullMessage;
 };

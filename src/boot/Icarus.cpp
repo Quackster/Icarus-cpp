@@ -101,9 +101,9 @@ void Icarus::boot() {
     int serverPort = configuration->getInt("tcp.server.port");
     cout << endl  << " [BOOT] [NetworkServer] Starting server on port " << serverPort << endl;
     
-    boost::asio::io_service io_service;
-    networkServer = new NetworkServer(io_service, serverPort);
-    io_service.run();
+    boost::asio::io_service ioService;
+    networkServer = new NetworkServer(ioService, serverPort);
+    ioService.run();
 }
 
 /*

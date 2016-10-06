@@ -19,27 +19,27 @@ vector<NavigatorTab*> *NavigatorDao::getTabsByChildId(int child_id) {
 
     try {
 
-        shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
-        shared_ptr<sql::Statement> statement = shared_ptr<sql::Statement>(sql_connection->createStatement());
-        shared_ptr<sql::ResultSet> result_set = shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, child_id, tab_name, title, button_type, closed, thumbnail, room_populator FROM navigator_tabs WHERE child_id = " + std::to_string(child_id)));
+        shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
+        shared_ptr<sql::Statement> statement = shared_ptr<sql::Statement>(sqlConnection->createStatement());
+        shared_ptr<sql::ResultSet> resultSet = shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, child_id, tab_name, title, button_type, closed, thumbnail, room_populator FROM navigator_tabs WHERE child_id = " + std::to_string(child_id)));
 
-        while (result_set->next()) {
+        while (resultSet->next()) {
 
             NavigatorTab *tab = new NavigatorTab(
-                result_set->getInt("id"),
-                result_set->getInt("child_id"),
-                result_set->getString("tab_name"),
-                result_set->getString("title"),
-                (char)result_set->getInt("button_type"),
-                result_set->getBoolean("closed"),
-                result_set->getBoolean("thumbnail")
+                resultSet->getInt("id"),
+                resultSet->getInt("child_id"),
+                resultSet->getString("tab_name"),
+                resultSet->getString("title"),
+                (char)resultSet->getInt("button_type"),
+                resultSet->getBoolean("closed"),
+                resultSet->getBoolean("thumbnail")
             );
 
             tabs->push_back(tab);
             
             // Also add child tabs
-            auto child_tabs = shared_ptr<vector<NavigatorTab*>>(getTabsByChildId(tab->getId()));
-            tabs->insert(tabs->end(), child_tabs->begin(), child_tabs->end());
+            auto childTabs = shared_ptr<vector<NavigatorTab*>>(getTabsByChildId(tab->getId()));
+            tabs->insert(tabs->end(), childTabs->begin(), childTabs->end());
         }
 
     }
@@ -66,16 +66,16 @@ vector<NavigatorCategory*> *NavigatorDao::getCategories() {
 
     try {
 
-        shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
-        shared_ptr<sql::Statement> statement = shared_ptr<sql::Statement>(sql_connection->createStatement());
-        shared_ptr<sql::ResultSet> result_set = shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, title, min_rank FROM navigator_categories"));
+        shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
+        shared_ptr<sql::Statement> statement = shared_ptr<sql::Statement>(sqlConnection->createStatement());
+        shared_ptr<sql::ResultSet> resultSet = shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, title, min_rank FROM navigator_categories"));
 
-        while (result_set->next()) {
+        while (resultSet->next()) {
 
             NavigatorCategory *category = new NavigatorCategory(
-                result_set->getInt("id"),
-                result_set->getString("title"),
-                result_set->getInt("min_rank")
+                resultSet->getInt("id"),
+                resultSet->getString("title"),
+                resultSet->getInt("min_rank")
             );
 
             categories->push_back(category);

@@ -6,7 +6,7 @@ Request constructor
 
 @return full received packet
 */
-Request::Request(char *full_message) : full_message(full_message) {
+Request::Request(char *fullMessage) : fullMessage(fullMessage) {
     this->index = 0;
 
     //this->length = this->readInt();
@@ -23,8 +23,8 @@ Read an integer represented as 16 bits
 int Request::readShort() {
 
     short number = (short)(
-        (0xff & full_message[index]) << 8 |
-        (0xff & full_message[index + 1]) << 0);
+        (0xff & fullMessage[index]) << 8 |
+        (0xff & fullMessage[index + 1]) << 0);
 
     index = index + 2;
     return number;
@@ -37,10 +37,10 @@ Read an integer represented as 32 bits
 */
 int Request::readInt() {
 
-    int number = (this->full_message[this->index] << 24)
-        | (this->full_message[this->index + 1] << 16)
-        | (this->full_message[this->index + 2] << 8)
-        | (this->full_message[this->index + 3]);
+    int number = (this->fullMessage[this->index] << 24)
+        | (this->fullMessage[this->index + 1] << 16)
+        | (this->fullMessage[this->index + 2] << 8)
+        | (this->fullMessage[this->index + 3]);
 
     index = index + 4;
     return number;
@@ -59,7 +59,7 @@ std::string Request::readString() {
     
 
     for (int i = 0; i < length; i++) {
-        str += this->full_message[index++];
+        str += this->fullMessage[index++];
     }
 
     return str;
