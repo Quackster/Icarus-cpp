@@ -185,8 +185,8 @@
     <ClInclude Include="includes\database\DatabaseManager.h" />
     <ClInclude Include="includes\database\lib\ConnectionPool.h" />
     <ClInclude Include="includes\database\lib\MySQLConnection.h" />
-    <ClInclude Include="includes\headers\Incoming.h" />
-    <ClInclude Include="includes\headers\Outgoing.h" />
+    <ClInclude Include="includes\communication\headers\Incoming.h" />
+    <ClInclude Include="includes\communication\headers\Outgoing.h" />
     <ClInclude Include="includes\game\session\Session.h" />
     <ClInclude Include="includes\game\session\SessionDetails.h" />
     <ClInclude Include="includes\game\session\SessionManager.h" />

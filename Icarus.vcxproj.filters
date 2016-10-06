@@ -119,12 +119,6 @@
     <ClInclude Include="includes\database\lib\MySQLConnection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\headers\Incoming.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\headers\Outgoing.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\misc\Configuration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -213,6 +207,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\game\Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\headers\Incoming.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\headers\Outgoing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "headers/Incoming.h"
+#include "communication/headers/Incoming.h"
 #include "communication/incoming/MessageHandler.h"
 
 // Login

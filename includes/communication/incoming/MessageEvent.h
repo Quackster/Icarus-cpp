@@ -1,6 +1,6 @@
 #pragma once
 #include "game/session/Session.h"
-#include "headers/Outgoing.h"
+#include "communication/headers/Outgoing.h"
 
 #include "communication/streams/Request.h"
 #include "communication/streams/Response.h"

@@ -1,6 +1,6 @@
 #pragma once
-//#include "headers/Incoming.h"
-#include "headers/Outgoing.h"
+//#include "communication/headers/Incoming.h"
+#include "communication/headers/Outgoing.h"
 
 #include "communication/streams/Request.h"
 #include "communication/streams/Response.h"
