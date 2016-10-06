@@ -22,12 +22,12 @@ Converts a short (16 bits) to little-endian represented in a char array
 @parameter reverse, if true, will return in big endian format
 @return char array
 */
-unsigned char* Response::getBytes(short i) {
+char* Response::getBytes(short i) {
 
-    unsigned char output[2];
+    char output[2];
 
-    output[0] = (unsigned char)(i >> 8);
-    output[1] = (unsigned char)(i);
+    output[0] = (char)(i >> 8) & 0xff;
+    output[1] = (char)(i) & 0xff;
 
     return output;
 }
@@ -38,20 +38,20 @@ Converts a integer (32 bits) to little-endian represented in a char array
 @parameter reverse, if true, will return in big endian format
 @return char array
 */
-unsigned char* Response::getBytes(int i, bool reverse) {
+char* Response::getBytes(int i, bool reverse) {
 
-    unsigned char output[4];
+    char output[4];
 
     if (reverse) {
-        output[0] = (unsigned char)i;
-        output[1] = (unsigned char)(i >> 8);
-        output[2] = (unsigned char)(i >> 16);
-        output[3] = (unsigned char)(i >> 24);
+        output[0] = (char)i & 0xff;
+        output[1] = (char)(i >> 8) & 0xff;
+        output[2] = (char)(i >> 16) & 0xff;
+        output[3] = (char)(i >> 24) & 0xff;
     } else {
-        output[3] = (unsigned char)i;
-        output[2] = (unsigned char)(i >> 8);
-        output[1] = (unsigned char)(i >> 16);
-        output[0] = (unsigned char)(i >> 24);
+        output[3] = (char)i & 0xff;
+        output[2] = (char)(i >> 8) & 0xff;
+        output[1] = (char)(i >> 16) & 0xff;
+        output[0] = (char)(i >> 24) & 0xff;
     };
 
     return output;
@@ -65,7 +65,7 @@ and increases the bytes written by 4
 */
 void Response::writeInt(int number) {
 
-    unsigned char* bytes = this->getBytes(number);
+    char* bytes = this->getBytes(number);
 
     for (int i = 0; i < 4; i++) {
         this->message.push_back(bytes[i]);
@@ -82,7 +82,7 @@ and increases the bytes written by 2
 */
 void Response::writeShort(short number) {
 
-    unsigned char* bytes = this->getBytes(number);
+    char* bytes = this->getBytes(number);
     
     for (int i = 0; i < 2; i++) {
         this->message.push_back(bytes[i]);
@@ -123,7 +123,7 @@ char* Response::getData() {
 
         // Get the size in raw 4 int 32 length prefixed, but reversed
         // as this needs to be inserted at the front
-        unsigned char* size = this->getBytes(this->bytesWritten, true);
+        char* size = this->getBytes(this->bytesWritten, true);
 
         for (int i = 0; i < 4; i++) {
 
