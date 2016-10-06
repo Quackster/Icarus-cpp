@@ -4,7 +4,7 @@
 /*
     Constructor for database manager
 */
-DatabaseManager::DatabaseManager(string host, string port, string username, string password, string database, int poolSize) :
+DatabaseManager::DatabaseManager(std::string host, std::string port, std::string username, std::string password, std::string database, int poolSize) :
     host(host), port(port), username(username), password(password), database(database), poolSize(poolSize){
     this->testedConnection = false;
 
@@ -47,11 +47,11 @@ bool DatabaseManager::testConnection() {
     @return none
 */
 void DatabaseManager::printException(sql::SQLException &e, char* file, char* function, int line) {
-    cout << endl << " [ERROR] SQLException in " << file << "(" << function << ") on line " << line << endl;
-    cout << " [ERROR] Message: " << e.what() << endl;
-    cout << " [ERROR] Error code: " << e.getErrorCode() << endl;
-    cout << " [ERROR] SQLState: " << e.getSQLState() << endl;
-    cout << endl;
+    std::cout << std::endl << " [ERROR] SQLException in " << file << "(" << function << ") on line " << line << std::endl;
+    std::cout << " [ERROR] Message: " << e.what() << std::endl;
+    std::cout << " [ERROR] Error code: " << e.getErrorCode() << std::endl;
+    std::cout << " [ERROR] SQLState: " << e.getSQLState() << std::endl;
+    std::cout << std::endl;
 }
 
 /*

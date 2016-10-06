@@ -2,7 +2,7 @@
 #include "game/navigator/NavigatorCategory.h"
 
 
-NavigatorCategory::NavigatorCategory(int id, string name, int minimumRank) :
+NavigatorCategory::NavigatorCategory(int id, std::string name, int minimumRank) :
     id(id), name(name), minimumRank(minimumRank)
 {
 }

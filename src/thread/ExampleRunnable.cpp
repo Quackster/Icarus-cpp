@@ -12,9 +12,9 @@ void ExampleRunnable::run() {
 
     this->i++;
 
-    cout << "Threaded task: " << i << endl;
+    std::cout << "Threaded task: " << i << std::endl;
 
-    ExampleRunnable *newRunnable = new ExampleRunnable(i);
+    std::shared_ptr<ExampleRunnable> newRunnable = std::shared_ptr<ExampleRunnable>(new ExampleRunnable(i));
     Icarus::getGame()->getGameScheduler()->schedule(newRunnable);
 
 }

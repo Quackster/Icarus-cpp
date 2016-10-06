@@ -2,21 +2,19 @@
 #include <map>
 #include <string>
 
-using namespace std;
-
 class Configuration
 {
 
 public:
-    Configuration(string file);
+    Configuration(std::string file);
     ~Configuration();
-    string getString(string key);
-    int getInt(string key);
-    map<string, string> *getValues();
+    std::string getString(std::string key);
+    int getInt(std::string key);
+    std::map<std::string, std::string> *getValues();
 
 private:
-    string file;
-    map<string, string> *values;
+    std::string file;
+    std::map<std::string, std::string> *values;
     void parse();
 };
 

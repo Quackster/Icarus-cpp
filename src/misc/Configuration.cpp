@@ -12,8 +12,8 @@
 
     @param file path
 */
-Configuration::Configuration(string file) : file(file) {
-    this->values = new map<string, string>();
+Configuration::Configuration(std::string file) : file(file) {
+    this->values = new std::map<std::string, std::string>();
     this->parse();
 }
 
@@ -25,34 +25,34 @@ Configuration::Configuration(string file) : file(file) {
 */
 void Configuration::parse() {
 
-    if (!ifstream(this->file)) {
-        ofstream outputFile;
+    if (!std::ifstream(this->file)) {
+        std::ofstream outputFile;
         outputFile.open(this->file);
-        outputFile << "##########################" << endl;
-        outputFile << "##     Icarus config    ##" << endl;
-        outputFile << "##########################" << endl;
-        outputFile << endl;
-        outputFile << "database.hostname=127.0.0.1;" << endl;
-        outputFile << "database.port=3306;" << endl;
-        outputFile << "database.username=user;" << endl;
-        outputFile << "database.password=changeme;" << endl;
-        outputFile << "database.database=icarus;" << endl;
-        outputFile << "database.pool.size=5;" << endl;
-        outputFile << endl;
-        outputFile << "tcp.server.port=30000;" << endl;
-        outputFile << "room.thread.pool.size=4;" << endl;
+        outputFile << "##########################" << std::endl;
+        outputFile << "##     Icarus config    ##" << std::endl;
+        outputFile << "##########################" << std::endl;
+        outputFile << std::endl;
+        outputFile << "database.hostname=127.0.0.1;" << std::endl;
+        outputFile << "database.port=3306;" << std::endl;
+        outputFile << "database.username=user;" << std::endl;
+        outputFile << "database.password=changeme;" << std::endl;
+        outputFile << "database.database=icarus;" << std::endl;
+        outputFile << "database.pool.size=5;" << std::endl;
+        outputFile << std::endl;
+        outputFile << "tcp.server.port=30000;" << std::endl;
+        outputFile << "room.thread.pool.size=4;" << std::endl;
         outputFile.close();
     }
 
-    ifstream infile(this->file);
+    std::ifstream infile(this->file);
 
-    for (string line; getline(infile, line); ) {
+    for (std::string line; getline(infile, line); ) {
 
-        if (line.find("=") != string::npos &&
-            line.find(";") != string::npos) {
+        if (line.find("=") != std::string::npos &&
+            line.find(";") != std::string::npos) {
             line.pop_back(); // remove ';'
 
-            vector<string> split = Utilities::split(line, '=');
+            std::vector<std::string> split = Utilities::split(line, '=');
 
             this->values->insert(make_pair(split[0], split[1]));
         }
@@ -67,13 +67,13 @@ void Configuration::parse() {
     @param string key to look up value
     @return string value
 */
-string Configuration::getString(string key) {
+std::string Configuration::getString(std::string key) {
 
     if (this->values->count(key)) {
         return this->values->find(key)->second;
     }
 
-    return NULL;
+    return nullptr;
 }
 
 /*
@@ -82,7 +82,7 @@ Returns int value by given string key. attemps to cast from string to int.
 @param string key to look up value
 @return string value
 */
-int Configuration::getInt(string key) {
+int Configuration::getInt(std::string key) {
     if (this->values->count(key)) {
         return stoi(this->values->find(key)->second);
     }
@@ -90,7 +90,7 @@ int Configuration::getInt(string key) {
     return NULL;
 }
 
-map<string, string> *Configuration::getValues() {
+std::map<std::string, std::string> *Configuration::getValues() {
     return this->values;
 }
 

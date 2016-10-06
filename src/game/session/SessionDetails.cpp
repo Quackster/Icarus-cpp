@@ -7,7 +7,7 @@
 
     Sets everything to a value specified
 */
-SessionDetails::SessionDetails(int id, string username, string motto, string figure, int rank, int credits) :
+SessionDetails::SessionDetails(int id, std::string username, std::string motto, std::string figure, int rank, int credits) :
     id(id), username(username), motto(motto), figure(figure), rank(rank), credits(credits) {
 }
 

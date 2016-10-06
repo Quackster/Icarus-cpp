@@ -10,14 +10,14 @@ public:
     NavigatorManager();
     ~NavigatorManager();
 
-    NavigatorTab *getTab(string tab_name);
-    vector<NavigatorTab*> getParentTabs();
-    vector<NavigatorTab*> *getTabs() { return tabs; }
-    vector<NavigatorCategory*> *getCategories() { return categories; }
+    NavigatorTab *getTab(std::string tab_name);
+    std::vector<NavigatorTab*> getParentTabs();
+    std::vector<NavigatorTab*> *getTabs() { return tabs; }
+    std::vector<NavigatorCategory*> *getCategories() { return categories; }
     
 
 private:
-    vector<NavigatorTab*> *tabs;
-    vector<NavigatorCategory*> *categories;
+    std::vector<NavigatorTab*> *tabs;
+    std::vector<NavigatorCategory*> *categories;
 };
 

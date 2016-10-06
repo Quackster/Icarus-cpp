@@ -11,7 +11,7 @@
 */
 Session::Session(NetworkConnection *networkConnection) : networkConnection(networkConnection) {
     this->sessionDetails = nullptr;
-    cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << endl;
+    std::cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 }
 
 
@@ -43,7 +43,7 @@ void Session::clear() {
     so there won't be any more packet receiving
 */
 Session::~Session() {
-    cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << endl;
+    std::cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 
     delete sessionDetails;
 }

@@ -7,7 +7,7 @@ class MessageHandler
 {
 
 private:
-    map<int, MessageEvent*> *messages;
+    std::map<int, MessageEvent*> *messages;
 
 public:
     MessageHandler();

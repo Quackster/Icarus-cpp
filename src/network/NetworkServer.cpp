@@ -29,7 +29,7 @@ void NetworkServer::startAccept() {
     acceptor.async_accept(socket, [this](boost::system::error_code ec) {
 
         if (!ec) {
-            shared_ptr<NetworkConnection> connection = std::make_shared<NetworkConnection>(this->connectionID++, std::move(socket));
+            std::shared_ptr<NetworkConnection> connection = std::make_shared<NetworkConnection>(this->connectionID++, std::move(socket));
             connection->recieveData(); // start with 4 bytes at first
         }
 

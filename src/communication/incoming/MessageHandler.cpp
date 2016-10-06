@@ -56,7 +56,7 @@ MessageEvent *MessageHandler::getMessageEvent(int header) {
 void MessageHandler::createEvent(int header, MessageEvent *event) {
 
     if (!this->messages->count(header)) {
-        cout << " [MessageHandler] Event registered: " << header << " for event (" << typeid(*event).name() << ") " << endl;
+        std::cout << " [MessageHandler] Event registered: " << header << " for event (" << typeid(*event).name() << ") " << std::endl;
         this->messages->insert(std::make_pair(header, event));
     }
 }
@@ -73,9 +73,9 @@ void MessageHandler::invoke(int header, Request request, Session *session) {
 
     if (this->messages->count(header)) {
         this->messages->find(header)->second->handle(session, request);
-        cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages->find(header)->second).name() << ") " << endl;
+        std::cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages->find(header)->second).name() << ") " << std::endl;
     } else {
-        cout << " [MessageHandler] Unhandled message " << header << endl;
+        std::cout << " [MessageHandler] Unhandled message " << header << std::endl;
     }
 
 

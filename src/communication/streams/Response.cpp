@@ -10,7 +10,7 @@ Response constructor, it will initialise the deque, and append the header in raw
 Response::Response(short header) : header(header) {
     this->bytesWritten = 0;
     this->used = false;
-    this->message = vector <char>(0);
+    this->message = std::vector <char>(0);
     this->writeShort(header);
 }
 

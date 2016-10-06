@@ -9,11 +9,11 @@ Splits a given string by delimeter
 @param delimenter
 @return vector which has split up the string
 */
-vector<string> Utilities::split(const string &s, char delim) {
+std::vector<std::string> Utilities::split(const std::string &s, char delim) {
 
-    stringstream ss(s);
-    string item;
-    vector<string> tokens;
+    std::stringstream ss(s);
+    std::string item;
+    std::vector<std::string> tokens;
 
     while (getline(ss, item, delim)) {
         tokens.push_back(item);

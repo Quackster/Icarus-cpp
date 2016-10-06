@@ -1,20 +1,18 @@
 #pragma once
 #include <string>
 
-using namespace std;
-
 class NavigatorCategory
 {
 public:
-    NavigatorCategory(int id, string name, int min_rank);
+    NavigatorCategory(int id, std::string name, int min_rank);
     ~NavigatorCategory();
     int getId() { return id; }
-    string getName() { return name; }
+    std::string getName() { return name; }
     int getMinimumRank() { return minimumRank;  }
 
 private:
     int id;
-    string name;
+    std::string name;
     int minimumRank;
 
 };

@@ -4,7 +4,7 @@
 class UniqueMachineIDMessageComposer : public MessageComposer {
 
 public:
-    UniqueMachineIDMessageComposer(string machine_id) :
+    UniqueMachineIDMessageComposer(std::string machine_id) :
         machine_id(machine_id) { }
 
     Response compose() {
@@ -18,5 +18,5 @@ public:
     }
 
 private:
-    string machine_id;
+    std::string machine_id;
 };

@@ -6,7 +6,7 @@
 /*
     Constructor for Navigator tab
 */
-NavigatorTab::NavigatorTab(int id, int child_id, string tabName, string title, char button_type, bool closed, bool thumbnail) :
+NavigatorTab::NavigatorTab(int id, int child_id, std::string tabName, std::string title, char button_type, bool closed, bool thumbnail) :
     id(id), childId(child_id), tabName(tabName), title(title), buttonType(button_type), closed(closed), thumbnail(thumbnail)
 {
 }
@@ -16,9 +16,9 @@ NavigatorTab::NavigatorTab(int id, int child_id, string tabName, string title, c
 
     @return list of child tabs
 */
-vector<NavigatorTab*> NavigatorTab::getChildTabs() {
+std::vector<NavigatorTab*> NavigatorTab::getChildTabs() {
 
-    vector<NavigatorTab*> tabs = vector<NavigatorTab*>();
+    std::vector<NavigatorTab*> tabs = std::vector<NavigatorTab*>();
 
     for (auto tab : *Icarus::getGame()->getNavigatorManager()->getTabs()) {
         if (tab->getChildId() == this->id) {

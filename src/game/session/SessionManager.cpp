@@ -8,7 +8,7 @@ Constructor for Session Manager
 Initialises the map for storing sessions along with their connection ID
 */
 SessionManager::SessionManager() {
-    this->sessions = new map<int, Session*>();
+    this->sessions = new std::map<int, Session*>();
 }
 
 /*

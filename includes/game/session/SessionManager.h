@@ -3,9 +3,6 @@
 
 #include <iostream>
 #include <map>
-
-using namespace std;
-
 class SessionManager 
 {
 
@@ -18,6 +15,6 @@ public:
     Session* getSession(int connectionID);
 
 private:
-    map<int, Session*> *sessions;
+    std::map<int, Session*> *sessions;
 
 };

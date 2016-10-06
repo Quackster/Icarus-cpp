@@ -6,7 +6,6 @@
 #include "boot/Icarus.h"
 //#include "thread/ExampleRunnable.h"
 
-using namespace std;
 
 /*
 Initialise the static variables
@@ -28,35 +27,35 @@ void Icarus::boot() {
     typedef std::chrono::high_resolution_clock Time;
     typedef std::chrono::milliseconds ms;
 
-    cout << endl;
-    cout << " ##################################" << endl;
-    cout << " ###       Icarus Emulator       ##" << endl;
-    cout << " ###        by Quackster         ##" << endl;
-    cout << " ##################################" << endl;
-    cout << endl;
-    cout << " This is a server written in C++ built for Windows, Linux and other Unix-like systems." << endl;
-    cout << endl;
-    cout << " @author: Quackster" << endl;
-    cout << endl;
-    cout << " @contributors: " << endl 
-         << " - active911 " << endl
-         << " - LeonHartley " << endl 
-         << " - Cecer " << endl;
-    cout << endl;
+    std::cout << std::endl;
+    std::cout << " ##################################" << std::endl;
+    std::cout << " ###       Icarus Emulator       ##" << std::endl;
+    std::cout << " ###        by Quackster         ##" << std::endl;
+    std::cout << " ##################################" << std::endl;
+    std::cout << std::endl;
+    std::cout << " This is a server written in C++ built for Windows, Linux and other Unix-like systems." << std::endl;
+    std::cout << std::endl;
+    std::cout << " @author: Quackster" << std::endl;
+    std::cout << std::endl;
+    std::cout << " @contributors: " << std::endl 
+         << " - active911 " << std::endl
+         << " - LeonHartley " << std::endl 
+         << " - Cecer " << std::endl;
+    std::cout << std::endl;
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
     /*
         Load configuration
     */
-    cout << " [BOOT] [Configuration] Loading configuration" << endl;
+    std::cout << " [BOOT] [Configuration] Loading configuration" << std::endl;
     Icarus::configuration = new Configuration("configuration.ini");
-    cout << " [BOOT] [Configuration] Loaded " << configuration->getValues()->size() << " values" << endl;
+    std::cout << " [BOOT] [Configuration] Loaded " << configuration->getValues()->size() << " values" << std::endl;
 
     /*
         Test MySQL connection
     */
-    cout << endl;
-    cout << " [BOOT] [DatabaseManager] Testing MySQL connection" << endl;
+    std::cout << std::endl;
+    std::cout << " [BOOT] [DatabaseManager] Testing MySQL connection" << std::endl;
 
     Icarus::databaseManager = new DatabaseManager(
         configuration->getString("database.hostname"), 
@@ -68,10 +67,10 @@ void Icarus::boot() {
 
 
     if (Icarus::databaseManager->testConnection()) {
-        cout << " [BOOT] [DatabaseManager] Connection to MySQL server was successful" << endl;
-        cout << " [BOOT] [DatabaseManager] Started database pooling (database name: " << configuration->getString("database.database") << ") with a pool size of " << configuration->getInt("database.pool.size") << endl;
+        std::cout << " [BOOT] [DatabaseManager] Connection to MySQL server was successful" << std::endl;
+        std::cout << " [BOOT] [DatabaseManager] Started database pooling (database name: " << configuration->getString("database.database") << ") with a pool size of " << configuration->getInt("database.pool.size") << std::endl;
     } else {
-        cout << " [ATTENTION] Connection to mysql server failed " << endl;
+        std::cout << " [ATTENTION] Connection to mysql server failed " << std::endl;
         return;
     }
 
@@ -79,27 +78,28 @@ void Icarus::boot() {
         Load managers
     */
 
-    cout << endl;
-    cout << " [BOOT] [SessionManager] Creating session manager " << endl;
+    std::cout << std::endl;
+    std::cout << " [BOOT] [SessionManager] Creating session manager " << std::endl;
     Icarus::sessionManager = new SessionManager();
 
-    cout << " [BOOT] [MessageHandler] Creating message handler " << endl << endl;
+    std::cout << " [BOOT] [MessageHandler] Creating message handler " << std::endl << std::endl;
     Icarus::messageHandler = new MessageHandler();
 
-    cout << endl;
+    std::cout << std::endl;
 
-    cout << " [BOOT] [Game] Creating game instance" << endl;
+    std::cout << " [BOOT] [Game] Creating game instance" << std::endl;
     Icarus::game = new Game();
 
-    /*for (int i = 0; i < 10; i++) {
-        game->getGameScheduler()->schedule(new ExampleRunnable(0));
+    /*for (int i = 0; i < 4; i++) {
+        std::shared_ptr<ExampleRunnable> newRunnable = std::shared_ptr<ExampleRunnable>(new ExampleRunnable(i));
+        Icarus::getGame()->getGameScheduler()->schedule(newRunnable);
     }*/
 
     /*
         Start server
     */
     int serverPort = configuration->getInt("tcp.server.port");
-    cout << endl  << " [BOOT] [NetworkServer] Starting server on port " << serverPort << endl;
+    std::cout << std::endl  << " [BOOT] [NetworkServer] Starting server on port " << serverPort << std::endl;
     
     boost::asio::io_service ioService;
     networkServer = new NetworkServer(ioService, serverPort);

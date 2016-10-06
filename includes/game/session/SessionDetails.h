@@ -1,31 +1,29 @@
 #pragma once
 #include <string>
 
-using namespace std;
-
 class SessionDetails {
 
 private:
     int id;
-    string username;
-    string motto;
-    string figure;
+    std::string username;
+    std::string motto;
+    std::string figure;
     int rank;
     int credits;
-    string machine_id;
+    std::string machine_id;
     bool authenticated;
 
 public:
-    SessionDetails(int id, string username, string motto, string figure, int rank, int credits);
+    SessionDetails(int id, std::string username, std::string motto, std::string figure, int rank, int credits);
     ~SessionDetails();
 
     int getId() { return id; }
-    string getUsername() { return username; }
-    string getMotto() { return motto; }
-    string getFigure() { return figure; }
+    std::string getUsername() { return username; }
+    std::string getMotto() { return motto; }
+    std::string getFigure() { return figure; }
     int getRank() { return rank; }
     int getCredits() { return credits; }
     
-    string getMachineId() { return machine_id; }
-    void setMachineId(string machine_id) { machine_id = machine_id; }
+    std::string getMachineId() { return machine_id; }
+    void setMachineId(std::string machine_id) { machine_id = machine_id; }
 };

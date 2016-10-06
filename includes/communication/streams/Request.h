@@ -1,9 +1,6 @@
 #pragma once
 
-#include <string>
 #include <iostream>
-
-using namespace std;
 
 class Request 
 {
@@ -14,7 +11,7 @@ public:
 
     int readShort();
     int readInt();
-    string readString();
+    std::string readString();
 
     int getMessageLength() { return length; }
     int getMessageId() { return header;  }

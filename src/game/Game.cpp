@@ -5,7 +5,7 @@
 
 Game::Game() {
     this->navigatorManager = new NavigatorManager();
-    this->executorService = ExecutorService::createSchedulerService(Icarus::getConfiguration()->getInt("room.thread.pool.size"), chrono::milliseconds(500));
+    this->executorService = ExecutorService::createSchedulerService(Icarus::getConfiguration()->getInt("room.thread.pool.size"), std::chrono::milliseconds(500));
 }
 
 

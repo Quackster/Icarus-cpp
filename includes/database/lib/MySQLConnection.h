@@ -39,7 +39,7 @@ public:
 class MySQLConnectionFactory : public ConnectionFactory {
 
 public:
-	MySQLConnectionFactory(std::string server, std::string port, ::string username, std::string password, std::string database) {
+	MySQLConnectionFactory(std::string server, std::string port, std::string username, std::string password, std::string database) {
         this->server = "tcp://" + server + ":" + port;
 		this->username=username;
 		this->password=password;
@@ -54,7 +54,7 @@ public:
 		sql::Driver *driver = get_driver_instance();
 
         // Create the connection
-        shared_ptr<MySQLConnection>conn(new MySQLConnection());
+        std::shared_ptr<MySQLConnection>conn(new MySQLConnection());
 
         // Connect
         conn->sql_connection = std::shared_ptr<sql::Connection>(driver->connect(this->server, this->username, this->password));

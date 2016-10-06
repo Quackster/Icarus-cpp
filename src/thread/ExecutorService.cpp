@@ -7,13 +7,13 @@
     @param thread pool number
     @return executor service instance
 */
-ExecutorService::ExecutorService(int threads, chrono::milliseconds duration) : duration(duration) {
+ExecutorService::ExecutorService(int threads, std::chrono::milliseconds duration) : duration(duration) {
 
-    this->tasks = new BlockingQueue<Runnable*>();
-    this->threads = new vector<std::thread*>();
+    this->tasks = new BlockingQueue<std::shared_ptr<Runnable>>();
+    this->threads = new std::vector<std::thread*>();
 
     for (int i = 0; i < threads; i++) {
-        thread *newThread = new thread(&ExecutorService::tick, this);
+        std::thread *newThread = new std::thread(&ExecutorService::tick, this);
         this->threads->push_back(newThread);
     }
 }
@@ -26,7 +26,7 @@ ExecutorService::ExecutorService(int threads, chrono::milliseconds duration) : d
     @return executor service ptr
 */
 ExecutorService *ExecutorService::createSchedulerService(int threads) {
-    ExecutorService *service = new ExecutorService(threads, chrono::milliseconds(500));
+    ExecutorService *service = new ExecutorService(threads, std::chrono::milliseconds(500));
     return service;
 }
 
@@ -37,7 +37,7 @@ Create service from statically called method with duration specified
 @param duration
 @return executor service ptr
 */
-ExecutorService *ExecutorService::createSchedulerService(int threads, chrono::milliseconds duration) {
+ExecutorService *ExecutorService::createSchedulerService(int threads, std::chrono::milliseconds duration) {
     ExecutorService *service = new ExecutorService(threads, duration);
     return service;
 }
@@ -48,7 +48,7 @@ ExecutorService *ExecutorService::createSchedulerService(int threads, chrono::mi
     @param runnable ptr
     @return none
 */
-void ExecutorService::schedule(Runnable *runnable) {
+void ExecutorService::schedule(std::shared_ptr<Runnable> runnable) {
 
     this->tasks->push(runnable);
 }
@@ -63,12 +63,11 @@ void ExecutorService::tick() {
 
     while (this->running) {
 
-        Runnable *runnable = this->tasks->pop();
+        std::shared_ptr<Runnable> runnable = this->tasks->pop();
 
         if (runnable != nullptr) {
             std::this_thread::sleep_for(this->duration);
             runnable->run();
-            delete runnable;
         }
     }
 

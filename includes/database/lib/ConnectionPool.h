@@ -29,8 +29,6 @@
 
 #include <boost/thread/mutex.hpp>
 
-using namespace std;
-
 struct ConnectionUnavailable : std::exception { 
 
 	char const* what() const throw() {
@@ -175,8 +173,8 @@ public:
 protected:
     ConnectionFactory *factory;
 	size_t pool_size;
-	deque<std::shared_ptr<Connection>> pool;
-	set<std::shared_ptr<Connection>> borrowed;
+    std::deque<std::shared_ptr<Connection>> pool;
+    std::set<std::shared_ptr<Connection>> borrowed;
 	boost::mutex io_mutex;
 
 };
