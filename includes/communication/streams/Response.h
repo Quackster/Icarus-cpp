@@ -25,8 +25,8 @@ public:
     void writeString(string str) { this->writeCChar(str.c_str()); };
 
     char* getData();
-    char* getBytes(short num);
-    char* getBytes(int num, bool reverse = false);
+    unsigned char* getBytes(short num);
+    unsigned char* getBytes(int num, bool reverse = false);
 
     int getBytesWritten() { return bytesWritten + 4/*the length at the start*/;  }
     vector<char> getMessage() { return message; }
