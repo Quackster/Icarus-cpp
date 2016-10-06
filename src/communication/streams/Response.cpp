@@ -24,11 +24,6 @@ Converts a short (16 bits) to little-endian represented in a char array
 */
 unsigned char* Response::getBytes(short i) {
 
-    /*char* output = new char[2] {
-        (char)(i >> 8),
-        (char)i
-    };*/
-
     unsigned char output[2];
 
     output[0] = (unsigned char)(i >> 8);
@@ -52,7 +47,6 @@ unsigned char* Response::getBytes(int i, bool reverse) {
         output[1] = (unsigned char)(i >> 8);
         output[2] = (unsigned char)(i >> 16);
         output[3] = (unsigned char)(i >> 24);
-
     } else {
         output[3] = (unsigned char)i;
         output[2] = (unsigned char)(i >> 8);
@@ -99,7 +93,7 @@ void Response::writeShort(short number) {
 
 /*
 Writes a given string with length prefixed in UTF-8 format
-and increases the bytes written by 2
+and increases the bytes written by 2, and including the length of the string
 
 @return none
 */
