@@ -91,8 +91,8 @@ void Icarus::boot() {
     cout << " [BOOT] [Game] Creating game instance" << endl;
     Icarus::game = new Game();
 
-    /*for (int i = 0; i < 5; i++) {
-        game->getExecutorService()->schedule(new ExampleRunnable(0));
+    /*for (int i = 0; i < 10; i++) {
+        game->getGameScheduler()->schedule(new ExampleRunnable(0));
     }*/
 
     /*

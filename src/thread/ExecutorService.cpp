@@ -7,7 +7,7 @@
     @param thread pool number
     @return executor service instance
 */
-ExecutorService::ExecutorService(int threads) {
+ExecutorService::ExecutorService(int threads, chrono::milliseconds duration) : duration(duration) {
 
     this->tasks = new BlockingQueue<Runnable*>();
     this->threads = new vector<std::thread*>();
@@ -19,13 +19,26 @@ ExecutorService::ExecutorService(int threads) {
 }
 
 /*
-    Create service from statically called method
+    Create service from statically called method, if no duration is specified,
+    it will default to tick every 500ms
 
     @param thread pool number
     @return executor service ptr
 */
 ExecutorService *ExecutorService::createSchedulerService(int threads) {
-    ExecutorService *service = new ExecutorService(threads);
+    ExecutorService *service = new ExecutorService(threads, chrono::milliseconds(500));
+    return service;
+}
+
+/*
+Create service from statically called method with duration specified
+
+@param thread pool number
+@param duration
+@return executor service ptr
+*/
+ExecutorService *ExecutorService::createSchedulerService(int threads, chrono::milliseconds duration) {
+    ExecutorService *service = new ExecutorService(threads, duration);
     return service;
 }
 
@@ -53,9 +66,7 @@ void ExecutorService::tick() {
         Runnable *runnable = this->tasks->pop();
 
         if (runnable != nullptr) {
-         
-            std::this_thread::sleep_for(std::chrono::milliseconds(500));
-
+            std::this_thread::sleep_for(this->duration);
             runnable->run();
             delete runnable;
         }

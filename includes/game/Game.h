@@ -9,7 +9,7 @@ public:
     ~Game();
 
     NavigatorManager *getNavigatorManager() { return navigatorManager; }
-    ExecutorService *getExecutorService() { return executorService; }
+    ExecutorService *getGameScheduler() { return executorService; }
 
 private:
     NavigatorManager *navigatorManager;

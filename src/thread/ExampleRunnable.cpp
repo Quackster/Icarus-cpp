@@ -12,15 +12,9 @@ void ExampleRunnable::run() {
 
     this->i++;
 
-    if (i == 4) {
-        cout << "topkek " << i << endl;
-        Icarus::getGame()->getExecutorService()->stop();
-        return;
-    }
-
-    //
+    cout << "Threaded task: " << i << endl;
 
     ExampleRunnable *new_run = new ExampleRunnable(i);
-    Icarus::getGame()->getExecutorService()->schedule(new_run);
+    Icarus::getGame()->getGameScheduler()->schedule(new_run);
 
 }
