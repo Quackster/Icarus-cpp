@@ -5,6 +5,7 @@
 
 Game::Game() {
     this->navigatorManager = new NavigatorManager();
+    this->executorService = ExecutorService::createSchedulerService(Icarus::getConfiguration()->getInt("room.thread.pool.size"), chrono::milliseconds(500));
 }
 
 
