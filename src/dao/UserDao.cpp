@@ -14,7 +14,6 @@
 SessionDetails *UserDao::findUserByTicket(Session *session, std::string ssoTicket) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
-    bool has_user = false;
 
     try {
 
