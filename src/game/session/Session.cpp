@@ -9,8 +9,7 @@
     @param NetworkConnection ptr
     @return session instance
 */
-Session::Session(NetworkConnection *networkConnection) : networkConnection(networkConnection) {
-    this->sessionDetails = nullptr;
+Session::Session(NetworkConnection *networkConnection) : networkConnection(networkConnection), sessionDetails(nullptr) {
     std::cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 }
 
@@ -45,5 +44,7 @@ void Session::clear() {
 Session::~Session() {
     std::cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 
-    delete sessionDetails;
+    if (sessionDetails != nullptr) {
+        delete sessionDetails;
+    }
 }

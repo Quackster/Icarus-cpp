@@ -78,30 +78,6 @@ void NetworkConnection::recieveData() {
 
     });
 }
-/*void NetworkConnection::recieve_data() {
-
-    auto self(shared_from_this());
-
-    socket_.async_read_some(boost::asio::buffer(buffer, sizeof(buffer)), [this, self]( boost::system::error_code ec, std::size_t length) {
-
-        if (!ec) {
-            this->handle_data();
-            this->recieve_data();
-        }
-        else {
-            
-            // Handle session disconnect
-            if (Icarus::getSessionManager()->containsSession(this->connectionID)) {
-                Icarus::getSessionManager()->removeSession(this->connectionID);
-            }
-            else {
-                // Remove connection if it was just a policy request
-                Icarus::getNetworkServer()->removeNetworkConnection(this);
-            }
-        }
-
-    });
-}*/
 
 /*
 Write data handle
@@ -158,9 +134,6 @@ void NetworkConnection::send(MessageComposer &composer) {
 
     // Write to socket
     this->writeData(response.getData(), response.getBytesWritten());
-
-    // Delete composer
-    //delete composer;
 }
 
 
