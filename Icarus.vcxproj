@@ -173,7 +173,7 @@
     <ClInclude Include="includes\communication\incoming\MessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\MessageHandler.h" />
     <ClInclude Include="includes\communication\incoming\login\UniqueIDMessageEvent.h" />
-    <ClInclude Include="includes\communication\incoming\DefaultIncomingEvent.h" />
+    <ClInclude Include="includes\communication\incoming\DefaultIncomingMessageEvent.h" />
     <ClInclude Include="includes\communication\outgoing\DefaultComposer.h" />
     <ClInclude Include="includes\communication\outgoing\login\AuthenticateMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\login\LandingWidgetMessageComposer.h" />
