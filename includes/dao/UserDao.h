@@ -7,8 +7,6 @@
 
 #include "game/session/Session.h"
 
-using namespace std;
-
 class UserDao
 {
 
@@ -16,7 +14,7 @@ private:
     UserDao() { };
 
 public:
-    static SessionDetails *findUserByTicket(Session *session, string ssoTicket);
+    static SessionDetails *findUserByTicket(Session *session, std::string ssoTicket);
 
 };
 

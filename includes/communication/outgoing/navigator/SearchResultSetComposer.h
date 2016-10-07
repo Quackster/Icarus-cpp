@@ -8,7 +8,7 @@
 class SearchResultSetComposer : public MessageComposer {
 
 public:
-    SearchResultSetComposer(Session* session, NavigatorTab *tab, string query) : session(session), tab(tab), query(query) { }
+    SearchResultSetComposer(Session* session, NavigatorTab *tab, std::string query) : session(session), tab(tab), query(query) { }
 
     Response compose() {
         Response response = this->createResponse();
@@ -18,7 +18,7 @@ public:
 
         if (query.length() == 0) {
             
-            vector<NavigatorTab*> tabs;
+            std::vector<NavigatorTab*> tabs;
             bool room_limit = true;
 
             if (tab->getChildId() != -1) {
@@ -63,5 +63,5 @@ public:
 private:
     Session* session;
     NavigatorTab *tab;
-    string query;
+    std::string query;
 };

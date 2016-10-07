@@ -18,7 +18,7 @@ NavigatorManager::NavigatorManager() {
     @param tab name
     @return tab ptr
 */
-NavigatorTab* NavigatorManager::getTab(string tabName) {
+NavigatorTab* NavigatorManager::getTab(std::string tabName) {
 
     for (auto tab : *this->tabs) {
         if (tab->getTabName() == tabName) {
@@ -33,9 +33,9 @@ NavigatorTab* NavigatorManager::getTab(string tabName) {
     Returns all parent tabs, (those who have -1 as child id
     @return vector list of parent tabs
 */
-vector<NavigatorTab*> NavigatorManager::getParentTabs() {
+std::vector<NavigatorTab*> NavigatorManager::getParentTabs() {
 
-    vector<NavigatorTab*> tabs = vector<NavigatorTab*>();
+    std::vector<NavigatorTab*> tabs = std::vector<NavigatorTab*>();
 
     for (auto tab : *this->tabs) {
         if (tab->getChildId() == -1) {

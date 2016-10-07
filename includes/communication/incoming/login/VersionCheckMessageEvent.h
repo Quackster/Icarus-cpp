@@ -12,7 +12,7 @@ public:
 
     void handle(Session *session, Request request) {
 
-        string revision = request.readString();
+        std::string revision = request.readString();
 
         if (revision != "PRODUCTION-201512012203-525044429") {
             session->getNetworkConnection()->getSocket().close();

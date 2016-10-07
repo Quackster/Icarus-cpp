@@ -7,8 +7,8 @@
 class FlatCategoriesMessageComposer : public MessageComposer {
 
 public:
-    FlatCategoriesMessageComposer(vector<NavigatorCategory*> *categories, int rank) : categories(categories), rank(rank) {  }
-
+    FlatCategoriesMessageComposer(std::vector<NavigatorCategory*> *categories, int rank) : categories(categories), rank(rank) {  }
+    
     Response compose() {
         Response response = this->createResponse();
         response.writeInt((int)this->categories->size());
@@ -31,7 +31,7 @@ public:
     }
 
 private:
-    vector<NavigatorCategory*> *categories;
+    std::vector<NavigatorCategory*> *categories;
     int rank;
 
 };

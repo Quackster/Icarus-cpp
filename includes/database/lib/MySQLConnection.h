@@ -25,14 +25,14 @@ class MySQLConnection : public Connection {
 
 public:
 	~MySQLConnection() {
-		if (this->sql_connection) {
-			this->sql_connection->close();
-			this->sql_connection.reset(); 	// Release and destruct	
+		if (this->sqlConnection) {
+			this->sqlConnection->close();
+			this->sqlConnection.reset(); 	// Release and destruct	
 		}
 	};
 
-	std::shared_ptr<sql::Connection> sql_connection;
 	int a;
+	std::shared_ptr<sql::Connection> sqlConnection;
 };
 
 
@@ -57,8 +57,8 @@ public:
         std::shared_ptr<MySQLConnection>conn(new MySQLConnection());
 
         // Connect
-        conn->sql_connection = std::shared_ptr<sql::Connection>(driver->connect(this->server, this->username, this->password));
-        conn->sql_connection->setSchema(this->database);
+        conn->sqlConnection = std::shared_ptr<sql::Connection>(driver->connect(this->server, this->username, this->password));
+        conn->sqlConnection->setSchema(this->database);
 
 		return std::static_pointer_cast<Connection>(conn);
 	};

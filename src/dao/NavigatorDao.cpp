@@ -10,18 +10,18 @@
     @param child id
     @return list of tabs
 */
-vector<NavigatorTab*> *NavigatorDao::getTabsByChildId(int child_id) {
+std::vector<NavigatorTab*> *NavigatorDao::getTabsByChildId(int child_id) {
 
-    vector<NavigatorTab*> *tabs = new vector<NavigatorTab*>();
+    std::vector<NavigatorTab*> *tabs = new std::vector<NavigatorTab*>();
     
-    shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
     bool has_user = false;
 
     try {
 
-        shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
-        shared_ptr<sql::Statement> statement = shared_ptr<sql::Statement>(sqlConnection->createStatement());
-        shared_ptr<sql::ResultSet> resultSet = shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, child_id, tab_name, title, button_type, closed, thumbnail, room_populator FROM navigator_tabs WHERE child_id = " + std::to_string(child_id)));
+        std::shared_ptr<sql::Connection> sqlConnection = connection->sqlConnection;
+        std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
+        std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, child_id, tab_name, title, button_type, closed, thumbnail, room_populator FROM navigator_tabs WHERE child_id = " + std::to_string(child_id)));
 
         while (resultSet->next()) {
 
@@ -38,7 +38,7 @@ vector<NavigatorTab*> *NavigatorDao::getTabsByChildId(int child_id) {
             tabs->push_back(tab);
             
             // Also add child tabs
-            auto childTabs = shared_ptr<vector<NavigatorTab*>>(getTabsByChildId(tab->getId()));
+            auto childTabs = std::shared_ptr<std::vector<NavigatorTab*>>(getTabsByChildId(tab->getId()));
             tabs->insert(tabs->end(), childTabs->begin(), childTabs->end());
         }
 
@@ -57,18 +57,18 @@ vector<NavigatorTab*> *NavigatorDao::getTabsByChildId(int child_id) {
 
     @return vector ptr categories
 */
-vector<NavigatorCategory*> *NavigatorDao::getCategories() {
+std::vector<NavigatorCategory*> *NavigatorDao::getCategories() {
 
-    vector<NavigatorCategory*> *categories = new vector<NavigatorCategory*>();
+    std::vector<NavigatorCategory*> *categories = new std::vector<NavigatorCategory*>();
 
-    shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
     bool has_user = false;
 
     try {
 
-        shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
-        shared_ptr<sql::Statement> statement = shared_ptr<sql::Statement>(sqlConnection->createStatement());
-        shared_ptr<sql::ResultSet> resultSet = shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, title, min_rank FROM navigator_categories"));
+        std::shared_ptr<sql::Connection> sqlConnection = connection->sqlConnection;
+        std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
+        std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, title, min_rank FROM navigator_categories"));
 
         while (resultSet->next()) {
 

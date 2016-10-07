@@ -19,7 +19,7 @@
 */
 MessageHandler::MessageHandler() {
 
-    this->messages = new map<int, MessageEvent*>();
+    this->messages = new std::map<int, MessageEvent*>();
     
     // Login
     this->createEvent(Incoming::VersionCheckMessageEvent, new VersionCheckMessageEvent());

@@ -11,8 +11,8 @@ public:
 
     void handle(Session *session, Request request) {
 
-        string tab = request.readString();
-        string query = request.readString();
+        std::string tab = request.readString();
+        std::string query = request.readString();
 
         NavigatorTab *navigator_tab = Icarus::getGame()->getNavigatorManager()->getTab(tab);
 

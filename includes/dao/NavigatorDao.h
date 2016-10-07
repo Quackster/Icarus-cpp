@@ -8,8 +8,6 @@
 #include "mysql_connection.h"
 #include "mysql.h"
 
-using namespace std;
-
 class NavigatorDao
 {
 
@@ -17,8 +15,8 @@ private:
     NavigatorDao() { };
 
 public:
-    static vector<NavigatorTab*> *getTabsByChildId(int child_id);
-    static vector<NavigatorCategory*> *getCategories();
+    static std::vector<NavigatorTab*> *getTabsByChildId(int child_id);
+    static std::vector<NavigatorCategory*> *getCategories();
 
 };
 

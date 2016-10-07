@@ -11,19 +11,19 @@
 
     @return whether or not their user was found
 */
-SessionDetails *UserDao::findUserByTicket(Session *session, string ssoTicket) {
+SessionDetails *UserDao::findUserByTicket(Session *session, std::string ssoTicket) {
 
-    shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
     bool has_user = false;
 
     try {
 
-        shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
-        shared_ptr<sql::PreparedStatement> statement = shared_ptr<sql::PreparedStatement>(sqlConnection->prepareStatement("SELECT id, username, rank, motto, figure, credits FROM users WHERE sso_ticket = ? LIMIT 1")); {
+        std::shared_ptr<sql::Connection> sqlConnection = connection->sqlConnection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sqlConnection->prepareStatement("SELECT id, username, rank, motto, figure, credits FROM users WHERE sso_ticket = ? LIMIT 1")); {
             statement->setString(1, ssoTicket);
         }
 
-        shared_ptr<sql::ResultSet> resultSet = shared_ptr<sql::ResultSet>(statement->executeQuery());
+        std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
 
         while (resultSet->next()) {
 

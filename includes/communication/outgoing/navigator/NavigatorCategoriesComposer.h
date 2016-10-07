@@ -7,7 +7,7 @@
 class NavigatorCategoriesComposer : public MessageComposer {
 
 public:
-    NavigatorCategoriesComposer(vector<NavigatorCategory*> *categories) : categories(categories) {  }
+    NavigatorCategoriesComposer(std::vector<NavigatorCategory*> *categories) : categories(categories) {  }
 
     Response compose() {
         Response response = this->createResponse();
@@ -29,6 +29,6 @@ public:
     }
 
 private:
-    vector<NavigatorCategory*> *categories;
+    std::vector<NavigatorCategory*> *categories;
 
 };
