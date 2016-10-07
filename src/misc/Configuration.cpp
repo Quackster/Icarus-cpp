@@ -87,7 +87,7 @@ int Configuration::getInt(std::string key) {
         return stoi(this->values->find(key)->second);
     }
 
-    return NULL;
+    return 0;
 }
 
 std::map<std::string, std::string> *Configuration::getValues() {

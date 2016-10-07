@@ -43,7 +43,7 @@ MessageEvent *MessageHandler::getMessageEvent(int header) {
         return this->messages->find(header)->second;
     }
 
-    return NULL;
+    return nullptr;
 }
 
 /*

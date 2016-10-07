@@ -90,6 +90,6 @@ Session *SessionManager::getSession(int connectionID) {
         return this->sessions->find(connectionID)->second;
     }
     else {
-        return NULL;
+        return nullptr;
     }
 }
