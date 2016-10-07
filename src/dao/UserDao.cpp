@@ -14,6 +14,7 @@
 SessionDetails *UserDao::findUserByTicket(Session *session, std::string ssoTicket) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+    SessionDetails *details = nullptr;
 
     try {
 
@@ -26,7 +27,10 @@ SessionDetails *UserDao::findUserByTicket(Session *session, std::string ssoTicke
 
         while (resultSet->next()) {
 
-            SessionDetails *details = new SessionDetails(
+            /*
+                This pointer gets deleted in the 'Session' deconstructor
+            */
+            details = new SessionDetails(
                 resultSet->getInt("id"),
                 resultSet->getString("username"),
                 resultSet->getString("motto"),
@@ -34,8 +38,6 @@ SessionDetails *UserDao::findUserByTicket(Session *session, std::string ssoTicke
                 resultSet->getInt("rank"),
                 resultSet->getInt("credits")
             );
-
-            return details;
         }
 
     }
@@ -45,6 +47,6 @@ SessionDetails *UserDao::findUserByTicket(Session *session, std::string ssoTicke
 
     Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
 
-    return nullptr;
+    return details;
 };
 
