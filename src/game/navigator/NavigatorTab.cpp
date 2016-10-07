@@ -1,13 +1,13 @@
 #include "stdafx.h"
 
-#include "boot\Icarus.h"
+#include "boot/Icarus.h"
 #include "game/navigator/NavigatorTab.h"
 
 /*
     Constructor for Navigator tab
 */
-NavigatorTab::NavigatorTab(int id, int child_id, std::string tabName, std::string title, char button_type, bool closed, bool thumbnail) :
-    id(id), childId(child_id), tabName(tabName), title(title), buttonType(button_type), closed(closed), thumbnail(thumbnail)
+NavigatorTab::NavigatorTab(int id, int childId, std::string tabName, std::string title, char buttonType, bool closed, bool thumbnail) :
+    id(id), childId(childId), tabName(tabName), title(title), buttonType(buttonType), closed(closed), thumbnail(thumbnail)
 {
 }
 

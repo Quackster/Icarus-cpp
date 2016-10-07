@@ -1,5 +1,5 @@
 #pragma once
-#include "boot\Icarus.h"
+#include "boot/Icarus.h"
 #include "communication/outgoing/MessageComposer.h"
 
 class NavigatorMetaDataComposer : public MessageComposer {
@@ -9,11 +9,11 @@ public:
 
     Response compose() {
 
-        auto parent_tabs = Icarus::getGame()->getNavigatorManager()->getParentTabs();
+        auto parentTabs = Icarus::getGame()->getNavigatorManager()->getParentTabs();
         Response response = this->createResponse();
-        response.writeInt((int)parent_tabs.size());
+        response.writeInt((int)parentTabs.size());
 
-        for (auto tab : parent_tabs) {
+        for (auto tab : parentTabs) {
             response.writeString(tab->getTabName());
             response.writeInt(0);
         } 

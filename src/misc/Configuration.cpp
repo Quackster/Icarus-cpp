@@ -4,8 +4,8 @@
 #include <iostream>
 #include <sstream>
 
-#include "misc\Configuration.h"
-#include "misc\Utilities.h"
+#include "misc/Configuration.h"
+#include "misc/Utilities.h"
 
 /*
     Constructor for Configuration, it will parse it when a new instance of Configuration is created
