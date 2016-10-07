@@ -4,12 +4,12 @@
 #include "boot/Icarus.h"
 
 /*
-    Authenticates user by their SSO ticket, will also fill their data if they are found.
+    Finds session data based on their SSO ticket.
 
     @param Session pointer
     @param SSO ticket requested
 
-    @return whether or not their user was found
+    @return SessionData ptr or nullptr (check if this returns nullptr for failure of finding user)
 */
 SessionDetails *UserDao::findUserByTicket(Session *session, std::string ssoTicket) {
 
