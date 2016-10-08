@@ -5,6 +5,7 @@
 class RoomData
 {
 public:
+    RoomData(int id, std::string name, char room_type, int owner_id, int group_id, std::string description, std::string password, int users_now, int users_max, std::string model, std::string wallpaper, std::string floor, std::string outside, std::vector<std::string> tags, int trade_state, int state, int score, int category, bool allow_pets, bool allow_pets_eat, bool allow_walkthroug),
     ~RoomData();
 
 private:
