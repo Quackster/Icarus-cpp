@@ -131,6 +131,9 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\rooms\RoomData.cpp" />
+    <ClCompile Include="src\game\rooms\Room.cpp" />
+    <ClCompile Include="src\game\rooms\RoomManager.cpp" />
     <ClCompile Include="src\thread\ExampleRunnable.cpp" />
     <ClCompile Include="src\thread\ExecutorService.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
@@ -158,8 +161,8 @@
     <ClInclude Include="includes\thread\ExampleRunnable.h" />
     <ClInclude Include="includes\thread\Runnable.h" />
     <ClInclude Include="includes\thread\ExecutorService.h" />
-    <ClInclude Include="includes\communication\incoming\navigator\SearchNewNavigatorEvent.h" />
-    <ClInclude Include="includes\communication\incoming\navigator\NewNavigatorMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\login\navigator\SearchNewNavigatorEvent.h" />
+    <ClInclude Include="includes\communication\incoming\login\navigator\NewNavigatorMessageEvent.h" />
     <ClInclude Include="includes\communication\outgoing\navigator\SearchResultSetComposer.h" />
     <ClInclude Include="includes\communication\outgoing\navigator\NavigatorMetaDataComposer.h" />
     <ClInclude Include="includes\communication\outgoing\navigator\NavigatorCategoriesComposer.h" />
@@ -198,6 +201,9 @@
     <ClInclude Include="includes\targetver.h" />
     <ClInclude Include="includes\game\navigator\NavigatorTab.h" />
     <ClInclude Include="includes\game\navigator\NavigatorManager.h" />
+    <ClInclude Include="includes\game\room\RoomManager.h" />
+    <ClInclude Include="includes\game\room\Room.h" />
+    <ClInclude Include="includes\game\room\RoomData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -84,6 +84,15 @@
     <ClCompile Include="src\game\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\rooms\RoomManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\rooms\Room.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\rooms\RoomData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\boot\Icarus.h">
@@ -170,9 +179,6 @@
     <ClInclude Include="includes\game\navigator\NavigatorManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\communication\incoming\navigator\NewNavigatorMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\game\navigator\NavigatorCategory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -183,9 +189,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\communication\outgoing\navigator\NavigatorMetaDataComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\communication\incoming\navigator\SearchNewNavigatorEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\communication\outgoing\navigator\SearchResultSetComposer.h">
@@ -213,6 +216,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\communication\incoming\DefaultIncomingMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\incoming\login\navigator\NewNavigatorMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\incoming\login\navigator\SearchNewNavigatorEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\room\RoomManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\room\Room.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\room\RoomData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

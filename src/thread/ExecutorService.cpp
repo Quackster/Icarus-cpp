@@ -75,6 +75,7 @@ void ExecutorService::tick() {
             runnable->run();
         }
 
+        // stop() function was called, try to cancel as soon as possible.
         if (!this->running) {
             this->cancelled_threads.push_back(std::this_thread::get_id());
         }
