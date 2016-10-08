@@ -6,6 +6,8 @@ public:
     Room();
     ~Room();
 
+    void dispose(bool force_disposal = false);
+
     void setRoomData(RoomData *room_data) { this->room_data = room_data; };
     RoomData *getData() { return room_data; }
 

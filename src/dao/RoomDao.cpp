@@ -86,7 +86,7 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
                 // The user leaves the room and they're not the owner, and they're the last one in the room
                 // The user disconnects and there's no one else in the room so they get deleted
                 //
-                // All called from the .dispose function of the Room
+                // 'delete' called from the .deleteRoom function from RoomManager
                 Room *room = new Room();
 
                 room->setRoomData(new RoomData(

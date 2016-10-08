@@ -49,7 +49,7 @@ std::vector<Room*> RoomManager::getPlayerRooms(int user_id) {
 
         Room* room = room_entry.second;
 
-        if (room->getData()->getId() == user_id) {
+        if (room->getData()->getOwnerId() == user_id) {
             rooms.push_back(room);
         }
     }
@@ -90,8 +90,25 @@ Room *RoomManager::getRoom(int room_id) {
 */
 void RoomManager::addRoom(Room *room) {
 
-    if (this->hasRoom(room->getData()->getId())) {
-        this->addRoom(room);
+    if (!this->hasRoom(room->getData()->getId())) {
+        std::cout << "Added room " << room->getData()->getId() << std::endl;
+        this->rooms->insert(std::make_pair(room->getData()->getId(), room));
+    }
+}
+
+/*
+    Totally deletes from within room manager
+
+    @param room_id
+    @return none
+*/
+void RoomManager::deleteRoom(int room_id) {
+
+    // TODO: Kick all users
+
+    if (this->hasRoom(room_id)) {
+        Room *room = this->getRoom(room_id);
+        delete room;
     }
 }
 

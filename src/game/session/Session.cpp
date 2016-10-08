@@ -43,8 +43,18 @@ void Session::send(MessageComposer &composer) {
     @return none
 */
 void Session::clear() {
+     
+    // Can't continue clearing if session details is null...
+    if (session_details == nullptr) {
+        return;
+    }
 
-    
+    // Dispose player rooms
+    std::vector<Room*> rooms = Icarus::getGame()->getRoomManager()->getPlayerRooms(this->session_details->getId()); {
+        for (Room *room : rooms) {
+            delete room;
+        }
+    }
 }
 
 /*

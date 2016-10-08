@@ -14,6 +14,7 @@ public:
     bool hasRoom(int room_id);
     Room *getRoom(int room_id);
     void addRoom(Room *room);
+    void deleteRoom(int room_id);
 
 private:
     std::map<int, Room*> *rooms;
