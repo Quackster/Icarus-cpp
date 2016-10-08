@@ -61,7 +61,7 @@ std::vector<NavigatorTab*> NavigatorManager::getParentTabs() {
 */
 RoomPopulator *NavigatorManager::getPopulator(std::string populator_name) {
 
-    std::cout << populator_name << std::endl;
+    //std::cout << populator_name << std::endl;
 
     if (this->room_populators->count(populator_name)) {
         return this->room_populators->find(populator_name)->second;

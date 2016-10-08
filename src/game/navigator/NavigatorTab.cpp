@@ -7,10 +7,7 @@
     Constructor for Navigator tab
 */
 NavigatorTab::NavigatorTab(int id, int child_id, std::string tab_name, std::string title, char button_type, bool closed, bool thumbnail, std::string populator_name) :
-    id(id), child_id(child_id), tab_name(tab_name), title(title), button_type(button_type), closed(closed), thumbnail(thumbnail), populator(populator_name)
-{
-
-}
+    id(id), child_id(child_id), tab_name(tab_name), title(title), button_type(button_type), closed(closed), thumbnail(thumbnail), populator(populator_name) { }
 
 /*
     Get all child tabs under this tab

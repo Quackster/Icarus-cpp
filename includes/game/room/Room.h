@@ -1,4 +1,6 @@
 #pragma once
+#include "communication/streams/Response.h"
+
 #include "game/room/RoomData.h"
 class Room
 {
@@ -6,6 +8,7 @@ public:
     Room();
     ~Room();
 
+    void serialise(Response response);
     void dispose(bool force_disposal = false);
 
     void setRoomData(RoomData *room_data) { this->room_data = room_data; };

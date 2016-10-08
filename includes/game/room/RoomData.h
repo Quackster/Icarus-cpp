@@ -42,7 +42,20 @@ public:
     std::string getName() { return name; }
     bool isPrivate() { return room_type == 0; }
     int getOwnerId() { return owner_id; }
-
+    int getGroupId() { return group_id; }
+    std::string getDescription() { return description; }
+    std::string getPassword() { return password; }
+    int getUsersNow() { return users_now; }
+    int getUsersMax() { return users_max; }
+    std::string getModel() { return description; }
+    std::string getWallpaper() { return description; }
+    std::string getFloor() { return description; }
+    std::string getOutside() { return outside; }
+    std::vector<std::string> getTags() { return tags; }
+    int getTradeState() { return trade_state; }
+    int getState() { return state; }
+    int getScore() { return score; }
+    int getCategory() { return category; }
     ~RoomData();
 
 private:
@@ -68,7 +81,7 @@ private:
     bool allow_pets_eat;
     bool allow_walkthrough;
     int floor_thickness;
-        int wall_thickness;
+    int wall_thickness;
     bool hide_wall;
     int chat_type;
     int chat_balloon;

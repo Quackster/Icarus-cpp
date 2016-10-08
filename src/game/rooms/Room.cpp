@@ -9,6 +9,18 @@
 Room::Room() { }
 
 /*
+    Serialise room data for response
+    this is used in a number of places
+
+    @param response
+    @return none
+*/
+void Room::serialise(Response response) {
+
+
+}
+
+/*
     Dispose handler for Room
 
     @param (optional) force dispose of room
@@ -36,6 +48,6 @@ void Room::dispose(bool force_dispose) {
 */
 Room::~Room()
 {
-    std::cout << "Room ID " << this->room_data->getId() << " disposed." << std::endl;
+    std::cout << " Room ID " << this->room_data->getId() << " disposed." << std::endl;
     delete room_data;
 }

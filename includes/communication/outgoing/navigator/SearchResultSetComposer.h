@@ -47,7 +47,7 @@ public:
 
                 response.writeInt(navigator_tab->getThumbnail());
 
-                RoomPopulator *populator = Icarus::getGame()->getNavigatorManager()->getPopulator(tab->getPopulatorName());
+                RoomPopulator *populator = Icarus::getGame()->getNavigatorManager()->getPopulator(navigator_tab->getPopulatorName());
                 std::vector<Room*> rooms = populator->populate(room_limit, session);
 
                 response.writeInt(0);
