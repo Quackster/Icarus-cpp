@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "communication/incoming/MessageEvent.h"
 
 class DefaultIncomingMessageEvent : public MessageEvent {

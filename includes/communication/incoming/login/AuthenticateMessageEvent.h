@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "communication/incoming/MessageEvent.h"
 #include "communication/outgoing/login/AuthenticateMessageComposer.h"
 #include "communication/outgoing/login/UniqueMachineIDMessageComposer.h"

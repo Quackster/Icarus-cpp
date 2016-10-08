@@ -17,8 +17,5 @@ public:
         session->send(FlatCategoriesMessageComposer(categories, session->getDetails()->getRank()));
         session->send(NavigatorCategoriesComposer(categories));
         session->send(NavigatorMetaDataComposer());
-
-
-
     }
 };
