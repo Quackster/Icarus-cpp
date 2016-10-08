@@ -1,4 +1,7 @@
 #include "stdafx.h"
+
+#include <algorithm>
+
 #include "thread/ExecutorService.h"
 
 /*
@@ -9,12 +12,13 @@
 */
 ExecutorService::ExecutorService(int threads, std::chrono::milliseconds duration) : duration(duration) {
 
-    this->tasks = new BlockingQueue<std::shared_ptr<Runnable>>();
-    this->threads = new std::vector<std::thread*>();
+    //this->tasks = BlockingQueue<std::shared_ptr<Runnable>>();
+    //threads = std::vector<std::thread*>();
+
+    this->running = true;
 
     for (int i = 0; i < threads; i++) {
-        std::thread *newThread = new std::thread(&ExecutorService::tick, this);
-        this->threads->push_back(newThread);
+        this->threads.push_back(new std::thread(&ExecutorService::tick, this));
     }
 }
 
@@ -49,8 +53,7 @@ ExecutorService *ExecutorService::createSchedulerService(int threads, std::chron
     @return none
 */
 void ExecutorService::schedule(std::shared_ptr<Runnable> runnable) {
-
-    this->tasks->push(runnable);
+    this->tasks.push(runnable);
 }
 
 /*
@@ -63,25 +66,50 @@ void ExecutorService::tick() {
 
     while (this->running) {
 
-        std::shared_ptr<Runnable> runnable = this->tasks->pop();
+        std::shared_ptr<Runnable> runnable = this->tasks.pop();
 
         if (runnable != nullptr) {
             std::this_thread::sleep_for(this->duration);
             runnable->run();
         }
+
+        if (!this->running) {
+            this->cancelled_threads.push_back(std::this_thread::get_id());
+        }
     }
 
     if (!this->running) {
 
-        // Delete all thread ptrs
-        for (auto thread : *this->threads) {
-            thread->join(); // calling join calls thread deconstructor
+        bool stop_yet = false;
+
+        for (std::thread *thread : this->threads) {
+
+            // If our thread isn't in this list, then we can't stop yet! :(
+            if (std::find(this->cancelled_threads.begin(), this->cancelled_threads.end(), thread->get_id()) != this->cancelled_threads.end()) {
+                stop_yet = true;
+            }
+            else {
+                // Can't stop yet because other threads aren't done finishing tasks.
+                stop_yet = false;
+                break;
+            }
         }
 
-        this->threads->clear();
+        // We can finally stop :D
+        if (stop_yet) {
+            
+            for (auto thread : this->threads) {
+                thread->detach();
+            }
 
-        delete this->threads;
-        delete this->tasks;
+            for (auto thread : this->threads) {
+                delete thread;
+            }
+
+            this->cancelled_threads.clear();
+            this->threads.clear();
+
+        }
     }
 }
 

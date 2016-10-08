@@ -14,7 +14,4 @@ void ExampleRunnable::run() {
 
     std::cout << "Threaded task: " << i << std::endl;
 
-    std::shared_ptr<ExampleRunnable> newRunnable = std::shared_ptr<ExampleRunnable>(new ExampleRunnable(i));
-    Icarus::getGame()->getGameScheduler()->schedule(newRunnable);
-
 }
