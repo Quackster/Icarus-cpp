@@ -2,8 +2,7 @@
 
 #include "game/session/Session.h"
 #include "game/session/SessionDetails.h"
-
-#include "dao/RoomDao.h"
+#include "boot/Icarus.h"
 
 /*
     Session constructor
@@ -24,11 +23,8 @@ Session::Session(NetworkConnection *network_connection) :
 */
 void Session::login() {
 
-    std::vector<int> room_ids = RoomDao::getPlayerRooms(this->session_details->getId());
-
-    for (int room_id : room_ids) {
-        std::cout << room_id << std::endl;
-    }
+    // Load player rooms
+    Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->getId());
 }
 
 /*

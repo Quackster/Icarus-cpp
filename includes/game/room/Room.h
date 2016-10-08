@@ -6,7 +6,7 @@ public:
     Room();
     ~Room();
 
-    void setRoomData(RoomData *room_data) { room_data = room_data; };
+    void setRoomData(RoomData *room_data) { this->room_data = room_data; };
     RoomData *getData() { return room_data; }
 
 private:

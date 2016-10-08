@@ -40,6 +40,23 @@ std::vector<int> RoomDao::getPlayerRooms(int user_id) {
 }
 
 /*
+    Get a single room by room id
+
+    @param room id
+    @param room ptr instance
+*/
+Room* RoomDao::getRoom(int room_id) {
+
+    // Convert room id to a vector if we want to get one room
+    std::vector<int> rooms = { room_id };
+
+    // Return single room
+    return getRooms(rooms).front();
+}
+
+
+
+/*
     Get list of room instances by list of room ids
 
     @param vector room ids

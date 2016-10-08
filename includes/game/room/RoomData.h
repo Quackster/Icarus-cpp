@@ -38,6 +38,11 @@ public:
         int who_can_kick,
         int who_can_ban);
 
+    int getId() { return id; }
+    std::string getName() { return name; }
+    bool isPrivate() { return room_type == 0; }
+    int getOwnerId() { return owner_id; }
+
     ~RoomData();
 
 private:

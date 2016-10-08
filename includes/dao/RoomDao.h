@@ -16,6 +16,7 @@ private:
 
 public:
     static std::vector<int> RoomDao::getPlayerRooms(int user_id);
+    static Room* getRoom(int room_id);
     static std::vector<Room*> getRooms(std::vector<int> room_ids);
 
 };
