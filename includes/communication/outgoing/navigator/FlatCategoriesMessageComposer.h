@@ -11,7 +11,7 @@ public:
     
     Response compose() {
         Response response = this->createResponse();
-        response.writeInt((int)this->categories->size());
+        response.writeInt(this->categories->size());
 
         for (auto category : *this->categories) {
             response.writeInt(category->getId());
