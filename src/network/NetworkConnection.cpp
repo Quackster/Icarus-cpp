@@ -56,6 +56,7 @@ void NetworkConnection::recieveData() {
                         Request request(buffer);
 
                         if (request.getMessageId() > 0) {
+
                             this->handleData(request);
                         }
                     }

@@ -15,6 +15,7 @@ public:
 
     int getMessageLength() { return length; }
     int getMessageId() { return header;  }
+    char* getBuffer() { return full_message;  }
 
 private:
     int header;

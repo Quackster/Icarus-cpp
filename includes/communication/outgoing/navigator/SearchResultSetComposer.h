@@ -46,6 +46,10 @@ public:
                 }
 
                 response.writeInt(navigator_tab->getThumbnail());
+
+                RoomPopulator *populator = Icarus::getGame()->getNavigatorManager()->getPopulator(tab->getPopulatorName());
+                std::vector<Room*> rooms = populator->populate(room_limit, session);
+
                 response.writeInt(0);
             }
         }

@@ -32,7 +32,9 @@ std::vector<NavigatorTab*> *NavigatorDao::getTabsByChildId(int child_id) {
                 resultSet->getString("title"),
                 (char)resultSet->getInt("button_type"),
                 resultSet->getBoolean("closed"),
-                resultSet->getBoolean("thumbnail")
+                resultSet->getBoolean("thumbnail"),
+                resultSet->getString("room_populator")
+
             );
 
             tabs->push_back(tab);

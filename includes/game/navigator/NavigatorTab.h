@@ -1,10 +1,11 @@
 #pragma once
 #include <string>
 
+
 class NavigatorTab
 {
 public:
-    NavigatorTab(int id, int childId, std::string tab_name, std::string title, char button_type, bool closed, bool thumbnail);
+    NavigatorTab(int id, int childId, std::string tab_name, std::string title, char button_type, bool closed, bool thumbnail, std::string populator);
     ~NavigatorTab();
 
     std::vector<NavigatorTab*> getChildTabs();
@@ -16,6 +17,7 @@ public:
     char getButtonType() { return button_type; }
     bool getClosed() { return closed; }
     bool getThumbnail() { return thumbnail; }
+    std::string getPopulatorName() { return populator; }
 
 private:
     int id;
@@ -25,5 +27,6 @@ private:
     char button_type;
     bool closed;
     bool thumbnail;
+    std::string populator;
 };
 
