@@ -6,10 +6,9 @@ Request constructor
 
 @return full received packet
 */
-Request::Request(char *fullMessage) : full_message(fullMessage) {
-    this->index = 0;
+Request::Request(char *full_message) : 
+    full_message(full_message), index(0) {
 
-    //this->length = this->readInt();
     this->header = this->readShort();
 }
 

@@ -12,8 +12,9 @@
 
     @param file path
 */
-Configuration::Configuration(std::string file) : file(file) {
-    this->values = new std::map<std::string, std::string>();
+Configuration::Configuration(std::string file) : 
+    file(file), values(new std::map<std::string, std::string>()) {
+
     this->parse();
 }
 
@@ -40,7 +41,7 @@ void Configuration::parse() {
         output_file << "database.pool.size=5;" << std::endl;
         output_file << std::endl;
         output_file << "tcp.server.port=30000;" << std::endl;
-        output_file << "room.thread.pool.size=4;" << std::endl;
+        output_file << "thread.pool.size=4;" << std::endl;
         output_file.close();
     }
 

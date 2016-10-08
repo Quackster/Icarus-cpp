@@ -10,6 +10,9 @@ private:
     std::condition_variable condition;
     std::deque<T>           queue;
 public:
+
+    std::deque<T> getDeque() { return queue; }
+
     void push(T const& value) {
         {
             std::unique_lock<std::mutex> lock(this->mutex);

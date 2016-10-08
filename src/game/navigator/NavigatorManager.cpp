@@ -7,11 +7,10 @@ Constructor for Navigator Manager
 
 Initialises the list for storing navigator tabs
 */
-NavigatorManager::NavigatorManager() {
-    this->tabs = NavigatorDao::getTabsByChildId(-1);
-    this->categories = NavigatorDao::getCategories();
-}
+NavigatorManager::NavigatorManager() :
+    tabs(NavigatorDao::getTabsByChildId(-1)), categories(NavigatorDao::getCategories()) {
 
+}
 /*
     Gets tab by name
 

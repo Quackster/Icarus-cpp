@@ -6,7 +6,9 @@ Network server constructor
 
 @return none
 */
-NetworkServer::NetworkServer(boost::asio::io_service& io_service, short port) : acceptor(io_service, tcp::endpoint(tcp::v4(), port)), socket(io_service), connection_id(0) {
+NetworkServer::NetworkServer(boost::asio::io_service& io_service, short port) : 
+    acceptor(io_service, tcp::endpoint(tcp::v4(), port)), socket(io_service), connection_id(0) {
+    
     this->startAccept();
 }
 
@@ -45,7 +47,4 @@ void NetworkServer::removeNetworkConnection(NetworkConnection *connection) {
 
     // Tell connnection to stop looping for more incoming packets
     connection->setConnectionState(false);
-
-    // Clear connection from memory
-    //delete connection;
 }

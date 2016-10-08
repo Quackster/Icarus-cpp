@@ -18,7 +18,9 @@ ExecutorService::ExecutorService(int threads, std::chrono::milliseconds duration
     this->running = true;
 
     for (int i = 0; i < threads; i++) {
-        this->threads.push_back(new std::thread(&ExecutorService::tick, this));
+        if (this->running) {
+            this->threads.push_back(new std::thread(&ExecutorService::tick, this));
+        }
     }
 }
 
@@ -91,7 +93,7 @@ void ExecutorService::tick() {
             else {
                 // Can't stop yet because other threads aren't done finishing tasks.
                 stop_yet = false;
-                break;
+                return;
             }
         }
 
@@ -108,7 +110,7 @@ void ExecutorService::tick() {
 
             this->cancelled_threads.clear();
             this->threads.clear();
-
+            this->tasks.getDeque().clear();
         }
     }
 }

@@ -8,7 +8,7 @@
 class DatabaseManager {
 
 public:
-    DatabaseManager(std::string host, std::string port, std::string username, std::string password, std::string database, int poolSize);
+    DatabaseManager(std::string host, std::string port, std::string username, std::string password, std::string database, int pool_size);
     ~DatabaseManager();
     bool testConnection();
     void printException(sql::SQLException &e, char* file, char* function, int line);
@@ -23,7 +23,7 @@ private:
     std::string password;
     std::string database;
     bool tested_connection;
-    int poolSize;
+    int pool_size;
     
     MySQLConnectionFactory *mysql_connection_factory;
     ConnectionPool<MySQLConnection> *mysql_pool;

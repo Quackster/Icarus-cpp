@@ -18,7 +18,7 @@ class NetworkConnection : public std::enable_shared_from_this<NetworkConnection>
 {
 
 public:
-    NetworkConnection(int connectionID, tcp::socket socket);
+    NetworkConnection(int connection_id, tcp::socket socket);
     ~NetworkConnection();
     void recieveData();
     void handleData(Request request);

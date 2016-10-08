@@ -4,11 +4,11 @@
 
 #include "stdafx.h"
 #include "boot/Icarus.h"
-#include "thread/ExampleRunnable.h"
+//#include "thread/ExampleRunnable.h"
 
 
 /*
-Initialise the static variables
+Define static variables
 */
 SessionManager *Icarus::sessionManager;
 NetworkServer *Icarus::networkServer;
@@ -90,12 +90,12 @@ void Icarus::boot() {
     std::cout << " [BOOT] [Game] Creating game instance" << std::endl;
     Icarus::game = new Game();
 
-    for (int i = 0; i < 4; i++) {
+    /*for (int i = 0; i < 10; i++) {
         //std::shared_ptr<ExampleRunnable> newRunnable = std::shared_ptr<ExampleRunnable>(i);
         Icarus::getGame()->getGameScheduler()->schedule(std::make_shared<ExampleRunnable>(i));
     }
 
-    Icarus::getGame()->getGameScheduler()->stop();
+    Icarus::getGame()->getGameScheduler()->stop();*/
 
     /*
         Start server
