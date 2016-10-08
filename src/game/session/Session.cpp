@@ -9,7 +9,9 @@
     @param NetworkConnection ptr
     @return session instance
 */
-Session::Session(NetworkConnection *networkConnection) : network_connection(network_connection), session_details(nullptr) {
+Session::Session(NetworkConnection *network_connection) : 
+    network_connection(network_connection), session_details(nullptr) {
+    
     std::cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 }
 
