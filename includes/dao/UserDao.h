@@ -14,7 +14,7 @@ private:
     UserDao() { };
 
 public:
-    static SessionDetails *findUserByTicket(Session *session, std::string ssoTicket);
+    static SessionDetails *findUserByTicket(Session *session, std::string sso_ticket);
 
 };
 

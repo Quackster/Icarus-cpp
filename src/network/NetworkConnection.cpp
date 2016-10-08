@@ -11,8 +11,8 @@ NetworkConnection constructor
 
 @return instance
 */
-NetworkConnection::NetworkConnection(int connectionID, tcp::socket socket) : connectionID(connectionID), socket(std::move(socket)) {
-    this->connectionState = true;
+NetworkConnection::NetworkConnection(int connectionID, tcp::socket socket) : connection_id(connectionID), socket(std::move(socket)), connection_state(true) {
+
 }
 
 NetworkConnection::~NetworkConnection() { }
@@ -24,7 +24,7 @@ Receive data handle
 */
 void NetworkConnection::recieveData() {
 
-    if (!this->connectionState) {
+    if (!this->connection_state) {
         return; // Person disconnected, stop listing for data, in case somehow it still is (when it shouldn't) ;)
     }
 
@@ -67,8 +67,8 @@ void NetworkConnection::recieveData() {
         else {
 
             // Handle session disconnect
-            if (Icarus::getSessionManager()->containsSession(this->connectionID)) {
-                Icarus::getSessionManager()->removeSession(this->connectionID);
+            if (Icarus::getSessionManager()->containsSession(this->connection_id)) {
+                Icarus::getSessionManager()->removeSession(this->connection_id);
             }
             else {
                 // Remove connection if it was just a policy request
@@ -103,13 +103,13 @@ Handle incoming data
 void NetworkConnection::handleData(Request request) {
 
     // Once we passed through the policy, create a session and handle it
-    if (!Icarus::getSessionManager()->containsSession(this->connectionID)) {
+    if (!Icarus::getSessionManager()->containsSession(this->connection_id)) {
         Session *session = new Session(this);
         Icarus::getSessionManager()->addSession(session, this->getConnectionId());
     }
 
     //cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
-    Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getSessionManager()->getSession(this->connectionID));
+    Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getSessionManager()->getSession(this->connection_id));
 
 }
 
@@ -158,7 +158,7 @@ WARNING: If the user hasn't passed the flash policy, using this to get the sessi
 @return connectionID integer
 */
 int NetworkConnection::getConnectionId() { 
-    return connectionID; 
+    return connection_id; 
 };
 
 /*
@@ -167,7 +167,7 @@ Gets the connection state of the user. True for connected, false for disconnecte
 @return connection flag
 */
 bool NetworkConnection::getConnectionState() { 
-    return connectionState; 
+    return connection_state; 
 };
 
 /*
@@ -176,6 +176,6 @@ any incoming packets
 
 @return none
 */
-void NetworkConnection::setConnectionState(bool connectionState) {
-    this->connectionState = connectionState; 
+void NetworkConnection::setConnectionState(bool connection_state) {
+    this->connection_state = connection_state; 
 };

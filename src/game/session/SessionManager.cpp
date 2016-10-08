@@ -35,10 +35,10 @@ Adds a session to the map if their connection ID doesn't already exist
 @param Session pointer
 @param connectionID integer
 */
-void SessionManager::addSession(Session *session, int connectionID) {
+void SessionManager::addSession(Session *session, int connection_id) {
 
-    if (!this->sessions->count(connectionID)) {
-        this->sessions->insert(std::make_pair(connectionID, session));
+    if (!this->sessions->count(connection_id)) {
+        this->sessions->insert(std::make_pair(connection_id, session));
     }
 }
 
@@ -48,15 +48,15 @@ Removes session from map if their connection ID exists
 @param connectionID integer
 @return none
 */
-void SessionManager::removeSession(int connectionID) {
+void SessionManager::removeSession(int connection_id) {
 
-    if (this->sessions->count(connectionID)) {
+    if (this->sessions->count(connection_id)) {
 
         // Find session to delete
-        Session *session = this->getSession(connectionID);
+        Session *session = this->getSession(connection_id);
 
         // Remove session from map, remove it early to prevent any issues
-        this->sessions->erase(connectionID);
+        this->sessions->erase(connection_id);
 
         // Clear session of any responsibilites
         session->clear();
@@ -73,8 +73,8 @@ Checks whether or not the connection ID with session exists
 @param connectionID integer
 @return whether or not connection ID exists
 */
-bool SessionManager::containsSession(int connectionID) {
-    return this->sessions->count(connectionID) == 1 ? true : false;
+bool SessionManager::containsSession(int connection_id) {
+    return this->sessions->count(connection_id) == 1 ? true : false;
 }
 
 /*
@@ -84,10 +84,10 @@ the session doesn't exist
 @param connectionID integer
 @return Session* instance
 */
-Session *SessionManager::getSession(int connectionID) {
+Session *SessionManager::getSession(int connection_id) {
 
-    if (this->sessions->count(connectionID)) {
-        return this->sessions->find(connectionID)->second;
+    if (this->sessions->count(connection_id)) {
+        return this->sessions->find(connection_id)->second;
     }
     else {
         return nullptr;

@@ -9,7 +9,7 @@
     @param NetworkConnection ptr
     @return session instance
 */
-Session::Session(NetworkConnection *networkConnection) : networkConnection(networkConnection), sessionDetails(nullptr) {
+Session::Session(NetworkConnection *networkConnection) : network_connection(network_connection), session_details(nullptr) {
     std::cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 }
 
@@ -21,7 +21,7 @@ Session::Session(NetworkConnection *networkConnection) : networkConnection(netwo
     @return none
 */
 void Session::send(MessageComposer &composer) {
-    this->networkConnection->send(composer);
+    this->network_connection->send(composer);
 }
 
 /*
@@ -44,7 +44,7 @@ void Session::clear() {
 Session::~Session() {
     std::cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 
-    if (sessionDetails != nullptr) {
-        delete sessionDetails;
+    if (session_details != nullptr) {
+        delete session_details;
     }
 }

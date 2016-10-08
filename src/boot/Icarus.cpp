@@ -4,7 +4,7 @@
 
 #include "stdafx.h"
 #include "boot/Icarus.h"
-//#include "thread/ExampleRunnable.h"
+#include "thread/ExampleRunnable.h"
 
 
 /*
@@ -90,20 +90,22 @@ void Icarus::boot() {
     std::cout << " [BOOT] [Game] Creating game instance" << std::endl;
     Icarus::game = new Game();
 
-    /*for (int i = 0; i < 4; i++) {
-        std::shared_ptr<ExampleRunnable> newRunnable = std::shared_ptr<ExampleRunnable>(new ExampleRunnable(i));
-        Icarus::getGame()->getGameScheduler()->schedule(newRunnable);
-    }*/
+    for (int i = 0; i < 4; i++) {
+        //std::shared_ptr<ExampleRunnable> newRunnable = std::shared_ptr<ExampleRunnable>(i);
+        Icarus::getGame()->getGameScheduler()->schedule(std::make_shared<ExampleRunnable>(i));
+    }
+
+    Icarus::getGame()->getGameScheduler()->stop();
 
     /*
         Start server
     */
-    int serverPort = configuration->getInt("tcp.server.port");
-    std::cout << std::endl  << " [BOOT] [NetworkServer] Starting server on port " << serverPort << std::endl;
+    int server_port = configuration->getInt("tcp.server.port");
+    std::cout << std::endl  << " [BOOT] [NetworkServer] Starting server on port " << server_port << std::endl;
     
-    boost::asio::io_service ioService;
-    networkServer = new NetworkServer(ioService, serverPort);
-    ioService.run();
+    boost::asio::io_service io_service;
+    networkServer = new NetworkServer(io_service, server_port);
+    io_service.run();
 }
 
 /*

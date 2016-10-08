@@ -9,10 +9,10 @@ class SessionManager
 public:
     SessionManager();
     ~SessionManager();
-    void addSession(Session *session, int connectionID);
-    void removeSession(int connectionID);
-    bool containsSession(int connectionID);
-    Session* getSession(int connectionID);
+    void addSession(Session *session, int connection_id);
+    void removeSession(int connection_id);
+    bool containsSession(int connection_id);
+    Session* getSession(int connection_id);
 
 private:
     std::map<int, Session*> *sessions;

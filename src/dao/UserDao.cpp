@@ -18,25 +18,25 @@ SessionDetails *UserDao::findUserByTicket(Session *session, std::string ssoTicke
 
     try {
 
-        std::shared_ptr<sql::Connection> sqlConnection = connection->sqlConnection;
-        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sqlConnection->prepareStatement("SELECT id, username, rank, motto, figure, credits FROM users WHERE sso_ticket = ? LIMIT 1")); {
+        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, username, rank, motto, figure, credits FROM users WHERE sso_ticket = ? LIMIT 1")); {
             statement->setString(1, ssoTicket);
         }
 
-        std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+        std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
 
-        while (resultSet->next()) {
+        while (result_set->next()) {
 
             /*
                 This pointer gets deleted in the 'Session' deconstructor
             */
             details = new SessionDetails(
-                resultSet->getInt("id"),
-                resultSet->getString("username"),
-                resultSet->getString("motto"),
-                resultSet->getString("figure"),
-                resultSet->getInt("rank"),
-                resultSet->getInt("credits")
+                result_set->getInt("id"),
+                result_set->getString("username"),
+                result_set->getString("motto"),
+                result_set->getString("figure"),
+                result_set->getInt("rank"),
+                result_set->getInt("credits")
             );
         }
 

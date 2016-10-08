@@ -8,12 +8,12 @@ public:
     Game();
     ~Game();
 
-    NavigatorManager *getNavigatorManager() { return navigatorManager; }
-    ExecutorService *getGameScheduler() { return executorService; }
+    NavigatorManager *getNavigatorManager() { return navigator_manager; }
+    ExecutorService *getGameScheduler() { return executor_service; }
 
 private:
-    NavigatorManager *navigatorManager;
-    ExecutorService *executorService;
+    NavigatorManager *navigator_manager;
+    ExecutorService *executor_service;
 };
 
 

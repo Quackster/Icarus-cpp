@@ -6,20 +6,20 @@ class Session
 {
 
 public:
-    Session(NetworkConnection *networkConnection);
+    Session(NetworkConnection *network_connection);
     ~Session();
     void clear();
     void send(MessageComposer &composer);
 
-    NetworkConnection *getNetworkConnection() { return this->networkConnection; }
-    SessionDetails *getDetails() { return this->sessionDetails; }
-    void setSessionDetails(SessionDetails *details) { this->sessionDetails = details; }
+    NetworkConnection *getNetworkConnection() { return this->network_connection; }
+    SessionDetails *getDetails() { return this->session_details; }
+    void setSessionDetails(SessionDetails *details) { this->session_details = details; }
     
-    std::string getUniqueId() { return this->uniqueId;  }
-    void setUniqueId(std::string unique_id) { this->uniqueId = unique_id; }
+    std::string getUniqueId() { return this->unique_id;  }
+    void setUniqueId(std::string unique_id) { this->unique_id = unique_id; }
 
 private:
-    NetworkConnection *networkConnection;
-    SessionDetails *sessionDetails;
-    std::string uniqueId;
+    NetworkConnection *network_connection;
+    SessionDetails *session_details;
+    std::string unique_id;
 };

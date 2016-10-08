@@ -5,13 +5,13 @@
 class NetworkServer
 {
 public:
-	NetworkServer(boost::asio::io_service& ioService, short port);
+	NetworkServer(boost::asio::io_service& io_service, short port);
 	~NetworkServer();
     void startAccept();
     void removeNetworkConnection(NetworkConnection *connection);
 
 private:
-    int connectionID;
+    int connection_id;
 	tcp::acceptor acceptor;
 	tcp::socket socket;
 };

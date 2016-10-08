@@ -6,8 +6,8 @@
 /*
     Constructor for Navigator tab
 */
-NavigatorTab::NavigatorTab(int id, int childId, std::string tabName, std::string title, char buttonType, bool closed, bool thumbnail) :
-    id(id), childId(childId), tabName(tabName), title(title), buttonType(buttonType), closed(closed), thumbnail(thumbnail)
+NavigatorTab::NavigatorTab(int id, int child_id, std::string tabName, std::string title, char button_type, bool closed, bool thumbnail) :
+    id(id), child_id(child_id), tab_name(tabName), title(title), button_type(button_type), closed(closed), thumbnail(thumbnail)
 {
 }
 

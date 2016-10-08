@@ -32,8 +32,8 @@ public:
     tcp::socket &getSocket() { return this->socket; };
 
 private:
-    int connectionID;
-    bool connectionState;
+    int connection_id;
+    bool connection_state;
     tcp::socket socket;
 
     enum { maxLength = 512 };

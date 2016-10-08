@@ -5,8 +5,7 @@
     Constructor for database manager
 */
 DatabaseManager::DatabaseManager(std::string host, std::string port, std::string username, std::string password, std::string database, int poolSize) :
-    host(host), port(port), username(username), password(password), database(database), poolSize(poolSize){
-    this->testedConnection = false;
+    host(host), port(port), username(username), password(password), database(database), poolSize(poolSize), tested_connection(false) {
 
 }
 
@@ -22,10 +21,10 @@ bool DatabaseManager::testConnection() {
 
     try {
 
-        if (this->testedConnection != true) {
-            this->testedConnection = true;
-            this->mysqlConnectionFactory = new MySQLConnectionFactory(this->host, this->port, this->username, this->password, this->database);
-            this->mysqlPool = new ConnectionPool<MySQLConnection>(this->poolSize, this->mysqlConnectionFactory);
+        if (this->tested_connection != true) {
+            this->tested_connection = true;
+            this->mysql_connection_factory = new MySQLConnectionFactory(this->host, this->port, this->username, this->password, this->database);
+            this->mysql_pool = new ConnectionPool<MySQLConnection>(this->poolSize, this->mysql_connection_factory);
             
         }
     }
@@ -59,8 +58,8 @@ void DatabaseManager::printException(sql::SQLException &e, char* file, char* fun
 */
 DatabaseManager::~DatabaseManager() {
     
-    if (this->testedConnection) {
-        delete this->mysqlConnectionFactory;
-        delete this->mysqlPool;
+    if (this->tested_connection) {
+        delete this->mysql_connection_factory;
+        delete this->mysql_pool;
     }
 }

@@ -14,7 +14,7 @@ public:
     void writeInt(size_t number) { this->writeInt((int)number); }
     void writeBool(bool flag) {
         this->message.push_back(flag ? (char)1 : (char)0);
-        this->bytesWritten = this->bytesWritten + 1;
+        this->bytes_written = this->bytes_written + 1;
     }
     void writeShort(short numberr);
     void writeString(const char* str) { this->writeCChar(str); };
@@ -24,12 +24,12 @@ public:
     char* getBytes(short num);
     char* getBytes(int num, bool reverse = false);
 
-    int getBytesWritten() { return bytesWritten + 4/*the length at the start*/;  }
+    int getBytesWritten() { return bytes_written + 4/*the length at the start*/;  }
     std::vector<char> getMessage() { return message; }
 
 private:
     short header;
-    int bytesWritten;
+    int bytes_written;
     bool used;
     std::vector <char> message;
     void writeCChar(const char* str);

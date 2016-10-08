@@ -13,8 +13,8 @@ public:
     bool testConnection();
     void printException(sql::SQLException &e, char* file, char* function, int line);
 
-    MySQLConnectionFactory *getConnectionFactory() { return this->mysqlConnectionFactory; }
-    ConnectionPool<MySQLConnection> *getConnectionPool() { return this->mysqlPool; }
+    MySQLConnectionFactory *getConnectionFactory() { return this->mysql_connection_factory; }
+    ConnectionPool<MySQLConnection> *getConnectionPool() { return this->mysql_pool; }
 
 private:
     std::string host;
@@ -22,10 +22,10 @@ private:
     std::string username;
     std::string password;
     std::string database;
-    bool testedConnection;
+    bool tested_connection;
     int poolSize;
     
-    MySQLConnectionFactory *mysqlConnectionFactory;
-    ConnectionPool<MySQLConnection> *mysqlPool;
+    MySQLConnectionFactory *mysql_connection_factory;
+    ConnectionPool<MySQLConnection> *mysql_pool;
 
 };

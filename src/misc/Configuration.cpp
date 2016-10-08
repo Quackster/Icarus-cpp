@@ -26,22 +26,22 @@ Configuration::Configuration(std::string file) : file(file) {
 void Configuration::parse() {
 
     if (!std::ifstream(this->file)) {
-        std::ofstream outputFile;
-        outputFile.open(this->file);
-        outputFile << "##########################" << std::endl;
-        outputFile << "##     Icarus config    ##" << std::endl;
-        outputFile << "##########################" << std::endl;
-        outputFile << std::endl;
-        outputFile << "database.hostname=127.0.0.1;" << std::endl;
-        outputFile << "database.port=3306;" << std::endl;
-        outputFile << "database.username=user;" << std::endl;
-        outputFile << "database.password=changeme;" << std::endl;
-        outputFile << "database.database=icarus;" << std::endl;
-        outputFile << "database.pool.size=5;" << std::endl;
-        outputFile << std::endl;
-        outputFile << "tcp.server.port=30000;" << std::endl;
-        outputFile << "room.thread.pool.size=4;" << std::endl;
-        outputFile.close();
+        std::ofstream output_file;
+        output_file.open(this->file);
+        output_file << "##########################" << std::endl;
+        output_file << "##     Icarus config    ##" << std::endl;
+        output_file << "##########################" << std::endl;
+        output_file << std::endl;
+        output_file << "database.hostname=127.0.0.1;" << std::endl;
+        output_file << "database.port=3306;" << std::endl;
+        output_file << "database.username=user;" << std::endl;
+        output_file << "database.password=changeme;" << std::endl;
+        output_file << "database.database=icarus;" << std::endl;
+        output_file << "database.pool.size=5;" << std::endl;
+        output_file << std::endl;
+        output_file << "tcp.server.port=30000;" << std::endl;
+        output_file << "room.thread.pool.size=4;" << std::endl;
+        output_file.close();
     }
 
     std::ifstream infile(this->file);

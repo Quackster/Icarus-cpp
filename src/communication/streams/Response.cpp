@@ -8,7 +8,7 @@ Response constructor, it will initialise the deque, and append the header in raw
 @return response instance
 */
 Response::Response(short header) : header(header) {
-    this->bytesWritten = 0;
+    this->bytes_written = 0;
     this->used = false;
     this->message = std::vector <char>(0);
     this->writeShort(header);
@@ -71,7 +71,7 @@ void Response::writeInt(int number) {
         this->message.push_back(bytes[i]);
     }
 
-    this->bytesWritten = this->bytesWritten + 4;
+    this->bytes_written = this->bytes_written + 4;
 }
 
 /*
@@ -88,7 +88,7 @@ void Response::writeShort(short number) {
         this->message.push_back(bytes[i]);
     }
 
-    this->bytesWritten = this->bytesWritten + 2;
+    this->bytes_written = this->bytes_written + 2;
 }
 
 /*
@@ -106,7 +106,7 @@ void Response::writeCChar(const char* str) {
         this->message.push_back(str[i]);
     }
 
-    this->bytesWritten = this->bytesWritten + length;
+    this->bytes_written = this->bytes_written + length;
 }
 
 
@@ -123,7 +123,7 @@ char* Response::getData() {
 
         // Get the size in raw 4 int 32 length prefixed, but reversed
         // as this needs to be inserted at the front
-        char* size = this->getBytes(this->bytesWritten, true);
+        char* size = this->getBytes(this->bytes_written, true);
 
         for (int i = 0; i < 4; i++) {
 
