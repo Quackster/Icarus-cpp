@@ -20,9 +20,8 @@ std::vector<int> RoomDao::getPlayerRooms(int user_id) {
     try {
 
         std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
-        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id WHERE owner_id = ? ")); {
-            statement->setInt(1, user_id);
-        }
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id FROM rooms WHERE owner_id = ? "));
+        statement->setInt(1, user_id);
 
         std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
 

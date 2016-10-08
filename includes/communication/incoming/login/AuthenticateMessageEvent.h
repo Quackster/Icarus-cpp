@@ -23,6 +23,7 @@ public:
         }
         else {
             session->setSessionDetails(details);
+            session->login();
         }
 
         session->send(AuthenticateMessageComposer());

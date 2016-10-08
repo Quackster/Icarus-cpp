@@ -3,6 +3,8 @@
 #include "game/session/Session.h"
 #include "game/session/SessionDetails.h"
 
+#include "dao/RoomDao.h"
+
 /*
     Session constructor
 
@@ -15,6 +17,19 @@ Session::Session(NetworkConnection *network_connection) :
     std::cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 }
 
+/*
+    Initialise player and load their data
+
+    @return none
+*/
+void Session::login() {
+
+    std::vector<int> room_ids = RoomDao::getPlayerRooms(this->session_details->getId());
+
+    for (int room_id : room_ids) {
+        std::cout << room_id << std::endl;
+    }
+}
 
 /*
     Send message composer to the session's socket

@@ -8,6 +8,7 @@ class Session
 public:
     Session(NetworkConnection *network_connection);
     ~Session();
+    void login();
     void clear();
     void send(MessageComposer &composer);
 
