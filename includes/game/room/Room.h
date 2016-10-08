@@ -8,7 +8,7 @@ public:
     Room();
     ~Room();
 
-    void serialise(Response response);
+    void serialise(Response &response, bool enter_room);
     void dispose(bool force_disposal = false);
 
     void setRoomData(RoomData *room_data) { this->room_data = room_data; };

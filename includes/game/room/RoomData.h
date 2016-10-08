@@ -56,6 +56,7 @@ public:
     int getState() { return state; }
     int getScore() { return score; }
     int getCategory() { return category; }
+    bool hasAllowPets() { return allow_pets; }
     ~RoomData();
 
 private:

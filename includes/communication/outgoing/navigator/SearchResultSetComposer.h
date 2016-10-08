@@ -50,7 +50,13 @@ public:
                 RoomPopulator *populator = Icarus::getGame()->getNavigatorManager()->getPopulator(navigator_tab->getPopulatorName());
                 std::vector<Room*> rooms = populator->populate(room_limit, session);
 
-                response.writeInt(0);
+                std::cout << "rooms : " << rooms.size() << std::endl;
+
+                response.writeInt(rooms.size());
+
+                for (Room *room : rooms) {
+                    room->serialise(response, false);
+                }
             }
         }
         else {
