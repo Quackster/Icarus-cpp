@@ -33,6 +33,7 @@ void Player::login() {
     // New room user instance
     this->room_user = new RoomUser();
 
+    // authenticated
     this->logged_in = true;
 }
 
