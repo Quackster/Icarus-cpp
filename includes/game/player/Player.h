@@ -25,9 +25,13 @@ public:
     RoomUser *getRoomUser() { return this->room_user; }
     void setRoomUser(RoomUser* room_user) { this->room_user = room_user; }
 
+    bool authenticated() { return logged_in;  }
+    void setAuthenticated(bool logged_in) { this->logged_in = logged_in; }
+
 private:
     NetworkConnection *network_connection;
     EntityDetails *session_details;
     RoomUser *room_user;
     std::string unique_id;
+    bool logged_in;
 };

@@ -1,8 +1,13 @@
 #pragma once
 #include <map>
 
+class Room; // Defined elsewhere
 class RoomUser
 {
+
+public:
+    Room *getRoom() { return room; }
+    void setRoom(Room *room) { this->room = room; }
 
 private:
     int virtual_id;
@@ -21,6 +26,7 @@ private:
 
     std::map<std::string, std::string> statuses;
 
+    Room *room;
 
     bool is_walking;
     bool needs_wpdate;

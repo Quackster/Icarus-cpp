@@ -4,6 +4,10 @@
 #include "game/player/PlayerDetails.h"
 #include "boot/Icarus.h"
 
+#include "communication/outgoing/navigator/FlatCategoriesMessageComposer.h"
+#include "communication/outgoing/navigator/NavigatorCategoriesComposer.h"
+#include "communication/outgoing/navigator/NavigatorMetaDataComposer.h"
+
 /*
     Session constructor
 
@@ -25,6 +29,11 @@ void Player::login() {
 
     // Load player rooms
     Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->getId());
+
+    // New room user instance
+    this->room_user = new RoomUser();
+
+    this->logged_in = true;
 }
 
 /*
@@ -67,7 +76,15 @@ void Player::clear() {
 Player::~Player() {
     std::cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 
+    if (!logged_in) {
+        return;
+    }
+
     if (session_details != nullptr) {
         delete session_details;
+    }
+
+    if (session_details != nullptr) {
+        delete room_user;
     }
 }
