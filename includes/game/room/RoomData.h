@@ -57,6 +57,10 @@ public:
     int getScore() { return score; }
     int getCategory() { return category; }
     bool hasAllowPets() { return allow_pets; }
+
+    int getWhoCanMute() { return who_can_mute; }
+    int getWhoCanKick() { return who_can_kick; }
+    int getWhoCanBan() { return who_can_ban; }
     ~RoomData();
 
 private:

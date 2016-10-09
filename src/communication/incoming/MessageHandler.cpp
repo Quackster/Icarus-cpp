@@ -8,9 +8,15 @@
 #include "communication/incoming/login/UniqueIDMessageEvent.h"
 #include "communication/incoming/login/VersionCheckMessageEvent.h"
 
+// User
+#include "communication/incoming/user/UserDataMessageEvent.h"
+
 // Navigator
-#include "communication/incoming/navigator/NewNavigatorMessageEvent.h"
 #include "communication/incoming/navigator/SearchNewNavigatorEvent.h"
+
+// Room
+#include "communication/incoming/room/RoomInfoMessageEvent.h"
+#include "communication/incoming/room/EnterRoomMessageEvent.h"
 
 /*
     MessageHandler constructor
@@ -26,9 +32,15 @@ MessageHandler::MessageHandler() :
     this->createEvent(Incoming::UniqueIDMessageEvent, new UniqueIDMessageEvent());
     this->createEvent(Incoming::AuthenticateMessageEvent, new AuthenticateMessageEvent());
 
+    // User
+    this->createEvent(Incoming::NewNavigatorMessageEvent, new UserDataMessageEvent());
+    
     // Navigator
-    this->createEvent(Incoming::NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
     this->createEvent(Incoming::SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
+
+    // Room
+    this->createEvent(Incoming::RoomInfoMessageEvent, new RoomInfoMessageEvent());
+    this->createEvent(Incoming::EnterRoomMessageEvent, new EnterRoomMessageEvent());
 }
 
 /*

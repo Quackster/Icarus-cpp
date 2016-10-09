@@ -8,7 +8,7 @@ public:
     static const int CanCreateRoomMessageComposer = 3645;
     static const int ChatMessageComposer = 273;
     static const int CreateRoomMessageComposer = 106;
-    static const int CreditsBalanceMessageComposer = 2588;
+    static const int CreditsMessageComposer = 2588;
     static const int DanceStatusMessageComposer = 1005;
     static const int FlatCategoriesMessageComposer = 1625;
     static const int FloodFilterMessageComposer = 626;

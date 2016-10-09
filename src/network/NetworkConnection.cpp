@@ -31,7 +31,7 @@ void NetworkConnection::recieveData() {
     auto self(shared_from_this());
 
     // only 4 bytes for now, the length
-    socket.async_read_some(boost::asio::buffer(buffer, 4), [this, self](boost::system::error_code ec, std::size_t length) {
+    socket.async_receive(boost::asio::buffer(buffer, 4), [this, self](boost::system::error_code ec, std::size_t length) {
 
         if (!ec) {
 
@@ -42,7 +42,7 @@ void NetworkConnection::recieveData() {
                 this->sendPolicy();
 
                 // Read rest of policy request
-                socket.async_read_some(boost::asio::buffer(buffer, 18), [this, self](boost::system::error_code ec, std::size_t length) {});
+                socket.async_receive(boost::asio::buffer(buffer, 18), [this, self](boost::system::error_code ec, std::size_t length) {});
             }
             else {
 
@@ -50,7 +50,7 @@ void NetworkConnection::recieveData() {
                 int message_length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | (buffer[3]);
 
                 // Read rest of message, to prevent any combined packets
-                socket.async_read_some(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
+                socket.async_receive(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
 
                     if (length > 0) {
                         Request request(buffer);

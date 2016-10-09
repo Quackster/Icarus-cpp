@@ -6,7 +6,7 @@ class DefaultIncomingMessageEvent : public MessageEvent {
 public:
     DefaultIncomingMessageEvent() { }
 
-    void handle(Session *session, Request request) {
+    void handle(Player *player, Request request) {
 
 
 

@@ -9,16 +9,16 @@ public:
     Request(char *full_message);
     ~Request();
 
-    int readShort();
+    short readShort();
     int readInt();
     std::string readString();
 
     int getMessageLength() { return length; }
-    int getMessageId() { return header;  }
+    short getMessageId() { return header;  }
     char* getBuffer() { return full_message;  }
 
 private:
-    int header;
+    short header;
     int length;
     int index;
 

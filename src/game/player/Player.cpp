@@ -44,6 +44,9 @@ void Player::login() {
     @return none
 */
 void Player::send(MessageComposer &composer) {
+
+    //std::cout << " Send back : " << composer.compose().getData() << std::endl;
+
     this->network_connection->send(composer);
 }
 

@@ -19,7 +19,7 @@ Read an integer represented as 16 bits
 
 @return integer
 */
-int Request::readShort() {
+short Request::readShort() {
 
     short number = (short)(
         (0xff & full_message[index]) << 8 |
