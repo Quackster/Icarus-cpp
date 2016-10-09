@@ -19,6 +19,8 @@ public:
     std::string getUniqueId() { return this->unique_id;  }
     void setUniqueId(std::string unique_id) { this->unique_id = unique_id; }
 
+    EntityType getEntityType() { EntityType type = PLAYER; return type; }
+
 private:
     NetworkConnection *network_connection;
     EntityDetails *session_details;

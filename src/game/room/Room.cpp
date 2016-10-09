@@ -8,7 +8,9 @@
 /*
     Constructor for rooms
 */
-Room::Room() { }
+Room::Room() { 
+    this->entities = new std::vector<Entity*>();
+}
 
 /*
     Serialise room data for response
@@ -87,5 +89,17 @@ void Room::dispose(bool force_dispose) {
 Room::~Room()
 {
     std::cout << " Room ID " << this->room_data->getId() << " disposed." << std::endl;
+
+    EntityType player_type = PLAYER;
+
+    for (auto entity : *this->entities) {
+        if (entity->getEntityType() != player_type) {
+            delete entity; // Only delete non-playable entities
+        }
+    }
+
+    this->entities->clear();
+
     delete room_data;
+    delete entities;
 }

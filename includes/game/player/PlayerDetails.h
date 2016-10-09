@@ -25,7 +25,4 @@ public:
     std::string getFigure() { return figure; }
     int getRank() { return rank; }
     int getCredits() { return credits; }
-    
-    std::string getMachineId() { return machine_id; }
-    void setMachineId(std::string machine_id) { machine_id = machine_id; }
 };

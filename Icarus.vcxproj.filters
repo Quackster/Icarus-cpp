@@ -260,5 +260,8 @@
     <ClInclude Include="includes\game\navigator\populators\RoomPopulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="includes\game\entities\EntityType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
