@@ -22,7 +22,7 @@ public:
             return;
         }
         else {
-            session->setSessionDetails(details);
+            session->setDetails(details);
             session->login();
         }
 

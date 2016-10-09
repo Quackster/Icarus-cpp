@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "game/room/populators/MyRoomPopulator.h"
+#include "game/navigator/populators/MyRoomPopulator.h"
 #include "boot/Icarus.h"
 
 std::vector<Room*> MyRoomPopulator::populate(bool room_limit, Player* player) {

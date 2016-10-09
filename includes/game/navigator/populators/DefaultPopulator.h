@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "game/room/populators/RoomPopulator.h"
+#include "game/navigator/populators/RoomPopulator.h"
 
 class DefaultPopulator : public RoomPopulator {
 

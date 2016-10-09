@@ -1,9 +1,9 @@
 #pragma once
-#include "network/NetworkConnection.h"
-#include "game/player/PlayerDetails.h"
 
-class Player
-{
+#include "network/NetworkConnection.h"
+#include "game/entities/Entity.h"
+
+class Player : public Entity {
 
 public:
     Player(NetworkConnection *network_connection);
@@ -13,14 +13,14 @@ public:
     void send(MessageComposer &composer);
 
     NetworkConnection *getNetworkConnection() { return this->network_connection; }
-    PlayerDetails *getDetails() { return this->session_details; }
-    void setSessionDetails(PlayerDetails *details) { this->session_details = details; }
+    EntityDetails *getDetails() { return this->session_details; }
+    void setDetails(EntityDetails *details) { this->session_details = details; }
     
     std::string getUniqueId() { return this->unique_id;  }
     void setUniqueId(std::string unique_id) { this->unique_id = unique_id; }
 
 private:
     NetworkConnection *network_connection;
-    PlayerDetails *session_details;
+    EntityDetails *session_details;
     std::string unique_id;
 };

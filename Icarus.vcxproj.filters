@@ -233,15 +233,6 @@
     <ClInclude Include="includes\communication\incoming\navigator\SearchNewNavigatorEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\game\room\populators\RoomPopulator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\game\room\populators\DefaultPopulator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\game\room\populators\MyRoomPopulator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\game\room\entities\RoomEntity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -252,6 +243,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\game\player\PlayerManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\entities\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\entities\EntityDetails.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\navigator\populators\DefaultPopulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\navigator\populators\MyRoomPopulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\navigator\populators\RoomPopulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

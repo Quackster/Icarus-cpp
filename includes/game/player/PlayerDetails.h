@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
 
-class PlayerDetails {
+#include "game/entities/EntityDetails.h"
+
+class PlayerDetails : public EntityDetails {
 
 private:
     int id;

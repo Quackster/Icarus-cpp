@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "game/session/Session.h"
+#include "game/Player/Player.h"
 #include "game/room/Room.h"
 
 class RoomEntity

@@ -5,7 +5,7 @@
 #include "game/navigator/NavigatorTab.h"
 #include "game/navigator/NavigatorCategory.h"
 
-#include "game/room/populators/RoomPopulator.h"
+#include "game/navigator/populators/RoomPopulator.h"
 
 class NavigatorManager
 {

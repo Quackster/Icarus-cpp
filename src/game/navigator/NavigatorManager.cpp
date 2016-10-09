@@ -3,8 +3,8 @@
 #include "dao/NavigatorDao.h"
 #include "game/navigator/NavigatorManager.h"
 
-#include "game/room/populators/DefaultPopulator.h"
-#include "game/room/populators/MyRoomPopulator.h"
+#include "game/navigator/populators/DefaultPopulator.h"
+#include "game/navigator/populators/MyRoomPopulator.h"
 /*
 Constructor for Navigator Manager
 
