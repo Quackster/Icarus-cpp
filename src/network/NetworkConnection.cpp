@@ -52,14 +52,14 @@ void NetworkConnection::recieveData() {
                 // Read rest of message, to prevent any combined packets
                 socket.async_receive(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
 
-                    if (length > 0) {
+                    //if (length > 0) {
                         Request request(buffer);
 
                         if (request.getMessageId() > 0) {
 
                             this->handleData(request);
                         }
-                    }
+                    //}
                 });
             }
 
