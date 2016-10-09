@@ -164,7 +164,7 @@
     <ClInclude Include="includes\game\entities\Entity.h" />
     <ClInclude Include="includes\game\entities\EntityDetails.h" />
     <ClInclude Include="includes\game\entities\EntityType.h" />
-    <ClInclude Include="includes\game\room\entities\RoomEntity.h" />
+    <ClInclude Include="includes\game\room\RoomUser.h" />
     <ClInclude Include="includes\game\navigator\populators\DefaultPopulator.h" />
     <ClInclude Include="includes\game\navigator\populators\RoomPopulator.h" />
     <ClInclude Include="includes\game\navigator\populators\MyRoomPopulator.h" />

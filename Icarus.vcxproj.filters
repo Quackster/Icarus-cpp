@@ -233,9 +233,6 @@
     <ClInclude Include="includes\communication\incoming\navigator\SearchNewNavigatorEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\game\room\entities\RoomEntity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\game\player\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -261,6 +258,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\game\entities\EntityType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\room\RoomUser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

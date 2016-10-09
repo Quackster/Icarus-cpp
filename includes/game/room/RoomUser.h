@@ -1,10 +1,7 @@
 #pragma once
-#include <vector>
+#include <map>
 
-#include "game/Player/Player.h"
-#include "game/room/Room.h"
-
-class RoomEntity
+class RoomUser
 {
 
 private:
@@ -23,9 +20,7 @@ private:
     int headRotation;
 
     std::map<std::string, std::string> statuses;
-    //LinkedList<Point> path;
 
-    Room room;
 
     bool is_walking;
     bool needs_wpdate;

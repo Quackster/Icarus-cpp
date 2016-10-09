@@ -90,10 +90,8 @@ Room::~Room()
 {
     std::cout << " Room ID " << this->room_data->getId() << " disposed." << std::endl;
 
-    EntityType player_type = PLAYER;
-
     for (auto entity : *this->entities) {
-        if (entity->getEntityType() != player_type) {
+        if (entity->getEntityType() != PLAYER) {
             delete entity; // Only delete non-playable entities
         }
     }

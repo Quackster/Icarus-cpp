@@ -1,8 +1,11 @@
 #pragma once
-#include "communication/streams/Response.h"
 
+#include <vector>
+
+#include "communication/streams/Response.h"
 #include "game/entities/Entity.h"
 #include "game/room/RoomData.h"
+
 class Room
 {
 public:
@@ -21,4 +24,3 @@ private:
     RoomData *room_data;
     std::vector<Entity*> *entities;
 };
-
