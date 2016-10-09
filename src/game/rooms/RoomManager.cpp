@@ -103,11 +103,9 @@ void RoomManager::addRoom(Room *room) {
     @return none
 */
 void RoomManager::deleteRoom(int room_id) {
-
-    // TODO: Kick all users
-
     if (this->hasRoom(room_id)) {
         Room *room = this->getRoom(room_id);
+        this->rooms->erase(room_id);
         delete room;
     }
 }

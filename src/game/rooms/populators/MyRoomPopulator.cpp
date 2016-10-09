@@ -6,6 +6,6 @@
 std::vector<Room*> MyRoomPopulator::populate(bool room_limit, Session* session) {
 
     std::vector<Room*> rooms = Icarus::getGame()->getRoomManager()->getPlayerRooms(session->getDetails()->getId());
-
+    this->sort(rooms);
     return rooms;
 }
