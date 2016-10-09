@@ -11,10 +11,10 @@
 
     @return SessionData ptr or nullptr (check if this returns nullptr for failure of finding user)
 */
-SessionDetails *UserDao::findUserByTicket(Session *session, std::string ssoTicket) {
+PlayerDetails *UserDao::findUserByTicket(Player *player, std::string ssoTicket) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
-    SessionDetails *details = nullptr;
+    PlayerDetails *details = nullptr;
 
     try {
 
@@ -30,7 +30,7 @@ SessionDetails *UserDao::findUserByTicket(Session *session, std::string ssoTicke
             /*
                 This pointer gets deleted in the 'Session' deconstructor
             */
-            details = new SessionDetails(
+            details = new PlayerDetails(
                 result_set->getInt("id"),
                 result_set->getString("username"),
                 result_set->getString("motto"),

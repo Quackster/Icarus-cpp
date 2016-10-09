@@ -9,7 +9,7 @@ class UniqueIDMessageEvent : public MessageEvent {
 public:
     UniqueIDMessageEvent() { }
 
-    void handle(Session *session, Request request) {
-        session->setUniqueId(request.readString());
+    void handle(Player *player, Request request) {
+        player->setUniqueId(request.readString());
     }
 };

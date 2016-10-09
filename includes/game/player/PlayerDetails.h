@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-class SessionDetails {
+class PlayerDetails {
 
 private:
     int id;
@@ -14,8 +14,8 @@ private:
     bool authenticated;
 
 public:
-    SessionDetails(int id, std::string username, std::string motto, std::string figure, int rank, int credits);
-    ~SessionDetails();
+    PlayerDetails(int id, std::string username, std::string motto, std::string figure, int rank, int credits);
+    ~PlayerDetails();
 
     int getId() { return id; }
     std::string getUsername() { return username; }

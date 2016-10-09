@@ -7,5 +7,5 @@ class MyRoomPopulator : public RoomPopulator {
 
 public:
     MyRoomPopulator() { }
-    std::vector<Room*> populate(bool room_limit, Session* session);
+    std::vector<Room*> populate(bool room_limit, Player* player);
 };

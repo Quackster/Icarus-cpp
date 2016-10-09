@@ -132,11 +132,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dao\RoomDao.cpp" />
-    <ClCompile Include="src\game\rooms\populators\DefaultPopulator.cpp" />
-    <ClCompile Include="src\game\rooms\populators\MyRoomPopulator.cpp" />
-    <ClCompile Include="src\game\rooms\RoomData.cpp" />
-    <ClCompile Include="src\game\rooms\Room.cpp" />
-    <ClCompile Include="src\game\rooms\RoomManager.cpp" />
+    <ClCompile Include="src\game\room\populators\DefaultPopulator.cpp" />
+    <ClCompile Include="src\game\room\populators\MyRoomPopulator.cpp" />
+    <ClCompile Include="src\game\room\RoomData.cpp" />
+    <ClCompile Include="src\game\room\Room.cpp" />
+    <ClCompile Include="src\game\room\RoomManager.cpp" />
     <ClCompile Include="src\thread\ExampleRunnable.cpp" />
     <ClCompile Include="src\thread\ExecutorService.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
@@ -151,9 +151,9 @@
     <ClCompile Include="src\dao\UserDao.cpp" />
     <ClCompile Include="src\database\DatabaseManager.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\game\session\Session.cpp" />
-    <ClCompile Include="src\game\session\SessionDetails.cpp" />
-    <ClCompile Include="src\game\session\SessionManager.cpp" />
+    <ClCompile Include="src\game\player\Player.cpp" />
+    <ClCompile Include="src\game\player\PlayerDetails.cpp" />
+    <ClCompile Include="src\game\player\PlayerManager.cpp" />
     <ClCompile Include="src\misc\Configuration.cpp" />
     <ClCompile Include="src\misc\Utilities.cpp" />
     <ClCompile Include="src\network\NetworkConnection.cpp" />
@@ -161,6 +161,7 @@
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\game\room\entities\RoomEntity.h" />
     <ClInclude Include="includes\game\room\populators\DefaultPopulator.h" />
     <ClInclude Include="includes\game\room\populators\RoomPopulator.h" />
     <ClInclude Include="includes\game\room\populators\MyRoomPopulator.h" />
@@ -196,9 +197,9 @@
     <ClInclude Include="includes\database\lib\MySQLConnection.h" />
     <ClInclude Include="includes\communication\headers\Incoming.h" />
     <ClInclude Include="includes\communication\headers\Outgoing.h" />
-    <ClInclude Include="includes\game\session\Session.h" />
-    <ClInclude Include="includes\game\session\SessionDetails.h" />
-    <ClInclude Include="includes\game\session\SessionManager.h" />
+    <ClInclude Include="includes\game\player\Player.h" />
+    <ClInclude Include="includes\game\player\PlayerDetails.h" />
+    <ClInclude Include="includes\game\player\PlayerManager.h" />
     <ClInclude Include="includes\misc\Configuration.h" />
     <ClInclude Include="includes\misc\Utilities.h" />
     <ClInclude Include="includes\network\NetworkConnection.h" />

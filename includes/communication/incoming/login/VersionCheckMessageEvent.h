@@ -9,12 +9,12 @@ class VersionCheckMessageEvent : public MessageEvent {
 public:
     VersionCheckMessageEvent() { }
 
-    void handle(Session *session, Request request) {
+    void handle(Player *player, Request request) {
 
         std::string revision = request.readString();
 
         if (revision != "PRODUCTION-201512012203-525044429") {
-            session->getNetworkConnection()->getSocket().close();
+            player->getNetworkConnection()->getSocket().close();
         }
     }
 };

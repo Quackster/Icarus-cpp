@@ -69,10 +69,10 @@ void MessageHandler::createEvent(int header, MessageEvent *event) {
     @param message request ptr
     @return none
 */
-void MessageHandler::invoke(int header, Request request, Session *session) {
+void MessageHandler::invoke(int header, Request request, Player *player) {
 
     if (this->messages->count(header)) {
-        this->messages->find(header)->second->handle(session, request);
+        this->messages->find(header)->second->handle(player, request);
         std::cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages->find(header)->second).name() << ") " << std::endl;
     } else {
         std::cout << " [MessageHandler] Unhandled message " << header << std::endl;

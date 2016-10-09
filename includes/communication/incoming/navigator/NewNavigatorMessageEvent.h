@@ -10,12 +10,12 @@ class NewNavigatorMessageEvent : public MessageEvent {
 public:
     NewNavigatorMessageEvent() { }
 
-    void handle(Session *session, Request request) {
+    void handle(Player *player, Request request) {
 
         auto categories = Icarus::getGame()->getNavigatorManager()->getCategories();
         
-        session->send(FlatCategoriesMessageComposer(categories, session->getDetails()->getRank()));
-        session->send(NavigatorCategoriesComposer(categories));
-        session->send(NavigatorMetaDataComposer());
+        player->send(FlatCategoriesMessageComposer(categories, player->getDetails()->getRank()));
+        player->send(NavigatorCategoriesComposer(categories));
+        player->send(NavigatorMetaDataComposer());
     }
 };

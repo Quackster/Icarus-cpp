@@ -10,10 +10,10 @@
 /*
 Define static variables
 */
-SessionManager *Icarus::sessionManager;
-NetworkServer *Icarus::networkServer;
-MessageHandler *Icarus::messageHandler;
-DatabaseManager *Icarus::databaseManager;
+PlayerManager *Icarus::player_manager;
+NetworkServer *Icarus::network_server;
+MessageHandler *Icarus::message_handler;
+DatabaseManager *Icarus::database_manager;
 Configuration *Icarus::configuration;
 Game *Icarus::game;
 
@@ -57,7 +57,7 @@ void Icarus::boot() {
     std::cout << std::endl;
     std::cout << " [BOOT] [DatabaseManager] Testing MySQL connection" << std::endl;
 
-    Icarus::databaseManager = new DatabaseManager(
+    Icarus::database_manager = new DatabaseManager(
         configuration->getString("database.hostname"), 
         configuration->getString("database.port"), 
         configuration->getString("database.username"), 
@@ -66,7 +66,7 @@ void Icarus::boot() {
         configuration->getInt("database.pool.size"));
 
 
-    if (Icarus::databaseManager->testConnection()) {
+    if (Icarus::database_manager->testConnection()) {
         std::cout << " [BOOT] [DatabaseManager] Connection to MySQL server was successful" << std::endl;
         std::cout << " [BOOT] [DatabaseManager] Started database pooling (database name: " << configuration->getString("database.database") << ") with a pool size of " << configuration->getInt("database.pool.size") << std::endl;
     } else {
@@ -80,10 +80,10 @@ void Icarus::boot() {
 
     std::cout << std::endl;
     std::cout << " [BOOT] [SessionManager] Creating session manager " << std::endl;
-    Icarus::sessionManager = new SessionManager();
+    Icarus::player_manager = new PlayerManager();
 
     std::cout << " [BOOT] [MessageHandler] Creating message handler " << std::endl << std::endl;
-    Icarus::messageHandler = new MessageHandler();
+    Icarus::message_handler = new MessageHandler();
 
     std::cout << std::endl;
 
@@ -104,7 +104,7 @@ void Icarus::boot() {
     std::cout << std::endl  << " [BOOT] [NetworkServer] Starting server on port " << server_port << std::endl;
     
     boost::asio::io_service io_service;
-    networkServer = new NetworkServer(io_service, server_port);
+    network_server = new NetworkServer(io_service, server_port);
     io_service.run();
 }
 
@@ -122,8 +122,8 @@ Game *Icarus::getGame() {
 
     @return: SessionManager ptr
 */
-SessionManager *Icarus::getSessionManager() { 
-    return sessionManager; 
+PlayerManager *Icarus::getPlayerManager() {
+    return player_manager;
 }
 
 /*
@@ -132,7 +132,7 @@ Gets the network server instamce
 @return: NetworkServer ptr
 */
 NetworkServer *Icarus::getNetworkServer() { 
-    return networkServer; 
+    return network_server; 
 }
 
 /*
@@ -141,7 +141,7 @@ Gets the message handler instance
 @return: MessageHandler ptr
 */
 MessageHandler *Icarus::getMessageHandler() {
-    return messageHandler;
+    return message_handler;
 }
 
 /*
@@ -150,7 +150,7 @@ Gets the database manager instance
 @return: DatabaseManager ptr
 */
 DatabaseManager *Icarus::getDatabaseManager() {
-    return databaseManager;
+    return database_manager;
 }
 
 /*
@@ -167,9 +167,9 @@ Configuration *Icarus::getConfiguration() {
 Deconstructor
 */
 Icarus::~Icarus() {
-    delete Icarus::sessionManager;
-    delete Icarus::networkServer;
-    delete Icarus::messageHandler;
-    delete Icarus::databaseManager;
+    delete Icarus::player_manager;
+    delete Icarus::network_server;
+    delete Icarus::message_handler;
+    delete Icarus::database_manager;
     delete Icarus::game;
 }

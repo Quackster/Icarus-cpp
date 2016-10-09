@@ -1,5 +1,5 @@
 #pragma once
-#include "game/session/Session.h"
+#include "game/player/Player.h"
 #include "communication/headers/Outgoing.h"
 
 #include "communication/streams/Request.h"
@@ -10,5 +10,5 @@ class MessageEvent
 
 public:
     virtual ~MessageEvent() {}
-    virtual void handle(Session *session, Request request) = 0;
+    virtual void handle(Player *player, Request request) = 0;
 };

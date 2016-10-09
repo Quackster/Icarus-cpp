@@ -68,8 +68,8 @@ void NetworkConnection::recieveData() {
         else {
 
             // Handle session disconnect
-            if (Icarus::getSessionManager()->containsSession(this->connection_id)) {
-                Icarus::getSessionManager()->removeSession(this->connection_id);
+            if (Icarus::getPlayerManager()->containsSession(this->connection_id)) {
+                Icarus::getPlayerManager()->removeSession(this->connection_id);
             }
             else {
                 // Remove connection if it was just a policy request
@@ -104,13 +104,13 @@ Handle incoming data
 void NetworkConnection::handleData(Request request) {
 
     // Once we passed through the policy, create a session and handle it
-    if (!Icarus::getSessionManager()->containsSession(this->connection_id)) {
-        Session *session = new Session(this);
-        Icarus::getSessionManager()->addSession(session, this->getConnectionId());
+    if (!Icarus::getPlayerManager()->containsSession(this->connection_id)) {
+        Player *player = new Player(this);
+        Icarus::getPlayerManager()->addSession(player, this->getConnectionId());
     }
 
     //cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
-    Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getSessionManager()->getSession(this->connection_id));
+    Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getPlayerManager()->getSession(this->connection_id));
 
 }
 

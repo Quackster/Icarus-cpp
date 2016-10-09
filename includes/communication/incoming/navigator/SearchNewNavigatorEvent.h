@@ -9,7 +9,7 @@ class SearchNewNavigatorEvent : public MessageEvent {
 public:
     SearchNewNavigatorEvent() { }
 
-    void handle(Session *session, Request request) {
+    void handle(Player *player, Request request) {
 
         std::string tab = request.readString();
         std::string query = request.readString();
@@ -20,6 +20,6 @@ public:
             return;
         }
 
-        session->send(SearchResultSetComposer(session, navigator_tab, query));
+        player->send(SearchResultSetComposer(player, navigator_tab, query));
     }
 };

@@ -1,5 +1,5 @@
 #pragma once
-#include "game/session/SessionManager.h"
+#include "game/player/PlayerManager.h"
 #include "database/DatabaseManager.h"
 #include "network/NetworkServer.h"
 #include "communication/incoming/MessageHandler.h"
@@ -12,7 +12,7 @@ class Icarus
 public:
     ~Icarus();
 	static void boot();
-    static SessionManager *getSessionManager();// { return sessionManager; }
+    static PlayerManager *getPlayerManager();// { return sessionManager; }
     static NetworkServer *getNetworkServer();
     static MessageHandler *getMessageHandler();// { return networkServer; }
     static DatabaseManager *getDatabaseManager();
@@ -20,10 +20,10 @@ public:
     static Game *getGame();
 
 private:
-    static SessionManager *sessionManager;
-    static NetworkServer *networkServer;
-    static MessageHandler *messageHandler;
-    static DatabaseManager *databaseManager;
+    static PlayerManager *player_manager;
+    static NetworkServer *network_server;
+    static MessageHandler *message_handler;
+    static DatabaseManager *database_manager;
     static Configuration *configuration;
     static Game *game;
 

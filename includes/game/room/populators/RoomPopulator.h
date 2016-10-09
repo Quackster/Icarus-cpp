@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "game/session/Session.h"
+#include "game/player/Player.h"
 #include "game/room/Room.h"
 
 struct PopulationSorter {
@@ -15,7 +15,7 @@ class RoomPopulator
 
 public:
     virtual ~RoomPopulator() {}
-    virtual std::vector<Room*> populate(bool room_limit, Session* session) = 0;
+    virtual std::vector<Room*> populate(bool room_limit, Player *player) = 0;
     
     void sort(std::vector<Room*> &rooms) {
         std::sort(rooms.begin(), rooms.end(), PopulationSorter());

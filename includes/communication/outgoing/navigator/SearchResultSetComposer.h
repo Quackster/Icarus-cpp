@@ -1,14 +1,14 @@
 #pragma once
 #include <vector>
 
-#include "game/session/Session.h"
+#include "game/player/Player.h"
 #include "game/navigator/NavigatorTab.h"
 #include "communication/outgoing/MessageComposer.h"
 
 class SearchResultSetComposer : public MessageComposer {
 
 public:
-    SearchResultSetComposer(Session* session, NavigatorTab *tab, std::string query) : session(session), tab(tab), query(query) { }
+    SearchResultSetComposer(Player* player, NavigatorTab *tab, std::string query) : player(player), tab(tab), query(query) { }
 
     Response compose() {
         Response response = this->createResponse();
@@ -48,9 +48,7 @@ public:
                 response.writeInt(navigator_tab->getThumbnail());
 
                 RoomPopulator *populator = Icarus::getGame()->getNavigatorManager()->getPopulator(navigator_tab->getPopulatorName());
-                std::vector<Room*> rooms = populator->populate(room_limit, session);
-
-                std::cout << "rooms : " << rooms.size() << std::endl;
+                std::vector<Room*> rooms = populator->populate(room_limit, player);
 
                 response.writeInt(rooms.size());
 
@@ -71,7 +69,7 @@ public:
     }
 
 private:
-    Session* session;
+    Player* player;
     NavigatorTab *tab;
     std::string query;
 };

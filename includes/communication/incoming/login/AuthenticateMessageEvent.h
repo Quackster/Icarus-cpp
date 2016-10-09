@@ -13,9 +13,9 @@ class AuthenticateMessageEvent : public MessageEvent {
 public:
     AuthenticateMessageEvent() { }
 
-    void handle(Session *session, Request request) {
+    void handle(Player *session, Request request) {
 
-        SessionDetails *details = UserDao::findUserByTicket(session, request.readString());
+        PlayerDetails *details = UserDao::findUserByTicket(session, request.readString());
 
         if (details == nullptr) {
             session->getNetworkConnection()->getSocket().close();
