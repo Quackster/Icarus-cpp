@@ -13,7 +13,7 @@ class AuthenticateMessageEvent : public MessageEvent {
 public:
     AuthenticateMessageEvent() { }
 
-    void handle(Player *session, Request request) {
+    void handle(Player *session, Request &request) {
 
         PlayerDetails *details = UserDao::findUserByTicket(session, request.readString());
 

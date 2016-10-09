@@ -9,7 +9,7 @@ class VersionCheckMessageEvent : public MessageEvent {
 public:
     VersionCheckMessageEvent() { }
 
-    void handle(Player *player, Request request) {
+    void handle(Player *player, Request &request) {
 
         std::string revision = request.readString();
 

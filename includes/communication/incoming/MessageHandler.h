@@ -14,6 +14,6 @@ public:
     ~MessageHandler();
     MessageEvent *getMessageEvent(int header);
     void createEvent(int header, MessageEvent *event);
-    void invoke(int header, Request request, Player *player);
+    void invoke(int header, Request &request, Player *player);
 };
 

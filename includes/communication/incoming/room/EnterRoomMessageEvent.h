@@ -6,7 +6,7 @@ class EnterRoomMessageEvent : public MessageEvent {
 public:
     EnterRoomMessageEvent() { }
 
-    void handle(Player *player, Request request) {
+    void handle(Player *player, Request &request) {
 
         int room_id = request.readInt();
 

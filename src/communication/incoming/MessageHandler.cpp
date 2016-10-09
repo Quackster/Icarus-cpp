@@ -81,7 +81,7 @@ void MessageHandler::createEvent(int header, MessageEvent *event) {
     @param message request ptr
     @return none
 */
-void MessageHandler::invoke(int header, Request request, Player *player) {
+void MessageHandler::invoke(int header, Request &request, Player *player) {
 
     if (this->messages->count(header)) {
         this->messages->find(header)->second->handle(player, request);

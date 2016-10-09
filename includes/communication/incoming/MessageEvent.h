@@ -10,5 +10,5 @@ class MessageEvent
 
 public:
     virtual ~MessageEvent() {}
-    virtual void handle(Player *player, Request request) = 0;
+    virtual void handle(Player *player, Request &request) = 0;
 };

@@ -14,7 +14,7 @@ class UserDataMessageEvent : public MessageEvent {
 public:
     UserDataMessageEvent() { }
 
-    void handle(Player *player, Request request) {
+    void handle(Player *player, Request &request) {
 
         player->login();
 

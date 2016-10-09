@@ -9,7 +9,7 @@ class SearchNewNavigatorEvent : public MessageEvent {
 public:
     SearchNewNavigatorEvent() { }
 
-    void handle(Player *player, Request request) {
+    void handle(Player *player, Request &request) {
 
         std::string tab = request.readString();
         std::string query = request.readString();
