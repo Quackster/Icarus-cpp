@@ -108,6 +108,15 @@
     <ClCompile Include="src\game\room\RoomUser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\pathfinder\Position.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\pathfinder\Pathfinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\pathfinder\PathfinderNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\boot\Icarus.h">
@@ -327,6 +336,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\communication\outgoing\room\UserStatusMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\pathfinder\Pathfinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\pathfinder\PathfinderNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\pathfinder\Position.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\incoming\room\WalkMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

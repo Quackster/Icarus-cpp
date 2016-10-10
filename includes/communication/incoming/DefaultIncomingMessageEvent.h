@@ -1,12 +1,12 @@
 #pragma once
 #include "communication/incoming/MessageEvent.h"
 
-class DefaultIncomingMessageEvent : public MessageEvent {
+class WalkMessageEvent : public MessageEvent {
 
 public:
-    DefaultIncomingMessageEvent() { }
+    WalkMessageEvent() { }
 
-    void handle(Player *player, Request request) {
+    void handle(Player *player, Request &request) {
 
 
 
