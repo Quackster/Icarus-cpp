@@ -24,6 +24,10 @@ public:
             return;
         }
 
+        if (player->getRoomUser()->getRoom() != nullptr) {
+            player->getRoomUser()->getRoom()->leave(player, false);
+        }
+        
         room->getEntities()->push_back(player);
 
         RoomData *room_data = room->getData();
@@ -31,10 +35,10 @@ public:
         // So we don't forget what room we entered 8-)
         player->getRoomUser()->setRoom(room);
         player->getRoomUser()->setLoadingRoom(true);
+        player->getRoomUser()->setVirtualId(room->getData()->getVirtualId());
 
         player->send(RoomModelMessageComposer(room_data->getModel()->getName(), room_id));
         player->send(RoomRatingMessageComposer(room_data->getScore()));
-
 
         std::string floor = room_data->getFloor();
         std::string wall = room_data->getWallpaper();
@@ -50,10 +54,12 @@ public:
         player->send(RoomSpacesMessageComposer("landscape", room_data->getOutside()));
 
         if (room->hasRights(player->getDetails()->getId(), true)) {
+            player->getRoomUser()->updateStatus("flatctrl", "useradmin");
             player->send(RoomOwnerMessageComposer());
-            player->send(RightsLevelMessageComposer(4));
+            player->send(RightsLevelMessageComposer(4)); 
         }
         else if (room->hasRights(player->getDetails()->getId(), false)) {
+            player->getRoomUser()->updateStatus("flatctrl", "1");
             player->send(RightsLevelMessageComposer(1));
         }
 

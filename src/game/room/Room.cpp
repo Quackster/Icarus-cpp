@@ -28,7 +28,7 @@ bool Room::hasRights(int user_id, bool owner_check_only) {
             return true;
         }
         else {
-            return false;//std::find(this->room_data->getUserRights().begin(), this->room_data->getUserRights().end(), user_id) != this->room_data->getUserRights().end();
+            return std::find(this->room_data->getUserRights().begin(), this->room_data->getUserRights().end(), user_id) != this->room_data->getUserRights().end();
         }
     }
 
@@ -49,8 +49,6 @@ void Room::leave(Player* player, bool hotel_view, bool dispose) {
     }
 
     if (this->hasEntity(player)) {
-
-        printf("test123");
 
         // Remove entity from vector
         this->entities->erase(std::remove(this->entities->begin(), this->entities->end(), player), this->entities->end());
@@ -153,22 +151,16 @@ void Room::dispose(bool force_dispose) {
         return;
     }
 
-    if (this->getPlayers().size() == 0) {
+    bool empty_room = this->getPlayers().size() == 0;
+
+    if (empty_room) {
 
         // reset state
 
-        if (this->room_data->isOwnerOnline() == false) {
+        if (this->room_data->isOwnerOnline() == false && empty_room) {
             Icarus::getGame()->getRoomManager()->deleteRoom(this->room_data->getId());
         }
     }
-
-    // 
-    // reset state
-    //
-    //    if owner not online
-    //        Icarus::getGame()->getRoomManager()->deleteRoom(this->room_data->getId());
-
-   
 }
 
 /*

@@ -9,6 +9,37 @@ RoomUser::RoomUser() {
     this->reset();
 }
 
+/*
+    Updatest status, if value is empty, the status entry will be deleted
+
+    @param status key
+    @param status value
+    @return none
+*/
+void RoomUser::updateStatus(std::string key, std::string value) {
+
+    if (value.length() > 0) {
+        this->statuses[key] = value;
+    }
+    else {
+        this->statuses.erase(key);
+    }
+
+}
+
+void RoomUser::setRotation(int rotation, bool set_head_rotation, bool update) {
+    this->rotation = rotation;
+    
+    if (set_head_rotation) {
+        this->head_rotation = rotation;
+    }
+}
+
+/*
+    Restores all room user values (used when a user leaves the room)
+
+    @return none
+*/
 void RoomUser::reset() {
 
     this->virtual_id = 0;
