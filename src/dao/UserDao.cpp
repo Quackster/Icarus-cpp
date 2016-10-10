@@ -18,7 +18,7 @@ std::string UserDao::getName(int user_id) {
     try {
 
         std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
-        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT username FROM users WHERE user_id = ? LIMIT 1")); {
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT username FROM users WHERE id = ? LIMIT 1")); {
             statement->setInt(1, user_id);
         }
 

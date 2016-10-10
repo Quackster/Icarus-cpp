@@ -177,6 +177,7 @@
     <ClInclude Include="includes\communication\outgoing\room\model\HeightMapMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\RoomDataMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\user\CreditsMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\user\HotelViewMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\user\SendPerkAllowancesMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\user\UserObjectMessageComposer.h" />
     <ClInclude Include="includes\game\entities\Entity.h" />

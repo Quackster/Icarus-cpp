@@ -6,7 +6,7 @@
     Constructor for room user
 */
 RoomUser::RoomUser() { 
-    printf("topkek amirite lad? \n");
+
 }
 
 /*

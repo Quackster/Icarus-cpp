@@ -24,6 +24,8 @@ public:
             return;
         }
 
+        room->getEntities()->push_back(player);
+
         RoomData *room_data = room->getData();
 
         // So we don't forget what room we entered 8-)

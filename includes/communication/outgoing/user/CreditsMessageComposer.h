@@ -6,7 +6,7 @@
 class CreditsMessageComposer : public MessageComposer {
 
 public:
-    CreditsMessageComposer(int credts) : credits(credits) { }
+    CreditsMessageComposer(int credits) : credits(credits) { }
 
     Response compose() {
         Response response = this->createResponse();
