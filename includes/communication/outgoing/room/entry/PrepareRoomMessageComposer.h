@@ -5,24 +5,22 @@
 
 #include "communication/outgoing/MessageComposer.h"
 
-class RoomModelMessageComposer : public MessageComposer {
+class PrepareRoomMessageComposer : public MessageComposer {
 
 public:
-    RoomModelMessageComposer(std::string model_name, int room_id) 
-        : model_name(model_name), room_id(room_id) { }
+    PrepareRoomMessageComposer(int room_id) : 
+        room_id(room_id) { }
 
     Response compose() {
         Response response = this->createResponse();
-        response.writeString(this->model_name);
         response.writeInt(this->room_id);
         return response;
     }
 
     int getHeader() {
-        return Outgoing::InitialRoomInfoMessageComposer;
+        return Outgoing::RoomUpdateMessageComposer;
     }
 
 private:
-    std::string model_name;
-    int room_id
+    int room_id;
 };

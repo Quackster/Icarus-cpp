@@ -284,9 +284,6 @@
     <ClInclude Include="includes\communication\outgoing\room\entry\RoomRatingMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\communication\outgoing\room\RoomSpacesMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\communication\outgoing\room\entry\RoomSpacesMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -297,6 +294,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\communication\outgoing\room\entry\RightsLevelMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\room\entry\NoRightsMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\room\entry\PrepareRoomMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -17,6 +17,7 @@
 // Room
 #include "communication/incoming/room/RoomInfoMessageEvent.h"
 #include "communication/incoming/room/EnterRoomMessageEvent.h"
+#include "communication/incoming/room/HeightMapMessageEvent.h"
 
 /*
     MessageHandler constructor
@@ -41,6 +42,7 @@ MessageHandler::MessageHandler() :
     // Room
     this->createEvent(Incoming::RoomInfoMessageEvent, new RoomInfoMessageEvent());
     this->createEvent(Incoming::EnterRoomMessageEvent, new EnterRoomMessageEvent());
+    this->createEvent(Incoming::HeightMapMessageEvent, new HeightMapMessageEvent());
 }
 
 /*

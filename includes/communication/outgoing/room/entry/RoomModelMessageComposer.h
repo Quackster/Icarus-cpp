@@ -24,5 +24,5 @@ public:
 
 private:
     std::string model_name;
-    int room_id
+    int room_id;
 };

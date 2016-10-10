@@ -5,22 +5,18 @@
 
 #include "communication/outgoing/MessageComposer.h"
 
-class RightsLevelMessageComposer : public MessageComposer {
+class NoRightsMessageComposer : public MessageComposer {
 
 public:
-    RightsLevelMessageComposer(int rights_level) : rights_level(rights_level) { }
+    NoRightsMessageComposer() { }
 
     Response compose() {
         Response response = this->createResponse();
-        response.writeInt(rights_level);
         return response;
     }
 
     int getHeader() {
-        return Outgoing::RightsLevelMessageComposer;
+        return Outgoing::YouAreNotControllerMessageComposer;
     }
-
-private:
-    int rights_level;
 
 };
