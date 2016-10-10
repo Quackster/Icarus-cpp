@@ -59,6 +59,10 @@ void Player::clear() {
         return;
     }
 
+    if (this->room_user->getRoom() != nullptr) {
+        this->room_user->getRoom()->leave(this, false, true);
+    }
+
     // Dispose player rooms
     std::vector<Room*> rooms = Icarus::getGame()->getRoomManager()->getPlayerRooms(this->session_details->getId()); {
         for (Room *room : rooms) {

@@ -1,4 +1,6 @@
 #include "stdafx.h"
+
+#include "boot/Icarus.h"
 #include "game/room/RoomData.h"
 
 /*
@@ -73,7 +75,19 @@ RoomData::RoomData(int id,
     user_rights(user_rights)
 {
 
+    // Update owner?
+    this->isOwnerOnline();
 }
+
+/*
+    Returns true if owner is online or not
+
+    @return boolean
+*/
+    bool RoomData::isOwnerOnline()
+    {
+        this->owner = Icarus::getPlayerManager()->getPlayerById(this->owner_id); return this->owner != nullptr;
+    }
 
 /*
     Deconstructor for RoomData

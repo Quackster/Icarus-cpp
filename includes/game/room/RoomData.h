@@ -4,7 +4,6 @@
 
 #include "game/room/model/RoomModel.h"
 
-
 class RoomData
 {
 public:
@@ -49,6 +48,8 @@ public:
     bool isPrivate() { return room_type == 0; }
     int &getOwnerId() { return owner_id; }
     std::string &getOwnerName() { return owner_name; }
+    Player *getOwner() { return owner; }
+    bool isOwnerOnline();
     int &getGroupId() { return group_id; }
     std::string &getDescription() { return description; }
     std::string &getPassword() { return password; }
@@ -79,6 +80,7 @@ private:
     std::string name;
     char room_type;
     int owner_id;
+    Player *owner;
     std::string owner_name;
     int group_id;
     std::string description;

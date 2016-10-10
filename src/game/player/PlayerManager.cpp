@@ -93,3 +93,26 @@ Player *PlayerManager::getSession(int connection_id) {
         return nullptr;
     }
 }
+
+/*
+    Gets player by user id, if it doesn't exist nullptr will be returned
+
+    @param user id
+    @return player ptr
+*/
+Player *PlayerManager::getPlayerById(int user_id) {
+
+    for (auto session : *this->sessions) {
+
+        Player *player = session.second;
+
+        if (player->authenticated()) {
+            if (player->getDetails()->getId() == user_id) {
+                return player;
+            }
+        }
+
+    }
+
+    return nullptr;
+}

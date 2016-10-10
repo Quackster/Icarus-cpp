@@ -142,17 +142,28 @@ void Room::dispose(bool force_dispose) {
 
     if (force_dispose) {
 
+        // reset state ?
+       
         Icarus::getGame()->getRoomManager()->deleteRoom(this->room_data->getId());
+        return;
     }
 
-    // if room users is 0
+    if (this->getPlayers().size() == 0) {
+
+        // reset state
+
+        if (this->room_data->isOwnerOnline() == false) {
+            Icarus::getGame()->getRoomManager()->deleteRoom(this->room_data->getId());
+        }
+    }
+
     // 
     // reset state
     //
     //    if owner not online
     //        Icarus::getGame()->getRoomManager()->deleteRoom(this->room_data->getId());
 
-    Icarus::getGame()->getRoomManager()->deleteRoom(this->room_data->getId());
+   
 }
 
 /*
