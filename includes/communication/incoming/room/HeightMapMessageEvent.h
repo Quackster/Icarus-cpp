@@ -20,6 +20,6 @@ public:
         player->send(HeightMapMessageComposer(room));
         player->send(FloorMapMessageComposer(room));
         
-
+        player->getRoomUser()->setLoadingRoom(false);
     }
 };

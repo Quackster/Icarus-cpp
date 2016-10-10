@@ -30,6 +30,7 @@ public:
 
         // So we don't forget what room we entered 8-)
         player->getRoomUser()->setRoom(room);
+        player->getRoomUser()->setLoadingRoom(true);
 
         player->send(RoomModelMessageComposer(room_data->getModel()->getName(), room_id));
         player->send(RoomRatingMessageComposer(room_data->getScore()));
@@ -48,8 +49,13 @@ public:
 
         player->send(RoomSpacesMessageComposer("landscape", room_data->getOutside()));
 
-        player->send(RoomOwnerMessageComposer());
-        player->send(RightsLevelMessageComposer(4));
+        if (room->hasRights(player->getDetails()->getId(), true)) {
+            player->send(RoomOwnerMessageComposer());
+            player->send(RightsLevelMessageComposer(4));
+        }
+        else if (room->hasRights(player->getDetails()->getId(), false)) {
+            player->send(RightsLevelMessageComposer(1));
+        }
 
         player->send(PrepareRoomMessageComposer(room_id));
 

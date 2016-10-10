@@ -21,14 +21,14 @@ Converts a short (16 bits) to little-endian represented in a char array
 @parameter reverse, if true, will return in big endian format
 @return char array
 */
-std::shared_ptr<char> Response::getBytes(short i) {
+char* Response::getBytes(short i) {
 
     char *output = new char[2];
 
     output[0] = (char)(i >> 8) & 0xff;
     output[1] = (char)(i) & 0xff;
 
-    return std::shared_ptr<char>(output);
+    return output;
 }
 
 /*
@@ -37,7 +37,7 @@ Converts a integer (32 bits) to little-endian represented in a char array
 @parameter reverse, if true, will return in big endian format
 @return char array
 */
-std::shared_ptr<char> Response::getBytes(int i, bool reverse) {
+char* Response::getBytes(int i, bool reverse) {
 
     char *output = new char[4];
 
@@ -53,7 +53,7 @@ std::shared_ptr<char> Response::getBytes(int i, bool reverse) {
         output[0] = (char)(i >> 24) & 0xff;
     };
 
-    return std::shared_ptr<char>(output);
+    return output;
 }
 
 /*
@@ -64,14 +64,14 @@ and increases the bytes written by 4
 */
 void Response::writeInt(int number) {
 
-    char* bytes = this->getBytes(number).get();
+    char* bytes = this->getBytes(number);
 
     for (int i = 0; i < 4; i++) {
         this->message.push_back(bytes[i]);
     }
 
     this->bytes_written = this->bytes_written + 4;
-    //delete bytes;
+    delete bytes;
 }
 
 /*
@@ -82,14 +82,14 @@ and increases the bytes written by 2
 */
 void Response::writeShort(short number) {
 
-    char* bytes = this->getBytes(number).get();
+    char* bytes = this->getBytes(number);
     
     for (int i = 0; i < 2; i++) {
         this->message.push_back(bytes[i]);
     }
 
     this->bytes_written = this->bytes_written + 2;
-    //delete bytes;
+    delete bytes;
 }
 
 /*
@@ -124,7 +124,7 @@ char* Response::getData() {
 
         // Get the size in raw 4 int 32 length prefixed, but reversed
         // as this needs to be inserted at the front
-        char* size = this->getBytes(this->bytes_written, true).get();
+        char* size = this->getBytes(this->bytes_written, true);
 
         for (int i = 0; i < 4; i++) {
 

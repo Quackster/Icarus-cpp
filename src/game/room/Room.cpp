@@ -28,7 +28,7 @@ bool Room::hasRights(int user_id, bool owner_check_only) {
             return true;
         }
         else {
-            return std::find(this->room_data->getUserRights().begin(), this->room_data->getUserRights().end(), user_id) != this->room_data->getUserRights().end();
+            return false;//std::find(this->room_data->getUserRights().begin(), this->room_data->getUserRights().end(), user_id) != this->room_data->getUserRights().end();
         }
     }
 
@@ -50,8 +50,13 @@ void Room::leave(Player* player, bool hotel_view, bool dispose) {
 
     if (this->hasEntity(player)) {
 
+        printf("test123");
+
         // Remove entity from vector
         this->entities->erase(std::remove(this->entities->begin(), this->entities->end(), player), this->entities->end());
+        
+        // Reset room user
+        player->getRoomUser()->reset();
     }
 
     if (dispose) {
