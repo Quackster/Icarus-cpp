@@ -11,8 +11,14 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        player->send(HeightMapMessageComposer(player->getRoomUser()->getRoom()));
-        player->send(FloorMapMessageComposer(player->getRoomUser()->getRoom()));
+        Room *room = player->getRoomUser()->getRoom();
+
+        if (room == nullptr) {
+            return;
+        }
+
+        player->send(HeightMapMessageComposer(room));
+        player->send(FloorMapMessageComposer(room));
         
 
     }

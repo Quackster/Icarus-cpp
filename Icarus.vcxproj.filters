@@ -78,12 +78,6 @@
     <ClCompile Include="src\misc\Utilities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\room\populators\DefaultPopulator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\room\populators\MyRoomPopulator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\game\room\Room.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -103,6 +97,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\game\room\model\RoomModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\navigator\populators\DefaultPopulator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\navigator\populators\MyRoomPopulator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

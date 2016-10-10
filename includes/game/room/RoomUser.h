@@ -6,6 +6,9 @@ class RoomUser
 {
 
 public:
+    RoomUser();
+    ~RoomUser();
+
     Room *getRoom() { return room; }
     void setRoom(Room *room) { this->room = room; }
 
@@ -29,7 +32,8 @@ private:
     Room *room;
 
     bool is_walking;
-    bool needs_wpdate;
+    bool needs_update;
+    bool is_loading_room;
 
 public:
 

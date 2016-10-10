@@ -133,8 +133,8 @@
   <ItemGroup>
     <ClCompile Include="src\dao\RoomDao.cpp" />
     <ClCompile Include="src\game\room\model\RoomModel.cpp" />
-    <ClCompile Include="src\game\room\populators\DefaultPopulator.cpp" />
-    <ClCompile Include="src\game\room\populators\MyRoomPopulator.cpp" />
+    <ClCompile Include="src\game\navigator\populators\DefaultPopulator.cpp" />
+    <ClCompile Include="src\game\navigator\populators\MyRoomPopulator.cpp" />
     <ClCompile Include="src\game\room\RoomData.cpp" />
     <ClCompile Include="src\game\room\Room.cpp" />
     <ClCompile Include="src\game\room\RoomManager.cpp" />
