@@ -12,6 +12,7 @@ public:
     void createPlayerRooms(int user_id);
     std::vector<Room*> getPlayerRooms(int user_id);
 
+    RoomModel *getModel(std::string model_id);
     bool hasRoom(int room_id);
     Room *getRoom(int room_id);
     void addRoom(Room *room);

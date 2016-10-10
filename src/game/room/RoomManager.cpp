@@ -58,6 +58,21 @@ std::vector<Room*> RoomManager::getPlayerRooms(int user_id) {
 }
 
 /*
+    Returns model ptr by string
+
+    @param model id
+    @return model ptr
+*/
+RoomModel *RoomManager::getModel(std::string model_id) {
+
+    if (this->models->count(model_id) == 1) {
+        return this->models->find(model_id)->second;
+    }
+
+    return nullptr;
+}
+
+/*
     Returns boolean value true / false if room id exists
 
     @param room id
@@ -119,7 +134,13 @@ RoomManager::~RoomManager() {
         delete room_entry.second;
     }
 
+    for (auto model_entry : *this->models) {
+        delete model_entry.second;
+    }
+
     this->rooms->clear();
+    this->models->clear();
     
     delete this->rooms;
+    delete this->models;
 }
