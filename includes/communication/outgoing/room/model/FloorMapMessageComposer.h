@@ -20,9 +20,9 @@ public:
         Response response = this->createResponse();
         response.writeBool(true);
         response.writeInt(room->getData()->getWallHeight());
-        response.writeString(model->getHeightMap());
+        response.writeString(model->getFloorMap());
 
-        std::cout << model->getHeightMap() << std::endl;
+        std::cout << model->getFloorMap() << std::endl;
 
         return response;
     }

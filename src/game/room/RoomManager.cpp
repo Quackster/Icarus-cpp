@@ -68,9 +68,6 @@ std::vector<Room*> RoomManager::getPlayerRooms(int user_id) {
 */
 RoomModel *RoomManager::getModel(std::string model_id) {
 
-
-    printf("models: %i", this->models->size());
-
     auto iterator = this->models->find(model_id);
 
     if (iterator != this->models->end()) {

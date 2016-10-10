@@ -13,9 +13,9 @@ public:
      std::string &getName() { return name; }
      std::string &getHeightMap() { return height_map; }
      std::string &getFloorMap() { return floor_map; }
-     std::string **getSquareChar() { return square_char; }
-     int **getSquareHeight() { return square_height; }
-     int **getSquares() { return squares; }
+     std::string *getSquareChar() { return square_char; }
+     double *getSquareHeight() { return square_height; }
+     int *getSquares() { return squares; }
      int getMapSizeX() { return this->map_size_x; }
      int getMapSizeY() { return this->map_size_y; }
 
@@ -32,8 +32,7 @@ private:
     std::string name;
     std::string height_map;
     std::string floor_map;
-    std::string **square_char;// [MAX_SIZE_X][MAX_SIZE_Y];
-
+    
     int door_x;
     int door_y;
     int door_z;
@@ -41,6 +40,7 @@ private:
     int map_size_x;
     int map_size_y;
 
-    int **squares;
-    int **square_height;
+    std::string *square_char;// [MAX_SIZE_X][MAX_SIZE_Y];
+    int *squares;
+    double *square_height;
 };

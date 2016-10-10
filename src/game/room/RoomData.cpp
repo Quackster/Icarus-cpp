@@ -68,9 +68,7 @@ RoomData::RoomData(int id,
     who_can_kick(who_can_kick),
     who_can_ban(who_can_ban)
 {
-    if (model == nullptr) {
-        printf("null!!! %s \n", model->getName());
-    }
+
 }
 
 /*
