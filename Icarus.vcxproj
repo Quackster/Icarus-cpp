@@ -138,6 +138,7 @@
     <ClCompile Include="src\game\room\RoomData.cpp" />
     <ClCompile Include="src\game\room\Room.cpp" />
     <ClCompile Include="src\game\room\RoomManager.cpp" />
+    <ClCompile Include="src\game\room\RoomUser.cpp" />
     <ClCompile Include="src\thread\ExampleRunnable.cpp" />
     <ClCompile Include="src\thread\ExecutorService.cpp" />
     <ClCompile Include="src\game\Game.cpp" />

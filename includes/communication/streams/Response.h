@@ -1,4 +1,6 @@
 #pragma once
+
+#include <memory>
 #include <vector>
 #include <iostream>
 #include <cstring> // Required for G++/GCC compilation with function "strlen"
@@ -21,8 +23,8 @@ public:
     void writeString(std::string str) { this->writeCChar(str.c_str()); };
 
     char* getData();
-    char* getBytes(short num);
-    char* getBytes(int num, bool reverse = false);
+    std::shared_ptr<char> getBytes(short num);
+    std::shared_ptr<char> getBytes(int num, bool reverse = false);
 
     int getBytesWritten() { return bytes_written + 4/*the length at the start*/;  }
     std::vector<char> getMessage() { return message; }
