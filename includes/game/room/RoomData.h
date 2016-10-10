@@ -12,6 +12,7 @@ public:
         std::string name,
         char room_type,
         int owner_id,
+        std::string owner_name,
         int group_id,
         std::string description,
         std::string password,
@@ -40,34 +41,37 @@ public:
         int chat_flood_protection,
         int who_can_mute,
         int who_can_kick,
-        int who_can_ban);
+        int who_can_ban,
+        std::vector<int> user_rights);
 
-    int getId() { return id; }
-    std::string getName() { return name; }
+    int &getId() { return id; }
+    std::string &getName() { return name; }
     bool isPrivate() { return room_type == 0; }
-    int getOwnerId() { return owner_id; }
-    int getGroupId() { return group_id; }
-    std::string getDescription() { return description; }
-    std::string getPassword() { return password; }
-    int getUsersNow() { return users_now; }
-    int getUsersMax() { return users_max; }
+    int &getOwnerId() { return owner_id; }
+    std::string &getOwnerName() { return owner_name; }
+    int &getGroupId() { return group_id; }
+    std::string &getDescription() { return description; }
+    std::string &getPassword() { return password; }
+    int &getUsersNow() { return users_now; }
+    int &getUsersMax() { return users_max; }
     //std::string getModel() { return model; }
     RoomModel *getModel() { return this->model; }
-    std::string getWallpaper() { return description; }
-    std::string getFloor() { return description; }
-    std::string getOutside() { return outside; }
-    std::vector<std::string> getTags() { return tags; }
-    int getTradeState() { return trade_state; }
-    int getState() { return state; }
-    int getScore() { return score; }
-    int getCategory() { return category; }
-    bool hasAllowPets() { return allow_pets; }
-
+    std::string &getWallpaper() { return description; }
+    std::string &getFloor() { return description; }
+    std::string &getOutside() { return outside; }
+    std::vector<std::string> &getTags() { return tags; }
+    int &getTradeState() { return trade_state; }
+    int &getState() { return state; }
+    int &getScore() { return score; }
+    int &getCategory() { return category; }
+    bool &hasAllowPets() { return allow_pets; }
     int getWallHeight() { return -1; }
+    int &getWhoCanMute() { return who_can_mute; }
+    int &getWhoCanKick() { return who_can_kick; }
+    int &getWhoCanBan() { return who_can_ban; }
 
-    int getWhoCanMute() { return who_can_mute; }
-    int getWhoCanKick() { return who_can_kick; }
-    int getWhoCanBan() { return who_can_ban; }
+    std::vector<int> &getUserRights() { return user_rights; }
+
     ~RoomData();
 
 private:
@@ -75,6 +79,7 @@ private:
     std::string name;
     char room_type;
     int owner_id;
+    std::string owner_name;
     int group_id;
     std::string description;
     std::string password;
@@ -104,5 +109,7 @@ private:
     int who_can_mute;
     int who_can_kick;
     int who_can_ban;
+
+    std::vector<int> user_rights;
 };
 

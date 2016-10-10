@@ -12,6 +12,8 @@ public:
     Room();
     ~Room();
 
+    bool hasRights(int user_id, bool owner_check_only = false);
+
     void serialise(Response &response, bool enter_room);
     void dispose(bool force_disposal = false);
 

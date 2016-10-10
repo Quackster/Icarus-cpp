@@ -4,6 +4,43 @@
 #include "boot/Icarus.h"
 
 /*
+    Returns username by given user id
+
+    @param user id
+    @return std::string username
+*/
+
+std::string UserDao::getName(int user_id) {
+
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+    std::string username;
+
+    try {
+
+        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT username FROM users WHERE user_id = ? LIMIT 1")); {
+            statement->setInt(1, user_id);
+        }
+
+        std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+
+        while (result_set->next()) {
+            username = result_set->getString("username");
+        }
+
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
+
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+    return username;
+};
+
+
+
+/*
     Finds session data based on their SSO ticket.
 
     @param Session pointer

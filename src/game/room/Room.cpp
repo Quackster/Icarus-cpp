@@ -13,6 +13,27 @@ Room::Room() {
 }
 
 /*
+    Whether or not the user has room rights, has optional option for
+    owner/staff check only
+*/
+bool Room::hasRights(int user_id, bool owner_check_only) {
+
+    if (owner_check_only) {
+        return this->room_data->getOwnerId() == user_id;
+    }
+    else {
+
+        if (this->room_data->getOwnerId() == user_id) {
+            return true;
+        }
+        else {
+            return std::find(this->room_data->getUserRights().begin(), this->room_data->getUserRights().end(), user_id) != this->room_data->getUserRights().end();
+        }
+    }
+
+}
+
+/*
     Serialise room data for response
     this is used in a number of places
 
@@ -24,7 +45,7 @@ void Room::serialise(Response &response, bool enter_room) {
     response.writeInt(this->room_data->getId());
     response.writeString(this->room_data->getName());
     response.writeInt(this->room_data->getOwnerId());
-    response.writeString(""); // Owner name
+    response.writeString(this->room_data->getOwnerName()); // Owner name
     response.writeInt(this->room_data->getState());
     response.writeInt(0); // Users now
     response.writeInt(this->room_data->getUsersMax());
@@ -45,8 +66,6 @@ void Room::serialise(Response &response, bool enter_room) {
         response_type = 32;
     }
 
-    // TODO: Thumbnail
-
     if (this->room_data->isPrivate()) {
         response_type += 8;
     }
@@ -56,8 +75,6 @@ void Room::serialise(Response &response, bool enter_room) {
     }
 
     response.writeInt(response_type);
-
-    // if thumbnail then write thumbnail
 }
 
 /*

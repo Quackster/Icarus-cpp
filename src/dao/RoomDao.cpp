@@ -1,7 +1,9 @@
 #pragma once
 #include "stdafx.h"
 
+#include "dao/UserDao.h"
 #include "dao/RoomDao.h"
+
 #include "boot/Icarus.h"
 #include "misc/Utilities.h"
 
@@ -128,6 +130,7 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
                     result_set->getString("name"),
                     (char)result_set->getInt("room_type"),
                     result_set->getInt("owner_id"),
+                    UserDao::getName(result_set->getInt("owner_id")),
                     result_set->getInt("group_id"),
                     result_set->getString("description"),
                     result_set->getString("password"),
@@ -156,7 +159,8 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
                     result_set->getInt("chat_flood_protection"),
                     result_set->getInt("who_can_mute"),
                     result_set->getInt("who_can_kick"),
-                    result_set->getInt("who_can_ban")
+                    result_set->getInt("who_can_ban"),
+                    getRights(room_id)
                  ));
 
                 rooms.push_back(room);
@@ -173,4 +177,36 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
     return rooms;
 }
 
+/*
+Get list of room ids that the player owns
 
+@param room id
+@return vector of room ids
+*/
+std::vector<int> RoomDao::getRights(int room_id) {
+
+    std::vector<int> rooms;
+
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+    try {
+
+        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT user_id FROM room_rights WHERE room_id = ? "));
+        statement->setInt(1, room_id);
+
+        std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+
+        while (result_set->next()) {
+            rooms.push_back(result_set->getInt("user_id"));
+        }
+
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
+
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+    return rooms;
+}
