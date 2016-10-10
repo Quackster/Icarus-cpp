@@ -10,7 +10,13 @@ public:
 
         int room_id = request.readInt();
 
-        std::cout << " Room request: " << room_id << std::endl;
+        Room *room = Icarus::getGame()->getRoomManager()->getRoom(room_id);
+
+        if (room == nullptr) {
+            return;
+        }
+
+
 
     }
 };

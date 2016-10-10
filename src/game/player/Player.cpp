@@ -15,7 +15,7 @@
     @return session instance
 */
 Player::Player(NetworkConnection *network_connection) : 
-    network_connection(network_connection), session_details(nullptr) {
+    network_connection(network_connection), session_details(nullptr), room_user(nullptr) {
     
     std::cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 }
@@ -44,9 +44,6 @@ void Player::login() {
     @return none
 */
 void Player::send(MessageComposer &composer) {
-
-    //std::cout << " Send back : " << composer.compose().getData() << std::endl;
-
     this->network_connection->send(composer);
 }
 

@@ -10,24 +10,17 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        //request.readInt();
         int room_id = request.readInt();
-
-        std::cout << "Roomid: " << room_id << std::endl;
 
         Room *room = Icarus::getGame()->getRoomManager()->getRoom(room_id);
 
         if (room == nullptr) {
-            //return;
+            return;
         }
 
-        int is_loading = request.readInt();
-        int check_entry = request.readInt();
-
-        std::cout << " Room request: " << is_loading << " - " << check_entry << std::endl;
+        bool is_loading = request.readInt() == 1;
+        bool check_entry = request.readInt() == 1;
 
         player->send(RoomDataMessageComposer(room, player, is_loading, check_entry));
-        //
-
     }
 };

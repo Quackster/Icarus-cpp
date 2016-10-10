@@ -278,7 +278,25 @@
     <ClInclude Include="includes\communication\incoming\room\RoomInfoMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\room\entry\RoomModelMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\room\entry\RoomRatingMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\room\RoomSpacesMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\room\entry\RoomSpacesMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="includes\communication\outgoing\room\RoomDataMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\room\entry\RoomOwnerMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\room\entry\RightsLevelMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

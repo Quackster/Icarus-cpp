@@ -163,7 +163,13 @@
   <ItemGroup>
     <ClInclude Include="includes\communication\incoming\room\EnterRoomMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\RoomInfoMessageEvent.h" />
+    <ClInclude Include="includes\communication\outgoing\room\entry\RightsLevelMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\room\entry\RoomModelMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\room\entry\RoomRatingMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\room\entry\RoomSpacesMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\room\entry\RoomOwnerMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\RoomDataMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\room\RoomSpacesMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\user\CreditsMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\user\SendPerkAllowancesMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\user\UserObjectMessageComposer.h" />
