@@ -132,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\dao\RoomDao.cpp" />
+    <ClCompile Include="src\game\room\model\RoomModel.cpp" />
     <ClCompile Include="src\game\room\populators\DefaultPopulator.cpp" />
     <ClCompile Include="src\game\room\populators\MyRoomPopulator.cpp" />
     <ClCompile Include="src\game\room\RoomData.cpp" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClInclude Include="includes\communication\incoming\room\EnterRoomMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\RoomInfoMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\room\HeightMapMessageEvent.h" />
     <ClInclude Include="includes\communication\outgoing\room\entry\NoRightsMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\entry\RightsLevelMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\entry\RoomModelMessageComposer.h" />
@@ -177,6 +179,7 @@
     <ClInclude Include="includes\game\entities\Entity.h" />
     <ClInclude Include="includes\game\entities\EntityDetails.h" />
     <ClInclude Include="includes\game\entities\EntityType.h" />
+    <ClInclude Include="includes\game\room\model\RoomModel.h" />
     <ClInclude Include="includes\game\room\RoomUser.h" />
     <ClInclude Include="includes\game\navigator\populators\DefaultPopulator.h" />
     <ClInclude Include="includes\game\navigator\populators\RoomPopulator.h" />

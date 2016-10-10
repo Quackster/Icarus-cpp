@@ -8,7 +8,7 @@
     Constructor for room manager
 */
 RoomManager::RoomManager() :
-    rooms(new std::map<int, Room*>()) { }
+    rooms(new std::map<int, Room*>()), models(RoomDao::getModels()) { }
 
 /*
     Loads new player rooms if they're not already added to memory

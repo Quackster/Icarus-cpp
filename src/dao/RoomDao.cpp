@@ -6,6 +6,40 @@
 #include "misc/Utilities.h"
 
 /*
+    Get all room models
+    
+    @return room model ptr instances
+*/
+std::map<std::string, RoomModel*> *RoomDao::getModels() {
+
+    std::map<std::string, RoomModel*> *models = new std::map<std::string, RoomModel*>();
+
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+    try {
+
+        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, heightmap, door_x, door_y, door_z, door_dir FROM room_models "));
+
+        std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+
+        while (result_set->next()) {
+            models->insert(std::make_pair(result_set->getString("id"), new RoomModel(result_set->getString("id"), result_set->getString("heightmap"), result_set->getInt("door_x"), result_set->getInt("door_y"), result_set->getInt("door_z"), result_set->getInt("door_dir"))));
+        }
+
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
+
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+    return models;
+
+}
+
+
+/*
     Get list of room ids that the player owns
 
     @param room id

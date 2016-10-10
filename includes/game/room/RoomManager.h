@@ -2,6 +2,7 @@
 #include <map>
 
 #include "game/room/Room.h"
+#include "game/room/model/RoomModel.h"
 
 class RoomManager
 {
@@ -18,5 +19,6 @@ public:
 
 private:
     std::map<int, Room*> *rooms;
+    std::map<std::string, RoomModel*> *models;
 };
 
