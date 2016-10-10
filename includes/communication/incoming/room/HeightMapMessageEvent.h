@@ -4,6 +4,9 @@
 #include "communication/outgoing/room/model/FloorMapMessageComposer.h"
 #include "communication/outgoing/room/model/HeightMapMessageComposer.h"
 
+#include "communication/outgoing/room/UserDisplayMessageComposer.h"
+#include "communication/outgoing/room/UserStatusMessageComposer.h"
+
 class HeightMapMessageEvent : public MessageEvent {
 
 public:
@@ -20,6 +23,25 @@ public:
         player->send(HeightMapMessageComposer(room));
         player->send(FloorMapMessageComposer(room));
         
+        player->getRoomUser()->setLoadingRoom(false);
 
+        RoomModel *model = room->getData()->getModel();
+        RoomUser *room_user = player->getRoomUser();
+
+        room_user->setX(model->getDoorX());
+        room_user->setY(model->getDoorY());
+        room_user->setHeight(model->getDoorZ());
+        room_user->setRotation(model->getDoorRotation(), true);
+
+        room->getEntities()->push_back(player);
+
+        room->send(UserDisplayMessageComposer(player));
+        room->send(UserStatusMessageComposer(player));
+
+        std::vector<Entity*> *entities = room->getEntities();
+        player->send(UserDisplayMessageComposer(*entities));
+        player->send(UserDisplayMessageComposer(*entities));
+
+       
     }
 };

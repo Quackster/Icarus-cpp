@@ -166,6 +166,8 @@
     <ClInclude Include="includes\communication\incoming\room\EnterRoomMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\RoomInfoMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\HeightMapMessageEvent.h" />
+    <ClInclude Include="includes\communication\outgoing\room\UserStatusMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\room\UserDisplayMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\model\FloorMapMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\entry\NoRightsMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\entry\RightsLevelMessageComposer.h" />

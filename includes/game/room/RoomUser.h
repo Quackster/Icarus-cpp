@@ -25,7 +25,7 @@ private:
     int goal_y;
 
     int rotation;
-    int headRotation;
+    int head_rotation;
 
     std::map<std::string, std::string> statuses;
 
@@ -37,4 +37,32 @@ private:
 
 public:
 
+    void reset();
+
+    bool getLoadingRoom() { return is_loading_room; }
+    bool getNeedsUpdate() { return needs_update; }
+    bool isWalking() { return is_walking; }
+    int getRotation() { return rotation; }
+    int getHeadRotation() { return head_rotation; }
+    int getGoalX() { return goal_x; }
+    int getGoalY() { return goal_y; }
+    int getX() { return x; }
+    int getY() { return y; }
+    std::map<std::string, std::string> &getStatuses() { return statuses;  }
+    double getHeight() { return height; }
+    int getVirtualId() { return virtual_id; }
+
+    void updateStatus(std::string key, std::string value);
+
+    void setLoadingRoom(bool is_loading_room) { this->is_loading_room = is_loading_room; }
+    void setNeedsUpdate(bool needs_update) { this->needs_update = needs_update; }
+    void setWalking(bool is_walking) { this->is_walking = is_walking; }
+    void setRotation(int rotation, bool set_head_rotation = false, bool update = false);
+    //void setHeadRotation(int head_rotation) { this->head_rotation = head_rotation; }
+    void setGoalX(int goal_x) { this->goal_x = goal_x; }
+    void setGoalY(int goal_x) { this->goal_y = goal_y; }
+    void setX(int x) { this->x = x; }
+    void setY(int y) { this->y = y; }
+    void setHeight(double height) { this->height = height; }
+    void setVirtualId(int virtual_id) { this->virtual_id = height; }
 };

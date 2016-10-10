@@ -21,6 +21,7 @@ public:
     void leave(Player* player, bool hotel_view, bool dispose = true);
     void dispose(bool force_disposal = false);
     void setRoomData(RoomData *room_data) { this->room_data = room_data; };
+    void send(MessageComposer &composer);
     RoomData *getData() { return room_data; }
     std::vector<Player*> getPlayers();
     std::vector<Entity*> *getEntities() { return entities; }

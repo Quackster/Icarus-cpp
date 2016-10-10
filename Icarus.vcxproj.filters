@@ -323,5 +323,11 @@
     <ClInclude Include="includes\communication\outgoing\user\HotelViewMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\room\UserDisplayMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\room\UserStatusMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

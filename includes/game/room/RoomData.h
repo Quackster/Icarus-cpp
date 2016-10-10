@@ -71,6 +71,8 @@ public:
     int &getWhoCanKick() { return who_can_kick; }
     int &getWhoCanBan() { return who_can_ban; }
 
+    int getVirtualId() { this->virtual_id = virtual_id++; return virtual_id; }
+
     std::vector<int> &getUserRights() { return user_rights; }
 
     ~RoomData();
@@ -111,6 +113,7 @@ private:
     int who_can_mute;
     int who_can_kick;
     int who_can_ban;
+    int virtual_id;
 
     std::vector<int> user_rights;
 };

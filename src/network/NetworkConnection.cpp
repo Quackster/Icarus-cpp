@@ -68,12 +68,18 @@ void NetworkConnection::recieveData() {
         else {
 
             // Handle session disconnect
-            if (Icarus::getPlayerManager()->containsSession(this->connection_id)) {
-                Icarus::getPlayerManager()->removeSession(this->connection_id);
-            }
-            else {
-                // Remove connection if it was just a policy request
-                Icarus::getNetworkServer()->removeNetworkConnection(this);
+
+            if (length == 0) {
+
+
+
+                if (Icarus::getPlayerManager()->containsSession(this->connection_id)) {
+                    Icarus::getPlayerManager()->removeSession(this->connection_id);
+                }
+                else {
+                    // Remove connection if it was just a policy request
+                    Icarus::getNetworkServer()->removeNetworkConnection(this);
+                }
             }
         }
 
