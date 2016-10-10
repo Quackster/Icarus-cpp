@@ -33,7 +33,15 @@ public:
         room_user->setHeight(model->getDoorZ());
         room_user->setRotation(model->getDoorRotation(), true);
 
-        player->send(UserDisplayMessageComposer(player));
-        player->send(UserStatusMessageComposer(player));
+        room->getEntities()->push_back(player);
+
+        room->send(UserDisplayMessageComposer(player));
+        room->send(UserStatusMessageComposer(player));
+
+        std::vector<Entity*> *entities = room->getEntities();
+        player->send(UserDisplayMessageComposer(*entities));
+        player->send(UserDisplayMessageComposer(*entities));
+
+       
     }
 };

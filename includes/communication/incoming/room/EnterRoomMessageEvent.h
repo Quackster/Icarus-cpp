@@ -27,8 +27,6 @@ public:
         if (player->getRoomUser()->getRoom() != nullptr) {
             player->getRoomUser()->getRoom()->leave(player, false);
         }
-        
-        room->getEntities()->push_back(player);
 
         RoomData *room_data = room->getData();
 

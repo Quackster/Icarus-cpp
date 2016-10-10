@@ -18,6 +18,8 @@ public:
     void addRoom(Room *room);
     void deleteRoom(int room_id);
 
+    std::map<int, Room*> *getRooms() { return rooms; }
+
 private:
     std::map<int, Room*> *rooms;
     std::map<std::string, RoomModel*> *models;

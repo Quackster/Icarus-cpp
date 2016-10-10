@@ -76,7 +76,7 @@ void Room::serialise(Response &response, bool enter_room) {
     response.writeInt(this->room_data->getOwnerId());
     response.writeString(this->room_data->getOwnerName()); // Owner name
     response.writeInt(this->room_data->getState());
-    response.writeInt(0); // Users now
+    response.writeInt(this->getPlayers().size()); // Users now
     response.writeInt(this->room_data->getUsersMax());
     response.writeString(this->room_data->getDescription());
     response.writeInt(this->room_data->getTradeState());
@@ -160,6 +160,21 @@ void Room::dispose(bool force_dispose) {
         if (this->room_data->isOwnerOnline() == false && empty_room) {
             Icarus::getGame()->getRoomManager()->deleteRoom(this->room_data->getId());
         }
+    }
+}
+
+/*
+    Broadcast packet to entire room
+
+    @param MessageComposer class
+    @return none
+*/
+void Room::send(MessageComposer &composer) {
+
+    Response response = composer.compose();
+
+    for (Player *player : this->getPlayers()) {
+        player->getNetworkConnection()->send(response);
     }
 }
 
