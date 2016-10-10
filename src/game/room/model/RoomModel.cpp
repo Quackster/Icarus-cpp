@@ -23,8 +23,6 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
     this->square_char = new std::string[this->map_size_x * this->map_size_y];
     this->square_height = new double[this->map_size_x * this->map_size_y];
 
-    //std::cout << "(" << this->map_size_x << ", " << this->map_size_y << ") " << std::endl;
-
     for (int y = 0; y < map_size_y; y++) {
 
         if (y > 0) {
@@ -33,10 +31,6 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
 
         for (int x = 0; x < map_size_x; x++) {
 
-            /*this->squares[x] = new int[this->map_size_y];
-            this->square_char[x] = new std::string[this->map_size_y];
-            this->square_height[x] = new double[this->map_size_y];
-            */
             std::string square = temporary[y];
             square = square.substr(x).substr(0, 1);
 
