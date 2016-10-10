@@ -19,9 +19,9 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
     this->map_size_x = temporary[0].length();
     this->map_size_y = temporary.size();
 
-    this->squares = new int[this->map_size_x * this->map_size_y];
-    this->square_char = new std::string[this->map_size_x * this->map_size_y];
-    this->square_height = new double[this->map_size_x * this->map_size_y];
+    this->squares = new int[(this->map_size_x + 1) * (this->map_size_y + 1)];
+    this->square_char = new std::string[(this->map_size_x + 1) * (this->map_size_y + 1)];
+    this->square_height = new double[(this->map_size_x + 1) * (this->map_size_y + 1)];
 
     for (int y = 0; y < map_size_y; y++) {
 

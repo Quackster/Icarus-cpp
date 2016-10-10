@@ -18,8 +18,8 @@ public:
     int getCost() { return cost;  }
 
     void setNextNode(PathfinderNode *node) { this->node = node; }
-    void seInOpen(bool in_open) { this->in_open = in_open; }
-    void seInClose(bool in_close) { this->in_close = in_close; }
+    void setInOpen(bool in_open) { this->in_open = in_open; }
+    void setInClose(bool in_close) { this->in_close = in_close; }
     void setPosition(Position position) { this->position = position; }
     void setCost(int cost) { this->cost = cost; }
 

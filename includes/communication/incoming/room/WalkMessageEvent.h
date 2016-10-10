@@ -18,6 +18,8 @@ public:
 
         std::vector<Position> paths = Pathfinder::makePath(current, goal, room);
 
+        std::cout << "size: " << paths.size() << std::endl;
+
         for (auto path : paths) {
             std::cout << path.toString() << std::endl;
         }

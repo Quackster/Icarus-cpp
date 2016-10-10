@@ -19,9 +19,10 @@ std::vector<Position> Pathfinder::makePath(Position start, Position end, Room *r
     PathfinderNode *nodes = makePathReversed(start, end, room);
 
     if (nodes != nullptr) {
+        printf ("testing\n");
         while (nodes != nullptr) {
             positions.push_back(Position(nodes->getPosition().getX(), nodes->getPosition().getY()));
-            nodes_remove.push_back(nodes); // add to delete
+            //nodes_remove.push_back(nodes); // add to delete
             nodes = nodes->getNextNode();
         }
     }
@@ -38,11 +39,15 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
     RoomModel *model = room->getData()->getModel();
 
     std::deque<PathfinderNode*> open_list;
-    PathfinderNode **map = new PathfinderNode*[model->getMapSizeX() * model->getMapSizeY()];
 
-    for (int y = 0; y < model->getMapSizeY(); y++) {
-        for (int x = 0; x < model->getMapSizeX(); x++) {
-            map[(x * model->getMapSizeY()) + y] = nullptr;
+    int map_size_x = model->getMapSizeX() + 20;
+    int map_size_y = model->getMapSizeY() + 20;
+
+    PathfinderNode **map = new PathfinderNode*[map_size_x * map_size_y];
+
+    for (int y = 0; y < map_size_y; y++) {
+        for (int x = 0; x < map_size_x; x++) {
+            map[(x * map_size_y) + y] = nullptr;
         }
     }
 
@@ -55,7 +60,11 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
     PathfinderNode *finish = new PathfinderNode(end);
     current->setCost(0);
 
-    map[(start.getX() * model->getMapSizeY()) + start.getY()] = current;
+    map[(start.getX() * map_size_y) + start.getY()] = current;
+
+    if (map[(start.getX() * map_size_y) + start.getY()] == nullptr) {
+        printf("null!!\n");
+    }
 
     open_list.push_back(current);
 
@@ -63,7 +72,7 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
 
         current = open_list.front();
         open_list.pop_front();
-        current->seInClose(true);
+        current->setInClose(true);
 
         for (int i = 0; i < 8; i++) {
 
@@ -72,19 +81,26 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
 
             bool is_final_move = (tmp.getX() == end.getX()) && (tmp.getY() == tmp.getY());
 
-            if (model->getSquares()[(current->getPosition().getX() * model->getMapSizeY()) + current->getPosition().getX()] == 0) {
+            if (model->getSquares()[(current->getPosition().getX() * map_size_y) + current->getPosition().getX()] == 0) {
 
-                if (map[(tmp.getX() * model->getMapSizeY()) + tmp.getX()] == nullptr) {
-                    node = new PathfinderNode(tmp);
-                    map[(tmp.getX() * model->getMapSizeY()) + tmp.getX()] = node;
+                try {
+                    if (map[(tmp.getX() * map_size_y) + tmp.getY()] == nullptr) {
+                        node = new PathfinderNode(tmp);
+                        //printf("testing %s \n", node->getPosition().toString().c_str());
+                        map[(tmp.getX() * map_size_y) + tmp.getY()] = node;
+                    }
+                    else {
+                        node = map[(tmp.getX() * map_size_y) + tmp.getY()];
+                    }
                 }
-                else {
-                    node = map[(tmp.getX() * model->getMapSizeY()) + tmp.getX()];
+                catch (std::exception &e) {
+                    continue;
                 }
 
                 if (node->inClose() == false) {
                     diff = 0;
 
+                   // printf("testing\n");
 
                     if (current->getPosition().getX() != node->getPosition().getX()) {
                         diff += 1;
@@ -107,7 +123,7 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
                             return node;
                         }
 
-                        node->seInOpen(true);
+                        node->setInOpen(true);
                         open_list.push_back(node);
 
                     }

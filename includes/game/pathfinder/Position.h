@@ -8,7 +8,7 @@ public:
     ~Position();
 
     Position addPoint(Position point) {
-        return Position(x - point.getX(), y - point.getY());
+        return Position(x + point.getX(), y + point.getY());
     }
 
     Position subtractPoint(Position point) {
