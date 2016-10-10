@@ -165,6 +165,7 @@
     <ClInclude Include="includes\communication\incoming\room\EnterRoomMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\RoomInfoMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\HeightMapMessageEvent.h" />
+    <ClInclude Include="includes\communication\outgoing\room\model\FloorMapMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\entry\NoRightsMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\entry\RightsLevelMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\entry\RoomModelMessageComposer.h" />
@@ -172,6 +173,7 @@
     <ClInclude Include="includes\communication\outgoing\room\entry\RoomSpacesMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\entry\RoomOwnerMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\entry\PrepareRoomMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\room\model\HeightMapMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\RoomDataMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\user\CreditsMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\user\SendPerkAllowancesMessageComposer.h" />

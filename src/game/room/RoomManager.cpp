@@ -8,7 +8,10 @@
     Constructor for room manager
 */
 RoomManager::RoomManager() :
-    rooms(new std::map<int, Room*>()), models(RoomDao::getModels()) { }
+    rooms(new std::map<int, Room*>()) { 
+    
+        this->models = RoomDao::getModels();
+    }
 
 /*
     Loads new player rooms if they're not already added to memory
@@ -65,8 +68,13 @@ std::vector<Room*> RoomManager::getPlayerRooms(int user_id) {
 */
 RoomModel *RoomManager::getModel(std::string model_id) {
 
-    if (this->models->count(model_id) == 1) {
-        return this->models->find(model_id)->second;
+
+    printf("models: %i", this->models->size());
+
+    auto iterator = this->models->find(model_id);
+
+    if (iterator != this->models->end()) {
+        return iterator->second;
     }
 
     return nullptr;

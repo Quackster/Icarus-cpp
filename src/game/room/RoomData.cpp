@@ -13,7 +13,8 @@ RoomData::RoomData(int id,
     std::string password,
     int users_now,
     int users_max,
-    std::string model,
+    //std::string model,
+    RoomModel *model,
     std::string wallpaper,
     std::string floor,
     std::string outside,
@@ -67,6 +68,9 @@ RoomData::RoomData(int id,
     who_can_kick(who_can_kick),
     who_can_ban(who_can_ban)
 {
+    if (model == nullptr) {
+        printf("null!!! %s \n", model->getName());
+    }
 }
 
 /*

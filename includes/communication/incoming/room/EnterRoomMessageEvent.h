@@ -29,7 +29,7 @@ public:
         // So we don't forget what room we entered 8-)
         player->getRoomUser()->setRoom(room);
 
-        player->send(RoomModelMessageComposer(room_data->getModel(), room_id));
+        player->send(RoomModelMessageComposer(room_data->getModel()->getName(), room_id));
         player->send(RoomRatingMessageComposer(room_data->getScore()));
 
 

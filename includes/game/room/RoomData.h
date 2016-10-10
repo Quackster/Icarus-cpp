@@ -2,6 +2,9 @@
 #include <string>
 #include <vector>
 
+#include "game/room/model/RoomModel.h"
+
+
 class RoomData
 {
 public:
@@ -14,7 +17,8 @@ public:
         std::string password,
         int users_now,
         int users_max,
-        std::string model,
+        RoomModel *model,
+        //std::string model,
         std::string wallpaper,
         std::string floor,
         std::string outside,
@@ -47,7 +51,8 @@ public:
     std::string getPassword() { return password; }
     int getUsersNow() { return users_now; }
     int getUsersMax() { return users_max; }
-    std::string getModel() { return description; }
+    //std::string getModel() { return model; }
+    RoomModel *getModel() { return this->model; }
     std::string getWallpaper() { return description; }
     std::string getFloor() { return description; }
     std::string getOutside() { return outside; }
@@ -57,6 +62,8 @@ public:
     int getScore() { return score; }
     int getCategory() { return category; }
     bool hasAllowPets() { return allow_pets; }
+
+    int getWallHeight() { return -1; }
 
     int getWhoCanMute() { return who_can_mute; }
     int getWhoCanKick() { return who_can_kick; }
@@ -73,7 +80,8 @@ private:
     std::string password;
     int users_now;
     int users_max;
-    std::string model;
+    //std::string model;
+    RoomModel *model;
     std::string wallpaper;
     std::string floor;
     std::string outside;
