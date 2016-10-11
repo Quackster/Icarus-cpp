@@ -19,19 +19,22 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
     this->map_size_x = temporary[0].length();
     this->map_size_y = temporary.size();
 
-    this->squares = new int[map_size_x * map_size_y];
-    this->square_char = new std::string[map_size_x * map_size_y];
-    this->square_height = new double[map_size_x * map_size_y];
 
-    for (int y = 0; y < map_size_y; y++) {
+    for (int y = 0; y < map_size_y + 20; y++) {
 
-        if (y > 0) {
-            temporary[y] = temporary[y].substr(1);
+        if (y < map_size_y) {
+            if (y > 0) {
+                temporary[y] = temporary[y].substr(1);
+            }
         }
 
-        for (int x = 0; x < map_size_x; x++) {
+        for (int x = 0; x < map_size_x + 20; x++) {
 
-            int index = x * map_size_y + y;
+            if (x >= map_size_x || y >= map_size_y) {
+                this->square_height[x][y] = 0;
+                this->squares[x][y] = 1;
+                continue;
+            }
 
             std::string square = temporary[y];
             square = square.substr(x).substr(0, 1);
@@ -40,14 +43,14 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
             boost::algorithm::to_lower(square);
 
             if (Utilities::isNumber(square)) {
-                this->square_height[index] = stoi(square);
-                this->squares[index] = 0;
+                this->square_height[x][y] = stoi(square);
+                this->squares[x][y] = 0;
             }
             else if (square == "x") {
-                this->squares[index] = 1;
+                this->squares[x][y] = 1;
             }
 
-            this->square_char[index] = square;
+            this->square_char[x][y] = square;
         }
     }
 
@@ -56,13 +59,11 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
     for (int y = 0; y < map_size_y; y++) {
         for (int x = 0; x < map_size_x; x++) {
 
-            int index = x * map_size_y + y;
-
             if (x == this->door_x && y == this->door_y) {
                 ss << this->door_z;
             }
             else {
-                ss << this->square_char[index];
+                ss << this->square_char[x][y];
             }
         }
         

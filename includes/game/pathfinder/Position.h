@@ -4,7 +4,6 @@
 class Position
 {
 public:
-    Position();
     Position(int x, int y);
     ~Position();
 
@@ -24,10 +23,6 @@ public:
 
     bool sameAs(Position point) {
         return x == point.getX() && y == point.getY();
-    }
-
-    bool isNull() {
-        return x == -999 && y == -999;
     }
 
     std::string toString() {
