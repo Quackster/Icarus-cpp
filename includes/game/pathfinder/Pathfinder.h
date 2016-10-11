@@ -11,6 +11,7 @@ public:
 
     static std::vector<Position> makePath(Position start, Position end, Room *room);
     static PathfinderNode *makePathReversed(Position start, Position end, Room *room);
+    static bool isValidStep(Room *room, Position current, Position tmp, bool is_final_move);
 
     static Position* getPoints() {
 

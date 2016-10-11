@@ -19,9 +19,6 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
     this->map_size_x = temporary[0].length();
     this->map_size_y = temporary.size();
 
-    this->squares = new int[(this->map_size_x + 1) * (this->map_size_y + 1)];
-    this->square_char = new std::string[(this->map_size_x + 1) * (this->map_size_y + 1)];
-    this->square_height = new double[(this->map_size_x + 1) * (this->map_size_y + 1)];
 
     for (int y = 0; y < map_size_y; y++) {
 
@@ -38,14 +35,14 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
             boost::algorithm::to_lower(square);
 
             if (Utilities::isNumber(square)) {
-                this->square_height[(x * this->map_size_y) + y] = stoi(square);
-                this->squares[(x * this->map_size_y) + y] = OPEN;
+                this->square_height[x][y] = stoi(square);
+                this->squares[x][y] = 0;
             }
             else if (square == "x") {
-                this->squares[(x * this->map_size_y) + y] = CLOSED;
+                this->squares[x][y] = 1;
             }
             
-            this->square_char[(x * this->map_size_y) + y] = square;
+            this->square_char[x][y] = square;
         }
     }
 
@@ -58,7 +55,7 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
                 ss << this->door_z;
             }
             else {
-                ss << this->square_char[(x * this->map_size_y) + y];
+                ss << this->square_char[x][y];
             }
         }
         
@@ -74,7 +71,4 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
 */
 RoomModel::~RoomModel() {
 
-    delete this->squares;
-    delete this->square_char;
-    delete this->square_height;
 }

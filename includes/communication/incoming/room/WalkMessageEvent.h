@@ -12,6 +12,8 @@ public:
         int goal_x = request.readInt();
         int goal_y = request.readInt();
 
+        printf(" walk req: %i, %i\n", goal_x, goal_y);
+
         Position current = Position(player->getRoomUser()->getX(), player->getRoomUser()->getY());
         Position goal = Position(goal_x, goal_y);
         Room *room = player->getRoomUser()->getRoom();
@@ -23,5 +25,6 @@ public:
         for (auto path : paths) {
             std::cout << path.toString() << std::endl;
         }
+
     }
 };

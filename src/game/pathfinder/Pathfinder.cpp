@@ -14,21 +14,29 @@ std::vector<Position> Pathfinder::makePath(Position start, Position end, Room *r
     std::vector<Position> positions;
     std::vector<PathfinderNode*> nodes_remove;
 
-    // PATHFINDERNODE NEEDS TO BE POINTER TO DECLARE ITSELF INSIDE IT'S OWN CLASS
+    try {
+        // PATHFINDERNODE NEEDS TO BE POINTER TO DECLARE ITSELF INSIDE IT'S OWN CLASS
 
-    PathfinderNode *nodes = makePathReversed(start, end, room);
+        PathfinderNode *nodes = makePathReversed(start, end, room);
 
-    if (nodes != nullptr) {
-        printf ("testing\n");
-        while (nodes != nullptr) {
-            positions.push_back(Position(nodes->getPosition().getX(), nodes->getPosition().getY()));
-            //nodes_remove.push_back(nodes); // add to delete
-            nodes = nodes->getNextNode();
+        if (nodes != nullptr) {
+            while (nodes != nullptr) {
+                positions.push_back(Position(nodes->getPosition().getX(), nodes->getPosition().getY()));
+                //nodes_remove.push_back(nodes); // add to delete
+                nodes = nodes->getNextNode();
+            }
         }
-    }
 
-    for (auto node : nodes_remove) {
-        delete node;
+        for (auto node : nodes_remove) {
+            delete node;
+        }
+
+    }
+    catch (std::exception &e) {
+        std::cout << "pathfinder error: " << e.what() << std::endl;
+    }
+    catch (...) {
+        std::cout << "pathfinder error: " << std::endl;
     }
 
     return positions;
@@ -40,31 +48,29 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
 
     std::deque<PathfinderNode*> open_list;
 
-    int map_size_x = model->getMapSizeX() + 20;
-    int map_size_y = model->getMapSizeY() + 20;
+    int map_size_x = model->getMapSizeX();
+    int map_size_y = model->getMapSizeY();
 
-    PathfinderNode **map = new PathfinderNode*[map_size_x * map_size_y];
+    std::cout << "size x " << map_size_x << ", " << map_size_y << std::endl;
+ 
+    std::map<int, std::map<int, PathfinderNode*>> map;
 
-    for (int y = 0; y < map_size_y; y++) {
-        for (int x = 0; x < map_size_x; x++) {
-            map[(x * map_size_y) + y] = nullptr;
+    for (int y = -1; y < map_size_y; y++) {
+        for (int x = -1; x < map_size_x; x++) {
+            map[x][y] = nullptr;
         }
     }
 
     PathfinderNode *node = nullptr;
     Position tmp(0, 0);
-    int cost;
-    int diff;
+    int cost = 0;
+    int diff = 0;
 
     PathfinderNode *current = new PathfinderNode(start);
     PathfinderNode *finish = new PathfinderNode(end);
     current->setCost(0);
 
-    map[(start.getX() * map_size_y) + start.getY()] = current;
-
-    if (map[(start.getX() * map_size_y) + start.getY()] == nullptr) {
-        printf("null!!\n");
-    }
+    map[start.getX()][start.getY()] = current;
 
     open_list.push_back(current);
 
@@ -81,26 +87,19 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
 
             bool is_final_move = (tmp.getX() == end.getX()) && (tmp.getY() == tmp.getY());
 
-            if (model->getSquares()[(current->getPosition().getX() * map_size_y) + current->getPosition().getX()] == 0) {
+            if (map[tmp.getX()].find(tmp.getY()) != map[tmp.getX()].end() && isValidStep(room, Position(current->getPosition().getX(), current->getPosition().getY()), tmp, is_final_move)) {
 
-                try {
-                    if (map[(tmp.getX() * map_size_y) + tmp.getY()] == nullptr) {
-                        node = new PathfinderNode(tmp);
-                        //printf("testing %s \n", node->getPosition().toString().c_str());
-                        map[(tmp.getX() * map_size_y) + tmp.getY()] = node;
-                    }
-                    else {
-                        node = map[(tmp.getX() * map_size_y) + tmp.getY()];
-                    }
+                if (map[tmp.getX()][tmp.getY()] == nullptr) {
+                    node = new PathfinderNode(tmp);
+                    map[tmp.getX()][tmp.getY()] = node;
                 }
-                catch (std::exception &e) {
-                    continue;
+                else {
+                    node = map[tmp.getX()][tmp.getY()];
                 }
 
-                if (node->inClose() == false) {
+                if (!node->getInClose()) {
+                    
                     diff = 0;
-
-                   // printf("testing\n");
 
                     if (current->getPosition().getX() != node->getPosition().getX()) {
                         diff += 1;
@@ -117,7 +116,7 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
                         node->setNextNode(current);
                     }
 
-                    if (node->inOpen() == false) {
+                    if (!node->getInOpen()) {
                         if (node->getPosition().getX() == finish->getPosition().getX() && node->getPosition().getY() == finish->getPosition().getY()) {
                             node->setNextNode(current);
                             return node;
@@ -132,5 +131,29 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
         }
     }
 
+
     return nullptr;
+}
+
+bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is_final_move) {
+
+    try {
+
+
+        /* if (map.find(tmp.getX()) == map.end()) {
+             continue;
+         }
+
+         if (map[tmp.getX()].find(tmp.getY()) == map[tmp.getX()].end()) {
+             continue;
+         }*/
+
+        return room->getData()->getModel()->getSquares()[current.getX()][current.getX()] == 0;
+
+    }
+    catch (std::exception &e) {
+        return false;
+    }
+
+
 }

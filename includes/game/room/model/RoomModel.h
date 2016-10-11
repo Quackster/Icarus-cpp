@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <map>
 
 class RoomModel
 {
@@ -13,9 +14,11 @@ public:
      std::string &getName() { return name; }
      std::string &getHeightMap() { return height_map; }
      std::string &getFloorMap() { return floor_map; }
-     std::string *getSquareChar() { return square_char; }
-     double *getSquareHeight() { return square_height; }
-     int *getSquares() { return squares; }
+
+     std::map<int, std::map<int, std::string>> getSquareChar() { return square_char; }
+     std::map<int, std::map<int, double>> getSquareHeight() { return square_height; }
+     std::map<int, std::map<int, int>> getSquares() { return squares; }
+
      int getMapSizeX() { return this->map_size_x; }
      int getMapSizeY() { return this->map_size_y; }
 
@@ -45,7 +48,7 @@ private:
     int map_size_x;
     int map_size_y;
 
-    std::string *square_char;// [MAX_SIZE_X][MAX_SIZE_Y];
-    int *squares;
-    double *square_height;
+    std::map<int, std::map<int, std::string>> square_char;// [MAX_SIZE_X][MAX_SIZE_Y];
+    std::map<int, std::map<int, int>> squares;
+    std::map<int, std::map<int, double>> square_height;
 };

@@ -12,8 +12,8 @@ public:
     ~PathfinderNode();
 
     PathfinderNode *getNextNode() { return node; }
-    bool inOpen() { return in_open; }
-    bool inClose() { return in_close; }
+    bool getInOpen() { return in_open; }
+    bool getInClose() { return in_close; }
     Position getPosition() { return position; }
     int getCost() { return cost;  }
 
