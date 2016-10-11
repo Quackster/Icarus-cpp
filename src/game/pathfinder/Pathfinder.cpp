@@ -35,10 +35,14 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
     int map_size_y = model->getMapSizeY();
     std::map<int, std::map<int, PathfinderNode*>> map;
 
-    for (int x = 0; x < map_size_x + 20; x++) {
-        for (int y = 0; y < map_size_y + 20; y++) {
+    for (int x = 0; x < map_size_x; x++) {
+        for (int y = 0; y < map_size_y; y++) {
             map[x][y] = nullptr;
+
+            std::cout << room->getData()->getModel()->getSquares()[x * map_size_y + y];
         }
+
+        std::cout << std::endl;
     }
 
     PathfinderNode *node = nullptr;
@@ -76,7 +80,7 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
                 }
 
                 if (!node->getInClose()) {
-                    
+
                     diff = 0;
 
                     if (current->getPosition().getX() != node->getPosition().getX()) {
@@ -97,6 +101,7 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
                     if (!node->getInOpen()) {
                         if (node->getPosition().sameAs(finish->getPosition())) {
                             node->setNextNode(current);
+                            printf("setnode\n");
                             return node;
                         }
 
@@ -129,14 +134,18 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is
         }
 
         /* if (map.find(tmp.getX()) == map.end()) {
-             continue;
-         }
+        continue;
+        }
 
-         if (map[tmp.getX()].find(tmp.getY()) == map[tmp.getX()].end()) {
-             continue;
-         }*/
+        if (map[tmp.getX()].find(tmp.getY()) == map[tmp.getX()].end()) {
+        continue;
+        }*/
 
-        return room->getData()->getModel()->getSquares()[current.getX()][current.getY()] == 0;
+        int tile = room->getData()->getModel()->getSquares()[current.getX() * map_size_y + current.getY()];
+
+        printf("tile: %i\n", tile);
+
+        return tile == 1 ? false : true;
 
     }
     catch (std::exception &e) {

@@ -244,12 +244,6 @@
     <ClInclude Include="includes\game\room\RoomData.h" />
     <ClInclude Include="includes\game\pathfinder\Position.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include=".gitignore" />
-    <None Include="configuration.ini" />
-    <None Include="Icarus.VC.db" />
-    <None Include="Makefile" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
