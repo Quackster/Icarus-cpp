@@ -19,13 +19,13 @@ public:
     double *getSquareHeight() { return square_height; }
     int* getSquares() { return squares; }
 
-    int getMapSizeX() { return this->map_size_x; }
-    int getMapSizeY() { return this->map_size_y; }
+    int &getMapSizeX() { return this->map_size_x; }
+    int &getMapSizeY() { return this->map_size_y; }
 
-    int getDoorX() { return this->door_x; }
-    int getDoorY() { return this->door_y; }
-    int getDoorZ() { return this->door_z; }
-    int getDoorRotation() { return this->door_rotation; }
+    int &getDoorX() { return this->door_x; }
+    int &getDoorY() { return this->door_y; }
+    int &getDoorZ() { return this->door_z; }
+    int &getDoorRotation() { return this->door_rotation; }
 
     ~RoomModel();
 
