@@ -10,7 +10,7 @@ public:
 
 
     static std::vector<Position> makePath(Position start, Position end, Room *room);
-    static PathfinderNode *makePathReversed(Position start, Position end, Room *room);
+    static std::shared_ptr<PathfinderNode> makePathReversed(Position start, Position end, Room *room);
     static bool isValidStep(Room *room, Position current, Position tmp, bool is_final_move);
 
     static std::vector<Position> getPoints() {

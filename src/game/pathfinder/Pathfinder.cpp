@@ -13,7 +13,7 @@ std::vector<Position> Pathfinder::makePath(Position start, Position end, Room *r
 
     std::vector<Position> positions;
 
-    PathfinderNode *nodes = makePathReversed(start, end, room);
+    std::shared_ptr<PathfinderNode> nodes = makePathReversed(start, end, room);
 
     if (nodes != nullptr) {
         while (nodes != nullptr) {
@@ -25,31 +25,31 @@ std::vector<Position> Pathfinder::makePath(Position start, Position end, Room *r
     return positions;
 }
 
-PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room *room) {
+std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Position end, Room *room) {
 
-    std::deque<PathfinderNode*> open_list;
+    std::deque<std::shared_ptr<PathfinderNode>> open_list;
 
     RoomModel *model = room->getData()->getModel();
 
     int map_size_x = model->getMapSizeX();
     int map_size_y = model->getMapSizeY();
-    std::map<int, std::map<int, PathfinderNode*>> map;
+    std::map<int, std::map<int, std::shared_ptr<PathfinderNode>>> map;
 
-    for (int x = 0; x < map_size_x; x++) {
+    /*for (int x = 0; x < map_size_x; x++) {
         for (int y = 0; y < map_size_y; y++) {
-            map[x][y] = nullptr;
-            std::cout << room->getData()->getModel()->getSquares()[x * map_size_y + y];
+            map[x][y] = std::shared_ptr<nullptr>();
         }
         std::cout << std::endl;
-    }
+    }*/
 
-    PathfinderNode *node = nullptr;
+    std::shared_ptr<PathfinderNode> node = std::make_shared<PathfinderNode>();
+
     Position tmp(0, 0);
     int cost = 0;
     int diff = 0;
 
-    PathfinderNode *current = new PathfinderNode(start);
-    PathfinderNode *finish = new PathfinderNode(end);
+    std::shared_ptr<PathfinderNode> current = std::make_shared<PathfinderNode>(start);
+    std::shared_ptr<PathfinderNode> finish = std::make_shared<PathfinderNode>(end);
     current->setCost(0);
 
     map[start.getX()][start.getY()] = current;
@@ -70,7 +70,7 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
             if (isValidStep(room, current->getPosition(), tmp, is_final_move)) {
 
                 if (map[tmp.getX()][tmp.getY()] == nullptr) {
-                    node = new PathfinderNode(tmp);
+                    node = std::make_shared<PathfinderNode>(tmp);
                     map[tmp.getX()][tmp.getY()] = node;
                 }
                 else {
