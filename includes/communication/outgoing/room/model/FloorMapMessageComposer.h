@@ -22,8 +22,6 @@ public:
         response.writeInt(room->getData()->getWallHeight());
         response.writeString(model->getFloorMap());
 
-        std::cout << model->getFloorMap() << std::endl;
-
         return response;
     }
 

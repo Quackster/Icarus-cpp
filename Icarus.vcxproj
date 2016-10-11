@@ -131,6 +131,9 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\pathfinder\Pathfinder.cpp" />
+    <ClCompile Include="src\game\pathfinder\PathfinderNode.cpp" />
+    <ClCompile Include="src\game\pathfinder\Position.cpp" />
     <ClCompile Include="src\dao\RoomDao.cpp" />
     <ClCompile Include="src\game\room\model\RoomModel.cpp" />
     <ClCompile Include="src\game\navigator\populators\DefaultPopulator.cpp" />
@@ -163,6 +166,7 @@
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\communication\incoming\room\WalkMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\EnterRoomMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\RoomInfoMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\HeightMapMessageEvent.h" />
@@ -185,6 +189,8 @@
     <ClInclude Include="includes\game\entities\Entity.h" />
     <ClInclude Include="includes\game\entities\EntityDetails.h" />
     <ClInclude Include="includes\game\entities\EntityType.h" />
+    <ClInclude Include="includes\game\pathfinder\Pathfinder.h" />
+    <ClInclude Include="includes\game\pathfinder\PathfinderNode.h" />
     <ClInclude Include="includes\game\room\model\RoomModel.h" />
     <ClInclude Include="includes\game\room\RoomUser.h" />
     <ClInclude Include="includes\game\navigator\populators\DefaultPopulator.h" />
@@ -236,6 +242,7 @@
     <ClInclude Include="includes\game\room\RoomManager.h" />
     <ClInclude Include="includes\game\room\Room.h" />
     <ClInclude Include="includes\game\room\RoomData.h" />
+    <ClInclude Include="includes\game\pathfinder\Position.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

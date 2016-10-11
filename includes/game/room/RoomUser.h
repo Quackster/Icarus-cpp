@@ -1,6 +1,8 @@
 #pragma once
 #include <map>
 
+#include "game/pathfinder/Position.h"
+
 class Room; // Defined elsewhere
 class RoomUser
 {
@@ -51,6 +53,8 @@ public:
     std::map<std::string, std::string> &getStatuses() { return statuses;  }
     double getHeight() { return height; }
     int getVirtualId() { return virtual_id; }
+    Position getPosition() { return Position(x, y); }
+    Position getGoal() { return Position(goal_x, goal_y); }
 
     void updateStatus(std::string key, std::string value);
 
@@ -60,7 +64,7 @@ public:
     void setRotation(int rotation, bool set_head_rotation = false, bool update = false);
     //void setHeadRotation(int head_rotation) { this->head_rotation = head_rotation; }
     void setGoalX(int goal_x) { this->goal_x = goal_x; }
-    void setGoalY(int goal_x) { this->goal_y = goal_y; }
+    void setGoalY(int goal_y) { this->goal_y = goal_y; }
     void setX(int x) { this->x = x; }
     void setY(int y) { this->y = y; }
     void setHeight(double height) { this->height = height; }
