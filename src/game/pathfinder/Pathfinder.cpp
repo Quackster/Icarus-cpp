@@ -1,14 +1,24 @@
 #include "stdafx.h"
 
 #include <deque>
+#include <algorithm>
 
 #include "game/pathfinder/Pathfinder.h"
 
 
-Pathfinder::~Pathfinder()
-{
-}
+/*
+    Deconstructor for Pathfinder
+*/
+Pathfinder::~Pathfinder() { }
 
+/*
+    Creates a valid path when given current coordinates and goal coordinates, the list returned
+    is actually backwards and needs to be reversed.
+
+    @param Position start
+    @param Position end
+    @return vector of positions
+*/
 std::vector<Position> Pathfinder::makePath(Position start, Position end, Room *room) {
 
     std::vector<Position> positions;
@@ -22,9 +32,17 @@ std::vector<Position> Pathfinder::makePath(Position start, Position end, Room *r
         }
     }
 
+    std::reverse(positions.begin(), positions.end());
     return positions;
 }
 
+/*
+    Returns a tree of PathfinderNode's which needs to be looped through to get the valid path
+
+    @param Position start
+    @param Position end
+    @return vector of positions
+*/
 std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Position end, Room *room) {
 
     std::deque<std::shared_ptr<PathfinderNode>> open_list;
@@ -35,22 +53,13 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
     int map_size_y = model->getMapSizeY();
     std::map<int, std::map<int, std::shared_ptr<PathfinderNode>>> map;
 
-    /*for (int x = 0; x < map_size_x; x++) {
-        for (int y = 0; y < map_size_y; y++) {
-            map[x][y] = std::shared_ptr<nullptr>();
-        }
-        std::cout << std::endl;
-    }*/
-
     std::shared_ptr<PathfinderNode> node = std::make_shared<PathfinderNode>();
+    std::shared_ptr<PathfinderNode> current = std::make_shared<PathfinderNode>(start);
+    current->setCost(0);
 
     Position tmp(0, 0);
     int cost = 0;
     int diff = 0;
-
-    std::shared_ptr<PathfinderNode> current = std::make_shared<PathfinderNode>(start);
-    std::shared_ptr<PathfinderNode> finish = std::make_shared<PathfinderNode>(end);
-    current->setCost(0);
 
     map[start.getX()][start.getY()] = current;
 
@@ -97,7 +106,7 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
                     }
 
                     if (!node->getInOpen()) {
-                        if (node->getPosition().sameAs(finish->getPosition())) {
+                        if (node->getPosition().sameAs(end)) {
                             node->setNextNode(current);
                             return node;
                         }
@@ -115,6 +124,15 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
     return nullptr;
 }
 
+/*
+    Returns whether or not the current tile to check is actually a valid step
+
+    @param Room ptr
+    @param Position current position
+    @param Postion tmp (the coordinate to check)
+    @param if last move
+    @return boolean true if valid, false if not.
+*/
 bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is_final_move) {
 
     try {
