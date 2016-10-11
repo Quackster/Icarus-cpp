@@ -44,6 +44,7 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
     PathfinderNode *finish = new PathfinderNode(end);
     current->setCost(0);
 
+    map[start.getX() * map_size_y + start.getY()] = current;
 
     open_list.push_back(current);
 
@@ -60,9 +61,12 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
 
             if (isValidStep(room, current->getPosition(), tmp, is_final_move)) {
 
+                if (map[tmp.getX() * map_size_y + tmp.getY()] == nullptr) {
                     node = new PathfinderNode(tmp);
+                    map[tmp.getX() * map_size_y + tmp.getY()] = node;
                 }
                 else {
+                    node = map[tmp.getX() * map_size_y + tmp.getY()];
                 }
 
                 if (!node->getInClose()) {
@@ -132,6 +136,7 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is
              continue;
          }*/
 
+        return room->getData()->getModel()->getSquares()[current.getX() * room->getData()->getModel()->getMapSizeY() + current.getY()] == 0;
 
     }
     catch (std::exception &e) {

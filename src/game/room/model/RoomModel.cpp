@@ -38,10 +38,14 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
             boost::algorithm::to_lower(square);
 
             if (Utilities::isNumber(square)) {
+                this->square_height[x * map_size_y + y] = stoi(square);
+                this->squares[x * map_size_y + y] = 0;
             }
             else if (square == "x") {
+                this->squares[x * map_size_y + y] = 1;
             }
 
+            this->square_char[x * map_size_y + y] = square;
         }
     }
 
@@ -54,6 +58,7 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
                 ss << this->door_z;
             }
             else {
+                ss << this->square_char[x * map_size_y + y];
             }
         }
         
