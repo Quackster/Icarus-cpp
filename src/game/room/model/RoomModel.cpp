@@ -33,7 +33,7 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
 
             int index = x * map_size_y + y;
 
-            //this->squares[index] = 0;
+            this->squares[index] = 1;
 
             std::string square = temporary[y];
             square = square.substr(x).substr(0, 1);
@@ -47,6 +47,11 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
             }
             else if (square == "x") {
                 this->squares[index] = 1;
+            }
+
+            if (this->door_x == x && this->door_y == y) {
+                this->squares[index] = 0;
+                this->square_height[index] = this->door_z;
             }
 
             this->square_char[index] = square;
