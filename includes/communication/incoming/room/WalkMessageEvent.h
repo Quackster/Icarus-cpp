@@ -26,25 +26,6 @@ public:
         Position current = Position(room_user->getX(), room_user->getY());
         Position goal = Position(goal_x, goal_y);
 
-        room_user->getPathfinder()->moveTo(goal);
-
-        Position next_step = room_user->getPathfinder()->getNextStep();
-
-        while (!next_step.isNull()) {
-
-            std::cout << "Movement: " << next_step.toString() << std::endl;
-
-            player->getRoomUser()->setX(next_step.getX());
-            player->getRoomUser()->setY(next_step.getY());
-            player->send(UserStatusMessageComposer(player));
-
-            next_step = room_user->getPathfinder()->getNextStep();
-
-
-            std::this_thread::sleep_for(std::chrono::seconds(1));
-
-        }
-    }
 };
 
 /* points.push_back(Position(0, -1));
