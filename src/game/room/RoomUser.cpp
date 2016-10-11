@@ -5,7 +5,8 @@
 /*
     Constructor for room user
 */
-RoomUser::RoomUser() { 
+RoomUser::RoomUser() {
+    this->pathfinder = nullptr;
     this->reset();
 }
 
@@ -42,6 +43,11 @@ void RoomUser::setRotation(int rotation, bool set_head_rotation, bool update) {
 */
 void RoomUser::reset() {
 
+    if (this->pathfinder != nullptr) {
+        delete this->pathfinder;
+    }
+
+    this->pathfinder = new Pathfinder(this);
     this->virtual_id = 0;
     this->last_chat_id = 0;
     this->dance_id = 0;
@@ -63,6 +69,6 @@ void RoomUser::reset() {
 /*
     Deconstructor for room user
 */
-RoomUser::~RoomUser()
-{
+RoomUser::~RoomUser() {
+   delete this->pathfinder;
 }

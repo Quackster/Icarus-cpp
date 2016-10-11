@@ -1,32 +1,35 @@
 #pragma once
-#include "game/room/Room.h"
-#include "game/pathfinder/Position.h"
-#include "game/pathfinder/PathfinderNode.h"
+#include <queue>
 
+#include "game/pathfinder/Position.h"
+#include "game/room/RoomUser.h"
+
+class RoomUser;
 class Pathfinder
 {
 public:
+    Pathfinder();
+    Pathfinder(RoomUser *room_user);
     ~Pathfinder();
 
+    void moveTo(Position position);
+    Position getNextStep();
+    std::queue<Position*> findPath();
 
-    static std::vector<Position> makePath(Position start, Position end, Room *room);
-    static PathfinderNode *makePathReversed(Position start, Position end, Room *room);
-    static bool isValidStep(Room *room, Position current, Position tmp, bool is_final_move);
+    Position getTarget() { return target; }
+    void setTarget(Position target) { this->target = target; }
+    bool isCompleted() { return path.size() == 0; }
+    void clear() {
 
-    static std::vector<Position> getPoints() {
+        std::queue<Position*> paths;
+        std::swap(this->path, paths);
 
-        std::vector<Position> points;
-
-        points.push_back(Position(0, -1));
-        points.push_back(Position(0, 1));
-        points.push_back(Position(1, 0));
-        points.push_back(Position(-1, 0));
-        points.push_back(Position(1, -1));
-        points.push_back(Position(-1, 1));
-        points.push_back(Position(1, 1));
-        points.push_back(Position(-1, -1));
-
-        return points;
     }
+    std::queue<Position*> getPath() { return path;  }
+
+private:
+    RoomUser *room_user;
+    Position target;
+    std::queue<Position*> path;
 };
 

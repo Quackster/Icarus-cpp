@@ -40,7 +40,7 @@ public:
 
         std::vector<Entity*> *entities = room->getEntities();
         player->send(UserDisplayMessageComposer(*entities));
-        player->send(UserDisplayMessageComposer(*entities));
+        player->send(UserStatusMessageComposer(*entities));
 
        
     }

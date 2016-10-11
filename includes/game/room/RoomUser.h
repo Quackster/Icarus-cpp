@@ -1,7 +1,10 @@
 #pragma once
 #include <map>
 
+#include "game/pathfinder/Pathfinder.h"
+
 class Room; // Defined elsewhere
+class Pathfinder;
 class RoomUser
 {
 
@@ -16,6 +19,8 @@ private:
     int virtual_id;
     int last_chat_id;
     int dance_id;
+
+    Pathfinder *pathfinder;
 
     int x;
     int y;
@@ -51,6 +56,10 @@ public:
     std::map<std::string, std::string> &getStatuses() { return statuses;  }
     double getHeight() { return height; }
     int getVirtualId() { return virtual_id; }
+
+    Position getPosition() { return Position(x, y); }
+    Position getGoal() { return Position(goal_x, goal_y); }
+    Pathfinder *getPathfinder() { return pathfinder; }
 
     void updateStatus(std::string key, std::string value);
 

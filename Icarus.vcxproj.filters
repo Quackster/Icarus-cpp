@@ -114,9 +114,6 @@
     <ClCompile Include="src\game\pathfinder\Pathfinder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\pathfinder\PathfinderNode.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\boot\Icarus.h">
@@ -339,9 +336,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\game\pathfinder\Pathfinder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\game\pathfinder\PathfinderNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\game\pathfinder\Position.h">

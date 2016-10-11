@@ -132,7 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game\pathfinder\Pathfinder.cpp" />
-    <ClCompile Include="src\game\pathfinder\PathfinderNode.cpp" />
     <ClCompile Include="src\game\pathfinder\Position.cpp" />
     <ClCompile Include="src\dao\RoomDao.cpp" />
     <ClCompile Include="src\game\room\model\RoomModel.cpp" />
@@ -190,7 +189,6 @@
     <ClInclude Include="includes\game\entities\EntityDetails.h" />
     <ClInclude Include="includes\game\entities\EntityType.h" />
     <ClInclude Include="includes\game\pathfinder\Pathfinder.h" />
-    <ClInclude Include="includes\game\pathfinder\PathfinderNode.h" />
     <ClInclude Include="includes\game\room\model\RoomModel.h" />
     <ClInclude Include="includes\game\room\RoomUser.h" />
     <ClInclude Include="includes\game\navigator\populators\DefaultPopulator.h" />
