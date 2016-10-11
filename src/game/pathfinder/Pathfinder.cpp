@@ -141,7 +141,7 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is
         continue;
         }*/
 
-        int tile = room->getData()->getModel()->getSquares()[current.getX() * map_size_y + current.getY()];
+        int tile = room->getData()->getModel()->getSquares()[tmp.getX() * map_size_y + tmp.getY()];
 
         printf("tile: %i\n", tile);
 
