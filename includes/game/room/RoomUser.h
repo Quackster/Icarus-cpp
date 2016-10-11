@@ -1,6 +1,8 @@
 #pragma once
 #include <map>
 
+#include "game/pathfinder/Position.h"
+
 class Room; // Defined elsewhere
 class RoomUser
 {
@@ -51,6 +53,8 @@ public:
     std::map<std::string, std::string> &getStatuses() { return statuses;  }
     double getHeight() { return height; }
     int getVirtualId() { return virtual_id; }
+    Position getPosition() { return Position(x, y); }
+    Position getGoal() { return Position(goal_x, goal_y); }
 
     void updateStatus(std::string key, std::string value);
 
