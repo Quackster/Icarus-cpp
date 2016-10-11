@@ -12,31 +12,14 @@ Pathfinder::~Pathfinder()
 std::vector<Position> Pathfinder::makePath(Position start, Position end, Room *room) {
 
     std::vector<Position> positions;
-    std::vector<PathfinderNode*> nodes_remove;
 
-    try {
-        // PATHFINDERNODE NEEDS TO BE POINTER TO DECLARE ITSELF INSIDE IT'S OWN CLASS
+    PathfinderNode *nodes = makePathReversed(start, end, room);
 
-        PathfinderNode *nodes = makePathReversed(start, end, room);
-
-        if (nodes != nullptr) {
-            while (nodes != nullptr) {
-                positions.push_back(Position(nodes->getPosition().getX(), nodes->getPosition().getY()));
-                //nodes_remove.push_back(nodes); // add to delete
-                nodes = nodes->getNextNode();
-            }
+    if (nodes != nullptr) {
+        while (nodes != nullptr) {
+            positions.push_back(nodes->getPosition());
+            nodes = nodes->getNextNode();
         }
-
-        for (auto node : nodes_remove) {
-            delete node;
-        }
-
-    }
-    catch (std::exception &e) {
-        std::cout << "pathfinder error: " << e.what() << std::endl;
-    }
-    catch (...) {
-        std::cout << "pathfinder error: " << std::endl;
     }
 
     return positions;
@@ -44,19 +27,16 @@ std::vector<Position> Pathfinder::makePath(Position start, Position end, Room *r
 
 PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room *room) {
 
-    RoomModel *model = room->getData()->getModel();
-
     std::deque<PathfinderNode*> open_list;
+
+    RoomModel *model = room->getData()->getModel();
 
     int map_size_x = model->getMapSizeX();
     int map_size_y = model->getMapSizeY();
-
-    std::cout << "size x " << map_size_x << ", " << map_size_y << std::endl;
- 
     std::map<int, std::map<int, PathfinderNode*>> map;
 
-    for (int y = -1; y < map_size_y; y++) {
-        for (int x = -1; x < map_size_x; x++) {
+    for (int x = 0; x < map_size_x + 20; x++) {
+        for (int y = 0; y < map_size_y + 20; y++) {
             map[x][y] = nullptr;
         }
     }
@@ -80,14 +60,12 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
         open_list.pop_front();
         current->setInClose(true);
 
-        for (int i = 0; i < 8; i++) {
+        for (Position pos : Pathfinder::getPoints()) {
 
-            Position temp_point = getPoints()[i];
-            Position tmp = current->getPosition().addPoint(temp_point);
+            tmp = current->getPosition().addPoint(pos);
+            bool is_final_move = tmp.sameAs(end);
 
-            bool is_final_move = (tmp.getX() == end.getX()) && (tmp.getY() == tmp.getY());
-
-            if (map[tmp.getX()].find(tmp.getY()) != map[tmp.getX()].end() && isValidStep(room, Position(current->getPosition().getX(), current->getPosition().getY()), tmp, is_final_move)) {
+            if (isValidStep(room, current->getPosition(), tmp, is_final_move)) {
 
                 if (map[tmp.getX()][tmp.getY()] == nullptr) {
                     node = new PathfinderNode(tmp);
@@ -117,7 +95,7 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
                     }
 
                     if (!node->getInOpen()) {
-                        if (node->getPosition().getX() == finish->getPosition().getX() && node->getPosition().getY() == finish->getPosition().getY()) {
+                        if (node->getPosition().sameAs(finish->getPosition())) {
                             node->setNextNode(current);
                             return node;
                         }
@@ -139,6 +117,16 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is
 
     try {
 
+        int map_size_x = room->getData()->getModel()->getMapSizeX();
+        int map_size_y = room->getData()->getModel()->getMapSizeY();
+
+        if (current.getX() > map_size_x && current.getY() > map_size_y) {
+            return false;
+        }
+
+        if (tmp.getX() > map_size_x && tmp.getY() > map_size_y) {
+            return false;
+        }
 
         /* if (map.find(tmp.getX()) == map.end()) {
              continue;

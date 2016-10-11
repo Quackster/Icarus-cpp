@@ -42,7 +42,7 @@ void Icarus::boot() {
          << " - LeonHartley " << std::endl 
          << " - Cecer " << std::endl;
     std::cout << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    //std::this_thread::sleep_for(std::chrono::seconds(1));
 
     /*
         Load configuration

@@ -13,20 +13,20 @@ public:
     static PathfinderNode *makePathReversed(Position start, Position end, Room *room);
     static bool isValidStep(Room *room, Position current, Position tmp, bool is_final_move);
 
-    static Position* getPoints() {
+    static std::vector<Position> getPoints() {
 
-        static Position POINTS[8] = {
-            Position(0, -1),
-            Position(0, 1),
-            Position(1, 0),
-            Position(-1, 0),
-            Position(1, -1),
-            Position(-1, 1),
-            Position(1, 1),
-            Position(-1, -1)
-        };
+        std::vector<Position> points;
 
-        return POINTS;
+        points.push_back(Position(0, -1));
+        points.push_back(Position(0, 1));
+        points.push_back(Position(1, 0));
+        points.push_back(Position(-1, 0));
+        points.push_back(Position(1, -1));
+        points.push_back(Position(-1, 1));
+        points.push_back(Position(1, 1));
+        points.push_back(Position(-1, -1));
+
+        return points;
     }
 };
 

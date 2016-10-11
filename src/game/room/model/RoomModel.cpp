@@ -20,13 +20,21 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
     this->map_size_y = temporary.size();
 
 
-    for (int y = 0; y < map_size_y; y++) {
+    for (int y = 0; y < map_size_y + 20; y++) {
 
-        if (y > 0) {
-            temporary[y] = temporary[y].substr(1); 
+        if (y < map_size_y) {
+            if (y > 0) {
+                temporary[y] = temporary[y].substr(1);
+            }
         }
 
-        for (int x = 0; x < map_size_x; x++) {
+        for (int x = 0; x < map_size_x + 20; x++) {
+
+            if (x >= map_size_x || y >= map_size_y) {
+                this->square_height[x][y] = 0;
+                this->squares[x][y] = 1;
+                continue;
+            }
 
             std::string square = temporary[y];
             square = square.substr(x).substr(0, 1);
@@ -41,7 +49,7 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
             else if (square == "x") {
                 this->squares[x][y] = 1;
             }
-            
+
             this->square_char[x][y] = square;
         }
     }
