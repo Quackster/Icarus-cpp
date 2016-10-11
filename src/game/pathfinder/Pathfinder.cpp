@@ -33,13 +33,7 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
 
     int map_size_x = model->getMapSizeX();
     int map_size_y = model->getMapSizeY();
-    std::map<int, std::map<int, PathfinderNode*>> map;
-
-    for (int x = 0; x < map_size_x + 20; x++) {
-        for (int y = 0; y < map_size_y + 20; y++) {
-            map[x][y] = nullptr;
-        }
-    }
+    auto map = new PathfinderNode*[map_size_x * map_size_y];
 
     PathfinderNode *node = nullptr;
     Position tmp(0, 0);
@@ -50,7 +44,6 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
     PathfinderNode *finish = new PathfinderNode(end);
     current->setCost(0);
 
-    map[start.getX()][start.getY()] = current;
 
     open_list.push_back(current);
 
@@ -67,12 +60,9 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
 
             if (isValidStep(room, current->getPosition(), tmp, is_final_move)) {
 
-                if (map[tmp.getX()][tmp.getY()] == nullptr) {
                     node = new PathfinderNode(tmp);
-                    map[tmp.getX()][tmp.getY()] = node;
                 }
                 else {
-                    node = map[tmp.getX()][tmp.getY()];
                 }
 
                 if (!node->getInClose()) {
@@ -100,8 +90,14 @@ PathfinderNode *Pathfinder::makePathReversed(Position start, Position end, Room 
                             return node;
                         }
 
-                        node->setInOpen(true);
-                        open_list.push_back(node);
+                        if (node->getPosition().getY() > 200) {
+                            return nullptr;
+                        }
+                        else {
+
+                            node->setInOpen(true);
+                            open_list.push_back(node);
+                        }
 
                     }
                 }
@@ -136,7 +132,6 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is
              continue;
          }*/
 
-        return room->getData()->getModel()->getSquares()[current.getX()][current.getX()] == 0;
 
     }
     catch (std::exception &e) {

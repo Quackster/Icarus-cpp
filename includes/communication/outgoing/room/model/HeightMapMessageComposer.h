@@ -26,7 +26,6 @@ public:
 
         for (int y = 0; y < model->getMapSizeY(); y++) {
             for (int x = 0; x < model->getMapSizeX(); x++) {
-                response.writeShort(model->getSquareHeight()[x][y] * 256);
             }
         }
 
