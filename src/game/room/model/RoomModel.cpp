@@ -26,7 +26,7 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
     for (int y = 0; y < map_size_y; y++) {
 
         if (y > 0) {
-            //temporary[y] = temporary[y].substr(1);
+            temporary[y] = temporary[y].substr(1);
         }
 
         for (int x = 0; x < map_size_x; x++) {
@@ -51,7 +51,7 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
 
     std::stringstream ss;
 
-    /*for (int y = 0; y < map_size_y; y++) {
+    for (int y = 0; y < map_size_y; y++) {
         for (int x = 0; x < map_size_x; x++) {
 
             if (x == this->door_x && y == this->door_y) {
@@ -63,7 +63,7 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
         }
         
         ss << (char)13;
-    }*/
+    }
     
     
     this->floor_map = ss.str();
