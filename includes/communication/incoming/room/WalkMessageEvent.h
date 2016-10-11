@@ -20,4 +20,5 @@ public:
         room_user->setGoalY(goal_y);
 
         std::vector<Position> paths = Pathfinder::makePath(room_user->getPosition(), room_user->getGoal(), room);
+    }
 };

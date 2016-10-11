@@ -22,7 +22,6 @@ Pathfinder::~Pathfinder() { }
 std::vector<Position> Pathfinder::makePath(Position start, Position end, Room *room) {
 
     std::vector<Position> positions;
-
     std::shared_ptr<PathfinderNode> nodes = makePathReversed(start, end, room);
 
     if (nodes != nullptr) {
@@ -37,7 +36,8 @@ std::vector<Position> Pathfinder::makePath(Position start, Position end, Room *r
 }
 
 /*
-    Returns a tree of PathfinderNode's which needs to be looped through to get the valid path
+    Returns a tree of PathfinderNode's which needs to be looped through to get the valid path with
+    node->getNextNode()
 
     @param Position start
     @param Position end
@@ -158,6 +158,5 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is
     catch (std::exception &e) {
         return false;
     }
-
 
 }
