@@ -10,6 +10,7 @@
 
 #include <thread>
 #include <chrono>
+#include <sstream>
 
 #include "boot/Icarus.h"
 #include "game/room/tasks/RoomRunnable.h"
@@ -73,12 +74,13 @@ void RoomRunnable::run() {
     if (room->isDisposed()) {
         return;
     }
-
+    RoomModel *room_model = this->room->getData()->getModel();
     std::vector<Entity*> entities_update;
 
     for (Entity *entity : *this->room->getEntities()) {
 
         RoomUser *room_user = entity->getRoomUser();
+        
 
         if (room_user->getPosition().sameAs(room_user->getGoal())) {
             room_user->stopWalking(false);
@@ -109,9 +111,17 @@ void RoomRunnable::run() {
                 room_user->setStatus("lay", "");
                 room_user->setStatus("sit", "");
 
+                int height = room_model->getSquareHeight()[next.getX() * room_model->getMapSizeY() + next.getY()];
                 room_user->setRotation(Calculate(room_user->getPosition().getX(), room_user->getPosition().getY(), next.getX(), next.getY()), true, false);
+                
+                std::stringstream ss;
+                ss << next.getX();
+                ss << ",";
+                ss << next.getY();
+                ss << ",";
+                ss << height;
+                std::string status = ss.str();
 
-                std::string status = std::to_string(next.getX()) = "," + std::to_string(next.getY()) = ",0";
                 room_user->setStatus("mv", status);
                 room_user->updateStatus();
 
@@ -122,6 +132,7 @@ void RoomRunnable::run() {
                     self.room.room_mapping.update_map(next.x, next.y, True)*/
                 room_user->setX(next.getX());
                 room_user->setY(next.getY());
+                room_user->setHeight(height);
 
                     //room_user.position.z = height               
                 
