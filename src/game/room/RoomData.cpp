@@ -85,6 +85,7 @@ RoomData::RoomData(int id,
 
     // Update owner?
     this->isOwnerOnline();
+    this->virtual_id = 0;
 }
 
 /*

@@ -85,5 +85,5 @@ public:
     void setX(int x) { this->x = x; }
     void setY(int y) { this->y = y; }
     void setHeight(double height) { this->height = height; }
-    void setVirtualId(int virtual_id) { this->virtual_id = height; }
+    void setVirtualId(int virtual_id) { this->virtual_id = virtual_id; }
 };

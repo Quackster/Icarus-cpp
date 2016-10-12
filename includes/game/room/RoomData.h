@@ -79,7 +79,7 @@ public:
     int &getWhoCanKick() { return who_can_kick; }
     int &getWhoCanBan() { return who_can_ban; }
 
-    int getVirtualId() { this->virtual_id = virtual_id++; return virtual_id; }
+    int getVirtualId() { this->virtual_id = this->virtual_id + 1; return virtual_id; }
 
     std::vector<int> &getUserRights() { return user_rights; }
 
