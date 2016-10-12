@@ -39,6 +39,9 @@ std::deque<Position> Pathfinder::makePath(Position start, Position end, Room *ro
     }
 
     std::reverse(positions.begin(), positions.end());
+
+    positions.pop_front(); // idk why but it always puts an invalid tile at the front ??? need to fix later
+
     return positions;
 }
 
