@@ -9,7 +9,7 @@
 RoomRunnable::RoomRunnable(Room *room) : room(room) { }
 
 /*
-    Tick handler for RoomRunnable
+    Tick handler for room runnable
 
     @return none
 */
