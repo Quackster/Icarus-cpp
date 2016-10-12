@@ -18,7 +18,11 @@ int main(int argc, char* argv[]) {
         std::cout << std::endl << " Error occurred: " << e.what() << std::endl;
 	}
 
-    while (true);
+    if (argc > 1) {
+        if (std::string(argv[1]) == "-hang") {
+            while (true);
+        }
+    }
 
 	return 0;
 }
