@@ -134,9 +134,6 @@
     <ClInclude Include="includes\communication\outgoing\login\AuthenticateMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\communication\outgoing\MessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\communication\streams\Request.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -348,6 +345,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\game\room\tasks\RoomRunnable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\MessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

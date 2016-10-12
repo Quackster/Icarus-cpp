@@ -39,7 +39,7 @@ void Player::login() {
     Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->getId());
 
     // New room user instance
-    this->room_user = new RoomUser();
+    this->room_user = new RoomUser(this);
 
     // authenticated
     this->logged_in = true;

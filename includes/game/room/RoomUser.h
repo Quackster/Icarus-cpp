@@ -8,15 +8,17 @@
 */
 #pragma once
 #include <map>
+#include <deque>
 
 #include "game/pathfinder/Position.h"
 
+class Entity;
 class Room; // Defined elsewhere
 class RoomUser
 {
 
 public:
-    RoomUser();
+    RoomUser(Entity *entity);
     ~RoomUser();
 
     Room *getRoom() { return room; }
@@ -38,8 +40,10 @@ private:
     int head_rotation;
 
     std::map<std::string, std::string> statuses;
+    std::deque<Position> path;
 
     Room *room;
+    Entity *entity;
 
     bool is_walking;
     bool needs_update;
@@ -48,6 +52,9 @@ private:
 public:
 
     void reset();
+    void stopWalking(bool needs_update);
+    void updateStatus(std::string key, std::string value);
+    void updateStatus();
 
     bool getLoadingRoom() { return is_loading_room; }
     bool getNeedsUpdate() { return needs_update; }
@@ -58,13 +65,15 @@ public:
     int getGoalY() { return goal_y; }
     int getX() { return x; }
     int getY() { return y; }
-    std::map<std::string, std::string> &getStatuses() { return statuses;  }
+    std::map<std::string, std::string> getStatuses() { return statuses;  }
     double getHeight() { return height; }
     int getVirtualId() { return virtual_id; }
     Position getPosition() { return Position(x, y); }
     Position getGoal() { return Position(goal_x, goal_y); }
+    std::deque<Position> getPath() { return path; }
+    void setPath(std::deque<Position> path) { this->path = path; }
+    Entity *getEntity() { return this->entity; }
 
-    void updateStatus(std::string key, std::string value);
 
     void setLoadingRoom(bool is_loading_room) { this->is_loading_room = is_loading_room; }
     void setNeedsUpdate(bool needs_update) { this->needs_update = needs_update; }

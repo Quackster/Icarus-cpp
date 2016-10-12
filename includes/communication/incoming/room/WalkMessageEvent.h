@@ -26,7 +26,9 @@ public:
         RoomUser *room_user = player->getRoomUser();
         room_user->setGoalX(goal_x);
         room_user->setGoalY(goal_y);
+        room_user->setPath(Pathfinder::makePath(room_user->getPosition(), room_user->getGoal(), room));
+        room_user->setWalking(true);
 
-        std::vector<Position> paths = Pathfinder::makePath(room_user->getPosition(), room_user->getGoal(), room);
+        printf(" size %i\n", room_user->getPath().size());
     }
 };

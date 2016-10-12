@@ -8,12 +8,15 @@
 */
 #include "stdafx.h"
 
+#include "game/room/Room.h"
 #include "game/room/RoomUser.h"
+#include "game/entities/Entity.h"
+#include "communication/outgoing/room/UserStatusMessageComposer.h"
 
 /*
     Constructor for room user
 */
-RoomUser::RoomUser() { 
+RoomUser::RoomUser(Entity *entity) : entity(entity) { 
     this->reset();
 }
 
@@ -33,6 +36,16 @@ void RoomUser::updateStatus(std::string key, std::string value) {
         this->statuses.erase(key);
     }
 
+    this->updateStatus();
+}
+
+/*
+    Updatest status, if value is empty, the status entry will be deleted
+
+    @return none
+*/
+void RoomUser::updateStatus() {    
+    this->room->send(UserStatusMessageComposer(this->entity));
 }
 
 void RoomUser::setRotation(int rotation, bool set_head_rotation, bool update) {
@@ -61,11 +74,33 @@ void RoomUser::reset() {
     this->rotation = 0;
     this->head_rotation = 0;
     this->statuses.clear();// = std::map<std::string, std::string>();
+    this->path.clear();// = std::queue<Position>();
     this->room = nullptr;
     bool is_walking = false;
     bool needs_update = false;
     bool is_loading_room = false;
 
+}
+
+/*
+    Stop walking handler
+
+    @param update user
+*/
+void RoomUser::stopWalking(bool needs_update) {
+
+    if (this->statuses.count("mv") > 0) {
+        this->statuses.erase("mv"); // remove status
+    }
+
+    this->needs_update = needs_update;
+    this->path.clear();
+
+    if (this->is_walking) {
+        this->updateStatus();
+    }
+
+    this->is_walking = false;
 }
 
 /*

@@ -8,7 +8,6 @@
 */
 #include "stdafx.h"
 
-#include <deque>
 #include <algorithm>
 
 #include "game/pathfinder/Pathfinder.h"
@@ -27,9 +26,9 @@ Pathfinder::~Pathfinder() { }
     @param Position end
     @return vector of positions
 */
-std::vector<Position> Pathfinder::makePath(Position start, Position end, Room *room) {
+std::deque<Position> Pathfinder::makePath(Position start, Position end, Room *room) {
 
-    std::vector<Position> positions;
+    std::deque<Position> positions;
     std::shared_ptr<PathfinderNode> nodes = makePathReversed(start, end, room);
 
     if (nodes != nullptr) {
@@ -127,7 +126,6 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
             }
         }
     }
-
 
     return nullptr;
 }
