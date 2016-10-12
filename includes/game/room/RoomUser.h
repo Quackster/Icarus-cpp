@@ -53,24 +53,24 @@ public:
 
     void reset();
     void stopWalking(bool needs_update);
-    void updateStatus(std::string key, std::string value);
+    void setStatus(std::string key, std::string value, bool update = false);
     void updateStatus();
 
-    bool getLoadingRoom() { return is_loading_room; }
-    bool getNeedsUpdate() { return needs_update; }
-    bool isWalking() { return is_walking; }
-    int getRotation() { return rotation; }
-    int getHeadRotation() { return head_rotation; }
-    int getGoalX() { return goal_x; }
-    int getGoalY() { return goal_y; }
-    int getX() { return x; }
-    int getY() { return y; }
-    std::map<std::string, std::string> getStatuses() { return statuses;  }
-    double getHeight() { return height; }
-    int getVirtualId() { return virtual_id; }
+    bool &getLoadingRoom() { return is_loading_room; }
+    bool &getNeedsUpdate() { return needs_update; }
+    bool &isWalking() { return is_walking; }
+    int &getRotation() { return rotation; }
+    int &getHeadRotation() { return head_rotation; }
+    int &getGoalX() { return goal_x; }
+    int &getGoalY() { return goal_y; }
+    int &getX() { return x; }
+    int &getY() { return y; }
+    std::map<std::string, std::string> &getStatuses() { return statuses;  }
+    double &getHeight() { return height; }
+    int &getVirtualId() { return virtual_id; }
     Position getPosition() { return Position(x, y); }
-    Position getGoal() { return Position(goal_x, goal_y); }
-    std::deque<Position> getPath() { return path; }
+    Position &getGoal() { return Position(goal_x, goal_y); }
+    std::deque<Position> &getPath() { return path; }
     void setPath(std::deque<Position> path) { this->path = path; }
     Entity *getEntity() { return this->entity; }
 

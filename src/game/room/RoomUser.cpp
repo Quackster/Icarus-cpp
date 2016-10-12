@@ -27,7 +27,7 @@ RoomUser::RoomUser(Entity *entity) : entity(entity) {
     @param status value
     @return none
 */
-void RoomUser::updateStatus(std::string key, std::string value) {
+void RoomUser::setStatus(std::string key, std::string value, bool update) {
 
     if (value.length() > 0) {
         this->statuses[key] = value;
@@ -36,7 +36,9 @@ void RoomUser::updateStatus(std::string key, std::string value) {
         this->statuses.erase(key);
     }
 
-    this->updateStatus();
+    if (update) {
+        this->updateStatus();
+    }
 }
 
 /*

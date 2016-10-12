@@ -28,7 +28,5 @@ public:
         room_user->setGoalY(goal_y);
         room_user->setPath(Pathfinder::makePath(room_user->getPosition(), room_user->getGoal(), room));
         room_user->setWalking(true);
-
-        printf(" size %i\n", room_user->getPath().size());
     }
 };
