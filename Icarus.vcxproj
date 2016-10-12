@@ -142,7 +142,7 @@
     <ClCompile Include="src\game\room\Room.cpp" />
     <ClCompile Include="src\game\room\RoomManager.cpp" />
     <ClCompile Include="src\game\room\RoomUser.cpp" />
-    <ClCompile Include="src\thread\ExampleRunnable.cpp" />
+    <ClCompile Include="src\game\room\tasks\RoomRunnable.cpp" />
     <ClCompile Include="src\thread\ExecutorService.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\navigator\NavigatorCategory.cpp" />
@@ -196,7 +196,7 @@
     <ClInclude Include="includes\game\navigator\populators\DefaultPopulator.h" />
     <ClInclude Include="includes\game\navigator\populators\RoomPopulator.h" />
     <ClInclude Include="includes\game\navigator\populators\MyRoomPopulator.h" />
-    <ClInclude Include="includes\thread\ExampleRunnable.h" />
+    <ClInclude Include="includes\game\room\tasks\RoomRunnable.h" />
     <ClInclude Include="includes\thread\Runnable.h" />
     <ClInclude Include="includes\thread\ExecutorService.h" />
     <ClInclude Include="includes\communication\incoming\navigator\SearchNewNavigatorEvent.h" />

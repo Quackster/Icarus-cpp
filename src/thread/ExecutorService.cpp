@@ -54,7 +54,7 @@ ExecutorService *ExecutorService::createSchedulerService(int threads, std::chron
     @param runnable ptr
     @return none
 */
-void ExecutorService::schedule(std::shared_ptr<Runnable> runnable) {
+void ExecutorService::schedule(Runnable* runnable) {
     this->tasks.push(runnable);
 }
 
@@ -108,10 +108,6 @@ void ExecutorService::tick() {
             for (auto thread : this->threads) {
                 delete thread;
             }
-
-            this->cancelled_threads.clear();
-            this->threads.clear();
-            this->tasks.getDeque().clear();
         }
     }
 }

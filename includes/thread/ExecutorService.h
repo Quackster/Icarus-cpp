@@ -14,7 +14,7 @@ public:
     static ExecutorService *createSchedulerService(int threads);
     static ExecutorService *createSchedulerService(int threads, std::chrono::milliseconds duration);
 
-    void schedule(std::shared_ptr<Runnable> runnable);
+    void schedule(Runnable* runnable);
     void stop() { std::cout << "called stop func" << std::endl; this->running = false; }
 
 private:
@@ -23,7 +23,7 @@ private:
     std::chrono::milliseconds duration;
     
     std::vector<std::thread*> threads;
-    BlockingQueue<std::shared_ptr<Runnable>> tasks;
+    BlockingQueue<Runnable*> tasks;
     std::vector<std::thread::id> cancelled_threads;
 
     void tick();
