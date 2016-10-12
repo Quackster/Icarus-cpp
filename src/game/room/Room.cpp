@@ -49,6 +49,8 @@ Enter room handler
 */
 void Room::enter(Player* player) {
 
+    this->disposed = false;
+
     if (this->entities->size() == 0) {
         this->scheduleRunnable();
     }
@@ -72,6 +74,8 @@ void Room::enter(Player* player) {
 
     player->send(UserDisplayMessageComposer(*this->entities));
     player->send(UserStatusMessageComposer(*this->entities));
+
+    printf("entities: %i\n", (int)entities->size());;
 }
 
 
@@ -94,6 +98,8 @@ void Room::leave(Player* player, bool hotel_view, bool dispose) {
         // Remove entity from vector
         this->entities->erase(std::remove(this->entities->begin(), this->entities->end(), player), this->entities->end());
         
+        printf("entities: %i\n", (int)entities->size());
+
         // Reset room user
         player->getRoomUser()->reset();
     }

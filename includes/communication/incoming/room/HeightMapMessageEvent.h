@@ -12,6 +12,8 @@
 #include "communication/outgoing/room/model/FloorMapMessageComposer.h"
 #include "communication/outgoing/room/model/HeightMapMessageComposer.h"
 
+#include "communication/outgoing/room/RoomDataMessageComposer.h"        
+
 class HeightMapMessageEvent : public MessageEvent {
 
 public:
@@ -29,5 +31,7 @@ public:
         player->send(FloorMapMessageComposer(room));
 
         room->enter(player); // call method to finalise enter room
+
+        player->send(RoomDataMessageComposer(room, player, 1, 1));
     }
 };

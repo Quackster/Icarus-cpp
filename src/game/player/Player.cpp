@@ -71,11 +71,9 @@ void Player::clear() {
 
         if (this->room_user != nullptr) {
 
-
             if (this->room_user->getRoom() != nullptr) {
                 this->room_user->getRoom()->leave(this, false, true);
             }
-
         }
 
         // Dispose player rooms

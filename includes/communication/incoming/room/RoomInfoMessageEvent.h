@@ -23,11 +23,16 @@ public:
         Room *room = Icarus::getGame()->getRoomManager()->getRoom(room_id);
 
         if (room == nullptr) {
+            printf("room is null\n");
             return;
         }
 
-        bool is_loading = request.readInt() == 1;
-        bool check_entry = request.readInt() == 1;
+        int i = request.readInt();
+        int j = request.readInt();
+
+        bool is_loading = i == 1;
+        bool check_entry = j == 1;
+        //printf("isloading: %i, chckentry: %i\n", i, j);
 
         player->send(RoomDataMessageComposer(room, player, is_loading, check_entry));
     }

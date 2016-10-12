@@ -79,6 +79,8 @@ void RoomRunnable::run() {
 
     for (Entity *entity : *this->room->getEntities()) {
 
+        printf("tick!!\n");
+
         RoomUser *room_user = entity->getRoomUser();
         
 
@@ -155,6 +157,7 @@ void RoomRunnable::run() {
         this->room->send(UserStatusMessageComposer(entities_update));
     }
 
-
-    this->room->scheduleRunnable(); // reschedule again!!
+    if (this->room->getPlayers().size() > 0) {
+        this->room->scheduleRunnable(); // reschedule again!!
+    }
 }

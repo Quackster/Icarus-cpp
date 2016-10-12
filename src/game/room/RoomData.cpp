@@ -51,6 +51,7 @@ RoomData::RoomData(int id,
     std::vector<int> user_rights) :
     id(id),
     name(name),
+        room_type(room_type),
     owner_id(owner_id),
     owner_name(owner_name),
     group_id(group_id),
