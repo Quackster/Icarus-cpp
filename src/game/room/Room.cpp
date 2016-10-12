@@ -41,8 +41,8 @@ Enter room handler
 */
 void Room::enter(Player* player) {
 
-  if (this->entities->size() == 0) {
-      this->scheduleRunnable();
+    if (this->entities->size() == 0) {
+        this->scheduleRunnable();
     }
 
     player->getRoomUser()->setLoadingRoom(false);
@@ -58,12 +58,12 @@ void Room::enter(Player* player) {
     this->send(UserDisplayMessageComposer(player));
     this->send(UserStatusMessageComposer(player));
 
-    player->send(UserDisplayMessageComposer(*this->entities));
-    player->send(UserStatusMessageComposer(*this->entities));
-
     if (!this->hasEntity(player)) {
         this->entities->push_back(player);
     }
+
+    player->send(UserDisplayMessageComposer(*this->entities));
+    player->send(UserStatusMessageComposer(*this->entities));
 }
 
 

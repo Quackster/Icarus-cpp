@@ -18,8 +18,7 @@ void RoomRunnable::run() {
     if (room->isDisposed()) {
         return;
     }
-    
-    printf("ticktock\n");
+
 
 
     this->room->scheduleRunnable(); // reschedule again!!
