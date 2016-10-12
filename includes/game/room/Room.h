@@ -34,7 +34,7 @@ public:
 
 private:
     RoomData *room_data;
-    RoomRunnable *room_runnable;
+    //RoomRunnable *room_runnable;
     std::vector<Entity*> *entities;
     bool disposed;
 

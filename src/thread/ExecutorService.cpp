@@ -54,7 +54,7 @@ ExecutorService *ExecutorService::createSchedulerService(int threads, std::chron
     @param runnable ptr
     @return none
 */
-void ExecutorService::schedule(Runnable* runnable) {
+void ExecutorService::schedule(std::shared_ptr<Runnable> runnable) {
     this->tasks.push(runnable);
 }
 
@@ -72,7 +72,9 @@ void ExecutorService::tick() {
 
         if (runnable != nullptr) {
             std::this_thread::sleep_for(this->duration);
-            runnable->run();
+            if (runnable != nullptr) {
+                runnable->run();
+            }
         }
 
         // stop() function was called, try to cancel as soon as possible.

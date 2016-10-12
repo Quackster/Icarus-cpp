@@ -12,7 +12,7 @@
 /*
     Constructor for rooms
 */
-Room::Room() : disposed(false), entities(new std::vector<Entity*>()), room_runnable(nullptr) { }
+Room::Room() : disposed(false), entities(new std::vector<Entity*>()) { }
 
 /*
     Whether or not the user has room rights, has optional option for
@@ -42,7 +42,6 @@ Enter room handler
 void Room::enter(Player* player) {
 
   if (this->entities->size() == 0) {
-      this->room_runnable = new RoomRunnable(this);
       this->scheduleRunnable();
     }
 
@@ -201,11 +200,6 @@ void Room::dispose(bool force_dispose) {
 */
 void Room::reset() {
 
-    if (this->room_runnable != nullptr) {
-        delete this->room_runnable;
-        this->room_runnable = nullptr;
-    }
-
     this->disposed = true;
 }
 
@@ -235,9 +229,7 @@ void Room::scheduleRunnable() {
         return;
     }
 
-    if (this->room_runnable != nullptr) {
-        Icarus::getGame()->getGameScheduler()->schedule(this->room_runnable);
-    }
+    Icarus::getGame()->getGameScheduler()->schedule(std::make_shared<RoomRunnable>(this));
 }
 
 /*
@@ -251,10 +243,6 @@ Room::~Room()
         if (entity->getEntityType() != PLAYER) {
             delete entity; // Only delete non-playable entities
         }
-    }
-
-    if (room_runnable != nullptr) {
-        delete room_runnable;
     }
 
     delete room_data;
