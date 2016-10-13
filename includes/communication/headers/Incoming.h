@@ -13,7 +13,7 @@ public:
     static const int VersionCheckMessageEvent = 4000;
     static const int UniqueIDMessageEvent = 3659;
     static const int AuthenticateMessageEvent = 1490;
-    static const int InfoRetrieveMessageEvent = 1978;
+    static const int UserDataMessageEvent = 1978;
     static const int GetCurrencyBalanceMessageEvent = 1386;
     static const int LatencyTestMessageEvent = 3307;
     static const int LeaveRoomMessageEvent = 394;

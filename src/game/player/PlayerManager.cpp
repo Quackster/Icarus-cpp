@@ -16,7 +16,8 @@ Constructor for Session Manager
 Initialises the map for storing sessions along with their connection ID
 */
 PlayerManager::PlayerManager() : 
-    sessions(new std::map<int, Player*>()) {
+    sessions(new std::map<int, Player*>()),
+    authenticated_sessions(new std::map<int, Player*>()) {
 }
 
 /*
@@ -27,14 +28,15 @@ Deletes all pointer variables
 PlayerManager::~PlayerManager() {
 
     for (auto pair : *sessions) {      
-        delete pair.second; // Delete session pointer
+        delete pair.second; 
     }
 
-    // Empty out nullptr values
-    this->sessions->clear();
+    // Don't need to delete any pointers from authenticated_sessions
+    //   as they share the same pointer with "sessions"
 
     // Delete sessions map
     delete sessions;
+    delete authenticated_sessions;
 }
 
 /*
@@ -110,17 +112,11 @@ Player *PlayerManager::getSession(int connection_id) {
 */
 Player *PlayerManager::getPlayerById(int user_id) {
 
-    for (auto session : *this->sessions) {
-
-        Player *player = session.second;
-
-        if (player->authenticated()) {
-            if (player->getDetails()->getId() == user_id) {
-                return player;
-            }
-        }
-
+    if (this->authenticated_sessions->count(user_id)) {
+        return this->authenticated_sessions->find(user_id)->second;
+    }
+    else {
+        return nullptr;
     }
 
-    return nullptr;
 }

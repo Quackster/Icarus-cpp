@@ -75,11 +75,10 @@ void RoomRunnable::run() {
         return;
     }
     RoomModel *room_model = this->room->getData()->getModel();
+
     std::vector<Entity*> entities_update;
 
     for (Entity *entity : *this->room->getEntities()) {
-
-        printf("tick!!\n");
 
         RoomUser *room_user = entity->getRoomUser();
         
@@ -93,21 +92,7 @@ void RoomRunnable::run() {
             if (room_user->getPath().size() > 0) {
 
                 Position next = room_user->getPath().front();
-                room_user->getPath().pop_front(); // remove front
-
-
-
-               /* if (room_user->getStatuses().count("mv") > 0) {
-                    room_user->getStatuses().erase("mv"); // remove status
-                }
-
-                if (room_user->getStatuses().count("sit") > 0) {
-                    room_user->getStatuses().erase("sit"); // remove status
-                }
-
-                if (room_user->getStatuses().count("lay") > 0) {
-                    room_user->getStatuses().erase("lay"); // remove status
-                }*/
+                room_user->getPath().pop_front();
 
                 room_user->setStatus("mv", "");
                 room_user->setStatus("lay", "");
@@ -127,20 +112,9 @@ void RoomRunnable::run() {
                 room_user->setStatus("mv", status);
                 room_user->updateStatus();
 
-
-                           /* # Update collision map
-                            if not self.room.data.allow_walkthrough:
-                self.room.room_mapping.update_map(room_user.position.x, room_user.position.y, False)
-                    self.room.room_mapping.update_map(next.x, next.y, True)*/
                 room_user->setX(next.getX());
                 room_user->setY(next.getY());
                 room_user->setHeight(height);
-
-                    //room_user.position.z = height               
-                
-                //printf("virtual id: %i\n", room_user->getStatuses().size());
-
-
             }
             else {
                 room_user->stopWalking(true);

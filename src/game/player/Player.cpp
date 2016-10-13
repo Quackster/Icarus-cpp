@@ -23,7 +23,9 @@
     @return session instance
 */
 Player::Player(NetworkConnection *network_connection) : 
-    network_connection(network_connection), session_details(nullptr), room_user(nullptr) {
+    network_connection(network_connection), 
+    session_details(nullptr), 
+    room_user(nullptr) {
     
     std::cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 }
@@ -35,14 +37,19 @@ Player::Player(NetworkConnection *network_connection) :
 */
 void Player::login() {
 
-    // Load player rooms
-    Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->getId());
-
-    // New room user instance
+    // init variables
+    this->logged_in = true;
     this->room_user = new RoomUser(this);
 
-    // authenticated
-    this->logged_in = true;
+    // add user to logged in sessions for quick lookup
+    Icarus::getPlayerManager()->getPlayers()->insert(std::make_pair(this->session_details->getId(), this));
+
+    // load player rooms
+    Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->getId());
+
+
+
+
 }
 
 /*
@@ -69,14 +76,14 @@ void Player::clear() {
 
     if (this->logged_in) {
 
-        if (this->room_user != nullptr) {
+        Icarus::getPlayerManager()->getPlayers()->erase(this->session_details->getId());
 
+        if (this->room_user != nullptr) {
             if (this->room_user->getRoom() != nullptr) {
                 this->room_user->getRoom()->leave(this, false, true);
             }
         }
 
-        // Dispose player rooms
         std::vector<Room*> rooms = Icarus::getGame()->getRoomManager()->getPlayerRooms(this->session_details->getId()); {
             for (Room *room : rooms) {
                 room->dispose();
@@ -103,7 +110,7 @@ Player::~Player() {
         delete session_details;
     }
 
-    if (session_details != nullptr) {
+    if (room_user != nullptr) {
         delete room_user;
     }
 }

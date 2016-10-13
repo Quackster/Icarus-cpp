@@ -24,20 +24,6 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        player->login();
-
-        auto categories = Icarus::getGame()->getNavigatorManager()->getCategories();
-        
-        /*
-        Enable new navigator
-        */
-        player->send(FlatCategoriesMessageComposer(categories, player->getDetails()->getRank()));
-        player->send(NavigatorCategoriesComposer(categories));
-        player->send(NavigatorMetaDataComposer());
-
-        /*
-        Send user data
-        */
         player->send(CreditsMessageComposer(player->getDetails()->getCredits()));
         player->send(UserObjectMessageComposer(player));
         player->send(SendPerkAllowancesMessageComposer());
@@ -52,7 +38,7 @@ public:
         res.writeString("http://localhost/");//Link to article
         res.writeString("web_promo_small/laptop_habbo.png");//Image link
 
-        //stories_hallofselfies_teaser.png
+                                                            //stories_hallofselfies_teaser.png
 
         res.writeInt(1);//ID
         res.writeString("Boring one");//Title
@@ -63,5 +49,6 @@ public:
         res.writeString("web_promo_small/stories_hallofselfies_teaser.png");//Image link
 
         player->getNetworkConnection()->send(res);
+        player->getNetworkConnection()->setUserInfoSent();
     }
 };

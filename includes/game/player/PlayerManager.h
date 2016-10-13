@@ -24,7 +24,10 @@ public:
     Player *getSession(int connection_id);
     Player *getPlayerById(int user_id);
 
+    std::map<int, Player*> *getPlayers() { return this->authenticated_sessions; }
+
 private:
     std::map<int, Player*> *sessions;
+    std::map<int, Player*> *authenticated_sessions;
 
 };

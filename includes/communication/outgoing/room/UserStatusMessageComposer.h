@@ -40,8 +40,6 @@ public:
             }
 
             response.writeString(status + "/");
-
-            printf("STATUS: %s\n", status.c_str());
         }
 
         return response;

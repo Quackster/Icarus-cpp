@@ -49,7 +49,14 @@ void RoomUser::setStatus(std::string key, std::string value, bool update) {
 void RoomUser::updateStatus() {    
     this->room->send(UserStatusMessageComposer(this->entity));
 }
+/*
+    Sets rotation of user, optional to set head rotation too, and also optional to update player status
 
+    @param body rotation
+    @param head rotation
+    @param bool update
+    @return none
+*/
 void RoomUser::setRotation(int rotation, bool set_head_rotation, bool update) {
     this->rotation = rotation;
     
