@@ -350,7 +350,6 @@
     <ClInclude Include="includes\communication\outgoing\MessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="includes\communication\incoming\navigator\NewNavigatorMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -360,7 +359,5 @@
     <ClInclude Include="includes\communication\incoming\user\EventLogMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-=======
->>>>>>> refs/remotes/origin/master
   </ItemGroup>
 </Project>

@@ -54,29 +54,6 @@ void Room::enter(Player* player) {
     if (this->entities->size() == 0) {
         this->scheduleRunnable();
     }
-<<<<<<< HEAD
-
-    player->getRoomUser()->setLoadingRoom(false);
-
-    RoomModel *model = this->room_data->getModel();
-    RoomUser *room_user = player->getRoomUser();
-
-    room_user->setX(model->getDoorX());
-    room_user->setY(model->getDoorY());
-    room_user->setHeight(model->getDoorZ());
-    room_user->setRotation(model->getDoorRotation(), true);
-
-    this->send(UserDisplayMessageComposer(player));
-    this->send(UserStatusMessageComposer(player));
-
-    if (!this->hasEntity(player)) {
-        this->entities->push_back(player);
-    }
-
-    player->send(UserDisplayMessageComposer(*this->entities));
-    player->send(UserStatusMessageComposer(*this->entities));
-=======
->>>>>>> refs/remotes/origin/master
 
     player->getRoomUser()->setLoadingRoom(false);
 
@@ -98,7 +75,6 @@ void Room::enter(Player* player) {
     player->send(UserDisplayMessageComposer(*this->entities));
     player->send(UserStatusMessageComposer(*this->entities));
 
-    printf("entities: %i\n", (int)entities->size());;
 }
 
 
@@ -120,11 +96,6 @@ void Room::leave(Player* player, bool hotel_view, bool dispose) {
 
         // Remove entity from vector
         this->entities->erase(std::remove(this->entities->begin(), this->entities->end(), player), this->entities->end());
-<<<<<<< HEAD
-=======
-        
-        printf("entities: %i\n", (int)entities->size());
->>>>>>> refs/remotes/origin/master
 
         // Reset room user
         player->getRoomUser()->reset();
