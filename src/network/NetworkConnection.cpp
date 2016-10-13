@@ -1,3 +1,11 @@
+/**
+* Icarus - A multi-platform C++ server
+*
+* Copyright 2016 Alex "Quackster" Miller
+*
+* Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+* (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
+*/
 #include "stdafx.h"
 #include "boot/Icarus.h"
 #include "network/NetworkConnection.h"
@@ -11,9 +19,12 @@ NetworkConnection constructor
 
 @return instance
 */
-NetworkConnection::NetworkConnection(int connection_id, tcp::socket socket) : connection_id(connection_id), socket(std::move(socket)), connection_state(true) {
-
-}
+NetworkConnection::NetworkConnection(int connection_id, tcp::socket socket) : 
+    connection_id(connection_id), 
+    socket(std::move(socket)), 
+    connection_state(true),
+    sent_navigator(false),
+    sent_user_info(false) { }
 
 NetworkConnection::~NetworkConnection() { }
 
@@ -56,7 +67,6 @@ void NetworkConnection::recieveData() {
                         Request request(buffer);
 
                         if (request.getMessageId() > 0) {
-
                             this->handleData(request);
                         }
                     }
@@ -70,9 +80,6 @@ void NetworkConnection::recieveData() {
             // Handle session disconnect
 
             if (length == 0) {
-
-
-
                 if (Icarus::getPlayerManager()->containsSession(this->connection_id)) {
                     Icarus::getPlayerManager()->removeSession(this->connection_id);
                 }

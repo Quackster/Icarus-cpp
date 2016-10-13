@@ -1,3 +1,11 @@
+/**
+* Icarus - A multi-platform C++ server
+*
+* Copyright 2016 Alex "Quackster" Miller
+*
+* Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+* (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
+*/
 #include "stdafx.h"
 
 #include "boot/Icarus.h"
@@ -43,6 +51,7 @@ RoomData::RoomData(int id,
     std::vector<int> user_rights) :
     id(id),
     name(name),
+        room_type(room_type),
     owner_id(owner_id),
     owner_name(owner_name),
     group_id(group_id),
@@ -77,6 +86,7 @@ RoomData::RoomData(int id,
 
     // Update owner?
     this->isOwnerOnline();
+    this->virtual_id = 0;
 }
 
 /*

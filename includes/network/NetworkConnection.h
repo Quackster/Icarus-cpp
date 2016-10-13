@@ -1,3 +1,11 @@
+/**
+* Icarus - A multi-platform C++ server
+*
+* Copyright 2016 Alex "Quackster" Miller
+*
+* Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+* (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
+*/
 #pragma once
 #include <boost/asio.hpp>
 
@@ -8,7 +16,6 @@
 
 #include "communication/streams/Request.h"
 #include "communication/streams/Response.h"
-
 #include "communication/outgoing/MessageComposer.h"
 
 
@@ -31,6 +38,11 @@ public:
     void setConnectionState(bool connectionState);// { this->connectionState = connectionState; };
     tcp::socket &getSocket() { return this->socket; };
 
+    bool isNavigatorSent() { return this->sent_navigator; }
+    bool isUserInfoSent() { return this->sent_user_info; }
+    void setNavigatorSent() { this->sent_navigator = true; }
+    void setUserInfoSent() { this->sent_user_info = true; }
+
 private:
     int connection_id;
     bool connection_state;
@@ -39,4 +51,6 @@ private:
     enum { maxLength = 512 };
     char buffer[maxLength];
 
+    bool sent_navigator;
+    bool sent_user_info;
 };

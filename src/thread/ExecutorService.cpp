@@ -1,3 +1,11 @@
+/**
+* Icarus - A multi-platform C++ server
+*
+* Copyright 2016 Alex "Quackster" Miller
+*
+* Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+* (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
+*/
 #include "stdafx.h"
 
 #include <algorithm>
@@ -72,7 +80,9 @@ void ExecutorService::tick() {
 
         if (runnable != nullptr) {
             std::this_thread::sleep_for(this->duration);
-            runnable->run();
+            if (runnable != nullptr) {
+                runnable->run();
+            }
         }
 
         // stop() function was called, try to cancel as soon as possible.
@@ -108,10 +118,6 @@ void ExecutorService::tick() {
             for (auto thread : this->threads) {
                 delete thread;
             }
-
-            this->cancelled_threads.clear();
-            this->threads.clear();
-            this->tasks.getDeque().clear();
         }
     }
 }

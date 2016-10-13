@@ -89,6 +89,7 @@
       <PreprocessorDefinitions>CPPCONN_PUBLIC_FUNC=</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;includes;D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\include;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -101,6 +102,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;includes;D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\include;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>CPPCONN_PUBLIC_FUNC=</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\lib\opt;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\lib;D:\lib\boost_1_62_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -111,6 +113,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;includes;D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\include;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>CPPCONN_PUBLIC_FUNC=</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\lib\opt;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\lib;D:\lib\boost_1_62_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -121,6 +124,7 @@
     <ClCompile>
       <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;includes;D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\include;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>CPPCONN_PUBLIC_FUNC=</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.7\lib\opt;D:\Program Files\MySQL\mysql-connector-c-6.1.6-winx64\lib;D:\lib\boost_1_62_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -142,7 +146,7 @@
     <ClCompile Include="src\game\room\Room.cpp" />
     <ClCompile Include="src\game\room\RoomManager.cpp" />
     <ClCompile Include="src\game\room\RoomUser.cpp" />
-    <ClCompile Include="src\thread\ExampleRunnable.cpp" />
+    <ClCompile Include="src\game\room\tasks\RoomRunnable.cpp" />
     <ClCompile Include="src\thread\ExecutorService.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\navigator\NavigatorCategory.cpp" />
@@ -166,6 +170,9 @@
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\communication\incoming\user\EventLogMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\navigator\NewNavigatorMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\user\LatencyTestMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\WalkMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\EnterRoomMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\RoomInfoMessageEvent.h" />
@@ -196,7 +203,7 @@
     <ClInclude Include="includes\game\navigator\populators\DefaultPopulator.h" />
     <ClInclude Include="includes\game\navigator\populators\RoomPopulator.h" />
     <ClInclude Include="includes\game\navigator\populators\MyRoomPopulator.h" />
-    <ClInclude Include="includes\thread\ExampleRunnable.h" />
+    <ClInclude Include="includes\game\room\tasks\RoomRunnable.h" />
     <ClInclude Include="includes\thread\Runnable.h" />
     <ClInclude Include="includes\thread\ExecutorService.h" />
     <ClInclude Include="includes\communication\incoming\navigator\SearchNewNavigatorEvent.h" />

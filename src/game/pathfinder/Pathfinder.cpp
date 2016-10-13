@@ -1,6 +1,13 @@
+/**
+* Icarus - A multi-platform C++ server
+*
+* Copyright 2016 Alex "Quackster" Miller
+*
+* Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+* (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
+*/
 #include "stdafx.h"
 
-#include <deque>
 #include <algorithm>
 
 #include "game/pathfinder/Pathfinder.h"
@@ -19,9 +26,9 @@ Pathfinder::~Pathfinder() { }
     @param Position end
     @return vector of positions
 */
-std::vector<Position> Pathfinder::makePath(Position start, Position end, Room *room) {
+std::deque<Position> Pathfinder::makePath(Position start, Position end, Room *room) {
 
-    std::vector<Position> positions;
+    std::deque<Position> positions;
     std::shared_ptr<PathfinderNode> nodes = makePathReversed(start, end, room);
 
     if (nodes != nullptr) {
@@ -32,6 +39,11 @@ std::vector<Position> Pathfinder::makePath(Position start, Position end, Room *r
     }
 
     std::reverse(positions.begin(), positions.end());
+
+    if (positions.size() > 0) {
+        positions.pop_front(); // idk why but it always puts an invalid tile at the front ??? need to fix later
+    }
+
     return positions;
 }
 
@@ -119,7 +131,6 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
             }
         }
     }
-
 
     return nullptr;
 }

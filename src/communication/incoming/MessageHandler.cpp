@@ -1,3 +1,11 @@
+/**
+* Icarus - A multi-platform C++ server
+*
+* Copyright 2016 Alex "Quackster" Miller
+*
+* Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+* (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
+*/
 #include "stdafx.h"
 
 #include "communication/headers/Incoming.h"
@@ -10,9 +18,12 @@
 
 // User
 #include "communication/incoming/user/UserDataMessageEvent.h"
+#include "communication/incoming/user/LatencyTestMessageEvent.h"
+#include "communication/incoming/user/EventLogMessageEvent.h"
 
 // Navigator
 #include "communication/incoming/navigator/SearchNewNavigatorEvent.h"
+#include "communication/incoming/navigator/NewNavigatorMessageEvent.h"
 
 // Room
 #include "communication/incoming/room/RoomInfoMessageEvent.h"
@@ -35,16 +46,20 @@ MessageHandler::MessageHandler() :
     this->createEvent(Incoming::AuthenticateMessageEvent, new AuthenticateMessageEvent());
 
     // User
-    this->createEvent(Incoming::NewNavigatorMessageEvent, new UserDataMessageEvent());
+    this->createEvent(Incoming::UserDataMessageEvent, new UserDataMessageEvent());
+    this->createEvent(Incoming::LatencyTestMessageEvent, new LatencyTestMessageEvent());
+    this->createEvent(Incoming::EventLogMessageEvent, new EventLogMessageEvent());
     
     // Navigator
     this->createEvent(Incoming::SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
+    this->createEvent(Incoming::NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
 
     // Room
     this->createEvent(Incoming::RoomInfoMessageEvent, new RoomInfoMessageEvent());
     this->createEvent(Incoming::EnterRoomMessageEvent, new EnterRoomMessageEvent());
     this->createEvent(Incoming::HeightMapMessageEvent, new HeightMapMessageEvent());
     this->createEvent(Incoming::UserWalkMessageEvent, new WalkMessageEvent());
+    
 }
 
 /*
@@ -93,8 +108,6 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
     } else {
         std::cout << " [MessageHandler] Unhandled message " << header << std::endl;
     }
-
-
 }
 /* 
     MessageHandler deconstructor
@@ -104,12 +117,8 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
 MessageHandler::~MessageHandler() { 
 
     for (auto pair : *this->messages) {
-        delete pair.second; // Delete message event pointer
+        delete pair.second;
     }
 
-    // Empty out nullptr values
-    this->messages->clear();
-
-    // Delete messages map
     delete messages;
 }

@@ -1,14 +1,24 @@
+/**
+* Icarus - A multi-platform C++ server
+*
+* Copyright 2016 Alex "Quackster" Miller
+*
+* Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+* (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
+*/
 #pragma once
 #include <map>
+#include <deque>
 
 #include "game/pathfinder/Position.h"
 
+class Entity;
 class Room; // Defined elsewhere
 class RoomUser
 {
 
 public:
-    RoomUser();
+    RoomUser(Entity *entity);
     ~RoomUser();
 
     Room *getRoom() { return room; }
@@ -30,8 +40,10 @@ private:
     int head_rotation;
 
     std::map<std::string, std::string> statuses;
+    std::deque<Position> path;
 
     Room *room;
+    Entity *entity;
 
     bool is_walking;
     bool needs_update;
@@ -40,23 +52,28 @@ private:
 public:
 
     void reset();
+    void stopWalking(bool needs_update);
+    void setStatus(std::string key, std::string value, bool update = false);
+    void updateStatus();
 
-    bool getLoadingRoom() { return is_loading_room; }
-    bool getNeedsUpdate() { return needs_update; }
-    bool isWalking() { return is_walking; }
-    int getRotation() { return rotation; }
-    int getHeadRotation() { return head_rotation; }
-    int getGoalX() { return goal_x; }
-    int getGoalY() { return goal_y; }
-    int getX() { return x; }
-    int getY() { return y; }
+    bool &getLoadingRoom() { return is_loading_room; }
+    bool &getNeedsUpdate() { return needs_update; }
+    bool &isWalking() { return is_walking; }
+    int &getRotation() { return rotation; }
+    int &getHeadRotation() { return head_rotation; }
+    int &getGoalX() { return goal_x; }
+    int &getGoalY() { return goal_y; }
+    int &getX() { return x; }
+    int &getY() { return y; }
     std::map<std::string, std::string> &getStatuses() { return statuses;  }
-    double getHeight() { return height; }
-    int getVirtualId() { return virtual_id; }
+    double &getHeight() { return height; }
+    int &getVirtualId() { return virtual_id; }
     Position getPosition() { return Position(x, y); }
-    Position getGoal() { return Position(goal_x, goal_y); }
+    Position &getGoal() { return Position(goal_x, goal_y); }
+    std::deque<Position> &getPath() { return path; }
+    void setPath(std::deque<Position> path) { this->path = path; }
+    Entity *getEntity() { return this->entity; }
 
-    void updateStatus(std::string key, std::string value);
 
     void setLoadingRoom(bool is_loading_room) { this->is_loading_room = is_loading_room; }
     void setNeedsUpdate(bool needs_update) { this->needs_update = needs_update; }
@@ -68,5 +85,5 @@ public:
     void setX(int x) { this->x = x; }
     void setY(int y) { this->y = y; }
     void setHeight(double height) { this->height = height; }
-    void setVirtualId(int virtual_id) { this->virtual_id = height; }
+    void setVirtualId(int virtual_id) { this->virtual_id = virtual_id; }
 };

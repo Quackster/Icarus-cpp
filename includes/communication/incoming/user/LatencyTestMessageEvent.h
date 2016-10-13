@@ -7,13 +7,16 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-#include "communication/outgoing/MessageComposer.h"
+#include "boot/Icarus.h"
+#include "communication/incoming/MessageEvent.h"
 
-
-class Runnable
-{
+class LatencyTestMessageEvent : public MessageEvent {
 
 public:
-    virtual ~Runnable() {}
-    virtual void run() = 0;
+    LatencyTestMessageEvent() { }
+
+    void handle(Player *player, Request &request) {
+
+
+    }
 };

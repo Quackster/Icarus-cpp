@@ -2,11 +2,14 @@
 # Ignore directories #
 
 Debug/
+Release/
 x64/
 x86/
 .vs/
 Icarus.VC.db
 Icarus.VC.VC.opendb
+Icarus.sln
+Makefile
 ipch/
 enc_temp_folder/
 configuration.ini

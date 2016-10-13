@@ -1,17 +1,23 @@
+/**
+* Icarus - A multi-platform C++ server
+*
+* Copyright 2016 Alex "Quackster" Miller
+*
+* Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+* (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
+*/
 #include "stdafx.h"
 
 #include "dao/RoomDao.h"
 #include "game/room/RoomManager.h"
 
-
 /*
     Constructor for room manager
 */
 RoomManager::RoomManager() :
-    rooms(new std::map<int, Room*>()) { 
-    
-        this->models = RoomDao::getModels();
-    }
+    rooms(new std::map<int, Room*>()), 
+    models(RoomDao::getModels()) {
+}
 
 /*
     Loads new player rooms if they're not already added to memory
@@ -111,7 +117,6 @@ Room *RoomManager::getRoom(int room_id) {
 void RoomManager::addRoom(Room *room) {
 
     if (!this->hasRoom(room->getData()->getId())) {
-        //std::cout << "Added room " << room->getData()->getId() << std::endl;
         this->rooms->insert(std::make_pair(room->getData()->getId(), room));
     }
 }
@@ -143,9 +148,6 @@ RoomManager::~RoomManager() {
         delete model_entry.second;
     }
 
-    this->rooms->clear();
-    this->models->clear();
-    
     delete this->rooms;
     delete this->models;
 }

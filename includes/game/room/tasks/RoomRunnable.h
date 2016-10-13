@@ -7,13 +7,13 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-#include "communication/outgoing/MessageComposer.h"
+#include "thread/Runnable.h"
+#include "game/room/Room.h"
 
-
-class Runnable
-{
+class RoomRunnable : public Runnable {
 
 public:
-    virtual ~Runnable() {}
-    virtual void run() = 0;
+    RoomRunnable(Room *room);
+    void run();
+    Room *room;
 };

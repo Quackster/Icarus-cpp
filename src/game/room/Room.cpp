@@ -1,3 +1,11 @@
+/**
+* Icarus - A multi-platform C++ server
+*
+* Copyright 2016 Alex "Quackster" Miller
+*
+* Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+* (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
+*/
 #include "stdafx.h"
 
 #include <cstring>
@@ -6,12 +14,13 @@
 #include "boot/Icarus.h"
 #include "communication/outgoing/user/HotelViewMessageComposer.h"
 
+#include "communication/outgoing/room/UserDisplayMessageComposer.h"
+#include "communication/outgoing/room/UserStatusMessageComposer.h"
+
 /*
     Constructor for rooms
 */
-Room::Room() { 
-    this->entities = new std::vector<Entity*>();
-}
+Room::Room() : disposed(false), entities(new std::vector<Entity*>()) { }
 
 /*
     Whether or not the user has room rights, has optional option for
@@ -31,8 +40,43 @@ bool Room::hasRights(int user_id, bool owner_check_only) {
             return std::find(this->room_data->getUserRights().begin(), this->room_data->getUserRights().end(), user_id) != this->room_data->getUserRights().end();
         }
     }
+}
+
+/*
+Enter room handler
+
+@return none
+*/
+void Room::enter(Player* player) {
+
+    this->disposed = false;
+
+    if (this->entities->size() == 0) {
+        this->scheduleRunnable();
+    }
+
+    player->getRoomUser()->setLoadingRoom(false);
+
+    RoomModel *model = this->room_data->getModel();
+    RoomUser *room_user = player->getRoomUser();
+
+    room_user->setX(model->getDoorX());
+    room_user->setY(model->getDoorY());
+    room_user->setHeight(model->getDoorZ());
+    room_user->setRotation(model->getDoorRotation(), true);
+
+    this->send(UserDisplayMessageComposer(player));
+    this->send(UserStatusMessageComposer(player));
+
+    if (!this->hasEntity(player)) {
+        this->entities->push_back(player);
+    }
+
+    player->send(UserDisplayMessageComposer(*this->entities));
+    player->send(UserStatusMessageComposer(*this->entities));
 
 }
+
 
 /*
     Leave room, can send to hotel if option is given or dispose room
@@ -52,7 +96,7 @@ void Room::leave(Player* player, bool hotel_view, bool dispose) {
 
         // Remove entity from vector
         this->entities->erase(std::remove(this->entities->begin(), this->entities->end(), player), this->entities->end());
-        
+
         // Reset room user
         player->getRoomUser()->reset();
     }
@@ -144,9 +188,7 @@ std::vector<Player*> Room::getPlayers() {
 void Room::dispose(bool force_dispose) {
 
     if (force_dispose) {
-
-        // reset state ?
-       
+        this->reset();
         Icarus::getGame()->getRoomManager()->deleteRoom(this->room_data->getId());
         return;
     }
@@ -154,13 +196,22 @@ void Room::dispose(bool force_dispose) {
     bool empty_room = this->getPlayers().size() == 0;
 
     if (empty_room) {
-
-        // reset state
-
+        this->reset();
         if (this->room_data->isOwnerOnline() == false && empty_room) {
             Icarus::getGame()->getRoomManager()->deleteRoom(this->room_data->getId());
         }
     }
+}
+
+/*
+    Function to reset all room states to default
+    used when there's no more users in the room or the room is getting deleted from memory
+
+    @return none
+*/
+void Room::reset() {
+
+    this->disposed = true;
 }
 
 /*
@@ -179,6 +230,20 @@ void Room::send(MessageComposer &composer) {
 }
 
 /*
+    Reschedule room runnable if it's not nullptr, it will not schedule if the room has been disposed
+
+    @return none
+*/
+void Room::scheduleRunnable() {
+
+    if (this->disposed) {
+        return;
+    }
+
+    Icarus::getGame()->getGameScheduler()->schedule(std::make_shared<RoomRunnable>(this));
+}
+
+/*
     Deconstructor for rooms
 */
 Room::~Room()
@@ -190,8 +255,6 @@ Room::~Room()
             delete entity; // Only delete non-playable entities
         }
     }
-
-    this->entities->clear();
 
     delete room_data;
     delete entities;

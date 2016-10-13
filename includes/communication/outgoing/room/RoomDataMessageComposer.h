@@ -1,3 +1,11 @@
+/**
+* Icarus - A multi-platform C++ server
+*
+* Copyright 2016 Alex "Quackster" Miller
+*
+* Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+* (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
+*/
 #pragma once
 
 #include "game/room/Room.h"
@@ -27,7 +35,7 @@ public:
         response.writeInt(room->getData()->getWhoCanMute());
         response.writeInt(room->getData()->getWhoCanKick());
         response.writeInt(room->getData()->getWhoCanBan());
-        response.writeBool(false); // TODO: Rights, true if moderator or room owner
+        response.writeBool(room->hasRights(player->getDetails()->getId(), true)); // TODO: Rights, true if moderator or room owner
         response.writeInt(0);
         response.writeInt(0);
         response.writeInt(0);

@@ -1,3 +1,11 @@
+/**
+* Icarus - A multi-platform C++ server
+*
+* Copyright 2016 Alex "Quackster" Miller
+*
+* Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+* (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
+*/
 #include "stdafx.h"
 
 #include "dao/NavigatorDao.h"
@@ -79,23 +87,17 @@ Deletes all pointer variables
 NavigatorManager::~NavigatorManager() {
 
     for (auto tab : *this->tabs) {
-        delete tab; // Delete tab pointer
+        delete tab;
     }
 
     for (auto category : *this->categories) {
-        delete category; // Delete categories pointer
+        delete category;
     }
 
     for (auto populator : *this->room_populators) {
         delete populator.second;
     }
 
-    // Empty out nullptr values
-    this->categories->clear();
-    this->tabs->clear();
-    this->room_populators->clear();
-
-    // Delete lists
     delete categories;
     delete tabs;
     delete room_populators;
