@@ -38,7 +38,11 @@ public:
         res.writeString("http://localhost/");//Link to article
         res.writeString("web_promo_small/laptop_habbo.png");//Image link
 
+<<<<<<< HEAD
                                                             //stories_hallofselfies_teaser.png
+=======
+        //stories_hallofselfies_teaser.png
+>>>>>>> refs/remotes/origin/master
 
         res.writeInt(1);//ID
         res.writeString("Boring one");//Title
@@ -49,6 +53,9 @@ public:
         res.writeString("web_promo_small/stories_hallofselfies_teaser.png");//Image link
 
         player->getNetworkConnection()->send(res);
+<<<<<<< HEAD
         player->getNetworkConnection()->setUserInfoSent();
+=======
+>>>>>>> refs/remotes/origin/master
     }
 };

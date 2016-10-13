@@ -33,10 +33,13 @@ public:
         room->enter(player); // call method to finalise enter room
 
         player->send(RoomDataMessageComposer(room, player, 1, 1));
+<<<<<<< HEAD
 
         Response res(Outgoing::RoomOwnerRightsComposer);
         res.writeInt(room->getData()->getId());
         res.writeBool(false);
         player->getNetworkConnection()->send(res);
+=======
+>>>>>>> refs/remotes/origin/master
     }
 };

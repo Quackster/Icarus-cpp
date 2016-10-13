@@ -47,6 +47,11 @@ void Player::login() {
     // load player rooms
     Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->getId());
 
+<<<<<<< HEAD
+=======
+    // New room user instance
+    this->room_user = new RoomUser(this);
+>>>>>>> refs/remotes/origin/master
 
 
 
@@ -77,6 +82,10 @@ void Player::clear() {
     if (this->logged_in) {
 
         if (this->room_user != nullptr) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/master
             if (this->room_user->getRoom() != nullptr) {
                 this->room_user->getRoom()->leave(this, false, true);
             }
