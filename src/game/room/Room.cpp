@@ -26,10 +26,10 @@
 /*
     Constructor for rooms
 */
-Room::Room() : 
-    disposed(false), 
+Room::Room() :
+    disposed(false),
     entities(new std::vector<Entity*>()),
-    runnable(std::make_shared<RoomRunnable>(this)) { }
+    runnable(nullptr) {} //std::make_shared<RoomRunnable>(this)) { }
 
 /*
     Whether or not the user has room rights, has optional option for
@@ -136,7 +136,7 @@ void Room::leave(Player* player, bool hotel_view, bool dispose) {
     @param response
     @return none
 */
-void Room::serialise(Response &response, bool enter_room) {
+void Room::serialise(Response &response) {
 
     response.writeInt(this->room_data->getId());
     response.writeString(this->room_data->getName());
@@ -158,9 +158,9 @@ void Room::serialise(Response &response, bool enter_room) {
 
     int response_type = 0;
 
-    if (enter_room) {
+    /*if (enter_room) {
         response_type = 32;
-    }
+    }*/
 
     if (this->room_data->isPrivate()) {
         response_type += 8;
@@ -235,7 +235,9 @@ void Room::dispose(bool force_dispose) {
 void Room::reset() {
 
     this->disposed = true;
-    //this->runnable->setCancelled(true);
+    //this->runnable = nullptr;
+
+    printf("kek");
 }
 
 /*

@@ -24,7 +24,7 @@ public:
 
     bool hasRights(int user_id, bool owner_check_only = false);
 
-    void serialise(Response &response, bool enter_room);
+    void serialise(Response &response);
     void enter(Player* player);
     void leave(Player* player, bool hotel_view, bool dispose = true);
     void dispose(bool force_disposal = false);
@@ -37,6 +37,7 @@ public:
     void scheduleRunnable();
     bool isDisposed() { return disposed; }
     std::shared_ptr<RoomRunnable> getRunnable() { return this->runnable; }
+    void setRunnable(std::shared_ptr<RoomRunnable> runnable) { this->runnable = runnable; }
     //bool isDisposed(bool disposed) { return disposed = disposed; }
 
 private:

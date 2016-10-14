@@ -33,7 +33,7 @@ public:
         if (is_loading == 0 && check_entry == 1) {
             if (player->getRoomUser()->getRoom() != nullptr) {
                 if (room_id == player->getRoomUser()->getRoom()->getData()->getId()) {
-                    return;
+                   // return;
                 }
             }
         }
