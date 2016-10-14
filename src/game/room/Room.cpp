@@ -235,9 +235,6 @@ void Room::dispose(bool force_dispose) {
 void Room::reset() {
 
     this->disposed = true;
-    //this->runnable = nullptr;
-
-    printf("kek");
 }
 
 /*
