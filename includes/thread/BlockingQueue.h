@@ -25,13 +25,7 @@ public:
     void push(T const& value) {
         {
             std::unique_lock<std::mutex> lock(this->mutex);
-
-            if (std::find(this->queue.begin(), this->queue.end(), value) == this->queue.end()) {
-                queue.push_front(value);
-            }
-            else {
-                printf("could find\n");
-            }
+            queue.push_front(value);
         }
         this->condition.notify_one();
     }

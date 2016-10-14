@@ -22,7 +22,6 @@
 std::map<std::string, RoomModel*> *RoomDao::getModels() {
 
     std::map<std::string, RoomModel*> *models = new std::map<std::string, RoomModel*>();
-
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
     try {
