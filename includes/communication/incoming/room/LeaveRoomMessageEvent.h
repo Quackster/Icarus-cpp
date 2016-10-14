@@ -9,27 +9,15 @@
 #pragma once
 #include "communication/incoming/MessageEvent.h"
 
-
-class EnterRoomMessageEvent : public MessageEvent {
+class LeaveRoomMessageEvent : public MessageEvent {
 
 public:
-    EnterRoomMessageEvent() { }
+    LeaveRoomMessageEvent() { }
 
     void handle(Player *player, Request &request) {
 
-        int room_id = request.readInt();
-
-        Room *room = Icarus::getGame()->getRoomManager()->getRoom(room_id);
-
-        if (room == nullptr) {
-            return;
-        }
-
         if (player->getRoomUser()->getRoom() != nullptr) {
-            player->getRoomUser()->getRoom()->leave(player, false);
+            player->getRoomUser()->getRoom()->leave(player, true, true);
         }
-
-        room->enter(player); // call method to finalise enter room
-
     }
 };

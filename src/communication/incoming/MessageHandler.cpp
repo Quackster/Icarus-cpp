@@ -26,6 +26,7 @@
 #include "communication/incoming/navigator/NewNavigatorMessageEvent.h"
 
 // Room
+#include "communication/incoming/room/LeaveRoomMessageEvent.h"
 #include "communication/incoming/room/RoomInfoMessageEvent.h"
 #include "communication/incoming/room/EnterRoomMessageEvent.h"
 #include "communication/incoming/room/HeightMapMessageEvent.h"
@@ -53,6 +54,7 @@ MessageHandler::MessageHandler() :
     // Navigator
     this->createEvent(Incoming::SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
     this->createEvent(Incoming::NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
+    this->createEvent(Incoming::LeaveRoomMessageEvent, new LeaveRoomMessageEvent());
 
     // Room
     this->createEvent(Incoming::RoomInfoMessageEvent, new RoomInfoMessageEvent());
@@ -87,7 +89,7 @@ MessageEvent *MessageHandler::getMessageEvent(int header) {
 void MessageHandler::createEvent(int header, MessageEvent *event) {
 
     if (!this->messages->count(header)) {
-        std::cout << " [MessageHandler] Event registered: " << header << " for event (" << typeid(*event).name() << ") " << std::endl;
+        //std::cout << " [MessageHandler] Event registered: " << header << " for event (" << typeid(*event).name() << ") " << std::endl;
         this->messages->insert(std::make_pair(header, event));
     }
 }
@@ -104,9 +106,9 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
 
     if (this->messages->count(header)) {
         this->messages->find(header)->second->handle(player, request);
-        std::cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages->find(header)->second).name() << ") " << std::endl;
+        //std::cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages->find(header)->second).name() << ") " << std::endl;
     } else {
-        std::cout << " [MessageHandler] Unhandled message " << header << std::endl;
+        //std::cout << " [MessageHandler] Unhandled message " << header << std::endl;
     }
 }
 /* 

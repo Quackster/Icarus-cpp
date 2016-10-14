@@ -24,46 +24,6 @@ int Calculate(int X1, int Y1, int X2, int Y2);
 */
 RoomRunnable::RoomRunnable(Room *room) : room(room) { }
 
-int Calculate(int X1, int Y1, int X2, int Y2)
-{
-    int Rotation = 0;
-
-    if (X1 > X2 && Y1 > Y2)
-    {
-        Rotation = 7;
-    }
-    else if (X1 < X2 && Y1 < Y2)
-    {
-        Rotation = 3;
-    }
-    else if (X1 > X2 && Y1 < Y2)
-    {
-        Rotation = 5;
-    }
-    else if (X1 < X2 && Y1 > Y2)
-    {
-        Rotation = 1;
-    }
-    else if (X1 > X2)
-    {
-        Rotation = 6;
-    }
-    else if (X1 < X2)
-    {
-        Rotation = 2;
-    }
-    else if (Y1 < Y2)
-    {
-        Rotation = 4;
-    }
-    else if (Y1 > Y2)
-    {
-        Rotation = 0;
-    }
-
-    return Rotation;
-}
-
 /*
     Tick handler for room runnable
 
@@ -71,9 +31,10 @@ int Calculate(int X1, int Y1, int X2, int Y2)
 */
 void RoomRunnable::run() {
 
-    if (room->isDisposed()) {
+    if (this->isCancelled()) {
         return;
     }
+
     RoomModel *room_model = this->room->getData()->getModel();
 
     std::vector<Entity*> entities_update;
@@ -130,8 +91,6 @@ void RoomRunnable::run() {
     if (entities_update.size() > 0) {
         this->room->send(UserStatusMessageComposer(entities_update));
     }
-
-    if (this->room->getPlayers().size() > 0) {
-        this->room->scheduleRunnable(); // reschedule again!!
-    }
+    
+    Icarus::getGame()->getGameScheduler()->schedule(this->room->getRunnable());
 }

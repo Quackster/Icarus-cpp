@@ -12,15 +12,24 @@
 
 #include "game/room/Room.h"
 #include "boot/Icarus.h"
-#include "communication/outgoing/user/HotelViewMessageComposer.h"
 
-#include "communication/outgoing/room/UserDisplayMessageComposer.h"
-#include "communication/outgoing/room/UserStatusMessageComposer.h"
+#include "communication/outgoing/user/HotelViewMessageComposer.h"
+#include "communication/outgoing/room/entry/RoomRatingMessageComposer.h"
+#include "communication/outgoing/room/entry/RoomModelMessageComposer.h"
+#include "communication/outgoing/room/entry/RoomSpacesMessageComposer.h"
+#include "communication/outgoing/room/entry/RoomOwnerMessageComposer.h"
+#include "communication/outgoing/room/entry/RightsLevelMessageComposer.h"
+#include "communication/outgoing/room/entry/NoRightsMessageComposer.h"
+#include "communication/outgoing/room/entry/PrepareRoomMessageComposer.h"
+
 
 /*
     Constructor for rooms
 */
-Room::Room() : disposed(false), entities(new std::vector<Entity*>()) { }
+Room::Room() : 
+    disposed(false), 
+    entities(new std::vector<Entity*>()),
+    runnable(std::make_shared<RoomRunnable>(this)) { }
 
 /*
     Whether or not the user has room rights, has optional option for
@@ -51,30 +60,43 @@ void Room::enter(Player* player) {
 
     this->disposed = false;
 
-    if (this->entities->size() == 0) {
+    if (this->getPlayers().size() == 0) {
+        this->runnable->setCancelled(false);
         this->scheduleRunnable();
     }
 
-    player->getRoomUser()->setLoadingRoom(false);
+    // So we don't forget what room we entered 8-)
+    player->getRoomUser()->setRoom(this);
+    player->getRoomUser()->setLoadingRoom(true);
+    player->getRoomUser()->setVirtualId(this->getData()->getVirtualId());
 
-    RoomModel *model = this->room_data->getModel();
-    RoomUser *room_user = player->getRoomUser();
+    player->send(RoomModelMessageComposer(room_data->getModel()->getName(), this->room_data->getId()));
+    player->send(RoomRatingMessageComposer(room_data->getScore()));
 
-    room_user->setX(model->getDoorX());
-    room_user->setY(model->getDoorY());
-    room_user->setHeight(model->getDoorZ());
-    room_user->setRotation(model->getDoorRotation(), true);
+    std::string floor = room_data->getFloor();
+    std::string wall = room_data->getWallpaper();
 
-    this->send(UserDisplayMessageComposer(player));
-    this->send(UserStatusMessageComposer(player));
-
-    if (!this->hasEntity(player)) {
-        this->entities->push_back(player);
+    if (floor.length() > 0) {
+        player->send(RoomSpacesMessageComposer("floor", floor));
     }
 
-    player->send(UserDisplayMessageComposer(*this->entities));
-    player->send(UserStatusMessageComposer(*this->entities));
+    if (wall.length() > 0) {
+        player->send(RoomSpacesMessageComposer("wall", floor));
+    }
 
+    player->send(RoomSpacesMessageComposer("landscape", room_data->getOutside()));
+
+    if (this->hasRights(player->getDetails()->getId(), true)) {
+        player->getRoomUser()->setStatus("flatctrl", "useradmin");
+        player->send(RoomOwnerMessageComposer());
+        player->send(RightsLevelMessageComposer(4));
+    }
+    else if (this->hasRights(player->getDetails()->getId(), false)) {
+        player->getRoomUser()->setStatus("flatctrl", "1");
+        player->send(RightsLevelMessageComposer(1));
+    }
+
+    player->send(PrepareRoomMessageComposer(this->room_data->getId()));
 }
 
 
@@ -197,7 +219,7 @@ void Room::dispose(bool force_dispose) {
 
     if (empty_room) {
         this->reset();
-        if (this->room_data->isOwnerOnline() == false && empty_room) {
+        if (this->room_data->isOwnerOnline() == false) {
             Icarus::getGame()->getRoomManager()->deleteRoom(this->room_data->getId());
         }
     }
@@ -212,6 +234,7 @@ void Room::dispose(bool force_dispose) {
 void Room::reset() {
 
     this->disposed = true;
+    this->runnable->setCancelled(true);
 }
 
 /*

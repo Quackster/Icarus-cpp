@@ -36,10 +36,12 @@ public:
     bool hasEntity(Entity* entity);
     void scheduleRunnable();
     bool isDisposed() { return disposed; }
+    std::shared_ptr<RoomRunnable> getRunnable() { return this->runnable; }
     //bool isDisposed(bool disposed) { return disposed = disposed; }
 
 private:
     RoomData *room_data;
+    std::shared_ptr<RoomRunnable> runnable;
     //RoomRunnable *room_runnable;
     std::vector<Entity*> *entities;
     bool disposed;

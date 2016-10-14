@@ -15,5 +15,8 @@ class RoomRunnable : public Runnable {
 public:
     RoomRunnable(Room *room);
     void run();
+    bool isCancelled() { return this->cancelled; };
+    void setCancelled(bool flag) { this->cancelled = flag; }
     Room *room;
+    bool cancelled = false;
 };
