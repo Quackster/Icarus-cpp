@@ -19,7 +19,7 @@
 class Room
 {
 public:
-    Room();
+    Room(int room_id);
     ~Room();
 
     bool hasRights(int user_id, bool owner_check_only = false);
@@ -30,9 +30,12 @@ public:
     void dispose(bool force_disposal = false);
     void setRoomData(RoomData *room_data) { this->room_data = room_data; };
     void send(MessageComposer &composer);
+    int getId() { return this->room_data->getId(); }
     RoomData *getData() { return room_data; }
+    RoomModel *getModel() { return this->room_data->getModel(); }
     std::vector<Player*> getPlayers();
     std::vector<Entity*> *getEntities() { return entities; }
+
     bool hasEntity(Entity* entity);
     void scheduleRunnable();
     bool isDisposed() { return disposed; }
@@ -41,11 +44,13 @@ public:
     //bool isDisposed(bool disposed) { return disposed = disposed; }
 
 private:
+
+    int room_id;
+
     RoomData *room_data;
     std::shared_ptr<RoomRunnable> runnable;
-    //RoomRunnable *room_runnable;
     std::vector<Entity*> *entities;
-    bool disposed;
 
+    bool disposed;
     void reset();
 };

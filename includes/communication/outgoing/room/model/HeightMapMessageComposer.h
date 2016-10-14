@@ -23,10 +23,7 @@ public:
 
     Response compose() {
 
-        RoomModel *model = room->getData()->getModel();
-
-        if (model == nullptr) {
-        }
+        RoomModel *model = room->getModel();
 
         Response response = this->createResponse();
         response.writeInt(model->getMapSizeX());

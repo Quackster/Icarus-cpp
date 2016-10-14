@@ -23,7 +23,7 @@ public:
 
     Response compose() {
 
-        RoomModel *model = room->getData()->getModel();
+        RoomModel *model = room->getModel();
 
         Response response = this->createResponse();
         response.writeBool(true);

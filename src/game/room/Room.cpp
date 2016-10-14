@@ -26,7 +26,8 @@
 /*
     Constructor for rooms
 */
-Room::Room() :
+Room::Room(int room_id) :
+    room_id(room_id),
     disposed(false),
     entities(new std::vector<Entity*>()),
     runnable(nullptr) {} //std::make_shared<RoomRunnable>(this)) { }
@@ -71,7 +72,7 @@ void Room::enter(Player* player) {
     player->getRoomUser()->setLoadingRoom(true);
     player->getRoomUser()->setVirtualId(this->getData()->getVirtualId());
 
-    player->send(RoomModelMessageComposer(room_data->getModel()->getName(), this->room_data->getId()));
+    player->send(RoomModelMessageComposer(this->getModel()->getName(), this->room_id));
     player->send(RoomRatingMessageComposer(room_data->getScore()));
 
     std::string floor = room_data->getFloor();
@@ -97,7 +98,7 @@ void Room::enter(Player* player) {
         player->send(RightsLevelMessageComposer(1));
     }
 
-    player->send(PrepareRoomMessageComposer(this->room_data->getId()));
+    player->send(PrepareRoomMessageComposer(this->room_id));
 }
 
 
@@ -138,7 +139,7 @@ void Room::leave(Player* player, bool hotel_view, bool dispose) {
 */
 void Room::serialise(Response &response) {
 
-    response.writeInt(this->room_data->getId());
+    response.writeInt(this->room_id);
     response.writeString(this->room_data->getName());
     response.writeInt(this->room_data->getOwnerId());
     response.writeString(this->room_data->getOwnerName()); // Owner name
@@ -212,7 +213,7 @@ void Room::dispose(bool force_dispose) {
 
     if (force_dispose) {
         this->reset();
-        Icarus::getGame()->getRoomManager()->deleteRoom(this->room_data->getId());
+        Icarus::getGame()->getRoomManager()->deleteRoom(this->room_id);
         return;
     }
 
@@ -221,7 +222,7 @@ void Room::dispose(bool force_dispose) {
     if (empty_room) {
         this->reset();
         if (this->room_data->isOwnerOnline() == false) {
-            Icarus::getGame()->getRoomManager()->deleteRoom(this->room_data->getId());
+            Icarus::getGame()->getRoomManager()->deleteRoom(this->room_id);
         }
     }
 }
@@ -271,7 +272,7 @@ void Room::scheduleRunnable() {
 */
 Room::~Room()
 {
-    std::cout << " Room ID " << this->room_data->getId() << " disposed." << std::endl;
+    std::cout << " Room ID " << this->room_id << " disposed." << std::endl;
 
     for (auto entity : *this->entities) {
         if (entity->getEntityType() != PLAYER) {

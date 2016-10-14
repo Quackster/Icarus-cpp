@@ -29,15 +29,6 @@ public:
         int is_loading = request.readInt();
         int check_entry = request.readInt();
 
-        // Stop people re-entering the same room
-        if (is_loading == 0 && check_entry == 1) {
-            if (player->getRoomUser()->getRoom() != nullptr) {
-                if (room_id == player->getRoomUser()->getRoom()->getData()->getId()) {
-                   // return;
-                }
-            }
-        }
-
         player->send(RoomDataMessageComposer(room, player, is_loading == 1, check_entry == 1));
     }
 };

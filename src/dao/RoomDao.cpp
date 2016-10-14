@@ -136,7 +136,7 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
                 // The user disconnects and there's no one else in the room so they get deleted
                 //
                 // 'delete' called from the .deleteRoom function from RoomManager
-                Room *room = new Room();
+                Room *room = new Room(room_id);
 
                 room->setRoomData(new RoomData(
                     room_id,
