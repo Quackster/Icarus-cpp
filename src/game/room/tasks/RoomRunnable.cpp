@@ -103,16 +103,14 @@ void RoomRunnable::run() {
                 int height = room_model->getSquareHeight()[next.getX() * room_model->getMapSizeY() + next.getY()];
                 room_user->setRotation(Calculate(room_user->getPosition().getX(), room_user->getPosition().getY(), next.getX(), next.getY()), true, false);
 
-                /*std::stringstream ss;
+                std::stringstream ss;
                 ss << next.getX();
                 ss << ",";
                 ss << next.getY();
                 ss << ",";
                 ss << height;
-                std::string status = ss.str();
-                ss.clear();*/
 
-                room_user->setStatus("mv", "");
+                room_user->setStatus("mv", ss.str());
                 room_user->updateStatus();
 
                 room_user->setX(next.getX());

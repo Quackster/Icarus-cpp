@@ -27,10 +27,10 @@ public:
     PlayerDetails(int id, std::string username, std::string motto, std::string figure, int rank, int credits);
     ~PlayerDetails();
 
-    int getId() { return id; }
-    std::string getUsername() { return username; }
-    std::string getMotto() { return motto; }
-    std::string getFigure() { return figure; }
-    int getRank() { return rank; }
-    int getCredits() { return credits; }
+    int &getId() { return id; }
+    std::string const &getUsername() const { return username; }
+    std::string const &getMotto() const { return motto; }
+    std::string const &getFigure() const { return figure; }
+    int &getRank() { return rank; }
+    int &getCredits() { return credits; }
 };
