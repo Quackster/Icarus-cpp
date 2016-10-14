@@ -151,13 +151,7 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is
         int map_size_x = room->getData()->getModel()->getMapSizeX();
         int map_size_y = room->getData()->getModel()->getMapSizeY();
 
-        if (tmp.getX() > map_size_x && tmp.getY() > map_size_y) {
-            return false;
-        }
-
-        std::string charr = room->getData()->getModel()->getSquareChar()[tmp.getX() * room->getData()->getModel()->getMapSizeY() + tmp.getY()];
-
-        if (charr.length() < 1) {
+        if (tmp.getX() >= map_size_x || tmp.getY() >= map_size_y) {
             return false;
         }
 
