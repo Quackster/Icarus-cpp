@@ -79,7 +79,7 @@ void Response::writeInt(int number) {
     }
 
     this->index = this->index + 4;
-    delete bytes;
+    delete[] bytes;
 }
 
 /*
@@ -97,7 +97,7 @@ void Response::writeShort(short number) {
     }
 
     this->index = this->index + 2;
-    delete bytes;
+    delete[] bytes;
 }
 
 /*
@@ -139,6 +139,8 @@ char* Response::getData() {
             // Insert at the front of vector
             this->message.insert(this->message.begin(), size[i]);
         }
+
+        delete[] size;
     }
         
     return this->message.data();

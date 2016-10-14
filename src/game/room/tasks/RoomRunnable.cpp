@@ -65,15 +65,17 @@ int Calculate(int X1, int Y1, int X2, int Y2)
 }
 
 /*
-    Tick handler for room runnable
+Tick handler for room runnable
 
-    @return none
+@return none
 */
 void RoomRunnable::run() {
 
-    if (room->isDisposed()) {
+    if (this->room->isDisposed()) {
+        this->room->setRunnable(nullptr);
         return;
     }
+
     RoomModel *room_model = this->room->getData()->getModel();
 
     std::vector<Entity*> entities_update;
@@ -81,7 +83,7 @@ void RoomRunnable::run() {
     for (Entity *entity : *this->room->getEntities()) {
 
         RoomUser *room_user = entity->getRoomUser();
-        
+
 
         if (room_user->getPosition().sameAs(room_user->getGoal())) {
             room_user->stopWalking(false);
@@ -100,16 +102,17 @@ void RoomRunnable::run() {
 
                 int height = room_model->getSquareHeight()[next.getX() * room_model->getMapSizeY() + next.getY()];
                 room_user->setRotation(Calculate(room_user->getPosition().getX(), room_user->getPosition().getY(), next.getX(), next.getY()), true, false);
-                
-                std::stringstream ss;
+
+                /*std::stringstream ss;
                 ss << next.getX();
                 ss << ",";
                 ss << next.getY();
                 ss << ",";
                 ss << height;
                 std::string status = ss.str();
+                ss.clear();*/
 
-                room_user->setStatus("mv", status);
+                room_user->setStatus("mv", "");
                 room_user->updateStatus();
 
                 room_user->setX(next.getX());
@@ -131,7 +134,7 @@ void RoomRunnable::run() {
         this->room->send(UserStatusMessageComposer(entities_update));
     }
 
-    if (this->room->getPlayers().size() > 0) {
-        this->room->scheduleRunnable(); // reschedule again!!
+    if (room->getPlayers().size() > 0 && this->room->getRunnable() != nullptr) {
+        Icarus::getGame()->getGameScheduler()->schedule(/*std::make_shared<RoomRunnable>(this->room)*/this->room->getRunnable());
     }
 }

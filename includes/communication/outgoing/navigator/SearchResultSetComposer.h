@@ -61,7 +61,7 @@ public:
                 response.writeInt(rooms.size());
 
                 for (Room *room : rooms) {
-                    room->serialise(response, false);
+                    room->serialise(response);
                 }
             }
         }

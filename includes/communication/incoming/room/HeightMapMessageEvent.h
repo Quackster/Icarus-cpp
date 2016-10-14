@@ -14,6 +14,9 @@
 
 #include "communication/outgoing/room/RoomDataMessageComposer.h"        
 
+#include "communication/outgoing/room/UserDisplayMessageComposer.h"
+#include "communication/outgoing/room/UserStatusMessageComposer.h"
+
 class HeightMapMessageEvent : public MessageEvent {
 
 public:
@@ -30,7 +33,33 @@ public:
         player->send(HeightMapMessageComposer(room));
         player->send(FloorMapMessageComposer(room));
 
-        room->enter(player); // call method to finalise enter room
+        player->getRoomUser()->setLoadingRoom(false);
+
+        RoomModel *model = room->getData()->getModel();
+        RoomUser *room_user = player->getRoomUser();
+
+        room_user->setX(model->getDoorX());
+        room_user->setY(model->getDoorY());
+        room_user->setHeight(model->getDoorZ());
+        room_user->setRotation(model->getDoorRotation(), true);
+
+        room->send(UserDisplayMessageComposer(player));
+        room->send(UserStatusMessageComposer(player));
+
+        if (!room->hasEntity(player)) {
+            room->getEntities()->push_back(player);
+        }
+
+        if (room->getPlayers().size() == 1) {
+            
+            if (room->getRunnable() == nullptr) {
+                room->setRunnable(std::make_shared<RoomRunnable>(room));
+                room->scheduleRunnable();
+            }
+        }
+
+        player->send(UserDisplayMessageComposer(*room->getEntities()));
+        player->send(UserStatusMessageComposer(*room->getEntities()));
 
         player->send(RoomDataMessageComposer(room, player, 1, 1));
 

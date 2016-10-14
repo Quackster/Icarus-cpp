@@ -33,7 +33,14 @@ std::map<std::string, RoomModel*> *RoomDao::getModels() {
         std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
 
         while (result_set->next()) {
-            models->insert(std::make_pair(result_set->getString("id"), new RoomModel(result_set->getString("id"), result_set->getString("heightmap"), result_set->getInt("door_x"), result_set->getInt("door_y"), result_set->getInt("door_z"), result_set->getInt("door_dir"))));
+            models->insert(std::make_pair(result_set->getString("id"), 
+                new RoomModel(
+                    result_set->getString("id"), 
+                    result_set->getString("heightmap"), 
+                    result_set->getInt("door_x"), 
+                    result_set->getInt("door_y"), 
+                    result_set->getInt("door_z"), 
+                    result_set->getInt("door_dir"))));
         }
 
     }

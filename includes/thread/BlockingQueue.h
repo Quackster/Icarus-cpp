@@ -9,6 +9,7 @@
 #include <mutex>
 #include <condition_variable>
 #include <deque>
+#include <algorithm>
 
 template <typename T>
 class BlockingQueue
@@ -24,7 +25,13 @@ public:
     void push(T const& value) {
         {
             std::unique_lock<std::mutex> lock(this->mutex);
-            queue.push_front(value);
+
+            if (std::find(this->queue.begin(), this->queue.end(), value) == this->queue.end()) {
+                queue.push_front(value);
+            }
+            else {
+                printf("could find\n");
+            }
         }
         this->condition.notify_one();
     }

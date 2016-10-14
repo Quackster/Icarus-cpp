@@ -170,6 +170,7 @@
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\communication\incoming\room\LeaveRoomMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\user\EventLogMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\navigator\NewNavigatorMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\user\LatencyTestMessageEvent.h" />
