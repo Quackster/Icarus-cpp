@@ -80,9 +80,7 @@ void ExecutorService::tick() {
 
         if (runnable != nullptr) {
             std::this_thread::sleep_for(this->duration);
-            if (runnable != nullptr) {
-                runnable->run();
-            }
+            runnable->run();
         }
 
         // stop() function was called, try to cancel as soon as possible.

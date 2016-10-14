@@ -23,17 +23,21 @@ public:
         Room *room = Icarus::getGame()->getRoomManager()->getRoom(room_id);
 
         if (room == nullptr) {
-            printf("room is null\n");
             return;
         }
 
-        int i = request.readInt();
-        int j = request.readInt();
+        int is_loading = request.readInt();
+        int check_entry = request.readInt();
 
-        bool is_loading = i == 1;
-        bool check_entry = j == 1;
-        //printf("isloading: %i, chckentry: %i\n", i, j);
+        // Stop people re-entering the same room
+        if (is_loading == 0 && check_entry == 1) {
+            if (player->getRoomUser()->getRoom() != nullptr) {
+                if (room_id == player->getRoomUser()->getRoom()->getData()->getId()) {
+                    return;
+                }
+            }
+        }
 
-        player->send(RoomDataMessageComposer(room, player, is_loading, check_entry));
+        player->send(RoomDataMessageComposer(room, player, is_loading == 1, check_entry == 1));
     }
 };

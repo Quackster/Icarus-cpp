@@ -50,6 +50,12 @@ public:
             room->getEntities()->push_back(player);
         }
 
+        if (room->getPlayers().size() == 1/* && this->runnable->isCancelled()*/) {
+            //this->runnable->setCancelled(false);
+            room->scheduleRunnable();
+            //this->runnable->setCancelled(true);
+        }
+
         player->send(UserDisplayMessageComposer(*room->getEntities()));
         player->send(UserStatusMessageComposer(*room->getEntities()));
 

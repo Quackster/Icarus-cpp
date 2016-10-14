@@ -60,10 +60,11 @@ void Room::enter(Player* player) {
 
     this->disposed = false;
 
-    if (this->getPlayers().size() == 0) {
-        this->runnable->setCancelled(false);
+    /*if (this->getPlayers().size() == 0/* && this->runnable->isCancelled()) {
+        //this->runnable->setCancelled(false);
         this->scheduleRunnable();
-    }
+        //this->runnable->setCancelled(true);
+    }*/
 
     // So we don't forget what room we entered 8-)
     player->getRoomUser()->setRoom(this);
@@ -234,7 +235,7 @@ void Room::dispose(bool force_dispose) {
 void Room::reset() {
 
     this->disposed = true;
-    this->runnable->setCancelled(true);
+    //this->runnable->setCancelled(true);
 }
 
 /*
@@ -263,7 +264,7 @@ void Room::scheduleRunnable() {
         return;
     }
 
-    Icarus::getGame()->getGameScheduler()->schedule(std::make_shared<RoomRunnable>(this));
+    Icarus::getGame()->getGameScheduler()->schedule(this->runnable);
 }
 
 /*

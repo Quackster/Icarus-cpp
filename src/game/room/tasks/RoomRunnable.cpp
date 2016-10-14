@@ -71,7 +71,7 @@ Tick handler for room runnable
 */
 void RoomRunnable::run() {
 
-    if (this->isCancelled()) {
+    if (this->room->isDisposed()) {
         return;
     }
 
@@ -132,5 +132,7 @@ void RoomRunnable::run() {
         this->room->send(UserStatusMessageComposer(entities_update));
     }
 
-    Icarus::getGame()->getGameScheduler()->schedule(this->room->getRunnable());
+    if (room->getPlayers().size() > 0) {
+        Icarus::getGame()->getGameScheduler()->schedule(/*std::make_shared<RoomRunnable>(this->room)*/this->room->getRunnable());
+    }
 }
