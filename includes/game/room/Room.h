@@ -29,7 +29,7 @@ public:
     void leave(Player* player, bool hotel_view, bool dispose = true);
     void dispose(bool force_disposal = false);
     void setRoomData(RoomData *room_data) { this->room_data = room_data; };
-    void send(const MessageComposer &composer) const;
+    void send(const MessageComposer &composer);
     int getId() { return this->room_data->getId(); }
     RoomData *getData() { return room_data; }
     RoomModel *getModel() { return this->room_data->getModel(); }
