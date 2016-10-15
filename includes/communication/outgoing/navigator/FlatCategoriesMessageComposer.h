@@ -17,7 +17,7 @@ class FlatCategoriesMessageComposer : public MessageComposer {
 public:
     FlatCategoriesMessageComposer(std::vector<NavigatorCategory*> *categories, int rank) : categories(categories), rank(rank) {  }
     
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         response.writeInt(this->categories->size());
 
@@ -34,7 +34,7 @@ public:
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::FlatCategoriesMessageComposer;
     }
 

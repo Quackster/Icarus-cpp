@@ -17,6 +17,7 @@ class Response
 {
 
 public:
+    Response() : header(0) {};
     Response(short header);
     ~Response();
     void writeInt(int number);

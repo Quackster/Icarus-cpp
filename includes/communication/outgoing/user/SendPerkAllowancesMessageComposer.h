@@ -16,8 +16,8 @@ class SendPerkAllowancesMessageComposer : public MessageComposer {
 public:
     SendPerkAllowancesMessageComposer() { }
 
-    Response compose() {
-        Response response = this->createResponse();;
+    const Response compose() const {
+        Response response = this->createResponse();
         response.writeInt(11);
         response.writeString("BUILDER_AT_WORK");
         response.writeString("");
@@ -55,7 +55,7 @@ public:
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::SendPerkAllowancesMessageComposer;
     }
 

@@ -15,13 +15,13 @@ public:
     UniqueMachineIDMessageComposer(std::string machine_id) :
         machine_id(machine_id) { }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         response.writeString(machine_id);
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::UniqueMachineIDMessageComposer;
     }
 

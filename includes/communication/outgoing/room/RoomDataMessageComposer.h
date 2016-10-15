@@ -24,7 +24,7 @@ public:
         this->check_entry = check_entry;
     }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         response.writeBool(this->is_loading);
         
@@ -64,7 +64,7 @@ public:
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::RoomDataMessageComposer;
     }
 

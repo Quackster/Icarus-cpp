@@ -18,7 +18,7 @@ class SearchResultSetComposer : public MessageComposer {
 public:
     SearchResultSetComposer(Player* player, NavigatorTab *tab, std::string query) : player(player), tab(tab), query(query) { }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
 
         response.writeString(tab->getTabName());
@@ -72,7 +72,7 @@ public:
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::SearchResultSetComposer;
     }
 

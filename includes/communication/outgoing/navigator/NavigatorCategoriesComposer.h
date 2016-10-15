@@ -17,7 +17,7 @@ class NavigatorCategoriesComposer : public MessageComposer {
 public:
     NavigatorCategoriesComposer(std::vector<NavigatorCategory*> *categories) : categories(categories) {  }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         response.writeInt(4 + ((int)categories->size()));
 
@@ -32,7 +32,7 @@ public:
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::NavigatorCategories;
     }
 

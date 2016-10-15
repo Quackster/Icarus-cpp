@@ -58,7 +58,7 @@ void Player::login() {
     @param MessageComposer ptr
     @return none
 */
-void Player::send(MessageComposer &composer) {
+void Player::send(const MessageComposer &composer) {
     this->network_connection->send(composer);
 }
 

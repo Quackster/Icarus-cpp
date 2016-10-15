@@ -30,7 +30,7 @@ public:
     void recieveData();
     void handleData(Request request);
     void send(Response response);
-    void send(MessageComposer &composer);
+    void send(const MessageComposer &composer);
     void writeData(char* data, int length);
     void sendPolicy();
     int getConnectionId();// { return connectionID; };

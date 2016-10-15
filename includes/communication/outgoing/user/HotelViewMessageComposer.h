@@ -16,12 +16,12 @@ class HotelViewMessageComposer : public MessageComposer {
 public:
     HotelViewMessageComposer() { }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();;
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::HotelScreenMessageComposer;
     }
 

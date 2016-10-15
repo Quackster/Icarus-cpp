@@ -14,12 +14,12 @@ class AuthenticateMessageComposer : public MessageComposer {
 public:
     AuthenticateMessageComposer() { }
 
-    Response compose() {
-        Response response = this->createResponse();
+    const Response compose() const {
+        Response response(this->getHeader());
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::AuthenticationOKMessageComposer;
     }
 };

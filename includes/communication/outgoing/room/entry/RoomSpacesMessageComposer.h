@@ -19,14 +19,14 @@ public:
     RoomSpacesMessageComposer(std::string space, std::string data)
         : space(space), data(data) { }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         response.writeString(this->space);
         response.writeString(this->data);
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::RoomSpacesMessageComposer;
     }
 

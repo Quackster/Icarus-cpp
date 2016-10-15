@@ -15,14 +15,14 @@ public:
     HomeRoomMessageComposer(int room_id, bool force_enter) :
         room_id(room_id), force_enter(force_enter) { }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         response.writeInt(room_id);
         response.writeInt(force_enter);
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::HomeRoomMessageComposer;
     }
 private:
