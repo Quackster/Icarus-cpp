@@ -35,7 +35,7 @@ public:
 
         player->getRoomUser()->setLoadingRoom(false);
 
-        RoomModel *model = room->getData()->getModel();
+        RoomModel *model = room->getModel();
         RoomUser *room_user = player->getRoomUser();
 
         room_user->setX(model->getDoorX());
@@ -51,7 +51,6 @@ public:
         }
 
         if (room->getPlayers().size() == 1) {
-            
             if (room->getRunnable() == nullptr) {
                 room->setRunnable(std::make_shared<RoomRunnable>(room));
                 room->scheduleRunnable();
@@ -60,7 +59,6 @@ public:
 
         player->send(UserDisplayMessageComposer(*room->getEntities()));
         player->send(UserStatusMessageComposer(*room->getEntities()));
-
         player->send(RoomDataMessageComposer(room, player, 1, 1));
 
         Response res(Outgoing::RoomOwnerRightsComposer);

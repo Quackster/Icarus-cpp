@@ -14,13 +14,13 @@ class LandingWidgetMessageComposer : public MessageComposer {
 public:
     LandingWidgetMessageComposer() { }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         response.writeInt(0);
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::LandingWidgetMessageComposer;
     }
 };

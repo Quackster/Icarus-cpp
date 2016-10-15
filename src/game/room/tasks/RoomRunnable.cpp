@@ -76,7 +76,7 @@ void RoomRunnable::run() {
         return;
     }
 
-    RoomModel *room_model = this->room->getData()->getModel();
+    RoomModel *room_model = this->room->getModel();
 
     std::vector<Entity*> entities_update;
 

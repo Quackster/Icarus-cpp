@@ -18,12 +18,12 @@ class NoRightsMessageComposer : public MessageComposer {
 public:
     NoRightsMessageComposer() { }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::YouAreNotControllerMessageComposer;
     }
 

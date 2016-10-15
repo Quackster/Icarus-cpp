@@ -18,13 +18,13 @@ class RightsLevelMessageComposer : public MessageComposer {
 public:
     RightsLevelMessageComposer(int rights_level) : rights_level(rights_level) { }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         response.writeInt(rights_level);
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::RightsLevelMessageComposer;
     }
 

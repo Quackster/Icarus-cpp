@@ -141,7 +141,7 @@ Send compose class to socket
 
 @return none
 */
-void NetworkConnection::send(MessageComposer &composer) {
+void NetworkConnection::send(const MessageComposer &composer) {
 
     // Compose message
     Response response = composer.compose();

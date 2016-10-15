@@ -15,7 +15,7 @@ class NavigatorMetaDataComposer : public MessageComposer {
 public:
     NavigatorMetaDataComposer() { }
 
-    Response compose() {
+    const Response compose() const {
 
         auto parentTabs = Icarus::getGame()->getNavigatorManager()->getParentTabs();
         Response response = this->createResponse();
@@ -28,7 +28,7 @@ public:
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::NavigatorMetaDataComposer;
     }
 };

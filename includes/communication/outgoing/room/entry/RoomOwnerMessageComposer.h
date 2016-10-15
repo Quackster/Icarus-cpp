@@ -18,12 +18,12 @@ class RoomOwnerMessageComposer : public MessageComposer {
 public:
     RoomOwnerMessageComposer() { }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::HasOwnerRightsMessageComposer;
     }
 

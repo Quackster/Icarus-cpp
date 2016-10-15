@@ -19,14 +19,14 @@ public:
     RoomRatingMessageComposer(int score)
         : score(score) { }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         response.writeInt(this->score);
         response.writeBool(false);
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::RoomRatingMessageComposer;
     }
 

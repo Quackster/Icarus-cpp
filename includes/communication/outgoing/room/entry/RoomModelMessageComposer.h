@@ -19,14 +19,14 @@ public:
     RoomModelMessageComposer(std::string model_name, int room_id) 
         : model_name(model_name), room_id(room_id) { }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         response.writeString(this->model_name);
         response.writeInt(this->room_id);
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::InitialRoomInfoMessageComposer;
     }
 

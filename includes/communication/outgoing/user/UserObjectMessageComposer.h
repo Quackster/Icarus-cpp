@@ -17,7 +17,7 @@ class UserObjectMessageComposer : public MessageComposer {
 public:
     UserObjectMessageComposer(Player *player) : player(player) { }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         response.writeInt(player->getDetails()->getId());
         response.writeString(player->getDetails()->getUsername());
@@ -36,7 +36,7 @@ public:
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::UserObjectMessageComposer;
     }
 

@@ -16,13 +16,13 @@ class CreditsMessageComposer : public MessageComposer {
 public:
     CreditsMessageComposer(int credits) : credits(credits) { }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         response.writeString(std::to_string(credits));
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::CreditsMessageComposer;
     }
 

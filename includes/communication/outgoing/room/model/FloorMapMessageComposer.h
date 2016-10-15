@@ -21,9 +21,9 @@ class FloorMapMessageComposer : public MessageComposer {
 public:
     FloorMapMessageComposer(Room *room) : room(room) { }
 
-    Response compose() {
+    const Response compose() const {
 
-        RoomModel *model = room->getData()->getModel();
+        RoomModel *model = room->getModel();
 
         Response response = this->createResponse();
         response.writeBool(true);
@@ -33,7 +33,7 @@ public:
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::FloorMapMessageComposer;
     }
 

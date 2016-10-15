@@ -21,7 +21,7 @@ public:
     UserStatusMessageComposer(std::vector<Entity*> entities) :
         entities(entities) {  }
 
-    Response compose() {
+    const Response compose() const {
         Response response = this->createResponse();
         response.writeInt(this->entities.size());
 
@@ -45,7 +45,7 @@ public:
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::UserStatusMessageComposer;
     }
 

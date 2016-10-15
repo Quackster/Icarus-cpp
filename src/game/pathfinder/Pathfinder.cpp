@@ -59,7 +59,7 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
 
     std::deque<std::shared_ptr<PathfinderNode>> open_list;
 
-    RoomModel *model = room->getData()->getModel();
+    RoomModel *model = room->getModel();
 
     int map_size_x = model->getMapSizeX();
     int map_size_y = model->getMapSizeY();
@@ -148,16 +148,37 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is
 
     try {
 
-        int map_size_x = room->getData()->getModel()->getMapSizeX();
-        int map_size_y = room->getData()->getModel()->getMapSizeY();
+        int map_size_x = room->getModel()->getMapSizeX();
+        int map_size_y = room->getModel()->getMapSizeY();
 
         if (tmp.getX() >= map_size_x || tmp.getY() >= map_size_y) {
             return false;
         }
 
-        int tile = room->getData()->getModel()->getSquares()[tmp.getX() * map_size_y + tmp.getY()];
+        if (current.getX() >= map_size_x || current.getY() >= map_size_y) {
+            return false;
+        }
 
-        return tile == 1 ? false : true;
+        if (room->getModel()->getSquares()[tmp.getX() * map_size_y + tmp.getY()] == 1) {
+            return false;
+        }
+
+        int height_tmp = room->getModel()->getSquareHeight()[tmp.getX() * map_size_y + tmp.getY()];
+        int height_current = room->getModel()->getSquareHeight()[current.getX() * map_size_y + current.getY()];
+        int difference = 0;
+
+        if (height_tmp > height_current) {
+            difference = height_tmp - height_current;
+        }
+        else if (height_tmp < height_current) {
+            difference = height_current = height_tmp;
+        }
+
+        if (difference > 1) { 
+            return false;
+        }
+
+        return true;
 
     }
     catch (std::exception &e) {

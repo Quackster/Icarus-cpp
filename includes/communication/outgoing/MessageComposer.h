@@ -17,8 +17,8 @@ class MessageComposer
 
 public:
     virtual ~MessageComposer() {}
-    virtual Response compose() = 0;
-    virtual int getHeader() = 0;
-    Response createResponse() { return Response(this->getHeader()); }
+    virtual const Response compose() const = 0;
+    virtual const int getHeader() const = 0;
+    const Response createResponse() const { return Response(this->getHeader()); }
 
 };

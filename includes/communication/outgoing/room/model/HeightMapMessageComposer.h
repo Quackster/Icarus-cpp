@@ -21,12 +21,9 @@ class HeightMapMessageComposer : public MessageComposer {
 public:
     HeightMapMessageComposer(Room *room) : room(room) { }
 
-    Response compose() {
+    const Response compose() const {
 
-        RoomModel *model = room->getData()->getModel();
-
-        if (model == nullptr) {
-        }
+        RoomModel *model = room->getModel();
 
         Response response = this->createResponse();
         response.writeInt(model->getMapSizeX());
@@ -41,7 +38,7 @@ public:
         return response;
     }
 
-    int getHeader() {
+    const int getHeader() const {
         return Outgoing::HeightMapMessageComposer;
     }
 
