@@ -74,10 +74,8 @@ std::vector<Room*> RoomManager::getPlayerRooms(int user_id) {
 */
 RoomModel *RoomManager::getModel(std::string model_id) {
 
-    auto iterator = this->models->find(model_id);
-
-    if (iterator != this->models->end()) {
-        return iterator->second;
+    if (this->models->count(model_id)) {
+        return this->models->find(model_id)->second;
     }
 
     return nullptr;

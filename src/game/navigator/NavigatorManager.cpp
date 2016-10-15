@@ -74,9 +74,8 @@ RoomPopulator *NavigatorManager::getPopulator(std::string populator_name) {
     if (this->room_populators->count(populator_name)) {
         return this->room_populators->find(populator_name)->second;
     }
-    else {
-        return this->room_populators->find("DefaultPopulator")->second;
-    }
+
+    return this->room_populators->find("DefaultPopulator")->second;
 }
 
 /*
