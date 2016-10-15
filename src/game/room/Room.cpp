@@ -244,7 +244,7 @@ void Room::reset() {
     @param MessageComposer class
     @return none
 */
-void Room::send(MessageComposer &composer) {
+void Room::send(const MessageComposer &composer) const {
 
     Response response = composer.compose();
 
