@@ -69,7 +69,7 @@ public:
     double &getHeight() { return height; }
     int &getVirtualId() { return virtual_id; }
     Position getPosition() { return Position(x, y); }
-    Position &getGoal() { return Position(goal_x, goal_y); }
+    Position getGoal() { return Position(goal_x, goal_y); }
     std::deque<Position> &getPath() { return path; }
     void setPath(std::deque<Position> path) { this->path = path; }
     Entity *getEntity() { return this->entity; }

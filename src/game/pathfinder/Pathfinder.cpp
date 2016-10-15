@@ -155,9 +155,30 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is
             return false;
         }
 
-        int tile = room->getModel()->getSquares()[tmp.getX() * map_size_y + tmp.getY()];
+        if (current.getX() >= map_size_x || current.getY() >= map_size_y) {
+            return false;
+        }
 
-        return tile == 1 ? false : true;
+        if (room->getModel()->getSquares()[tmp.getX() * map_size_y + tmp.getY()] == 1) {
+            return false;
+        }
+
+        int height_tmp = room->getModel()->getSquareHeight()[tmp.getX() * map_size_y + tmp.getY()];
+        int height_current = room->getModel()->getSquareHeight()[current.getX() * map_size_y + current.getY()];
+        int difference = 0;
+
+        if (height_tmp > height_current) {
+            difference = height_tmp - height_current;
+        }
+        else if (height_tmp < height_current) {
+            difference = height_current = height_tmp;
+        }
+
+        if (difference > 1) { 
+            return false;
+        }
+
+        return true;
 
     }
     catch (std::exception &e) {
