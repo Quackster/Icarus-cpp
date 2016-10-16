@@ -45,8 +45,8 @@ public:
                 response.writeString(navigator_tab->getTitle());
 
                 if (room_limit) {
-                    response.writeInt((int)navigator_tab->getButtonType());
-                    response.writeBool(navigator_tab->getThumbnail());
+                    response.writeInt(room_limit ? (int)navigator_tab->getButtonType() : 2); // force no button
+                    response.writeBool(navigator_tab->getClosed()); // force collapsed
                 }
                 else {
                     response.writeInt(2);
