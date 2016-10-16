@@ -72,6 +72,7 @@ void RoomDao::addPublicRooms() {
         while (result_set->next()) {
             Room *room = getRoom(result_set->getInt("id"));
             Icarus::getGame()->getRoomManager()->getPublicRooms()->push_back(room);
+            Icarus::getGame()->getRoomManager()->getRooms()->insert(std::make_pair(room->getId(), room));
         }
 
     }
