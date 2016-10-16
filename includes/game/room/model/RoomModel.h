@@ -23,9 +23,9 @@ public:
     std::string getHeightMap() { return height_map; }
     std::string getFloorMap() { return floor_map; }
 
-    std::string *&getSquareChar() { return square_char; }
-    double *&getSquareHeight() { return square_height; }
-    int* getSquares() { return squares; }
+    std::string *getSquareChar() { return square_char; }
+    double *getSquareHeight() { return square_height; }
+    int *getSquares() { return squares; }
     bool isValidSquare(int x, int y) { return squares[x * map_size_y + y] == 0; }
 
     int &getMapSizeX() { return this->map_size_x; }
