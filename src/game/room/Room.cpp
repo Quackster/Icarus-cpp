@@ -137,7 +137,7 @@ void Room::leave(Player* player, bool hotel_view, bool dispose) {
     @param response
     @return none
 */
-void Room::serialise(Response &response) {
+void Room::serialise(Response &response, bool enter_room) {
 
     response.writeInt(this->room_id);
     response.writeString(this->room_data->getName());
@@ -159,9 +159,9 @@ void Room::serialise(Response &response) {
 
     int response_type = 0;
 
-    /*if (enter_room) {
+    if (enter_room) {
         response_type = 32;
-    }*/
+    }
 
     if (this->room_data->isPrivate()) {
         response_type += 8;
@@ -171,7 +171,15 @@ void Room::serialise(Response &response) {
         response_type += 16;
     }
 
+    if (this->room_data->getThumbnail().length() > 0) {
+        response_type += 1;
+    }
+
     response.writeInt(response_type);
+
+    if (this->room_data->getThumbnail().length() > 0) {
+        response.writeString(this->room_data->getThumbnail());
+    }
 }
 
 /*
@@ -211,19 +219,30 @@ std::vector<Player*> Room::getPlayers() {
 */
 void Room::dispose(bool force_dispose) {
 
+    bool reset = false;
+    bool remove = false;
+
     if (force_dispose) {
-        this->reset();
-        Icarus::getGame()->getRoomManager()->deleteRoom(this->room_id);
+        reset = true;
+        remove = true;
         return;
     }
 
     bool empty_room = this->getPlayers().size() == 0;
 
     if (empty_room) {
-        this->reset();
-        if (this->room_data->isOwnerOnline() == false) {
-            Icarus::getGame()->getRoomManager()->deleteRoom(this->room_id);
+        reset = true;
+        if (this->room_data->isPrivate() && this->room_data->isOwnerOnline() == false) {
+            remove = true;
         }
+    }
+
+    if (reset) {
+        this->reset();
+    }
+
+    if (remove) {
+        Icarus::getGame()->getRoomManager()->deleteRoom(this->room_id);
     }
 }
 
@@ -234,7 +253,6 @@ void Room::dispose(bool force_dispose) {
     @return none
 */
 void Room::reset() {
-
     this->disposed = true;
 }
 

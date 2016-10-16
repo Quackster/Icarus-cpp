@@ -53,6 +53,35 @@ std::map<std::string, RoomModel*> *RoomDao::getModels() {
 
 }
 
+/*
+    Load public rooms
+
+    @return none
+*/
+void RoomDao::addPublicRooms() {
+
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+    try {
+
+        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id FROM rooms WHERE room_type = 1 "));
+
+        std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+
+        while (result_set->next()) {
+            Room *room = getRoom(result_set->getInt("id"));
+            Icarus::getGame()->getRoomManager()->getPublicRooms()->push_back(room);
+        }
+
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
+
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+}
 
 /*
     Get list of room ids that the player owns
@@ -122,7 +151,7 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
 
         for (int room_id : room_ids) {
 
-            std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, name, room_type, owner_id, group_id, description, password, users_now, users_max, model, wallpaper, floor, outside, tags, trade_state, state, score, category, allow_pets, allow_pets_eat, allow_walkthrough, hidewall, wall_thickness, floor_thickness, chat_type, chat_balloon, chat_speed, chat_max_distance, chat_flood_protection, who_can_mute, who_can_kick, who_can_ban FROM rooms WHERE id = ? ")); {
+            std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, name, room_type, thumbnail, owner_id, group_id, description, password, users_max, model, wallpaper, floor, outside, tags, trade_state, state, score, category, allow_pets, allow_pets_eat, allow_walkthrough, hidewall, wall_thickness, floor_thickness, chat_type, chat_balloon, chat_speed, chat_max_distance, chat_flood_protection, who_can_mute, who_can_kick, who_can_ban FROM rooms WHERE id = ? ")); {
                 statement->setInt(1, room_id);
             }
 
@@ -142,12 +171,13 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
                     room_id,
                     result_set->getString("name"),
                     (char)result_set->getInt("room_type"),
+                    result_set->getString("thumbnail"),
                     result_set->getInt("owner_id"),
                     UserDao::getName(result_set->getInt("owner_id")),
                     result_set->getInt("group_id"),
                     result_set->getString("description"),
                     result_set->getString("password"),
-                    result_set->getInt("users_now"),
+                    //result_set->getInt("users_now"),
                     result_set->getInt("users_max"),
                     Icarus::getGame()->getRoomManager()->getModel(result_set->getString("model")),
                     //result_set->getString("model"),

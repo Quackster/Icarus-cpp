@@ -16,6 +16,7 @@
 */
 RoomManager::RoomManager() :
     rooms(new std::map<int, Room*>()), 
+    public_rooms(new std::vector<Room*>()),
     models(RoomDao::getModels()) {
 }
 
@@ -147,5 +148,6 @@ RoomManager::~RoomManager() {
     }
 
     delete this->rooms;
+    delete this->public_rooms;
     delete this->models;
 }

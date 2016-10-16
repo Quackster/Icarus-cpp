@@ -12,18 +12,19 @@
 
 #include "game/room/model/RoomModel.h"
 
+class Room;
 class RoomData
 {
 public:
     RoomData(int id,
         std::string name,
         char room_type,
+        std::string thumbnail,
         int owner_id,
         std::string owner_name,
         int group_id,
         std::string description,
         std::string password,
-        int users_now,
         int users_max,
         RoomModel *model,
         //std::string model,
@@ -54,6 +55,7 @@ public:
     int &getId() { return id; }
     std::string &getName() { return name; }
     bool isPrivate() { return room_type == 0; }
+    std::string &getThumbnail() { return thumbnail;  }
     int &getOwnerId() { return owner_id; }
     std::string &getOwnerName() { return owner_name; }
     Player *getOwner() { return owner; }
@@ -61,7 +63,6 @@ public:
     int &getGroupId() { return group_id; }
     std::string &getDescription() { return description; }
     std::string &getPassword() { return password; }
-    int &getUsersNow() { return users_now; }
     int &getUsersMax() { return users_max; }
     //std::string getModel() { return model; }
     RoomModel *getModel() { return this->model; }
@@ -89,13 +90,13 @@ private:
     int id;
     std::string name;
     char room_type;
+    std::string thumbnail;
     int owner_id;
     Player *owner;
     std::string owner_name;
     int group_id;
     std::string description;
     std::string password;
-    int users_now;
     int users_max;
     //std::string model;
     RoomModel *model;

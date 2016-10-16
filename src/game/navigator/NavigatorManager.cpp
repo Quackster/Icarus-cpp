@@ -13,6 +13,8 @@
 
 #include "game/navigator/populators/DefaultPopulator.h"
 #include "game/navigator/populators/MyRoomPopulator.h"
+#include "game/navigator/populators/OfficialRoomPopulator.h"
+#include "game/navigator/populators/PopularPopulator.h"
 /*
 Constructor for Navigator Manager
 
@@ -24,6 +26,8 @@ NavigatorManager::NavigatorManager() :
 
     this->room_populators = new std::map<std::string, RoomPopulator*>();
     this->room_populators->insert(std::make_pair("DefaultPopulator", new DefaultPopulator()));
+    this->room_populators->insert(std::make_pair("OfficialRoomPopulator", new OfficialRoomPopulator()));
+    this->room_populators->insert(std::make_pair("PopularPopulator", new PopularPopulator()));
     this->room_populators->insert(std::make_pair("MyRoomPopulator", new MyRoomPopulator()));
 
 }

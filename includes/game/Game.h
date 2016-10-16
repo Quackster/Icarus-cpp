@@ -16,6 +16,7 @@ class Game
 public:
     Game();
     ~Game();
+    void createGame();
 
     NavigatorManager *getNavigatorManager() { return navigator_manager; }
     ExecutorService *getGameScheduler() { return executor_service; }

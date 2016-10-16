@@ -97,6 +97,7 @@ void Icarus::boot() {
 
     std::cout << " [BOOT] [Game] Creating game instance" << std::endl;
     Icarus::game = new Game();
+    game->createGame();
 
     /*for (int i = 0; i < 10; i++) {
         //std::shared_ptr<ExampleRunnable> newRunnable = std::shared_ptr<ExampleRunnable>(i);

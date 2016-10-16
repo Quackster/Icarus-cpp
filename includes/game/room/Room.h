@@ -24,7 +24,7 @@ public:
 
     bool hasRights(int user_id, bool owner_check_only = false);
 
-    void serialise(Response &response);
+    void serialise(Response &response, bool enter_room = false);
     void enter(Player* player);
     void leave(Player* player, bool hotel_view, bool dispose = true);
     void dispose(bool force_disposal = false);

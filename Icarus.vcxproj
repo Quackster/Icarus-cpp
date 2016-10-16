@@ -135,6 +135,8 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\navigator\populators\OfficialRoomPopulator.cpp" />
+    <ClCompile Include="src\game\navigator\populators\PopularPopulator.cpp" />
     <ClCompile Include="src\game\pathfinder\Pathfinder.cpp" />
     <ClCompile Include="src\game\pathfinder\PathfinderNode.cpp" />
     <ClCompile Include="src\game\pathfinder\Position.cpp" />
@@ -197,6 +199,8 @@
     <ClInclude Include="includes\game\entities\Entity.h" />
     <ClInclude Include="includes\game\entities\EntityDetails.h" />
     <ClInclude Include="includes\game\entities\EntityType.h" />
+    <ClInclude Include="includes\game\navigator\populators\OfficialRoomPopulator.h" />
+    <ClInclude Include="includes\game\navigator\populators\PopularPopulator.h" />
     <ClInclude Include="includes\game\pathfinder\Pathfinder.h" />
     <ClInclude Include="includes\game\pathfinder\PathfinderNode.h" />
     <ClInclude Include="includes\game\room\model\RoomModel.h" />

@@ -27,9 +27,11 @@ public:
     void deleteRoom(int room_id);
 
     std::map<int, Room*> *getRooms() { return rooms; }
+    std::vector<Room*> *getPublicRooms() { return public_rooms; }
 
 private:
     std::map<int, Room*> *rooms;
+    std::vector<Room*> *public_rooms;
     std::map<std::string, RoomModel*> *models;
 };
 

@@ -40,7 +40,6 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
         for (int x = 0; x < map_size_x; x++) {
 
             int index = x * map_size_y + y;
-
             this->squares[index] = 1;
 
             std::string square = temporary[y];

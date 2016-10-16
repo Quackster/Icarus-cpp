@@ -27,27 +27,7 @@ public:
     const Response compose() const {
         Response response = this->createResponse();
         response.writeBool(this->is_loading);
-        
-        response.writeInt(room->getData()->getId());
-        response.writeString(room->getData()->getName());
-        response.writeInt(room->getData()->getOwnerId());
-        response.writeString(room->getData()->getOwnerName()); // Owner name
-        response.writeInt(room->getData()->getState());
-        response.writeInt(room->getPlayers().size()); // Users now
-        response.writeInt(room->getData()->getUsersMax());
-        response.writeString(room->getData()->getDescription());
-        response.writeInt(room->getData()->getTradeState());
-        response.writeInt(room->getData()->getScore());
-        response.writeInt(0);
-        response.writeInt(room->getData()->getCategory());
-        response.writeInt(room->getData()->getTags().size());
-
-        for (std::string tag : room->getData()->getTags()) {
-            response.writeString(tag);
-        }
-
-        response.writeInt(56);
-
+        room->serialise(response, true);
         response.writeBool(this->check_entry);
         response.writeBool(false);
         response.writeBool(false);
