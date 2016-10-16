@@ -144,7 +144,7 @@ void Room::serialise(Response &response, bool enter_room) {
     response.writeInt(this->room_data->getOwnerId());
     response.writeString(this->room_data->getOwnerName()); // Owner name
     response.writeInt(this->room_data->getState());
-    response.writeInt(1);// this->getPlayers().size()); // Users now
+    response.writeInt(this->getPlayers().size()); // Users now
     response.writeInt(this->room_data->getUsersMax());
     response.writeString(this->room_data->getDescription());
     response.writeInt(this->room_data->getTradeState());
@@ -254,6 +254,7 @@ void Room::dispose(bool force_dispose) {
 */
 void Room::reset() {
     this->disposed = true;
+    std::cout << "Room was reset" << std::endl;
 }
 
 /*
