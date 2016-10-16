@@ -29,19 +29,23 @@ Pathfinder::~Pathfinder() { }
 std::deque<Position> Pathfinder::makePath(Position start, Position end, Room *room) {
 
     std::deque<Position> positions;
-    std::shared_ptr<PathfinderNode> nodes = makePathReversed(start, end, room);
 
-    if (nodes != nullptr) {
-        while (nodes != nullptr) {
-            positions.push_back(nodes->getPosition());
-            nodes = nodes->getNextNode();
+    if (!start.sameAs(end)) {
+        
+        std::shared_ptr<PathfinderNode> nodes = makePathReversed(start, end, room);
+
+        if (nodes != nullptr) {
+            while (nodes != nullptr) {
+                positions.push_back(nodes->getPosition());
+                nodes = nodes->getNextNode();
+            }
         }
-    }
 
-    std::reverse(positions.begin(), positions.end());
+        std::reverse(positions.begin(), positions.end());
 
-    if (positions.size() > 0) {
-        positions.pop_front(); // idk why but it always puts an invalid tile at the front ??? need to fix later
+        if (positions.size() > 0) {
+            positions.pop_front(); // idk why but it always puts an invalid tile at the front ??? need to fix later
+        }
     }
 
     return positions;
@@ -91,6 +95,11 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
             if (isValidStep(room, current->getPosition(), tmp, is_final_move)) {
 
                 if (map[tmp.getX()][tmp.getY()] == nullptr) {
+
+                    /*if (!room->getModel()->isValidSquare(tmp.getX(), tmp.getY())) {
+                        return nullptr;
+                    }*/
+
                     node = std::make_shared<PathfinderNode>(tmp);
                     map[tmp.getX()][tmp.getY()] = node;
                 }
@@ -159,22 +168,7 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is
             return false;
         }
 
-        if (room->getModel()->getSquares()[tmp.getX() * map_size_y + tmp.getY()] == 1) {
-            return false;
-        }
-
-        int height_tmp = room->getModel()->getSquareHeight()[tmp.getX() * map_size_y + tmp.getY()];
-        int height_current = room->getModel()->getSquareHeight()[current.getX() * map_size_y + current.getY()];
-        int difference = 0;
-
-        if (height_tmp > height_current) {
-            difference = height_tmp - height_current;
-        }
-        else if (height_tmp < height_current) {
-            difference = height_current = height_tmp;
-        }
-
-        if (difference > 1) { 
+        if (!room->getModel()->isValidSquare(tmp.getX(), tmp.getY())) {
             return false;
         }
 
