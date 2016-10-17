@@ -9,6 +9,7 @@
 #pragma once
 
 #include "network/NetworkConnection.h"
+
 #include "game/entities/Entity.h"
 #include "game/messenger/Messenger.h"
 

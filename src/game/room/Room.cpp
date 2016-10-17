@@ -36,7 +36,7 @@ Room::Room(int room_id) :
     Whether or not the user has room rights, has optional option for
     owner/staff check only
 */
-bool Room::hasRights(int user_id, bool owner_check_only) {
+bool Room::hasRights(const int user_id, const bool owner_check_only) {
 
     if (owner_check_only) {
         return this->room_data->getOwnerId() == user_id;
@@ -110,7 +110,7 @@ void Room::enter(Player* player) {
     @param dispose room
     @return none
 */
-void Room::leave(Player* player, bool hotel_view, bool dispose) {
+void Room::leave(Player* player, const bool hotel_view, const bool dispose) {
 
     if (hotel_view) {
         player->send(HotelViewMessageComposer());
@@ -137,7 +137,7 @@ void Room::leave(Player* player, bool hotel_view, bool dispose) {
     @param response
     @return none
 */
-void Room::serialise(Response &response, bool enter_room) {
+void Room::serialise(Response &response, const bool enter_room) {
 
     response.writeInt(this->room_id);
     response.writeString(this->room_data->getName());
@@ -188,7 +188,7 @@ void Room::serialise(Response &response, bool enter_room) {
     @param entity ptr
     @return boolean
 */
-bool Room::hasEntity(Entity* entity) {
+bool Room::hasEntity(const Entity* entity) {
     return std::find(this->entities->begin(), this->entities->end(), entity) != this->entities->end();
 }
 
@@ -197,7 +197,7 @@ Gets list of players currently in the room
 
 @return list of players
 */
-std::vector<Player*> Room::getPlayers() {
+const std::vector<Player*> Room::getPlayers() {
 
     std::vector<Player*> players;
 
@@ -217,7 +217,7 @@ std::vector<Player*> Room::getPlayers() {
     @param (optional) force dispose of room
     @return none
 */
-void Room::dispose(bool force_dispose) {
+void Room::dispose(const bool force_dispose) {
 
     bool reset = false;
     bool remove = false;

@@ -25,6 +25,6 @@ private:
 public:
     static std::string getName(int user_id);
     static PlayerDetails *findUserByTicket(Player *player, std::string sso_ticket);
-
+    static std::shared_ptr<PlayerDetails>  getDetails(int user_id);
 };
 

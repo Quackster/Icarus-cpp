@@ -95,10 +95,10 @@ RoomData::RoomData(int id,
 
     @return boolean
 */
-    bool RoomData::isOwnerOnline() {
-        this->owner = Icarus::getPlayerManager()->getPlayerById(this->owner_id);
-        return this->owner != nullptr;
-    }
+bool RoomData::isOwnerOnline() {
+    this->owner = Icarus::getPlayerManager()->getPlayerById(this->owner_id);
+    return this->owner != nullptr;
+}
 
 /*
     Deconstructor for RoomData

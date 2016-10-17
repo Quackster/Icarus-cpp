@@ -135,6 +135,9 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\dao\MessengerDao.cpp" />
+    <ClCompile Include="src\game\messenger\Messenger.cpp" />
+    <ClCompile Include="src\game\messenger\MessengerUser.cpp" />
     <ClCompile Include="src\game\navigator\populators\OfficialRoomPopulator.cpp" />
     <ClCompile Include="src\game\navigator\populators\PopularPopulator.cpp" />
     <ClCompile Include="src\game\pathfinder\Pathfinder.cpp" />
