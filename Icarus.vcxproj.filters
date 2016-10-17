@@ -440,5 +440,8 @@
     <ClInclude Include="includes\communication\incoming\messenger\MessengerDeclineMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="includes\communication\incoming\messenger\MessengerDeleteFriendMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

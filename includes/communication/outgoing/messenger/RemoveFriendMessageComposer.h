@@ -26,7 +26,7 @@ public:
     }
 
     const int getHeader() const {
-        return Outgoing::MessengerRequestsMessageComposer;
+        return Outgoing::RemoveFriendMessageComposer;
     }
 
 private:

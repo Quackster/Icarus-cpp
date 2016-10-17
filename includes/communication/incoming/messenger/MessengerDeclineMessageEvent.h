@@ -33,6 +33,8 @@ public:
             request.readInt();
             int from_id = request.readInt();
 
+            player->getMessenger()->removeRequest(from_id);
+
             MessengerDao::removeRequest(from_id, player->getDetails()->getId());
         }
 

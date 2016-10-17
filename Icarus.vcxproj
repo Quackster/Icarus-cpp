@@ -177,6 +177,7 @@
   <ItemGroup>
     <ClInclude Include="includes\communication\incoming\messenger\MessengerAcceptMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\messenger\MessengerDeclineMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\messenger\MessengerDeleteFriendMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\messenger\MessengerInitMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\messenger\MessengerRequestMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\messenger\MessengerSearchMessageEvent.h" />

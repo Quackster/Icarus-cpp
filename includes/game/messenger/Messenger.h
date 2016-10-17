@@ -28,6 +28,7 @@ public:
     MessengerUser *getFriend(int user_id);
     bool hasRequest(int id);
     bool isFriend(int id);
+    void removeRequest(int user_id);
     void removeFriend(int user_id);
     void sendStatus(bool force_offline, bool login_status = false);
 
