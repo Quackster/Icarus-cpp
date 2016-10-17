@@ -189,6 +189,7 @@
     <ClInclude Include="includes\communication\incoming\room\HeightMapMessageEvent.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerCategoriesMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\FriendsListMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\messenger\MessengerRequestsMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerSearchMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerSendRequestComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerUpdateMessageComposer.h" />

@@ -431,5 +431,8 @@
     <ClInclude Include="includes\communication\incoming\messenger\MessengerAcceptMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\messenger\MessengerRequestsMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

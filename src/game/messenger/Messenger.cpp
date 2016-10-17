@@ -46,8 +46,8 @@ Messenger::~Messenger() {
 */
 MessengerUser *Messenger::getRequest(int user_id) { 
 
-    if (this->friends->count(user_id)) {
-        return this->friends->find(user_id)->second;
+    if (this->requests->count(user_id)) {
+        return this->requests->find(user_id)->second;
     }
 
     return nullptr;
@@ -61,8 +61,8 @@ MessengerUser *Messenger::getRequest(int user_id) {
 */
 MessengerUser *Messenger::getFriend(int user_id) { 
 
-    if (this->requests->count(user_id)) {
-        return this->requests->find(user_id)->second;
+    if (this->friends->count(user_id)) {
+        return this->friends->find(user_id)->second;
     }
 
     return nullptr;

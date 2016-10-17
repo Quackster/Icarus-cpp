@@ -13,6 +13,7 @@
 
 #include "communication/outgoing/messenger/MessengerCategoriesMessageComposer.h"
 #include "communication/outgoing/messenger/FriendsListMessageComposer.h"
+#include "communication/outgoing/messenger/MessengerRequestsMessageComposer.h"
 
 class MessengerInitMessageEvent : public MessageEvent {
 
@@ -25,6 +26,7 @@ public:
 
         player->send(MessengerCategoriesMessageComposer());
         player->send(FriendsListMessageComposer(player->getMessenger()->getFriends()));
+        player->send(MessengerRequestsMessageComposer(player->getDetails(), player->getMessenger()->getRequests()));
        
         //player->getMessenger()->sendStatus(false);
 
