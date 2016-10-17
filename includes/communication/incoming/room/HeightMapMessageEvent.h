@@ -65,5 +65,8 @@ public:
         res.writeInt(room->getData()->getId());
         res.writeBool(false);
         player->getNetworkConnection()->send(res);
+
+        // Tell friends we're in a room! :)
+        player->getMessenger()->sendStatus(false);
     }
 };
