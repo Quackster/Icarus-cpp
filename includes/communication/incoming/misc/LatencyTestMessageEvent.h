@@ -17,13 +17,8 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        if (!player->getNetworkConnection()->isMessengerSent()) {
-            if (!player->getMessenger()->isInitialised()) {
-                player->getMessenger()->sendStatus(false);
-
-                player->getNetworkConnection()->setMessengerSent();
-                player->getMessenger()->setInitialised(true);
-            }
+        if (player->getMessenger()->isInitialised()) {
+            player->getMessenger()->sendStatus(false);
         }
     }
 };

@@ -127,9 +127,7 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
 */
 MessageHandler::~MessageHandler() { 
 
-    for (auto pair : *this->messages) {
-        delete pair.second;
-    }
+    for (auto pair : *this->messages) delete pair.second;
 
     delete messages;
 }

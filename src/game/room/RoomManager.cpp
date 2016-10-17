@@ -139,13 +139,8 @@ void RoomManager::deleteRoom(int room_id) {
 */
 RoomManager::~RoomManager() {
 
-    for (auto room_entry : *this->rooms) {
-        delete room_entry.second;
-    }
-
-    for (auto model_entry : *this->models) {
-        delete model_entry.second;
-    }
+    for (auto room_entry : *this->rooms) delete room_entry.second;
+    for (auto model_entry : *this->models) delete model_entry.second;
 
     delete this->rooms;
     delete this->public_rooms;

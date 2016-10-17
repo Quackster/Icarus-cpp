@@ -73,8 +73,6 @@ std::vector<NavigatorTab*> NavigatorManager::getParentTabs() {
 */
 RoomPopulator *NavigatorManager::getPopulator(std::string populator_name) {
 
-    //std::cout << populator_name << std::endl;
-
     if (this->room_populators->count(populator_name)) {
         return this->room_populators->find(populator_name)->second;
     }
@@ -89,17 +87,9 @@ Deletes all pointer variables
 */
 NavigatorManager::~NavigatorManager() {
 
-    for (auto tab : *this->tabs) {
-        delete tab;
-    }
-
-    for (auto category : *this->categories) {
-        delete category;
-    }
-
-    for (auto populator : *this->room_populators) {
-        delete populator.second;
-    }
+    for (auto tab : *this->tabs) delete tab;
+    for (auto category : *this->categories) delete category;
+    for (auto populator : *this->room_populators) delete populator.second;
 
     delete categories;
     delete tabs;

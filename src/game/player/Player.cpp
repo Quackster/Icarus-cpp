@@ -49,6 +49,8 @@ void Player::login() {
         MessengerDao::getFriends(this->session_details->getId()), 
         MessengerDao::getRequests(this->session_details->getId()));
 
+    this->messenger->setInitialised(true);
+
     /*
         Cache room data
     */
@@ -60,6 +62,7 @@ void Player::login() {
     */
     this->send(MessengerCategoriesMessageComposer());
     this->send(FriendsListMessageComposer(this->messenger->getFriends()));
+    this->messenger->sendStatus(false);
 }
 
 /*
@@ -117,6 +120,7 @@ Player::~Player() {
     }
 
     if (messenger != nullptr) {
+        messenger->sendStatus(true); // offline for everyone :'(
         delete messenger;
     }
 
