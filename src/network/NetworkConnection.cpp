@@ -24,7 +24,8 @@ NetworkConnection::NetworkConnection(int connection_id, tcp::socket socket) :
     socket(std::move(socket)), 
     connection_state(true),
     sent_navigator(false),
-    sent_user_info(false) { }
+    sent_user_info(false),
+    sent_messenger(false) { }
 
 NetworkConnection::~NetworkConnection() { }
 

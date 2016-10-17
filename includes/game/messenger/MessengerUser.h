@@ -24,8 +24,13 @@ public:
     ~MessengerUser();
     void update();
     void serialise(Response &response, const bool force_offline);
+    void serialiseSearch(Response &response);
     bool inRoom();
 
+    Player *getPlayer() {
+        return session;
+    };
+
     std::shared_ptr<PlayerDetails> getDetails() { return details; };
-    bool isOnline() { this->isOnline(); return session != nullptr; }
+    bool isOnline() { this->update(); return session != nullptr; }
 };

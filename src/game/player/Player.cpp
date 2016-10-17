@@ -10,11 +10,11 @@
 
 #include "game/player/Player.h"
 #include "game/player/PlayerDetails.h"
+#include "dao/MessengerDao.h"
 #include "boot/Icarus.h"
 
-#include "communication/outgoing/navigator/FlatCategoriesMessageComposer.h"
-#include "communication/outgoing/navigator/NavigatorCategoriesComposer.h"
-#include "communication/outgoing/navigator/NavigatorMetaDataComposer.h"
+#include "communication/outgoing/messenger/MessengerCategoriesMessageComposer.h"
+#include "communication/outgoing/messenger/FriendsListMessageComposer.h"
 
 /*
     Session constructor
@@ -37,19 +37,29 @@ Player::Player(NetworkConnection *network_connection) :
 */
 void Player::login() {
 
-    // init variables
     this->logged_in = true;
+
+    /*
+        Load player variables
+    */
     this->room_user = new RoomUser(this);
 
-    // add user to logged in sessions for quick lookup
-    Icarus::getPlayerManager()->getPlayers()->insert(std::make_pair(this->session_details->getId(), this));
+    this->messenger = new Messenger(
+        this->session_details->getId(), 
+        MessengerDao::getFriends(this->session_details->getId()), 
+        MessengerDao::getRequests(this->session_details->getId()));
 
-    // load player rooms
+    /*
+        Cache room data
+    */
+    Icarus::getPlayerManager()->getPlayers()->insert(std::make_pair(this->session_details->getId(), this));
     Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->getId());
 
-
-
-
+    /*
+        Send messenger packets
+    */
+    this->send(MessengerCategoriesMessageComposer());
+    this->send(FriendsListMessageComposer(this->messenger->getFriends()));
 }
 
 /*
@@ -104,6 +114,10 @@ Player::~Player() {
 
     if (!logged_in) {
         return;
+    }
+
+    if (messenger != nullptr) {
+        delete messenger;
     }
 
     if (session_details != nullptr) {

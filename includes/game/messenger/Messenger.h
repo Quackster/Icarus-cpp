@@ -16,13 +16,13 @@ class Messenger {
 
 private:
     bool initialised;
-    Player *player;
+    int user_id;
 
     std::map<int, MessengerUser*> *friends = nullptr;
     std::map<int, MessengerUser*> *requests = nullptr;
 
 public:
-    Messenger(std::map<int, MessengerUser*> *friends, std::map<int, MessengerUser*> *requests);
+    Messenger(int user_id, std::map<int, MessengerUser*> *friends, std::map<int, MessengerUser*> *requests);
     ~Messenger();
     MessengerUser *getRequest(int user_id);
     MessengerUser *getFriend(int user_id);
@@ -30,4 +30,15 @@ public:
     bool isFriend(int id);
     void removeFriend(int user_id);
     void sendStatus(bool force_offline);
+
+    const std::map<int, MessengerUser*> *getFriends() {
+        return friends;
+    }
+
+    const std::map<int, MessengerUser*> *getRequests() {
+        return requests;
+    }
+
+    bool isInitialised() { return this->initialised; }
+    void setInitialised(bool flag) { this->initialised = flag; }
 };

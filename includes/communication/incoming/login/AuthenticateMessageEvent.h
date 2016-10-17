@@ -31,12 +31,13 @@ public:
         }
         else {
             session->setDetails(details);
-            session->login();
         }
 
         session->send(AuthenticateMessageComposer());
         session->send(UniqueMachineIDMessageComposer(session->getUniqueId()));
         session->send(HomeRoomMessageComposer(0, false));
         session->send(LandingWidgetMessageComposer());
+
+        session->login();
     }
 };

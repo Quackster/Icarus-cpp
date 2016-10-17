@@ -22,8 +22,8 @@ private:
     MessengerDao() { };
 
 public:
-    static std::vector<MessengerUser*> *getFriends(int user_id);
-    static std::vector<MessengerUser*> *getRequests(int user_id);
+    static std::map<int, MessengerUser*> *getFriends(int user_id);
+    static std::map<int, MessengerUser*> *getRequests(int user_id);
     static std::vector<int> search(std::string query);
     static bool newRequest(int fromId, int toId);
     static bool removeRequest(int fromId, int toId);

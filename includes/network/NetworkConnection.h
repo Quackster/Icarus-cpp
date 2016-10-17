@@ -43,6 +43,10 @@ public:
     void setNavigatorSent() { this->sent_navigator = true; }
     void setUserInfoSent() { this->sent_user_info = true; }
 
+    bool isMessengerSent() { return this->sent_messenger; }
+    void setMessengerSent() { this->sent_messenger = true; }
+
+
 private:
     int connection_id;
     bool connection_state;
@@ -53,4 +57,5 @@ private:
 
     bool sent_navigator;
     bool sent_user_info;
+    bool sent_messenger;
 };

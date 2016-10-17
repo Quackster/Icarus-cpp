@@ -18,8 +18,10 @@
 
 // User
 #include "communication/incoming/user/UserDataMessageEvent.h"
-#include "communication/incoming/user/LatencyTestMessageEvent.h"
-#include "communication/incoming/user/EventLogMessageEvent.h"
+
+// Misc
+#include "communication/incoming/misc/LatencyTestMessageEvent.h"
+#include "communication/incoming/misc/EventLogMessageEvent.h"
 
 // Navigator
 #include "communication/incoming/navigator/SearchNewNavigatorEvent.h"
@@ -31,6 +33,9 @@
 #include "communication/incoming/room/EnterRoomMessageEvent.h"
 #include "communication/incoming/room/HeightMapMessageEvent.h"
 #include "communication/incoming/room/WalkMessageEvent.h"
+
+// Messenger
+#include "communication/incoming/messenger/MessengerSearchMessageEvent.h"
 
 /*
     MessageHandler constructor
@@ -47,6 +52,8 @@ MessageHandler::MessageHandler() :
 
     // User
     this->createEvent(Incoming::UserDataMessageEvent, new UserDataMessageEvent());
+
+    // Misc
     this->createEvent(Incoming::LatencyTestMessageEvent, new LatencyTestMessageEvent());
     this->createEvent(Incoming::EventLogMessageEvent, new EventLogMessageEvent());
     
@@ -60,6 +67,9 @@ MessageHandler::MessageHandler() :
     this->createEvent(Incoming::EnterRoomMessageEvent, new EnterRoomMessageEvent());
     this->createEvent(Incoming::HeightMapMessageEvent, new HeightMapMessageEvent());
     this->createEvent(Incoming::UserWalkMessageEvent, new WalkMessageEvent());
+
+    // Messenger
+    this->createEvent(Incoming::MessengerSearchMessageEvent, new MessengerSearchMessageEvent());
     
 }
 
