@@ -24,17 +24,17 @@ public:
     std::string getFloorMap() { return floor_map; }
 
     std::string *getSquareChar() { return square_char; }
+    
     double *getSquareHeight() { return square_height; }
     int *getSquares() { return squares; }
-    bool isValidSquare(int x, int y) { return squares[x * map_size_y + y] == 0; }
+    const bool isValidSquare(int x, int y) const { return squares[x * map_size_y + y] == 0; }
 
-    int &getMapSizeX() { return this->map_size_x; }
-    int &getMapSizeY() { return this->map_size_y; }
-
-    int &getDoorX() { return this->door_x; }
-    int &getDoorY() { return this->door_y; }
-    int &getDoorZ() { return this->door_z; }
-    int &getDoorRotation() { return this->door_rotation; }
+    const int &getMapSizeX() const { return this->map_size_x; }
+    const int &getMapSizeY() const { return this->map_size_y; }
+    const int &getDoorX() const { return this->door_x; }
+    const int &getDoorY() const { return this->door_y; }
+    const int &getDoorZ() const { return this->door_z; }
+    const int &getDoorRotation() const { return this->door_rotation; }
 
     ~RoomModel();
 

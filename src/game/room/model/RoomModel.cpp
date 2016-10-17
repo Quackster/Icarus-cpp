@@ -19,8 +19,13 @@
 /*
 Constructor for RoomModel
 */
-RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int door_y, int door_z, int door_rotation)
-    : name(name), height_map(height_map), door_x(door_x), door_y(door_y), door_z(door_z), door_rotation(door_rotation) {
+RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int door_y, int door_z, int door_rotation) : 
+    name(name), 
+    height_map(height_map), 
+    door_x(door_x), 
+    door_y(door_y), 
+    door_z(door_z), 
+    door_rotation(door_rotation) {
 
     std::vector<std::string> temporary = Utilities::split(this->height_map, (char)13);
 
@@ -90,6 +95,4 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
 /*
 Deconstructor for RoomModel
 */
-RoomModel::~RoomModel() {
-
-}
+RoomModel::~RoomModel() { }

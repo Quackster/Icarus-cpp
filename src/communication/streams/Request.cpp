@@ -15,7 +15,8 @@ Request constructor
 @return full received packet
 */
 Request::Request(char *full_message) : 
-    full_message(full_message), index(0) {
+    full_message(full_message), 
+    index(0) {
 
     this->header = this->readShort();
 }

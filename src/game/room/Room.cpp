@@ -30,7 +30,7 @@ Room::Room(int room_id) :
     room_id(room_id),
     disposed(false),
     entities(new std::vector<Entity*>()),
-    runnable(nullptr) {} //std::make_shared<RoomRunnable>(this)) { }
+    runnable(nullptr) { } //std::make_shared<RoomRunnable>(this)) { }
 
 /*
     Whether or not the user has room rights, has optional option for

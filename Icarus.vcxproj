@@ -199,6 +199,8 @@
     <ClInclude Include="includes\game\entities\Entity.h" />
     <ClInclude Include="includes\game\entities\EntityDetails.h" />
     <ClInclude Include="includes\game\entities\EntityType.h" />
+    <ClInclude Include="includes\game\messenger\Messenger.h" />
+    <ClInclude Include="includes\game\messenger\MessengerUser.h" />
     <ClInclude Include="includes\game\navigator\populators\OfficialRoomPopulator.h" />
     <ClInclude Include="includes\game\navigator\populators\PopularPopulator.h" />
     <ClInclude Include="includes\game\pathfinder\Pathfinder.h" />

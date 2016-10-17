@@ -103,6 +103,4 @@ RoomData::RoomData(int id,
 /*
     Deconstructor for RoomData
 */
-RoomData::~RoomData()
-{
-}
+RoomData::~RoomData() { }

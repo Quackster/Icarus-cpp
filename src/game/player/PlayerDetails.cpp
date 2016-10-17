@@ -16,12 +16,14 @@
     Sets everything to a value specified
 */
 PlayerDetails::PlayerDetails(int id, std::string username, std::string motto, std::string figure, int rank, int credits) :
-    id(id), username(username), motto(motto), figure(figure), rank(rank), credits(credits) {
-}
+    id(id), 
+    username(username), 
+    motto(motto), 
+    figure(figure), 
+    rank(rank), 
+    credits(credits) { }
 
 /*
     Deconstructor for session details
 */
-PlayerDetails::~PlayerDetails() {
-
-}
+PlayerDetails::~PlayerDetails() { }

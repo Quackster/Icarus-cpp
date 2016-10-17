@@ -115,6 +115,4 @@ void RoomUser::stopWalking(bool needs_update) {
 /*
     Deconstructor for room user
 */
-RoomUser::~RoomUser()
-{
-}
+RoomUser::~RoomUser() { }

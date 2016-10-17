@@ -21,8 +21,8 @@
     @param file path
 */
 Configuration::Configuration(std::string file) : 
-    file(file), values(new std::map<std::string, std::string>()) {
-
+    file(file), 
+    values(new std::map<std::string, std::string>()) {
     this->parse();
 }
 

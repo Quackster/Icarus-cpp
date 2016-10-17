@@ -38,9 +38,8 @@
     Loads all incoming message handlers into a map for easier access
 */
 MessageHandler::MessageHandler() :
-    messages(new std::map<int, MessageEvent*>())
-{
-    
+    messages(new std::map<int, MessageEvent*>()) {
+
     // Login
     this->createEvent(Incoming::VersionCheckMessageEvent, new VersionCheckMessageEvent());
     this->createEvent(Incoming::UniqueIDMessageEvent, new UniqueIDMessageEvent());

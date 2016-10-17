@@ -56,6 +56,7 @@ public:
     void setStatus(std::string key, std::string value, bool update = false);
     void updateStatus();
 
+    bool inRoom() { return room == nullptr; };
     bool &getLoadingRoom() { return is_loading_room; }
     bool &getNeedsUpdate() { return needs_update; }
     bool &isWalking() { return is_walking; }

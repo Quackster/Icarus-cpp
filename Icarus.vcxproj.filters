@@ -374,5 +374,11 @@
     <ClInclude Include="includes\game\navigator\populators\OfficialRoomPopulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="includes\game\messenger\MessengerUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\game\messenger\Messenger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

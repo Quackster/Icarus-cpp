@@ -16,8 +16,11 @@ Response constructor, it will initialise the deque, and append the header in raw
 @return response instance
 */
 Response::Response(short header) : 
-    header(header), index(0), used(false), message(std::vector<char>(0)) {
-    
+    header(header), 
+    index(0), 
+    used(false), 
+    message(std::vector<char>(0)) {
+
     this->writeShort(header);
 }
 

@@ -118,5 +118,4 @@ Player *PlayerManager::getPlayerById(int user_id) {
     else {
         return nullptr;
     }
-
 }
