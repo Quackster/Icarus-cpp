@@ -27,9 +27,10 @@ void MessengerUser::update() {
 }
 
 void MessengerUser::serialise(Response &response, const bool force_offline) { 
+
     response.writeInt(this->details->getId());
     response.writeString(this->details->getUsername());
-    response.writeInt(force_offline ? false : this->isOnline()); // gender
+    response.writeInt(1); // gender
     response.writeBool(force_offline ? false : this->isOnline());
     response.writeBool(force_offline ? false : this->inRoom());
 
@@ -47,7 +48,9 @@ void MessengerUser::serialise(Response &response, const bool force_offline) {
     response.writeString("");
     response.writeString("");
     response.writeBool(true);
-    response.writeInt(0);
+    response.writeBool(false);
+    response.writeBool(false);
+    response.writeShort(0);
 }
 
 void MessengerUser::serialiseSearch(Response &response) {

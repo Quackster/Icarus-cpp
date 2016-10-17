@@ -15,6 +15,9 @@
 
 #include "communication/outgoing/messenger/MessengerCategoriesMessageComposer.h"
 #include "communication/outgoing/messenger/FriendsListMessageComposer.h"
+#include "communication/outgoing/user/CreditsMessageComposer.h"
+#include "communication/outgoing/user/UserObjectMessageComposer.h"
+#include "communication/outgoing/user/SendPerkAllowancesMessageComposer.h"
 
 /*
     Session constructor
@@ -49,7 +52,6 @@ void Player::login() {
         MessengerDao::getFriends(this->session_details->getId()), 
         MessengerDao::getRequests(this->session_details->getId()));
 
-    this->messenger->setInitialised(true);
 
     /*
         Cache room data
@@ -58,11 +60,19 @@ void Player::login() {
     Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->getId());
 
     /*
+        Send other login packets
+    */
+    this->send(CreditsMessageComposer(this->session_details->getCredits()));
+    this->send(UserObjectMessageComposer(this));
+    this->send(SendPerkAllowancesMessageComposer());
+
+
+    /*
         Send messenger packets
     */
     this->send(MessengerCategoriesMessageComposer());
     this->send(FriendsListMessageComposer(this->messenger->getFriends()));
-    this->messenger->sendStatus(false);
+    this->messenger->setInitialised(true);
 }
 
 /*

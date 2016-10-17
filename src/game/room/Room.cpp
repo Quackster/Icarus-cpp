@@ -57,7 +57,7 @@ Enter room handler
 
 @return none
 */
-void Room::enter(Player* player) {
+void Room::enter(Player *player) {
 
     this->disposed = false;
 
@@ -110,7 +110,7 @@ void Room::enter(Player* player) {
     @param dispose room
     @return none
 */
-void Room::leave(Player* player, const bool hotel_view, const bool dispose) {
+void Room::leave(Player *player, const bool hotel_view, const bool dispose) {
 
     if (hotel_view) {
         player->send(HotelViewMessageComposer());
@@ -123,6 +123,7 @@ void Room::leave(Player* player, const bool hotel_view, const bool dispose) {
 
         // Reset room user
         player->getRoomUser()->reset();
+        player->getMessenger()->sendStatus(false);
     }
 
     if (dispose) {
@@ -188,7 +189,7 @@ void Room::serialise(Response &response, const bool enter_room) {
     @param entity ptr
     @return boolean
 */
-bool Room::hasEntity(const Entity* entity) {
+bool Room::hasEntity(Entity* entity) {
     return std::find(this->entities->begin(), this->entities->end(), entity) != this->entities->end();
 }
 

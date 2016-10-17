@@ -24,8 +24,8 @@ public:
 
     bool hasRights(const int user_id, const bool owner_check_only = false);
     void serialise(Response &response, const bool enter_room = false);
-    void enter(Player* player);
-    void leave(Player* player, const bool hotel_view, const bool dispose = true);
+    void enter(Player *player);
+    void leave(Player *player, const bool hotel_view, const bool dispose = true);
     void dispose(const bool force_disposal = false);
     void setRoomData(RoomData *room_data) { this->room_data = room_data; };
     void send(const MessageComposer &composer);
@@ -45,7 +45,7 @@ public:
     std::shared_ptr<RoomRunnable> getRunnable() { return this->runnable; }
     void setRunnable(std::shared_ptr<RoomRunnable> runnable) { this->runnable = runnable; }
 
-    bool hasEntity(const Entity* entity);
+    bool hasEntity(Entity *entity);
     bool isDisposed() { return disposed; }
 
 private:

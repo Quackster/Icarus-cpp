@@ -24,9 +24,9 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        player->send(CreditsMessageComposer(player->getDetails()->getCredits()));
+        /*player->send(CreditsMessageComposer(player->getDetails()->getCredits()));
         player->send(UserObjectMessageComposer(player));
-        player->send(SendPerkAllowancesMessageComposer());
+        player->send(SendPerkAllowancesMessageComposer());*/
 
         Response res(2820);
         res.writeInt(2);

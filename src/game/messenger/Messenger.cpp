@@ -103,7 +103,9 @@ void Messenger::sendStatus(bool force_offline) {
         MessengerUser *friend_ = kvp.second;
 
         if (friend_->isOnline()) {
-            friend_->getPlayer()->getNetworkConnection()->send(response);
+            if (friend_->getPlayer()->getMessenger()->isInitialised()) {
+                friend_->getPlayer()->getNetworkConnection()->send(response);
+            }
         }
     }
 }
