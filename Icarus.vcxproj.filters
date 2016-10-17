@@ -21,9 +21,6 @@
     <ClCompile Include="src\boot\Icarus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\communication\incoming\MessageHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\communication\streams\Request.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -132,6 +129,9 @@
     <ClCompile Include="src\dao\MessengerDao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\communication\incoming\MessageHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\boot\Icarus.h">
@@ -236,9 +236,6 @@
     <ClInclude Include="includes\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\communication\incoming\navigator\SearchNewNavigatorEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\game\player\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -341,9 +338,6 @@
     <ClInclude Include="includes\communication\outgoing\MessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\communication\incoming\navigator\NewNavigatorMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\communication\incoming\room\LeaveRoomMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -402,6 +396,39 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\communication\incoming\misc\LatencyTestMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\incoming\messenger\MessengerInitMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\dao\MessengerDao.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\dao\NavigatorDao.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\dao\UserDao.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\dao\RoomDao.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\incoming\messenger\MessengerRequestMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\messenger\MessengerSendRequestComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\incoming\navigator\NewNavigatorMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\incoming\navigator\SearchNewNavigatorEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\incoming\messenger\MessengerAcceptMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\incoming\messenger\MessengerAcceptMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

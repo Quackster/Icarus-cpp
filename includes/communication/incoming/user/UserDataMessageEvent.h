@@ -9,10 +9,6 @@
 #pragma once
 #include "boot/Icarus.h"
 #include "communication/incoming/MessageEvent.h"
-#include "communication/outgoing/navigator/FlatCategoriesMessageComposer.h"
-#include "communication/outgoing/navigator/NavigatorCategoriesComposer.h"
-#include "communication/outgoing/navigator/NavigatorMetaDataComposer.h"
-
 #include "communication/outgoing/user/CreditsMessageComposer.h"
 #include "communication/outgoing/user/UserObjectMessageComposer.h"
 #include "communication/outgoing/user/SendPerkAllowancesMessageComposer.h"
@@ -24,9 +20,11 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        /*player->send(CreditsMessageComposer(player->getDetails()->getCredits()));
+        player->getNetworkConnection()->setDataSent();
+
+        player->send(CreditsMessageComposer(player->getDetails()->getCredits()));
         player->send(UserObjectMessageComposer(player));
-        player->send(SendPerkAllowancesMessageComposer());*/
+        player->send(SendPerkAllowancesMessageComposer());
 
         Response res(2820);
         res.writeInt(2);
@@ -49,6 +47,5 @@ public:
         res.writeString("web_promo_small/stories_hallofselfies_teaser.png");//Image link
 
         player->getNetworkConnection()->send(res);
-        player->getNetworkConnection()->setUserInfoSent();
     }
 };

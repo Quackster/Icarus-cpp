@@ -27,7 +27,5 @@ public:
         player->send(FlatCategoriesMessageComposer(Icarus::getGame()->getNavigatorManager()->getCategories(), player->getDetails()->getRank()));
         player->send(NavigatorCategoriesComposer(Icarus::getGame()->getNavigatorManager()->getCategories()));
         player->send(NavigatorMetaDataComposer());
-
-        player->getNetworkConnection()->setNavigatorSent();
     }
 };

@@ -13,11 +13,11 @@ public:
     static const int VersionCheckMessageEvent = 4000;
     static const int UniqueIDMessageEvent = 3659;
     static const int AuthenticateMessageEvent = 1490;
-    static const int UserDataMessageEvent = 1978;
+    static const int UserDataMessageEvent = -1002;//1978;
     static const int GetCurrencyBalanceMessageEvent = 1386;
     static const int LatencyTestMessageEvent = 3307;
     static const int LeaveRoomMessageEvent = 3781;// 394;
-    static const int NewNavigatorMessageEvent = 2845;
+    static const int NewNavigatorMessageEvent = -1001;// 2845;
     static const int SearchNewNavigatorEvent = 1786;
     static const int CanCreateRoomMessageEvent = 1968;
     static const int CreateRoomMessageEvent = 828;
@@ -34,7 +34,7 @@ public:
     static const int EventLogMessageEvent = 1787;
     static const int RoomInfoMessageEvent = 3494;
     static const int DoorbellEnterMessageEvent = 2347;
-    static const int MessengerFriendsMessageEvent = 1860;
+    static const int MessengerInitMessageEvent = 733;
     static const int FriendListUpdateMessageEvent = 1475;
     static const int MessengerSearchMessageEvent = 2760;
     static const int MessengerRequestMessageEvent = 2826;

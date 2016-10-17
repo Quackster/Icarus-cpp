@@ -12,13 +12,6 @@
 #include "game/player/PlayerDetails.h"
 #include "dao/MessengerDao.h"
 #include "boot/Icarus.h"
-
-#include "communication/outgoing/messenger/MessengerCategoriesMessageComposer.h"
-#include "communication/outgoing/messenger/FriendsListMessageComposer.h"
-#include "communication/outgoing/user/CreditsMessageComposer.h"
-#include "communication/outgoing/user/UserObjectMessageComposer.h"
-#include "communication/outgoing/user/SendPerkAllowancesMessageComposer.h"
-
 /*
     Session constructor
 
@@ -46,33 +39,16 @@ void Player::login() {
         Load player variables
     */
     this->room_user = new RoomUser(this);
-
     this->messenger = new Messenger(
         this->session_details->getId(), 
         MessengerDao::getFriends(this->session_details->getId()), 
         MessengerDao::getRequests(this->session_details->getId()));
-
 
     /*
         Cache room data
     */
     Icarus::getPlayerManager()->getPlayers()->insert(std::make_pair(this->session_details->getId(), this));
     Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->getId());
-
-    /*
-        Send other login packets
-    */
-    this->send(CreditsMessageComposer(this->session_details->getCredits()));
-    this->send(UserObjectMessageComposer(this));
-    this->send(SendPerkAllowancesMessageComposer());
-
-
-    /*
-        Send messenger packets
-    */
-    this->send(MessengerCategoriesMessageComposer());
-    this->send(FriendsListMessageComposer(this->messenger->getFriends()));
-    this->messenger->setInitialised(true);
 }
 
 /*

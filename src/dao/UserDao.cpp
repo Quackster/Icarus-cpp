@@ -38,6 +38,33 @@ std::string UserDao::getName(int user_id) {
     return username;
 };
 
+int UserDao::getIdByUsername(std::string username) {
+
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+    int user_id = 0;
+
+    try {
+
+        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id FROM users WHERE username = ? LIMIT 1")); {
+            statement->setString(1, username);
+        }
+
+        std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+
+        while (result_set->next()) {
+            user_id = result_set->getInt("id");
+        }
+
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
+
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+    return user_id;
+}
 
 
 /*

@@ -38,13 +38,8 @@ public:
     void setConnectionState(bool connectionState);// { this->connectionState = connectionState; };
     tcp::socket &getSocket() { return this->socket; };
 
-    bool isNavigatorSent() { return this->sent_navigator; }
-    bool isUserInfoSent() { return this->sent_user_info; }
-    void setNavigatorSent() { this->sent_navigator = true; }
-    void setUserInfoSent() { this->sent_user_info = true; }
-
-    bool isMessengerSent() { return this->sent_messenger; }
-    void setMessengerSent() { this->sent_messenger = true; }
+    bool isDataSent() { return this->sent_messenger; }
+    void setDataSent() { this->sent_messenger = true; }
 
 
 private:

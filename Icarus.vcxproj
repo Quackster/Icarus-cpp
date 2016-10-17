@@ -135,6 +135,7 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\communication\incoming\MessageHandler.cpp" />
     <ClCompile Include="src\dao\MessengerDao.cpp" />
     <ClCompile Include="src\game\messenger\Messenger.cpp" />
     <ClCompile Include="src\game\messenger\MessengerUser.cpp" />
@@ -159,7 +160,6 @@
     <ClCompile Include="src\game\navigator\NavigatorManager.cpp" />
     <ClCompile Include="src\game\navigator\NavigatorTab.cpp" />
     <ClCompile Include="src\boot\Icarus.cpp" />
-    <ClCompile Include="src\communication\incoming\MessageHandler.cpp" />
     <ClCompile Include="src\communication\streams\Request.cpp" />
     <ClCompile Include="src\communication\streams\Response.cpp" />
     <ClCompile Include="src\dao\UserDao.cpp" />
@@ -175,6 +175,9 @@
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="includes\communication\incoming\messenger\MessengerAcceptMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\messenger\MessengerInitMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\messenger\MessengerRequestMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\messenger\MessengerSearchMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\misc\LatencyTestMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\LeaveRoomMessageEvent.h" />
@@ -187,6 +190,7 @@
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerCategoriesMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\FriendsListMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerSearchMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\messenger\MessengerSendRequestComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerUpdateMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\UserStatusMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\UserDisplayMessageComposer.h" />
@@ -204,6 +208,10 @@
     <ClInclude Include="includes\communication\outgoing\user\HotelViewMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\user\SendPerkAllowancesMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\user\UserObjectMessageComposer.h" />
+    <ClInclude Include="includes\dao\MessengerDao.h" />
+    <ClInclude Include="includes\dao\NavigatorDao.h" />
+    <ClInclude Include="includes\dao\RoomDao.h" />
+    <ClInclude Include="includes\dao\UserDao.h" />
     <ClInclude Include="includes\game\entities\Entity.h" />
     <ClInclude Include="includes\game\entities\EntityDetails.h" />
     <ClInclude Include="includes\game\entities\EntityType.h" />

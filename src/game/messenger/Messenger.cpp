@@ -11,6 +11,7 @@
 #include "game/player/Player.h"
 #include "game/messenger/Messenger.h"
 #include "communication/outgoing/messenger/MessengerUpdateMessageComposer.h"
+#include "communication/outgoing/messenger/FriendsListMessageComposer.h"
 
 /*
     Constructor for Messenger
@@ -22,7 +23,8 @@
 Messenger::Messenger(int user_id, std::map<int, MessengerUser*> *friends, std::map<int, MessengerUser*> *requests) :
     user_id(user_id),
     friends(friends),
-    requests(requests) { }
+    requests(requests),
+    initialised(false) { }
 
 /*
     Deconstructor for messenger
@@ -94,7 +96,7 @@ void Messenger::removeFriend(int user_id) { }
     @bool force offline mode for friend (used when disconnecting)
     @return none
 */
-void Messenger::sendStatus(bool force_offline) {
+void Messenger::sendStatus(bool force_offline, bool login_status) {
 
     const Response response = MessengerUpdateMessageComposer(std::make_unique<MessengerUser>(this->user_id).get(), force_offline).compose();
 
@@ -103,9 +105,7 @@ void Messenger::sendStatus(bool force_offline) {
         MessengerUser *friend_ = kvp.second;
 
         if (friend_->isOnline()) {
-            if (friend_->getPlayer()->getMessenger()->isInitialised()) {
-                friend_->getPlayer()->getNetworkConnection()->send(response);
-            }
+            friend_->getPlayer()->getNetworkConnection()->send(response);
         }
     }
 }

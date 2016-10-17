@@ -17,8 +17,5 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        if (player->getMessenger()->isInitialised()) {
-            player->getMessenger()->sendStatus(false);
-        }
     }
 };

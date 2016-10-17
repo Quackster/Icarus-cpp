@@ -29,13 +29,13 @@ public:
     bool hasRequest(int id);
     bool isFriend(int id);
     void removeFriend(int user_id);
-    void sendStatus(bool force_offline);
+    void sendStatus(bool force_offline, bool login_status = false);
 
-    const std::map<int, MessengerUser*> *getFriends() {
+    std::map<int, MessengerUser*> *getFriends() {
         return friends;
     }
 
-    const std::map<int, MessengerUser*> *getRequests() {
+    std::map<int, MessengerUser*> *getRequests() {
         return requests;
     }
 

@@ -35,7 +35,10 @@
 #include "communication/incoming/room/WalkMessageEvent.h"
 
 // Messenger
+#include "communication/incoming/messenger/MessengerInitMessageEvent.h"
 #include "communication/incoming/messenger/MessengerSearchMessageEvent.h"
+#include "communication/incoming/messenger/MessengerRequestMessageEvent.h"
+#include "communication/incoming/messenger/MessengerAcceptMessageEvent.h"
 
 /*
     MessageHandler constructor
@@ -70,6 +73,9 @@ MessageHandler::MessageHandler() :
 
     // Messenger
     this->createEvent(Incoming::MessengerSearchMessageEvent, new MessengerSearchMessageEvent());
+    this->createEvent(Incoming::MessengerInitMessageEvent, new MessengerInitMessageEvent());
+    this->createEvent(Incoming::MessengerRequestMessageEvent, new MessengerRequestMessageEvent());
+    this->createEvent(Incoming::MessengerAcceptMessageEvent, new MessengerAcceptMessageEvent());
     
 }
 
