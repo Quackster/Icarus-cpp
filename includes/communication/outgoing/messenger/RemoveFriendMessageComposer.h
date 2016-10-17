@@ -10,8 +10,10 @@
 
 #include "communication/outgoing/MessageComposer.h"
 
+class RemoveFriendMessageComposer : public MessageComposer {
 
 public:
+    RemoveFriendMessageComposer(int user_id) :
         user_id(user_id) { }
 
     const Response compose() const {
