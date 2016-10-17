@@ -18,8 +18,13 @@ public:
 
     void handle(Player *player, Request &request) {
 
+        if (!player->getMessenger()->isInitialised()) {
+            player->getMessenger()->setInitialised(true);
+        }
+
         for (auto kvp : *player->getMessenger()->getFriends()) {
             player->send(MessengerUpdateMessageComposer(kvp.second, false));
         }
+
     }
 };

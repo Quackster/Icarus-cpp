@@ -29,13 +29,34 @@ Messenger::Messenger(int user_id, std::map<int, MessengerUser*> *friends, std::m
 /*
     Deconstructor for messenger
 */
-Messenger::~Messenger() { 
+Messenger::~Messenger() {  
+    this->clearFriends();
+    this->clearRequests(); 
     
-    for (auto friend_ : *this->friends) delete friend_.second;
-    for (auto request : *this->requests) delete request.second;
-
     delete this->friends;
     delete this->requests;
+}
+
+/*
+    Clear all friends
+
+    @return none
+*/
+void Messenger::clearFriends() {
+
+    for (auto friend_ : *this->friends) delete friend_.second;
+    this->friends->clear();
+}
+
+/*
+    Clear all requests
+    
+    @return none
+*/
+void Messenger::clearRequests() {
+
+    for (auto request : *this->requests) delete request.second;
+    this->requests->clear();
 }
 
 /*
@@ -105,7 +126,9 @@ void Messenger::sendStatus(bool force_offline, bool login_status) {
         MessengerUser *friend_ = kvp.second;
 
         if (friend_->isOnline()) {
-            friend_->getPlayer()->getNetworkConnection()->send(response);
+            if (friend_->getPlayer()->getMessenger()->isInitialised()) {
+                friend_->getPlayer()->getNetworkConnection()->send(response);
+            }
         }
     }
 }

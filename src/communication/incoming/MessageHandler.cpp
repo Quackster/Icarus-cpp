@@ -39,6 +39,7 @@
 #include "communication/incoming/messenger/MessengerSearchMessageEvent.h"
 #include "communication/incoming/messenger/MessengerRequestMessageEvent.h"
 #include "communication/incoming/messenger/MessengerAcceptMessageEvent.h"
+#include "communication/incoming/messenger/MessengerDeclineMessageEvent.h"
 
 /*
     MessageHandler constructor
@@ -76,6 +77,7 @@ MessageHandler::MessageHandler() :
     this->createEvent(Incoming::MessengerInitMessageEvent, new MessengerInitMessageEvent());
     this->createEvent(Incoming::MessengerRequestMessageEvent, new MessengerRequestMessageEvent());
     this->createEvent(Incoming::MessengerAcceptMessageEvent, new MessengerAcceptMessageEvent());
+    this->createEvent(Incoming::MessengerDeclineMessageEvent, new MessengerDeclineMessageEvent());
     
 }
 

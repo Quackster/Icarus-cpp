@@ -39,6 +39,9 @@ public:
         return requests;
     }
 
+    void clearFriends();
+    void clearRequests();
+
     bool isInitialised() { return this->initialised; }
     void setInitialised(bool flag) { this->initialised = flag; }
 };

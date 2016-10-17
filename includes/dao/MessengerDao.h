@@ -10,11 +10,10 @@
 #include <vector>
 #include <string>
 
-#include "game/messenger/MessengerUser.h"
-
 #include "mysql_connection.h"
 #include "mysql.h"
 
+class MessengerUser;
 class MessengerDao
 {
 
@@ -22,6 +21,7 @@ private:
     MessengerDao() { };
 
 public:
+    static bool exists(std::string query);
     static std::map<int, MessengerUser*> *getFriends(int user_id);
     static std::map<int, MessengerUser*> *getRequests(int user_id);
     static std::vector<int> search(std::string query);

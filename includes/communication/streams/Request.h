@@ -19,6 +19,7 @@ public:
 
     short readShort();
     int readInt();
+    bool readBool();
     std::string readString();
 
     int getMessageLength() { return length; }

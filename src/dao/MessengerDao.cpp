@@ -11,7 +11,7 @@
 #include "dao/MessengerDao.h"
 #include "boot/Icarus.h"
 
-bool exists(std::string query) {
+bool MessengerDao::exists(std::string query) {
 
     bool output = false;
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
@@ -126,8 +126,8 @@ bool MessengerDao::newRequest(int fromId, int toId) {
 
     bool success = false;
 
-    if (!exists("SELECT * FROM messenger_requests WHERE to_id = '" + std::to_string(toId) + "' AND from_id = '" + std::to_string(fromId) + "'") && 
-        !exists("SELECT * FROM messenger_requests WHERE to_id = '" + std::to_string(toId) + "' AND from_id = '" + std::to_string(fromId) + "'")) {
+    if (!MessengerDao::exists("SELECT * FROM messenger_requests WHERE to_id = '" + std::to_string(toId) + "' AND from_id = '" + std::to_string(fromId) + "'") &&
+        !MessengerDao::exists("SELECT * FROM messenger_requests WHERE to_id = '" + std::to_string(toId) + "' AND from_id = '" + std::to_string(fromId) + "'")) {
 
 
         std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();

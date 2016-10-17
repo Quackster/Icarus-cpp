@@ -434,5 +434,11 @@
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerRequestsMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\messenger\RemoveFriendMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\incoming\messenger\MessengerDeclineMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -24,6 +24,19 @@ Request::Request(char *full_message) :
 Request::~Request() { }
 
 /*
+Read an boolean represented as 1 byte
+
+@return boolean
+*/
+bool Request::readBool() {
+
+    char number = ((int)full_message[index]) == 1;
+
+    index = index + 1;
+    return number;
+}
+
+/*
 Read an integer represented as 16 bits
 
 @return integer
@@ -37,6 +50,7 @@ short Request::readShort() {
     index = index + 2;
     return number;
 }
+
 
 /*
 Read an integer represented as 32 bits

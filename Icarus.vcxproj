@@ -176,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="includes\communication\incoming\messenger\MessengerAcceptMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\messenger\MessengerDeclineMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\messenger\MessengerInitMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\messenger\MessengerRequestMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\messenger\MessengerSearchMessageEvent.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerSearchMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerSendRequestComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerUpdateMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\messenger\RemoveFriendMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\UserStatusMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\UserDisplayMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\model\FloorMapMessageComposer.h" />
