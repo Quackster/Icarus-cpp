@@ -41,6 +41,8 @@
 #include "communication/incoming/messenger/MessengerAcceptMessageEvent.h"
 #include "communication/incoming/messenger/MessengerDeclineMessageEvent.h"
 #include "communication/incoming/messenger/MessengerDeleteFriendMessageEvent.h"
+#include "communication/incoming/messenger/MessengerTalkMessageEvent.h"
+#include "communication/incoming/messenger/FollowFriendMessageEvent.h"
 
 /*
     MessageHandler constructor
@@ -80,7 +82,8 @@ MessageHandler::MessageHandler() :
     this->createEvent(Incoming::MessengerAcceptMessageEvent, new MessengerAcceptMessageEvent());
     this->createEvent(Incoming::MessengerDeclineMessageEvent, new MessengerDeclineMessageEvent());
     this->createEvent(Incoming::MessengerDeleteFriendMessageEvent, new MessengerDeleteFriendMessageEvent());
-    
+    this->createEvent(Incoming::FollowFriendMessageEvent, new FollowFriendMessageEvent());
+    this->createEvent(Incoming::MessengerTalkMessageEvent, new MessengerTalkMessageEvent());
 }
 
 /*
