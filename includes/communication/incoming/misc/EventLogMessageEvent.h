@@ -22,5 +22,6 @@ public:
             Icarus::getMessageHandler()->invoke(Incoming::MessengerInitMessageEvent, request, player);
             Icarus::getMessageHandler()->invoke(Incoming::UserDataMessageEvent, request, player);
         }
+
     }
 };

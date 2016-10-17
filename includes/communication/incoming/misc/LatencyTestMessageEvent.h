@@ -9,6 +9,7 @@
 #pragma once
 #include "boot/Icarus.h"
 #include "communication/incoming/MessageEvent.h"
+#include "communication/outgoing/messenger/MessengerUpdateMessageComposer.h"
 
 class LatencyTestMessageEvent : public MessageEvent {
 
@@ -17,5 +18,8 @@ public:
 
     void handle(Player *player, Request &request) {
 
+        for (auto kvp : *player->getMessenger()->getFriends()) {
+            player->send(MessengerUpdateMessageComposer(kvp.second, false));
+        }
     }
 };
