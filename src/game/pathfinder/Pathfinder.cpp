@@ -19,12 +19,12 @@
 Pathfinder::~Pathfinder() { }
 
 /*
-    Creates a valid path when given current coordinates and goal coordinates, the list returned
-    is actually backwards and needs to be reversed.
+Creates a valid path when given current coordinates and goal coordinates, the list returned
+is actually backwards and needs to be reversed.
 
-    @param Position start
-    @param Position end
-    @return vector of positions
+@param Position start
+@param Position end
+@return vector of positions
 */
 std::deque<Position> Pathfinder::makePath(Position start, Position end, Room *room) {
 
@@ -52,12 +52,12 @@ std::deque<Position> Pathfinder::makePath(Position start, Position end, Room *ro
 }
 
 /*
-    Returns a tree of PathfinderNode's which needs to be looped through to get the valid path with
-    node->getNextNode()
+Returns a tree of PathfinderNode's which needs to be looped through to get the valid path with
+node->getNextNode()
 
-    @param Position start
-    @param Position end
-    @return vector of positions
+@param Position start
+@param Position end
+@return vector of positions
 */
 std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Position end, Room *room) {
 

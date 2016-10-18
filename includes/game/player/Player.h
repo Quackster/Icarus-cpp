@@ -37,9 +37,9 @@ public:
 
 private:
     NetworkConnection *network_connection;
-    EntityDetails *session_details;
-    RoomUser *room_user;
-    Messenger *messenger;
+    EntityDetails *session_details = nullptr;
+    RoomUser *room_user = nullptr;
+    Messenger *messenger = nullptr;
     std::string unique_id;
     bool logged_in;
 };

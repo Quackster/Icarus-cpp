@@ -12,6 +12,7 @@
 #include "game/player/PlayerDetails.h"
 #include "dao/MessengerDao.h"
 #include "boot/Icarus.h"
+
 /*
     Session constructor
 
@@ -32,6 +33,14 @@ Player::Player(NetworkConnection *network_connection) :
     @return none
 */
 void Player::login() {
+
+    /*
+        Remove teh clones
+    */
+    if (Icarus::getPlayerManager()->getPlayers()->count(this->session_details->getId()) == 1) {
+        //this->getNetworkConnection()->getSocket().close();
+        return;
+    }
 
     this->logged_in = true;
 
@@ -100,10 +109,6 @@ void Player::clear() {
 */
 Player::~Player() {
     std::cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
-
-    if (!logged_in) {
-        return;
-    }
 
     if (messenger != nullptr) {
         messenger->sendStatus(true); // offline for everyone :'(

@@ -22,6 +22,10 @@ public:
 
     void handle(Player *player, Request &request) {
         
+        if (player->getMessenger() == nullptr) {
+            return;
+        }
+
         player->send(MessengerCategoriesMessageComposer());
         player->send(FriendsListMessageComposer(player->getMessenger()->getFriends()));
         player->send(MessengerRequestsMessageComposer(player->getDetails(), player->getMessenger()->getRequests()));
