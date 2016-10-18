@@ -129,7 +129,18 @@ void NetworkConnection::handleData(Request request) {
     std::cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << "/ ";
 
     for (int i = 0; i < request.getMessageLength(); i++) {
-        std::cout << request.getBuffer()[i];
+
+        char ch = request.getBuffer()[i];
+        int ch_int = (int)ch;
+
+        if (ch_int < 14) {
+            std::cout << "[" << ch_int << "]";
+        }
+        else {
+            std::cout << request.getBuffer()[i];
+        }
+
+        
     }
 
     std::cout << std::endl;

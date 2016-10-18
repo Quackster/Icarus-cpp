@@ -130,7 +130,7 @@ Room* RoomDao::getRoom(int room_id) {
     std::vector<int> rooms = { room_id };
 
     // Return single room
-    return getRooms(rooms).front();
+    return getRooms(rooms)[0];
 }
 
 

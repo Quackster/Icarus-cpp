@@ -61,12 +61,6 @@ void Room::enter(Player *player) {
 
     this->disposed = false;
 
-    /*if (this->getPlayers().size() == 0/* && this->runnable->isCancelled()) {
-        //this->runnable->setCancelled(false);
-        this->scheduleRunnable();
-        //this->runnable->setCancelled(true);
-    }*/
-
     // So we don't forget what room we entered 8-)
     player->getRoomUser()->setRoom(this);
     player->getRoomUser()->setLoadingRoom(true);
@@ -255,7 +249,6 @@ void Room::dispose(const bool force_dispose) {
 */
 void Room::reset() {
     this->disposed = true;
-    std::cout << "Room was reset" << std::endl;
 }
 
 /*

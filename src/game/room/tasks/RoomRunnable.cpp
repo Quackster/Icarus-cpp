@@ -71,7 +71,7 @@ Tick handler for room runnable
 */
 void RoomRunnable::run() {
 
-    if (this->room->isDisposed() || this->room->getData() == nullptr) {
+    if (this->room->isDisposed() || this->room->getData() == nullptr || this->room->getEntities() == nullptr) {
         this->room->setRunnable(nullptr);
         return;
     }

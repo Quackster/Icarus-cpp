@@ -19,14 +19,22 @@ public:
 
         int room_id = request.readInt();
 
+        if (player->getRoomUser()->getRoom() != nullptr) {
+            player->getRoomUser()->getRoom()->leave(player, false);// , !(player->getRoomUser()->getRoom()->getId() == room_id));
+        }
+
         Room *room = Icarus::getGame()->getRoomManager()->getRoom(room_id);
 
         if (room == nullptr) {
-            return;
-        }
 
-        if (player->getRoomUser()->getRoom() != nullptr) {
-            player->getRoomUser()->getRoom()->leave(player, false);
+            room = RoomDao::getRoom(room_id);
+
+            if (room != nullptr) {
+                Icarus::getGame()->getRoomManager()->addRoom(room);
+            }
+            else {
+                return;
+            }
         }
 
         room->enter(player); // call method to finalise enter room
