@@ -55,6 +55,8 @@ void NetworkConnection::recieveData() {
 
                 // Read rest of policy request
                 socket.async_receive(boost::asio::buffer(buffer, 18), [this, self](boost::system::error_code ec, std::size_t length) {});
+
+                this->recieveData();
             }
             else {
 
@@ -67,16 +69,15 @@ void NetworkConnection::recieveData() {
                 socket.async_receive(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
 
                     if (length > 0) {
-                        Request request(buffer);
+                        Request request(message_length, buffer);
 
                         if (request.getMessageId() > 0) {
                             this->handleData(request);
+                            this->recieveData();
                         }
                     }
                 });
             }
-
-            this->recieveData();
         }
         else {
 
@@ -124,6 +125,14 @@ void NetworkConnection::handleData(Request request) {
         Player *player = new Player(this);
         Icarus::getPlayerManager()->addSession(player, this->getConnectionId());
     }
+
+    std::cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << "/ ";
+
+    for (int i = 0; i < request.getMessageLength(); i++) {
+        std::cout << request.getBuffer()[i];
+    }
+
+    std::cout << std::endl;
 
     //cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
     Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getPlayerManager()->getSession(this->connection_id));

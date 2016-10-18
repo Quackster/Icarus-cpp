@@ -14,7 +14,7 @@ class Request
 {
 
 public:
-    Request(char *full_message);
+    Request(int length, char *full_message);
     ~Request();
 
     short readShort();

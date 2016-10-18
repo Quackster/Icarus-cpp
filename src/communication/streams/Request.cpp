@@ -14,7 +14,8 @@ Request constructor
 
 @return full received packet
 */
-Request::Request(char *full_message) : 
+Request::Request(int length, char *full_message) : 
+    length(length),
     full_message(full_message), 
     index(0) {
 
