@@ -301,5 +301,8 @@ Room::~Room()
     }
 
     delete room_data;
+    this->room_data = nullptr;
+
     delete entities;
+    this->entities = nullptr;
 }

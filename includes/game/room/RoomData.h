@@ -66,8 +66,8 @@ public:
     int &getUsersMax() { return users_max; }
     //std::string getModel() { return model; }
     RoomModel *getModel() { return this->model; }
-    std::string &getWallpaper() { return description; }
-    std::string &getFloor() { return description; }
+    std::string &getWallpaper() { return wallpaper; }
+    std::string &getFloor() { return floor; }
     std::string &getOutside() { return outside; }
     std::vector<std::string> &getTags() { return tags; }
     int &getTradeState() { return trade_state; }
