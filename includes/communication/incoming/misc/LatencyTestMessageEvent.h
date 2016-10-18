@@ -18,13 +18,14 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        if (!player->getMessenger()->isInitialised()) {
-            player->getMessenger()->setInitialised(true);
-        }
+        if (player->getMessenger() != nullptr) {
+            if (!player->getMessenger()->isInitialised()) {
+                player->getMessenger()->setInitialised(true);
+            }
 
-        for (auto kvp : *player->getMessenger()->getFriends()) {
-            player->send(MessengerUpdateMessageComposer(kvp.second, false));
+            for (auto kvp : *player->getMessenger()->getFriends()) {
+                player->send(MessengerUpdateMessageComposer(kvp.second, false));
+            }
         }
-
     }
 };

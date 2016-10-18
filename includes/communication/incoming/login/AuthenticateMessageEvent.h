@@ -7,12 +7,14 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+
+#include "boot/Icarus.h"
+
 #include "communication/incoming/MessageEvent.h"
 #include "communication/outgoing/login/AuthenticateMessageComposer.h"
 #include "communication/outgoing/login/UniqueMachineIDMessageComposer.h"
 #include "communication/outgoing/login/HomeRoomMessageComposer.h"
 #include "communication/outgoing/login/LandingWidgetMessageComposer.h"
-
 
 #include "dao/UserDao.h"
 
@@ -24,6 +26,14 @@ public:
     void handle(Player *session, Request &request) {
 
         PlayerDetails *details = UserDao::findUserByTicket(session, request.readString());
+
+        /*
+            Delete and close any previous connection
+        */
+        if (Icarus::getPlayerManager()->getPlayers()->count(details->getId()) == 1) {
+            session->getNetworkConnection()->getSocket().close();
+            return;
+        }
 
         if (details == nullptr) {
             session->getNetworkConnection()->getSocket().close();
