@@ -22,10 +22,7 @@ NetworkConnection constructor
 NetworkConnection::NetworkConnection(int connection_id, tcp::socket socket) : 
     connection_id(connection_id), 
     socket(std::move(socket)), 
-    connection_state(true),
-    sent_navigator(false),
-    sent_user_info(false),
-    sent_messenger(false) { }
+    connection_state(true) { }
 
 NetworkConnection::~NetworkConnection() { }
 
