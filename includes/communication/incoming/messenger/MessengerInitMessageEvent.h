@@ -30,9 +30,5 @@ public:
         player->send(FriendsListMessageComposer(player->getMessenger()->getFriends()));
         player->send(MessengerRequestsMessageComposer(player->getDetails(), player->getMessenger()->getRequests()));
        
-        //player->getMessenger()->sendStatus(false);
-
-        Icarus::getMessageHandler()->invoke(Incoming::NewNavigatorMessageEvent, request, player);
-        Icarus::getMessageHandler()->invoke(Incoming::UserDataMessageEvent, request, player);
     }
 };

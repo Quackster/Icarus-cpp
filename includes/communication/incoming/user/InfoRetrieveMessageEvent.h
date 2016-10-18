@@ -13,20 +13,17 @@
 #include "communication/outgoing/user/UserObjectMessageComposer.h"
 #include "communication/outgoing/user/SendPerkAllowancesMessageComposer.h"
 
-class UserDataMessageEvent : public MessageEvent {
+class InfoRetrieveMessageEvent : public MessageEvent {
 
 public:
-    UserDataMessageEvent() { }
+    InfoRetrieveMessageEvent() { }
 
     void handle(Player *player, Request &request) {
 
-        player->getNetworkConnection()->setDataSent();
-
-        player->send(CreditsMessageComposer(player->getDetails()->getCredits()));
         player->send(UserObjectMessageComposer(player));
         player->send(SendPerkAllowancesMessageComposer());
 
-        Response res(2820);
+        /*Response res(2820);
         res.writeInt(2);
         res.writeInt(0);//ID
         res.writeString("Hello");//Title
@@ -46,6 +43,6 @@ public:
         res.writeString("http://localhost/");//Link to article
         res.writeString("web_promo_small/stories_hallofselfies_teaser.png");//Image link
 
-        player->getNetworkConnection()->send(res);
+        player->getNetworkConnection()->send(res);*/
     }
 };

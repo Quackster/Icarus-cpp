@@ -7,9 +7,9 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #include "stdafx.h"
+
 #include "boot/Icarus.h"
 #include "network/NetworkConnection.h"
-#include "communication/outgoing/login/AuthenticateMessageComposer.h"
 
 /*
 NetworkConnection constructor

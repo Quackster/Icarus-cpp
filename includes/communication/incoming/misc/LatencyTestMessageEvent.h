@@ -19,6 +19,7 @@ public:
     void handle(Player *player, Request &request) {
 
         if (player->getMessenger() != nullptr) {
+
             if (!player->getMessenger()->isInitialised()) {
                 player->getMessenger()->setInitialised(true);
             }

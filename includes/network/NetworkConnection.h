@@ -36,11 +36,7 @@ public:
     int getConnectionId();// { return connectionID; };
     bool getConnectionState();// { return connectionState; };
     void setConnectionState(bool connectionState);// { this->connectionState = connectionState; };
-    tcp::socket &getSocket() { return this->socket; };
-
-    bool isDataSent() { return this->sent_messenger; }
-    void setDataSent() { this->sent_messenger = true; }
-
+    tcp::socket &getSocket() { return this->socket; }
 
 private:
     int connection_id;
@@ -49,8 +45,4 @@ private:
 
     enum { maxLength = 512 };
     char buffer[maxLength];
-
-    bool sent_navigator;
-    bool sent_user_info;
-    bool sent_messenger;
 };

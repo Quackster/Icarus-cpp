@@ -191,6 +191,7 @@
     <ClInclude Include="includes\communication\incoming\room\EnterRoomMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\RoomInfoMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\HeightMapMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\user\CurrencyBalanceMessageEvent.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\FollowErrorMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\FollowFriendMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerCategoriesMessageComposer.h" />
@@ -239,7 +240,7 @@
     <ClInclude Include="includes\thread\Runnable.h" />
     <ClInclude Include="includes\thread\ExecutorService.h" />
     <ClInclude Include="includes\communication\incoming\navigator\SearchNewNavigatorEvent.h" />
-    <ClInclude Include="includes\communication\incoming\user\UserDataMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\user\InfoRetrieveMessageEvent.h" />
     <ClInclude Include="includes\communication\outgoing\navigator\SearchResultSetComposer.h" />
     <ClInclude Include="includes\communication\outgoing\navigator\NavigatorMetaDataComposer.h" />
     <ClInclude Include="includes\communication\outgoing\navigator\NavigatorCategoriesComposer.h" />

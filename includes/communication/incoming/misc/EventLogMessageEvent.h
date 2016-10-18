@@ -17,11 +17,11 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        if (!player->getNetworkConnection()->isDataSent()) {
+       /* if (!player->getNetworkConnection()->isDataSent()) {
             Icarus::getMessageHandler()->invoke(Incoming::NewNavigatorMessageEvent, request, player);
             Icarus::getMessageHandler()->invoke(Incoming::MessengerInitMessageEvent, request, player);
             Icarus::getMessageHandler()->invoke(Incoming::UserDataMessageEvent, request, player);
-        }
+        }*/
 
     }
 };

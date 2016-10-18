@@ -17,7 +17,8 @@
 #include "communication/incoming/login/VersionCheckMessageEvent.h"
 
 // User
-#include "communication/incoming/user/UserDataMessageEvent.h"
+#include "communication/incoming/user/InfoRetrieveMessageEvent.h"
+#include "communication/incoming/user/CurrencyBalanceMessageEvent.h"
 
 // Misc
 #include "communication/incoming/misc/LatencyTestMessageEvent.h"
@@ -58,7 +59,8 @@ MessageHandler::MessageHandler() :
     this->createEvent(Incoming::AuthenticateMessageEvent, new AuthenticateMessageEvent());
 
     // User
-    this->createEvent(Incoming::UserDataMessageEvent, new UserDataMessageEvent());
+    this->createEvent(Incoming::InfoRetrieveMessageEvent, new InfoRetrieveMessageEvent());
+    this->createEvent(Incoming::CurrencyBalanceMessageEvent, new CurrencyBalanceMessageEvent());
 
     // Misc
     this->createEvent(Incoming::LatencyTestMessageEvent, new LatencyTestMessageEvent());
