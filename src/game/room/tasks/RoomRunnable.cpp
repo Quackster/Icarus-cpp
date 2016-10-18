@@ -14,7 +14,8 @@
 
 #include "boot/Icarus.h"
 #include "game/room/tasks/RoomRunnable.h"
-#include "communication/outgoing/room/UserStatusMessageComposer.h"
+
+#include "communication/outgoing/room/user/UserStatusMessageComposer.h"
 
 
 int Calculate(int X1, int Y1, int X2, int Y2);

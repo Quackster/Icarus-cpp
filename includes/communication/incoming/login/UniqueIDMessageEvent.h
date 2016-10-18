@@ -18,6 +18,8 @@ public:
     UniqueIDMessageEvent() { }
 
     void handle(Player *player, Request &request) {
+
+        request.readString(); // read junk str
         player->setUniqueId(request.readString());
     }
 };

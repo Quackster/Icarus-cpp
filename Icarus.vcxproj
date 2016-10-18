@@ -202,8 +202,9 @@
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerSendRequestComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerUpdateMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\RemoveFriendMessageComposer.h" />
-    <ClInclude Include="includes\communication\outgoing\room\UserStatusMessageComposer.h" />
-    <ClInclude Include="includes\communication\outgoing\room\UserDisplayMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\room\user\RemoveUserMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\room\user\UserStatusMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\room\user\UserDisplayMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\model\FloorMapMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\entry\NoRightsMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\entry\RightsLevelMessageComposer.h" />

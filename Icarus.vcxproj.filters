@@ -320,12 +320,6 @@
     <ClInclude Include="includes\communication\outgoing\user\HotelViewMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\communication\outgoing\room\UserDisplayMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\communication\outgoing\room\UserStatusMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\communication\incoming\room\WalkMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -459,6 +453,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\communication\incoming\user\InfoRetrieveMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\room\user\UserStatusMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\room\user\UserDisplayMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\room\user\RemoveUserMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

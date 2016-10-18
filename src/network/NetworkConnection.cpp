@@ -64,6 +64,10 @@ void NetworkConnection::recieveData() {
 
                         if (request.getMessageId() > 0) {
                             this->handleData(request);
+
+                            std::cout << "[" << (int)buffer[0] << "]" << "[" << (int)buffer[1] << "]" << "[" << (int)buffer[2] << "]" << "[" << (int)buffer[3] << "]" << std::endl;
+
+
                             this->recieveData();
                         }
                     }
@@ -124,7 +128,7 @@ void NetworkConnection::handleData(Request request) {
         char ch = request.getBuffer()[i];
         int ch_int = (int)ch;
 
-        if (ch_int < 14) {
+        if (ch_int > -1 && ch_int < 14) {
             std::cout << "[" << ch_int << "]";
         }
         else {

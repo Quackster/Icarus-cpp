@@ -7,38 +7,26 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-
-#include "boot/Icarus.h"
-#include "game/room/model/RoomModel.h"
-
-#include "game/room/Room.h"
-#include "game/player/Player.h"
+#include <string>
 
 #include "communication/outgoing/MessageComposer.h"
 
-class FloorMapMessageComposer : public MessageComposer {
+class RemoveUserMessageComposer : public MessageComposer {
 
 public:
-    FloorMapMessageComposer(Room *room) : 
-        room(room) { }
+    RemoveUserMessageComposer(int virtual_id) : 
+        virtual_id(virtual_id) { }
 
     const Response compose() const {
-
-        RoomModel *model = room->getModel();
-
         Response response = this->createResponse();
-        response.writeBool(true);
-        response.writeInt(room->getData()->getWallHeight());
-        response.writeString(model->getFloorMap());
-
+        response.writeString(std::to_string(this->virtual_id));
         return response;
     }
 
     const int getHeader() const {
-        return Outgoing::FloorMapMessageComposer;
+        return Outgoing::RemoveUserMessageComposer;
     }
 
 private:
-    Room *room;
-
+    int virtual_id;
 };

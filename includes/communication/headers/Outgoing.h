@@ -61,7 +61,7 @@ public:
     static const int TypingStatusMessageComposer = 2604;
     static const int UniqueMachineIDMessageComposer = 3683;
     static const int UserDisplayMessageComposer = 504;
-    static const int UserLeftRoomMessageComposer = 3475;
+    static const int RemoveUserMessageComposer = 3475;
     static const int UserObjectMessageComposer = 3762;
     static const int UserStatusMessageComposer = 2627;
     static const int RoomOwnerRightsComposer = 625;

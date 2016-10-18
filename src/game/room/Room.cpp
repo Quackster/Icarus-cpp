@@ -22,6 +22,7 @@
 #include "communication/outgoing/room/entry/NoRightsMessageComposer.h"
 #include "communication/outgoing/room/entry/PrepareRoomMessageComposer.h"
 
+#include "communication/outgoing/room/user/RemoveUserMessageComposer.h"
 
 /*
     Constructor for rooms
@@ -114,6 +115,9 @@ void Room::leave(Player *player, const bool hotel_view, const bool dispose) {
 
         // Remove entity from vector
         this->entities->erase(std::remove(this->entities->begin(), this->entities->end(), player), this->entities->end());
+
+        // Remove entity from room
+        this->send(RemoveUserMessageComposer(player->getRoomUser()->getVirtualId()));
 
         // Reset room user
         player->getRoomUser()->reset();

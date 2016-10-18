@@ -14,8 +14,8 @@
 
 #include "communication/outgoing/room/RoomDataMessageComposer.h"        
 
-#include "communication/outgoing/room/UserDisplayMessageComposer.h"
-#include "communication/outgoing/room/UserStatusMessageComposer.h"
+#include "communication/outgoing/room/user/UserDisplayMessageComposer.h"
+#include "communication/outgoing/room/user/UserStatusMessageComposer.h"
 
 class HeightMapMessageEvent : public MessageEvent {
 

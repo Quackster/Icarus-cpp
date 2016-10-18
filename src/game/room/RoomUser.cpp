@@ -11,7 +11,8 @@
 #include "game/room/Room.h"
 #include "game/room/RoomUser.h"
 #include "game/entities/Entity.h"
-#include "communication/outgoing/room/UserStatusMessageComposer.h"
+
+#include "communication/outgoing/room/user/UserStatusMessageComposer.h"
 
 /*
     Constructor for room user

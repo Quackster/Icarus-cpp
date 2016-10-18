@@ -19,7 +19,8 @@
 class HeightMapMessageComposer : public MessageComposer {
 
 public:
-    HeightMapMessageComposer(Room *room) : room(room) { }
+    HeightMapMessageComposer(Room *room) :
+        room(room) { }
 
     const Response compose() const {
 
