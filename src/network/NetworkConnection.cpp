@@ -49,18 +49,12 @@ void NetworkConnection::recieveData() {
 
             if (buffer[0] == 60) {
                 this->sendPolicy();
-
-                // Read rest of policy request
-                socket.async_receive(boost::asio::buffer(buffer, 18), [this, self](boost::system::error_code ec, std::size_t length) {});
-
                 this->recieveData();
             }
             else {
 
                 // Use bitwise operators to get the length needed to read the rest of the message
                 int message_length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | (buffer[3]);
-
-                //buffer[message_length];
 
                 // Read rest of message, to prevent any combined packets
                 socket.async_receive(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
@@ -136,8 +130,6 @@ void NetworkConnection::handleData(Request request) {
         else {
             std::cout << request.getBuffer()[i];
         }
-
-        
     }
 
     std::cout << std::endl;
@@ -180,6 +172,12 @@ Send policy to the socket
 void NetworkConnection::sendPolicy() {
     char* policy = "<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0";
     this->writeData(policy, (int)strlen(policy) + 1);
+
+    // Define variables for boost recv
+    auto self(shared_from_this());
+
+    // Read rest of policy request
+    socket.async_receive(boost::asio::buffer(buffer, 18), [this, self](boost::system::error_code ec, std::size_t length) {});
 }
 
 /*
