@@ -9,10 +9,10 @@
 #pragma once
 #include "communication/incoming/MessageEvent.h"
 
-class WalkMessageEvent : public MessageEvent {
+class DefaultMessageEvent : public MessageEvent {
 
 public:
-    WalkMessageEvent() { }
+    DefaultMessageEvent() { }
 
     void handle(Player *player, Request &request) {
 

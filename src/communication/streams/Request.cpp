@@ -80,7 +80,6 @@ std::string Request::readString() {
     int length = readShort();
     std::string str;
     
-
     for (int i = 0; i < length; i++) {
         str += this->full_message[index++];
     }

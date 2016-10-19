@@ -26,6 +26,16 @@ public:
         RoomUser *room_user = player->getRoomUser();
         room_user->setGoalX(goal_x);
         room_user->setGoalY(goal_y);
+
+        Position goal = room_user->getGoal();
+
+        int map_size_x = room->getModel()->getMapSizeX();
+        int map_size_y = room->getModel()->getMapSizeY();
+
+        if (goal.getX() >= map_size_x || goal.getY() >= map_size_y) {
+            return;
+        }
+
         room_user->setPath(Pathfinder::makePath(room_user->getPosition(), room_user->getGoal(), room));
         room_user->setWalking(true);
     }

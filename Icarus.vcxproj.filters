@@ -221,9 +221,6 @@
     <ClInclude Include="includes\communication\headers\Outgoing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes\communication\incoming\DefaultIncomingMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="includes\game\room\RoomManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -462,6 +459,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes\communication\outgoing\room\user\RemoveUserMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\incoming\DefaultMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
