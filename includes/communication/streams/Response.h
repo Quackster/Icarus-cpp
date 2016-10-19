@@ -31,9 +31,9 @@ public:
     void writeString(const char* str) { this->writeCChar(str); };
     void writeString(std::string str) { this->writeCChar(str.c_str()); };
 
-    char* getData();
-    char* getBytes(short num);
-    char* getBytes(int num, bool reverse = false);
+    char *getData();
+    //char *getBytes(short num);
+    //char *getBytes(int num, bool reverse = false);
 
     int getBytesWritten() { return index + 4/*the length at the start*/;  }
     std::vector<char> getMessage() { return message; }
