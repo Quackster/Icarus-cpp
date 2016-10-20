@@ -84,7 +84,6 @@ void Player::clear() {
 
     if (this->logged_in) {
 
-        Icarus::getPlayerManager()->getPlayers()->erase(this->session_details->getId());
 
         if (this->room_user != nullptr) {
             if (this->room_user->getRoom() != nullptr) {

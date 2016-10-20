@@ -85,7 +85,6 @@ void RoomRunnable::run() {
 
         RoomUser *room_user = entity->getRoomUser();
 
-
         if (room_user->getPosition().sameAs(room_user->getGoal())) {
             room_user->stopWalking(false);
         }
