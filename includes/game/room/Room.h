@@ -7,7 +7,7 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-
+#include <map>
 #include <vector>
 
 #include "communication/streams/Response.h"
@@ -41,7 +41,7 @@ public:
     RoomModel *getModel() { return this->room_data->getModel(); }
     const std::vector<Player*> getPlayers();
     
-    std::vector<Entity*> *getEntities() { return entities; }
+    std::map<int, Entity*> *getEntities() { return entities; }
     std::shared_ptr<RoomRunnable> getRunnable() { return this->runnable; }
     void setRunnable(std::shared_ptr<RoomRunnable> runnable) { this->runnable = runnable; }
 
@@ -54,7 +54,7 @@ private:
 
     RoomData *room_data;
     std::shared_ptr<RoomRunnable> runnable;
-    std::vector<Entity*> *entities;
+    std::map<int, Entity*> *entities;
 
     bool disposed;
     void reset();

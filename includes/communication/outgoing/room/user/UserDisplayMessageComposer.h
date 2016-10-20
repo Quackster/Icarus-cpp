@@ -8,6 +8,7 @@
 */
 #pragma once
 #include <string>
+#include <map>
 
 #include "game/entities/Entity.h"
 #include "communication/outgoing/MessageComposer.h"
@@ -17,6 +18,12 @@ class UserDisplayMessageComposer : public MessageComposer {
 public:
     UserDisplayMessageComposer(Entity *entity) { 
         this->entities = { entity };
+    }
+
+    UserDisplayMessageComposer(std::map<int, Entity*> entities) {  
+        for (auto kvp : entities) {
+            this->entities.push_back(kvp.second);
+        }
     }
 
     UserDisplayMessageComposer(std::vector<Entity*> entities) :

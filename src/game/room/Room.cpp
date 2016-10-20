@@ -31,7 +31,7 @@
 Room::Room(int room_id) :
     room_id(room_id),
     disposed(false),
-    entities(new std::vector<Entity*>()),
+    entities(new std::map<int, Entity*>()),
     runnable(nullptr) { } //std::make_shared<RoomRunnable>(this)) { }
 
 /*
@@ -95,7 +95,7 @@ void Room::enter(Player *player) {
     }
 
     if (!this->hasEntity(player)) {
-        this->entities->push_back(player);
+        this->entities->insert(std::make_pair(player->getRoomUser()->getVirtualId(), player));
     }
 
     if (this->getPlayers().size() == 1) {
@@ -137,7 +137,7 @@ void Room::leave(Player *player, const bool hotel_view, const bool dispose) {
     if (this->hasEntity(player)) {
 
         // Remove entity from vector
-        this->entities->erase(std::remove(this->entities->begin(), this->entities->end(), player), this->entities->end());
+        this->entities->erase(player->getRoomUser()->getVirtualId());
 
         // Remove entity from room
         this->send(RemoveUserMessageComposer(player->getRoomUser()->getVirtualId()));
@@ -211,7 +211,7 @@ void Room::serialise(Response &response, const bool enter_room) {
     @return boolean
 */
 bool Room::hasEntity(Entity* entity) {
-    return std::find(this->entities->begin(), this->entities->end(), entity) != this->entities->end();
+    return this->entities->count(entity->getRoomUser()->getVirtualId()) > 0;
 }
 
 /*
@@ -223,7 +223,10 @@ const std::vector<Player*> Room::getPlayers() {
 
     std::vector<Player*> players;
 
-    for (auto entity : *this->entities) {
+    for (auto kvp : *this->entities) {
+
+        Entity *entity = kvp.second;
+
         if (entity->getEntityType() == PLAYER) {
             players.push_back(dynamic_cast<Player*>(entity));
         }
@@ -254,8 +257,10 @@ void Room::dispose(const bool force_dispose) {
 
     if (empty_room) {
         reset = true;
-        if (this->room_data->isPrivate() && this->room_data->isOwnerOnline() == false) {
-            remove = true;
+        if (this->room_data->isOwnerOnline() == false) {
+            if (this->room_data->isPrivate()) {
+                remove = true;
+            }
         }
     }
 
@@ -314,7 +319,10 @@ Room::~Room()
 {
     std::cout << " Room ID " << this->room_id << " disposed." << std::endl;
 
-    for (auto entity : *this->entities) {
+    for (auto kvp : *this->entities) {
+
+        Entity *entity = kvp.second;
+
         if (entity->getEntityType() != PLAYER) {
             delete entity; // Only delete non-playable entities
         }

@@ -7,6 +7,7 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+#include <map>
 
 #include "game/entities/Entity.h"
 #include "communication/outgoing/MessageComposer.h"
@@ -16,6 +17,12 @@ class UserStatusMessageComposer : public MessageComposer {
 public:
     UserStatusMessageComposer(Entity *entity) {
         this->entities = { entity };
+    }
+
+    UserStatusMessageComposer(std::map<int, Entity*> entities) {
+        for (auto kvp : entities) {
+            this->entities.push_back(kvp.second);
+        }
     }
 
     UserStatusMessageComposer(std::vector<Entity*> entities) :

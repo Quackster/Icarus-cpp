@@ -81,7 +81,9 @@ void RoomRunnable::run() {
 
     std::vector<Entity*> entities_update;
 
-    for (Entity *entity : *this->room->getEntities()) {
+    for (auto kvp: *this->room->getEntities()) {
+
+        Entity *entity = kvp.second;
 
         if (entity == nullptr) {
             continue;
