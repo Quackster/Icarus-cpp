@@ -44,6 +44,7 @@ private:
 
     Room *room;
     Entity *entity;
+    Position next;
 
     bool is_walking;
     bool needs_update;
@@ -74,6 +75,7 @@ public:
     std::deque<Position> &getPath() { return path; }
     void setPath(std::deque<Position> path) { this->path = path; }
     Entity *getEntity() { return this->entity; }
+    Position &getNext() { return next; }
 
 
     void setLoadingRoom(bool is_loading_room) { this->is_loading_room = is_loading_room; }
@@ -85,6 +87,7 @@ public:
     void setGoalY(int goal_y) { this->goal_y = goal_y; }
     void setX(int x) { this->x = x; }
     void setY(int y) { this->y = y; }
+    void setNext(Position pos) { this->next = pos; }
     void setHeight(double height) { this->height = height; }
     void setVirtualId(int virtual_id) { this->virtual_id = virtual_id; }
 };

@@ -40,6 +40,8 @@ public:
             }
 
             response.writeString(status + "/");
+
+            std::cout << " User status: " << status << std::endl;
         }
 
         return response;

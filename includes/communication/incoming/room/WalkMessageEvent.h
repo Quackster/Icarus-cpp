@@ -22,12 +22,13 @@ public:
         int goal_y = request.readInt();
 
         Room *room = player->getRoomUser()->getRoom();
-
         RoomUser *room_user = player->getRoomUser();
+
         room_user->setGoalX(goal_x);
         room_user->setGoalY(goal_y);
 
         Position goal = room_user->getGoal();
+        Position current = room_user->getPosition();
 
         int map_size_x = room->getModel()->getMapSizeX();
         int map_size_y = room->getModel()->getMapSizeY();
@@ -36,7 +37,21 @@ public:
             return;
         }
 
-        room_user->setPath(Pathfinder::makePath(room_user->getPosition(), room_user->getGoal(), room));
+        if (goal.getX() == current.getX() && goal.getY() == current.getY()) {
+            return;
+        }
+
+        if (!Pathfinder::isValidStep(room, current, goal, false)) {
+            return;
+        }
+
+        auto path = Pathfinder::makePath(room_user->getPosition(), room_user->getGoal(), room);
+
+        if (path.size() == 0) {
+            return; // TODO: Call pathfinder to retry again.
+        }
+
+        room_user->setPath(path);
         room_user->setWalking(true);
     }
 };

@@ -83,7 +83,12 @@ void RoomRunnable::run() {
 
     for (Entity *entity : *this->room->getEntities()) {
 
+        if (entity == nullptr) {
+            continue;
+        }
+
         RoomUser *room_user = entity->getRoomUser();
+
 
         if (room_user->getPosition().sameAs(room_user->getGoal())) {
             room_user->stopWalking(false);
