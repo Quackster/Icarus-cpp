@@ -99,6 +99,11 @@ Write data handle
 */
 void NetworkConnection::writeData(char* data, int length) {
 
+    if (!this->connection_state) {
+        return; // Person disconnected, stop writing data...
+    }
+
+
     auto self(shared_from_this());
 
     boost::asio::async_write(socket, boost::asio::buffer(data, /*this->max_length*/length), [this, self, data](boost::system::error_code ec, std::size_t length) {

@@ -21,8 +21,9 @@
 #include "communication/outgoing/room/entry/RightsLevelMessageComposer.h"
 #include "communication/outgoing/room/entry/NoRightsMessageComposer.h"
 #include "communication/outgoing/room/entry/PrepareRoomMessageComposer.h"
-
 #include "communication/outgoing/room/user/RemoveUserMessageComposer.h"
+#include "communication/outgoing/room/user/UserDisplayMessageComposer.h"
+#include "communication/outgoing/room/user/UserStatusMessageComposer.h"
 
 /*
     Constructor for rooms
@@ -92,6 +93,28 @@ void Room::enter(Player *player) {
         player->getRoomUser()->setStatus("flatctrl", "1");
         player->send(RightsLevelMessageComposer(1));
     }
+
+    if (!this->hasEntity(player)) {
+        this->entities->push_back(player);
+    }
+
+    if (this->getPlayers().size() == 1) {
+        if (this->runnable == nullptr) {
+            this->runnable = std::make_shared<RoomRunnable>(this);
+            this->scheduleRunnable();
+        }
+    }
+
+    RoomModel *model = this->getModel();
+    RoomUser *room_user = player->getRoomUser();
+
+    room_user->setX(model->getDoorX());
+    room_user->setY(model->getDoorY());
+    room_user->setHeight(model->getDoorZ());
+    room_user->setRotation(model->getDoorRotation(), true);
+
+    this->send(UserDisplayMessageComposer(player));
+    this->send(UserStatusMessageComposer(player));
 
     player->send(PrepareRoomMessageComposer(this->room_id));
 }

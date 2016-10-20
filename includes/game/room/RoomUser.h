@@ -73,7 +73,7 @@ public:
     Position getPosition() { return Position(x, y); }
     Position getGoal() { return Position(goal_x, goal_y); }
     std::deque<Position> &getPath() { return path; }
-    void setPath(std::deque<Position> path) { this->path = path; }
+    void setPath(std::deque<Position> &path) { this->path = path; }
     Entity *getEntity() { return this->entity; }
     Position &getNext() { return next; }
 
