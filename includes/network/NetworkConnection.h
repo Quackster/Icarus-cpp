@@ -43,6 +43,6 @@ private:
     bool connection_state;
     tcp::socket socket;
 
-    enum { maxLength = 512 };
+    enum { maxLength = 256 };
     char buffer[maxLength];
 };

@@ -30,6 +30,11 @@ public:
             return;
         }
 
+        if (room->getPlayers().size() == 50) {
+            player->getRoomUser()->getRoom()->leave(player, true, true);
+            return;
+        }
+
         player->send(HeightMapMessageComposer(room));
         player->send(FloorMapMessageComposer(room));
 
