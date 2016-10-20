@@ -18,10 +18,16 @@ public:
 
     void handle(Player *player, Request &request) {
 
+        Room *room = player->getRoomUser()->getRoom();
+
+        if (room == nullptr) {
+            return;
+        }
+
         int goal_x = request.readInt();
         int goal_y = request.readInt();
 
-        Room *room = player->getRoomUser()->getRoom();
+
         RoomUser *room_user = player->getRoomUser();
 
         room_user->setGoalX(goal_x);
