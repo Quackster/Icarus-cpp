@@ -67,7 +67,10 @@ void PlayerManager::removeSession(int connection_id) {
 
         // Remove session from map, remove it early to prevent any issues
         this->sessions->erase(connection_id);
-        this->authenticated_sessions->erase(session->getDetails()->getId());
+
+        if (session->getDetails() != nullptr) {
+            this->authenticated_sessions->erase(session->getDetails()->getId());
+        }
 
         // Clear session of any responsibilites
         session->clear();

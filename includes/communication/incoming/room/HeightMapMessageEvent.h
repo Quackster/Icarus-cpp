@@ -35,7 +35,7 @@ public:
 
         player->send(UserDisplayMessageComposer(*room->getEntities()));
         player->send(UserStatusMessageComposer(*room->getEntities()));
-        player->send(RoomDataMessageComposer(room, player, 1, 1));
+        player->send(RoomDataMessageComposer(room, player));
 
         Response res(Outgoing::RoomOwnerRightsComposer);
         res.writeInt(room->getData()->getId());

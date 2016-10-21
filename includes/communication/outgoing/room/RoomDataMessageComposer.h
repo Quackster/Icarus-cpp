@@ -16,7 +16,7 @@
 class RoomDataMessageComposer : public MessageComposer {
 
 public:
-    RoomDataMessageComposer(Room *room, Player *player, bool is_loading, bool check_entry) {
+    RoomDataMessageComposer(Room *room, Player *player, bool is_loading = 1, bool check_entry = 1) {
 
         this->room = room;
         this->player = player;
