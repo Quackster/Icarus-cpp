@@ -93,7 +93,7 @@ void Player::clear() {
 
         std::vector<Room*> rooms = Icarus::getGame()->getRoomManager()->getPlayerRooms(this->session_details->getId()); {
             for (Room *room : rooms) {
-                room->dispose();
+                //room->dispose();
             }
         }
     }
@@ -121,4 +121,8 @@ Player::~Player() {
     if (room_user != nullptr) {
         delete room_user;
     }
+
+    this->messenger = nullptr;
+    this->session_details = nullptr;
+    this->room_user = nullptr;
 }

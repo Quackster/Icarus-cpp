@@ -90,8 +90,11 @@ void RoomRunnable::run() {
             continue;
         }
 
-        RoomUser *room_user = entity->getRoomUser();
+        if (entity->getRoomUser() == nullptr) {
+            continue;
+        }
 
+        RoomUser *room_user = entity->getRoomUser();
 
         if (room_user->getPosition().sameAs(room_user->getGoal())) {
             room_user->stopWalking(false);
@@ -127,18 +130,20 @@ void RoomRunnable::run() {
             }
             else {
                 room_user->stopWalking(true);
+                room_user->updateStatus();
             }
 
         }
         else if (room_user->getNeedsUpdate()) {
             room_user->stopWalking(false);
-            entities_update.insert(std::make_pair(entity->getRoomUser()->getVirtualId(), entity));
+            room_user->updateStatus();
+            //entities_update.insert(std::make_pair(entity->getRoomUser()->getVirtualId(), entity));
         }
     }
 
-    if (entities_update.size() > 0) {
+    /*(if (entities_update.size() > 0) {
         this->room->send(UserStatusMessageComposer(entities_update));
-    }
+    }*/
 
     if (room->getPlayers().size() > 0 && this->room->getRunnable() != nullptr) {
         Icarus::getGame()->getGameScheduler()->schedule(/*std::make_shared<RoomRunnable>(this->room)*/this->room->getRunnable());

@@ -130,15 +130,15 @@ void Room::enter(Player *player) {
 */
 void Room::leave(Player *player, const bool hotel_view, const bool dispose) {
 
-    if (hotel_view) {
-        player->send(HotelViewMessageComposer());
-    }
-
     if (this->hasEntity(player)) {
+
+        if (hotel_view) {
+            player->send(HotelViewMessageComposer());
+        }
 
         // Remove entity from vector
         this->entities->erase(player->getRoomUser()->getVirtualId());
-       
+
         if (this->runnable != nullptr) {
             this->runnable->getEntities().erase(player->getRoomUser()->getVirtualId());
         }
