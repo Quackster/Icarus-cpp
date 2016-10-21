@@ -139,10 +139,6 @@ void Room::leave(Player *player, const bool hotel_view, const bool dispose) {
         // Remove entity from vector
         this->entities->erase(player->getRoomUser()->getVirtualId());
 
-        if (this->runnable != nullptr) {
-            this->runnable->getEntities().erase(player->getRoomUser()->getVirtualId());
-        }
-
         // Remove entity from room
         this->send(RemoveUserMessageComposer(player->getRoomUser()->getVirtualId()));
 

@@ -15,11 +15,8 @@ class RoomRunnable : public Runnable {
 public:
     RoomRunnable(Room *room);
     void run();
-    std::map<int, Entity*> getEntities() { return this->entities_update; }
-
+    void processEntity(Entity *entity);
     Room *room;
     bool cancelled = true;
 
-private:
-    std::map<int, Entity*> entities_update;
 };
