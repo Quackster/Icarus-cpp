@@ -13,57 +13,16 @@
 #include <sstream>
 
 #include "boot/Icarus.h"
+
+#include "game/room/model/Rotation.h"
 #include "game/room/tasks/RoomRunnable.h"
 
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
-
-
-int Calculate(int X1, int Y1, int X2, int Y2);
 
 /*
     Constructor for room runnable
 */
 RoomRunnable::RoomRunnable(Room *room) : room(room) { }
-
-int Calculate(int X1, int Y1, int X2, int Y2)
-{
-    int Rotation = 0;
-
-    if (X1 > X2 && Y1 > Y2)
-    {
-        Rotation = 7;
-    }
-    else if (X1 < X2 && Y1 < Y2)
-    {
-        Rotation = 3;
-    }
-    else if (X1 > X2 && Y1 < Y2)
-    {
-        Rotation = 5;
-    }
-    else if (X1 < X2 && Y1 > Y2)
-    {
-        Rotation = 1;
-    }
-    else if (X1 > X2)
-    {
-        Rotation = 6;
-    }
-    else if (X1 < X2)
-    {
-        Rotation = 2;
-    }
-    else if (Y1 < Y2)
-    {
-        Rotation = 4;
-    }
-    else if (Y1 > Y2)
-    {
-        Rotation = 0;
-    }
-
-    return Rotation;
-}
 
 /*
 Tick handler for room runnable
@@ -111,8 +70,17 @@ void RoomRunnable::run() {
                 room_user->setStatus("lay", "");
                 room_user->setStatus("sit", "");
 
+                int rotation;
+
+                /*if (this->room->getData()->hasMoonwalk()) {
+                    rotation = Rotation::getRotation(next.getX(), next.getY(), room_user->getPosition().getX(), room_user->getPosition().getY());
+                }
+                else {
+                    */rotation = Rotation::getRotation(room_user->getPosition().getX(), room_user->getPosition().getY(), next.getX(), next.getY());
+                //}
+
                 int height = room_model->getSquareHeight()[next.getX() * room_model->getMapSizeY() + next.getY()];
-                room_user->setRotation(Calculate(room_user->getPosition().getX(), room_user->getPosition().getY(), next.getX(), next.getY()), true, false);
+                room_user->setRotation(rotation, true, false);
 
                 std::stringstream ss;
                 ss << next.getX();

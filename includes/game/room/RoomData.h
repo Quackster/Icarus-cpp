@@ -79,6 +79,7 @@ public:
     int &getWhoCanMute() { return who_can_mute; }
     int &getWhoCanKick() { return who_can_kick; }
     int &getWhoCanBan() { return who_can_ban; }
+    //bool hasMoonwalk() { return moonwalk; }
 
     int getVirtualId() { this->virtual_id = this->virtual_id + 1; return virtual_id; }
 
@@ -123,6 +124,8 @@ private:
     int who_can_kick;
     int who_can_ban;
     int virtual_id;
+
+    //bool moonwalk = true;
 
     std::vector<int> user_rights;
 };

@@ -91,7 +91,7 @@ Checks whether or not the connection ID with session exists
 @return whether or not connection ID exists
 */
 bool PlayerManager::containsSession(int connection_id) {
-    return this->sessions->count(connection_id) == 1 ? true : false;
+    return this->sessions->count(connection_id) == 1;
 }
 
 /*

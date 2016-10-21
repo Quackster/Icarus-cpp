@@ -71,15 +71,15 @@ void Room::enter(Player *player) {
     player->send(RoomModelMessageComposer(this->getModel()->getName(), this->room_id));
     player->send(RoomRatingMessageComposer(room_data->getScore()));
 
-    std::string floor = room_data->getFloor();
-    std::string wall = room_data->getWallpaper();
+    int floor = stoi(room_data->getFloor());
+    int wall = stoi(room_data->getWallpaper());
 
-    if (floor.length() > 0) {
-        player->send(RoomSpacesMessageComposer("floor", floor));
+    if (floor > 0) {
+        player->send(RoomSpacesMessageComposer("floor", std::to_string(floor)));
     }
 
-    if (wall.length() > 0) {
-        player->send(RoomSpacesMessageComposer("wall", floor));
+    if (wall > 0) {
+        player->send(RoomSpacesMessageComposer("wall", std::to_string(wall)));
     }
 
     player->send(RoomSpacesMessageComposer("landscape", room_data->getOutside()));
