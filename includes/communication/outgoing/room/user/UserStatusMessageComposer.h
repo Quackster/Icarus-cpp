@@ -33,6 +33,12 @@ public:
         response.writeInt(this->entities.size());
 
         for (auto entity : entities) {
+
+            if (entity->getRoomUser() == nullptr) {
+                std::cout << "null room user!!\n";
+                continue;
+            }
+
             response.writeInt(entity->getRoomUser()->getVirtualId());
             response.writeInt(entity->getRoomUser()->getX());
             response.writeInt(entity->getRoomUser()->getY());

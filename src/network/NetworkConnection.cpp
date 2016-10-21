@@ -77,9 +77,6 @@ void NetworkConnection::recieveData() {
         else {
 
             // Handle session disconnect
-
-            this->getSocket().cancel();
-
             if (length == 0) {
                 if (Icarus::getPlayerManager()->containsSession(this->connection_id)) {
                     Icarus::getPlayerManager()->removeSession(this->connection_id);

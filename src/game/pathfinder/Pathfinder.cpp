@@ -168,6 +168,14 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is
             return false;
         }
 
+        if (tmp.getX() < 0 || tmp.getY() < 0) {
+            return false;
+        }
+
+        if (current.getX() < 0|| current.getY() < 0) {
+            return false;
+        }
+
         if (!room->getModel()->isValidSquare(tmp.getX(), tmp.getY())) {
             return false;
         }

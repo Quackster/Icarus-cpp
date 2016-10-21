@@ -26,7 +26,11 @@ public:
     std::string getUniqueId() { return this->unique_id; }
     EntityType getEntityType() { EntityType type = PLAYER; return type; }
     EntityDetails *getDetails() { return this->session_details; }
-    RoomUser *getRoomUser() { return this->room_user; }
+    
+    RoomUser *getRoomUser() { 
+        return this->room_user; 
+    }
+    
     Messenger *getMessenger() { return this->messenger; }
     bool authenticated() { return logged_in; }
 

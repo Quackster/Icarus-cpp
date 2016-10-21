@@ -77,9 +77,10 @@ void RoomRunnable::run() {
         return;
     }
 
+    this->entities_update.clear();
+
     RoomModel *room_model = this->room->getModel();
 
-    std::vector<Entity*> entities_update;
 
     for (auto kvp: *this->room->getEntities()) {
 
@@ -131,7 +132,7 @@ void RoomRunnable::run() {
         }
         else if (room_user->getNeedsUpdate()) {
             room_user->stopWalking(false);
-            entities_update.push_back(entity);
+            entities_update.insert(std::make_pair(entity->getRoomUser()->getVirtualId(), entity));
         }
     }
 

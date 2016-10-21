@@ -15,8 +15,11 @@ class RoomRunnable : public Runnable {
 public:
     RoomRunnable(Room *room);
     void run();
-    //bool isCancelled() { return this->cancelled; };
-   //void setCancelled(bool flag) { this->cancelled = flag; }
+    std::map<int, Entity*> getEntities() { return this->entities_update; }
+
     Room *room;
     bool cancelled = true;
+
+private:
+    std::map<int, Entity*> entities_update;
 };
