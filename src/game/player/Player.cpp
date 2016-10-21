@@ -93,7 +93,7 @@ void Player::clear() {
 
         std::vector<Room*> rooms = Icarus::getGame()->getRoomManager()->getPlayerRooms(this->session_details->getId()); {
             for (Room *room : rooms) {
-                //room->dispose();
+                room->dispose();
             }
         }
     }
