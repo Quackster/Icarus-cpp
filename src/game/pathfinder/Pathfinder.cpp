@@ -87,7 +87,7 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
         open_list.pop_front();
         current->setInClose(true);
 
-        for (Position pos : Pathfinder::getPoints()) {
+        for (Position pos : Pathfinder::getPoints()) { // looping through all 8 points
 
             tmp = current->getPosition().addPoint(pos);
             bool is_final_move = tmp.sameAs(end);

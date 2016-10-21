@@ -185,6 +185,7 @@
     <ClInclude Include="includes\communication\incoming\messenger\MessengerTalkMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\misc\LatencyTestMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\messenger\FollowFriendMessageEvent.h" />
+    <ClInclude Include="includes\communication\incoming\navigator\CreateRoomMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\room\LeaveRoomMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\misc\EventLogMessageEvent.h" />
     <ClInclude Include="includes\communication\incoming\navigator\NewNavigatorMessageEvent.h" />
@@ -203,6 +204,7 @@
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerSendRequestComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\MessengerUpdateMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\messenger\RemoveFriendMessageComposer.h" />
+    <ClInclude Include="includes\communication\outgoing\navigator\CreateRoomMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\user\RemoveUserMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\user\UserStatusMessageComposer.h" />
     <ClInclude Include="includes\communication\outgoing\room\user\UserDisplayMessageComposer.h" />

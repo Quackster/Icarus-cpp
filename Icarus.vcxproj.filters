@@ -470,5 +470,11 @@
     <ClInclude Include="includes\game\room\model\Rotation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="includes\communication\incoming\navigator\CreateRoomMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="includes\communication\outgoing\navigator\CreateRoomMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -47,19 +47,19 @@ private:
     Position next;
 
     bool is_walking;
-    bool needs_update;
+    //bool needs_update;
     bool is_loading_room;
 
 public:
 
     void reset();
-    void stopWalking(bool needs_update);
+    //void stopWalking(bool needs_update);
     void setStatus(std::string key, std::string value, bool update = false);
     void updateStatus();
 
     bool inRoom() { return room != nullptr; };
     bool &getLoadingRoom() { return is_loading_room; }
-    bool &getNeedsUpdate() { return needs_update; }
+    //bool &getNeedsUpdate() { return needs_update; }
     bool &isWalking() { return is_walking; }
     int &getRotation() { return rotation; }
     int &getHeadRotation() { return head_rotation; }
@@ -79,7 +79,7 @@ public:
 
 
     void setLoadingRoom(bool is_loading_room) { this->is_loading_room = is_loading_room; }
-    void setNeedsUpdate(bool needs_update) { this->needs_update = needs_update; }
+    //void setNeedsUpdate(bool needs_update) { this->needs_update = needs_update; }
     void setWalking(bool is_walking) { this->is_walking = is_walking; }
     void setRotation(int rotation, bool set_head_rotation = false, bool update = false);
     //void setHeadRotation(int head_rotation) { this->head_rotation = head_rotation; }

@@ -87,7 +87,6 @@ void RoomUser::reset() {
     this->path.clear();// = std::queue<Position>();
     this->room = nullptr;
     bool is_walking = false;
-    bool needs_update = false;
     bool is_loading_room = false;
 
 }
@@ -97,7 +96,7 @@ void RoomUser::reset() {
 
     @param update user
 */
-void RoomUser::stopWalking(bool needs_update) {
+/*void RoomUser::stopWalking(bool needs_update) {
 
     if (this->statuses.count("mv") > 0) {
         this->statuses.erase("mv"); // remove status
@@ -105,13 +104,8 @@ void RoomUser::stopWalking(bool needs_update) {
 
     this->needs_update = needs_update;
     this->path.clear();
-
-    if (this->is_walking) {
-        this->updateStatus();
-    }
-
     this->is_walking = false;
-}
+}*/
 
 /*
     Deconstructor for room user

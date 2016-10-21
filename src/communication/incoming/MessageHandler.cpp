@@ -27,6 +27,7 @@
 // Navigator
 #include "communication/incoming/navigator/SearchNewNavigatorEvent.h"
 #include "communication/incoming/navigator/NewNavigatorMessageEvent.h"
+#include "communication/incoming/navigator/CreateRoomMessageEvent.h"
 
 // Room
 #include "communication/incoming/room/LeaveRoomMessageEvent.h"
@@ -70,6 +71,7 @@ MessageHandler::MessageHandler() :
     this->createEvent(Incoming::SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
     this->createEvent(Incoming::NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
     this->createEvent(Incoming::LeaveRoomMessageEvent, new LeaveRoomMessageEvent());
+    this->createEvent(Incoming::CreateRoomMessageEvent, new CreateRoomMessageEvent());
 
     // Room
     this->createEvent(Incoming::RoomInfoMessageEvent, new RoomInfoMessageEvent());
