@@ -72,6 +72,9 @@ void PlayerManager::removeSession(int connection_id) {
             this->authenticated_sessions->erase(session->getDetails()->getId());
         }
 
+        // Stop session from listening for more packets
+        session->getNetworkConnection()->setConnectionState(false);
+
         // Clear session of any responsibilites
         session->clear();
 
