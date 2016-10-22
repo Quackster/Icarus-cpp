@@ -115,19 +115,15 @@ bool Messenger::isFriend(int id) {
 void Messenger::removeFriend(int user_id) {
 
     MessengerUser *user = this->friends->find(user_id)->second;
-
-    delete user;
-
     this->friends->erase(user_id);
+    delete user;
 }
 
 void Messenger::removeRequest(int user_id) {
 
     MessengerUser *user = this->requests->find(user_id)->second;
-
-    delete user;
-
     this->requests->erase(user_id);
+    delete user;
 }
 
 /*
