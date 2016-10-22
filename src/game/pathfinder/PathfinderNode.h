@@ -8,8 +8,7 @@
 */
 #pragma once
 #include "game/room/Room.h"
-#include "game/pathfinder/Position.h"
-#include "game/pathfinder/Position.h"
+#include "Position.h"
 
 class PathfinderNode
 {

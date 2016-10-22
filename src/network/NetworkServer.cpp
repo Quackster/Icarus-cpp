@@ -7,7 +7,7 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #include "stdafx.h"
-#include "network/NetworkServer.h"
+#include "NetworkServer.h"
 
 /*
 Network server constructor

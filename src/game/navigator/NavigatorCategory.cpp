@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "game/navigator/NavigatorCategory.h"
+#include "NavigatorCategory.h"
 
 
 NavigatorCategory::NavigatorCategory(int id, std::string name, int minimum_rank) :

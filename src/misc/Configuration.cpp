@@ -12,8 +12,8 @@
 #include <iostream>
 #include <sstream>
 
-#include "misc/Configuration.h"
-#include "misc/Utilities.h"
+#include "Configuration.h"
+#include "Utilities.h"
 
 /*
     Constructor for Configuration, it will parse it when a new instance of Configuration is created

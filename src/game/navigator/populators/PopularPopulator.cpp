@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "game/navigator/populators/PopularPopulator.h"
+#include "PopularPopulator.h"
 #include "boot/Icarus.h"
 
 std::vector<Room*> PopularPopulator::populate(bool room_limit, Player* player) {

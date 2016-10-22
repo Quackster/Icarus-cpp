@@ -7,13 +7,16 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-#include <vector>
+#include "MessageEvent.h"
 
-#include "game/navigator/populators/RoomPopulator.h"
-
-class OfficialRoomPopulator : public RoomPopulator {
+class DefaultMessageEvent : public MessageEvent {
 
 public:
-    OfficialRoomPopulator() { }
-    std::vector<Room*> populate(bool room_limit, Player* player);
+    DefaultMessageEvent() { }
+
+    void handle(Player *player, Request &request) {
+
+
+
+    }
 };

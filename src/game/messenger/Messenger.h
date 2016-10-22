@@ -9,8 +9,7 @@
 #pragma once
 #include <map>
 
-#include "game/messenger/MessengerUser.h"
-
+class MessengerUser;
 class Player;
 class Messenger {
 

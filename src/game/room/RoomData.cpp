@@ -9,7 +9,6 @@
 #include "stdafx.h"
 
 #include "boot/Icarus.h"
-#include "game/room/RoomData.h"
 
 /*
     Constructor for RoomData

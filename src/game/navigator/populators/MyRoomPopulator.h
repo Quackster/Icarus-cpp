@@ -9,11 +9,11 @@
 #pragma once
 #include <vector>
 
-#include "game/navigator/populators/RoomPopulator.h"
+#include "RoomPopulator.h"
 
-class DefaultPopulator : public RoomPopulator {
+class MyRoomPopulator : public RoomPopulator {
 
 public:
-    DefaultPopulator() { }
+    MyRoomPopulator() { }
     std::vector<Room*> populate(bool room_limit, Player* player);
 };

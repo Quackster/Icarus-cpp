@@ -7,7 +7,7 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #include "stdafx.h"
-#include "communication/streams/Response.h"
+#include "Response.h"
 
 /*
 Response constructor, it will initialise the deque, and append the header in raw bytes

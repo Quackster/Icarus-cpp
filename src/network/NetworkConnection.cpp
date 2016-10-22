@@ -9,7 +9,7 @@
 #include "stdafx.h"
 
 #include "boot/Icarus.h"
-#include "network/NetworkConnection.h"
+#include "NetworkConnection.h"
 
 /*
 NetworkConnection constructor

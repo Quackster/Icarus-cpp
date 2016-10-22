@@ -10,8 +10,8 @@
 #include <thread>
 #include <vector>
 
-#include "thread/BlockingQueue.h"
-#include "thread/Runnable.h"
+#include "BlockingQueue.h"
+#include "Runnable.h"
 
 class ExecutorService
 {

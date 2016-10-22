@@ -8,8 +8,8 @@
 */
 #include "stdafx.h"
 
-#include "dao/UserDao.h"
-#include "dao/RoomDao.h"
+#include "UserDao.h"
+#include "RoomDao.h"
 
 #include "boot/Icarus.h"
 #include "misc/Utilities.h"

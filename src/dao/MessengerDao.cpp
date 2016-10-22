@@ -8,8 +8,13 @@
 */
 #include "stdafx.h"
 
-#include "dao/MessengerDao.h"
 #include "boot/Icarus.h"
+
+#include "game/messenger/MessengerUser.h"
+#include "dao/MessengerDao.h"
+
+
+
 
 bool MessengerDao::exists(std::string query) {
 

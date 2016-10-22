@@ -7,16 +7,13 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-#include "communication/incoming/MessageEvent.h"
+#include <vector>
 
-class DefaultMessageEvent : public MessageEvent {
+#include "RoomPopulator.h"
+
+class PopularPopulator : public RoomPopulator {
 
 public:
-    DefaultMessageEvent() { }
-
-    void handle(Player *player, Request &request) {
-
-
-
-    }
+    PopularPopulator() { }
+    std::vector<Room*> populate(bool room_limit, Player* player);
 };

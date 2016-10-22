@@ -8,8 +8,7 @@
 */
 #include "stdafx.h"
 
-#include "game/room/Room.h"
-#include "game/room/RoomUser.h"
+#include "Room.h"
 #include "game/entities/Entity.h"
 
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"

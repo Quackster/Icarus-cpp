@@ -10,8 +10,7 @@
 
 #include <algorithm>
 
-#include "game/pathfinder/Pathfinder.h"
-
+#include "Pathfinder.h"
 
 /*
     Deconstructor for Pathfinder

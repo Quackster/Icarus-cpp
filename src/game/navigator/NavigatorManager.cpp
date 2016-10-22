@@ -9,12 +9,12 @@
 #include "stdafx.h"
 
 #include "dao/NavigatorDao.h"
-#include "game/navigator/NavigatorManager.h"
 
-#include "game/navigator/populators/DefaultPopulator.h"
-#include "game/navigator/populators/MyRoomPopulator.h"
-#include "game/navigator/populators/OfficialRoomPopulator.h"
-#include "game/navigator/populators/PopularPopulator.h"
+#include "NavigatorManager.h"
+#include "populators/DefaultPopulator.h"
+#include "populators/MyRoomPopulator.h"
+#include "populators/OfficialRoomPopulator.h"
+#include "populators/PopularPopulator.h"
 /*
 Constructor for Navigator Manager
 

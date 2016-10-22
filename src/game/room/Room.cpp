@@ -10,7 +10,6 @@
 
 #include <cstring>
 
-#include "game/room/Room.h"
 #include "boot/Icarus.h"
 
 #include "communication/outgoing/user/HotelViewMessageComposer.h"

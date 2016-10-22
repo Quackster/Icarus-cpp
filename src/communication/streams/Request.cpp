@@ -7,7 +7,7 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #include "stdafx.h"
-#include "communication/streams/Request.h"
+#include "Request.h"
 
 /*
 Request constructor

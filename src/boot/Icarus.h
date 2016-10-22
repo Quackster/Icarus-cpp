@@ -14,6 +14,13 @@
 #include "misc/Configuration.h"
 #include "game/Game.h"
 
+class PlayerManager;
+class NetworkServer;
+class MessageHandler;
+class DatabaseManager;
+class Configuration;
+class Game;
+
 class Icarus
 {
 

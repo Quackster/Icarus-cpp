@@ -9,7 +9,6 @@
 #include "stdafx.h"
 
 #include "dao/RoomDao.h"
-#include "game/room/RoomManager.h"
 
 /*
     Constructor for room manager

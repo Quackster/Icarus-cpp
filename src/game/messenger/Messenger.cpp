@@ -9,7 +9,10 @@
 #include "stdafx.h"
 
 #include "game/player/Player.h"
-#include "game/messenger/Messenger.h"
+
+#include "Messenger.h"
+#include "MessengerUser.h"
+
 #include "communication/outgoing/messenger/MessengerUpdateMessageComposer.h"
 #include "communication/outgoing/messenger/FriendsListMessageComposer.h"
 

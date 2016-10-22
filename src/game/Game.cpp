@@ -8,9 +8,9 @@
 */
 #include "stdafx.h"
 
-#include "boot/Icarus.h"
-#include "game/Game.h"
+#include "Game.h"
 
+#include "boot/Icarus.h"
 #include "dao/RoomDao.h"
 
 Game::Game() :
