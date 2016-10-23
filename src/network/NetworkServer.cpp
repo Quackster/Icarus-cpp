@@ -14,8 +14,10 @@ Network server constructor
 
 @return none
 */
-NetworkServer::NetworkServer(boost::asio::io_service& io_service, short port) : 
-    acceptor(io_service, tcp::endpoint(tcp::v4(), port)), socket(io_service), connection_id(0) {
+NetworkServer::NetworkServer(boost::asio::io_service& io_service, std::string host, short port) : 
+    acceptor(io_service, tcp::endpoint(boost::asio::ip::address::from_string(host), port)),//tcp::endpoint(tcp::v4(), port)), 
+	socket(io_service),
+	connection_id(0) {
     
     this->startAccept();
 }

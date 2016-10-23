@@ -46,11 +46,13 @@ void RconConnection::recieveData() {
 
         if (!ec) {
 
-            this->sendResponse(
+            /*this->sendResponse(
                 "<title>testing123"
                 "</title><h2>hello</h2>"
                 "<p>parapgraph</p>"
-                "<marquee>lolol</marquee>");
+                "<marquee>" + std::string(buffer) + "</marquee>");*/
+
+			
             
         }
     });
@@ -64,7 +66,7 @@ void RconConnection::recieveData() {
 */
 void RconConnection::sendResponse(std::string content) {
 
-    std::stringstream ss;
+    /*std::stringstream ss;
 
     ss << "HTTP/1.1 200 OK\n"
     << "Date: Thu, 19 Feb 2009 12:27:04 GMT\n"
@@ -82,7 +84,7 @@ void RconConnection::sendResponse(std::string content) {
 
     std::string response = ss.str();
 
-    this->writeData(response.c_str(), response.length());
+    this->writeData(response.c_str(), response.length());*/
 }
 
 /*

@@ -14,7 +14,7 @@
 class RconServer
 {
 public:
-    RconServer(boost::asio::io_service& io_service, short port);
+    RconServer(boost::asio::io_service& io_service, std::string host, short port);
 	~RconServer();
     void startAccept();
 
