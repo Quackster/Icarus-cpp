@@ -31,7 +31,7 @@ public:
     static const int HeightMapMessageComposer = 3806;
     static const int HomeRoomMessageComposer = 704;
     static const int HotelScreenMessageComposer = 3825;
-    //static const int InitialRoomInfoMessageComposer = 2075;
+    static const int InitialRoomInfoMessageComposer = 2075;
     static const int InitMessengerMessageComposer = 2925;
     static const int LandingWidgetMessageComposer = 1351;
     static const int MessengerCategoriesMessageComposer = 249;
