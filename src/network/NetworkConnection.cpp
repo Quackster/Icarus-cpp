@@ -7,9 +7,9 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #include "stdafx.h"
+
 #include "boot/Icarus.h"
-#include "network/NetworkConnection.h"
-#include "communication/outgoing/login/AuthenticateMessageComposer.h"
+#include "NetworkConnection.h"
 
 /*
 NetworkConnection constructor
@@ -22,9 +22,7 @@ NetworkConnection constructor
 NetworkConnection::NetworkConnection(int connection_id, tcp::socket socket) : 
     connection_id(connection_id), 
     socket(std::move(socket)), 
-    connection_state(true),
-    sent_navigator(false),
-    sent_user_info(false) { }
+    connection_state(true) { }
 
 NetworkConnection::~NetworkConnection() { }
 
@@ -51,9 +49,7 @@ void NetworkConnection::recieveData() {
 
             if (buffer[0] == 60) {
                 this->sendPolicy();
-
-                // Read rest of policy request
-                socket.async_receive(boost::asio::buffer(buffer, 18), [this, self](boost::system::error_code ec, std::size_t length) {});
+                this->recieveData();
             }
             else {
 
@@ -64,21 +60,19 @@ void NetworkConnection::recieveData() {
                 socket.async_receive(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
 
                     if (length > 0) {
-                        Request request(buffer);
+                        Request request(message_length, buffer);
 
                         if (request.getMessageId() > 0) {
                             this->handleData(request);
+                            this->recieveData();
                         }
                     }
                 });
             }
-
-            this->recieveData();
         }
         else {
 
             // Handle session disconnect
-
             if (length == 0) {
                 if (Icarus::getPlayerManager()->containsSession(this->connection_id)) {
                     Icarus::getPlayerManager()->removeSession(this->connection_id);
@@ -99,6 +93,11 @@ Write data handle
 @return none
 */
 void NetworkConnection::writeData(char* data, int length) {
+
+    if (!this->connection_state) {
+        return; // Person disconnected, stop writing data...
+    }
+
 
     auto self(shared_from_this());
 
@@ -122,6 +121,23 @@ void NetworkConnection::handleData(Request request) {
         Icarus::getPlayerManager()->addSession(player, this->getConnectionId());
     }
 
+    std::cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << "/ ";
+
+    for (int i = 0; i < request.getMessageLength(); i++) {
+
+        char ch = request.getBuffer()[i];
+        int ch_int = (int)ch;
+
+        if (ch_int > -1 && ch_int < 14) {
+            std::cout << "[" << ch_int << "]";
+        }
+        else {
+            std::cout << request.getBuffer()[i];
+        }
+    }
+
+    std::cout << std::endl;
+    
     //cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
     Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getPlayerManager()->getSession(this->connection_id));
 
@@ -148,6 +164,9 @@ void NetworkConnection::send(const MessageComposer &composer) {
 
     // Write to socket
     this->writeData(response.getData(), response.getBytesWritten());
+
+
+	std::cout << " Sent back: " << response.getHeader() << std::endl;
 }
 
 
@@ -160,6 +179,12 @@ Send policy to the socket
 void NetworkConnection::sendPolicy() {
     char* policy = "<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0";
     this->writeData(policy, (int)strlen(policy) + 1);
+
+    // Define variables for boost recv
+    auto self(shared_from_this());
+
+    // Read rest of policy request
+    socket.async_receive(boost::asio::buffer(buffer, 18), [this, self](boost::system::error_code ec, std::size_t length) {});
 }
 
 /*

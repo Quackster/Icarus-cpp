@@ -9,10 +9,12 @@
 #include "stdafx.h"
 
 #include "dao/NavigatorDao.h"
-#include "game/navigator/NavigatorManager.h"
 
-#include "game/navigator/populators/DefaultPopulator.h"
-#include "game/navigator/populators/MyRoomPopulator.h"
+#include "NavigatorManager.h"
+#include "populators/DefaultPopulator.h"
+#include "populators/MyRoomPopulator.h"
+#include "populators/OfficialRoomPopulator.h"
+#include "populators/PopularPopulator.h"
 /*
 Constructor for Navigator Manager
 
@@ -24,6 +26,8 @@ NavigatorManager::NavigatorManager() :
 
     this->room_populators = new std::map<std::string, RoomPopulator*>();
     this->room_populators->insert(std::make_pair("DefaultPopulator", new DefaultPopulator()));
+    this->room_populators->insert(std::make_pair("OfficialRoomPopulator", new OfficialRoomPopulator()));
+    this->room_populators->insert(std::make_pair("PopularPopulator", new PopularPopulator()));
     this->room_populators->insert(std::make_pair("MyRoomPopulator", new MyRoomPopulator()));
 
 }
@@ -69,14 +73,11 @@ std::vector<NavigatorTab*> NavigatorManager::getParentTabs() {
 */
 RoomPopulator *NavigatorManager::getPopulator(std::string populator_name) {
 
-    //std::cout << populator_name << std::endl;
-
     if (this->room_populators->count(populator_name)) {
         return this->room_populators->find(populator_name)->second;
     }
-    else {
-        return this->room_populators->find("DefaultPopulator")->second;
-    }
+
+    return this->room_populators->find("DefaultPopulator")->second;
 }
 
 /*
@@ -86,17 +87,9 @@ Deletes all pointer variables
 */
 NavigatorManager::~NavigatorManager() {
 
-    for (auto tab : *this->tabs) {
-        delete tab;
-    }
-
-    for (auto category : *this->categories) {
-        delete category;
-    }
-
-    for (auto populator : *this->room_populators) {
-        delete populator.second;
-    }
+    for (auto tab : *this->tabs) delete tab;
+    for (auto category : *this->categories) delete category;
+    for (auto populator : *this->room_populators) delete populator.second;
 
     delete categories;
     delete tabs;

@@ -9,13 +9,13 @@
 #include "stdafx.h"
 
 #include "dao/RoomDao.h"
-#include "game/room/RoomManager.h"
 
 /*
     Constructor for room manager
 */
 RoomManager::RoomManager() :
     rooms(new std::map<int, Room*>()), 
+    public_rooms(new std::vector<Room*>()),
     models(RoomDao::getModels()) {
 }
 
@@ -74,10 +74,8 @@ std::vector<Room*> RoomManager::getPlayerRooms(int user_id) {
 */
 RoomModel *RoomManager::getModel(std::string model_id) {
 
-    auto iterator = this->models->find(model_id);
-
-    if (iterator != this->models->end()) {
-        return iterator->second;
+    if (this->models->count(model_id)) {
+        return this->models->find(model_id)->second;
     }
 
     return nullptr;
@@ -117,7 +115,7 @@ Room *RoomManager::getRoom(int room_id) {
 void RoomManager::addRoom(Room *room) {
 
     if (!this->hasRoom(room->getData()->getId())) {
-        this->rooms->insert(std::make_pair(room->getData()->getId(), room));
+        this->rooms->insert(std::make_pair(room->getId(), room));
     }
 }
 
@@ -140,14 +138,10 @@ void RoomManager::deleteRoom(int room_id) {
 */
 RoomManager::~RoomManager() {
 
-    for (auto room_entry : *this->rooms) {
-        delete room_entry.second;
-    }
-
-    for (auto model_entry : *this->models) {
-        delete model_entry.second;
-    }
+    for (auto room_entry : *this->rooms) delete room_entry.second;
+    for (auto model_entry : *this->models) delete model_entry.second;
 
     delete this->rooms;
+    delete this->public_rooms;
     delete this->models;
 }

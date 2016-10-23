@@ -10,7 +10,7 @@
 
 #include <algorithm>
 
-#include "thread/ExecutorService.h"
+#include "ExecutorService.h"
 
 /*
     Constructor for executor service, will create threads by amount given

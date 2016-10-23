@@ -9,28 +9,42 @@
 #include "stdafx.h"
 
 #include "communication/headers/Incoming.h"
-#include "communication/incoming/MessageHandler.h"
+#include "MessageHandler.h"
 
 // Login
-#include "communication/incoming/login/AuthenticateMessageEvent.h"
-#include "communication/incoming/login/UniqueIDMessageEvent.h"
-#include "communication/incoming/login/VersionCheckMessageEvent.h"
+#include "login/AuthenticateMessageEvent.h"
+#include "login/UniqueIDMessageEvent.h"
+#include "login/VersionCheckMessageEvent.h"
 
 // User
-#include "communication/incoming/user/UserDataMessageEvent.h"
-#include "communication/incoming/user/LatencyTestMessageEvent.h"
-#include "communication/incoming/user/EventLogMessageEvent.h"
+#include "user/InfoRetrieveMessageEvent.h"
+#include "user/CurrencyBalanceMessageEvent.h"
+
+// Misc
+#include "misc/LatencyTestMessageEvent.h"
+#include "misc/EventLogMessageEvent.h"
 
 // Navigator
-#include "communication/incoming/navigator/SearchNewNavigatorEvent.h"
-#include "communication/incoming/navigator/NewNavigatorMessageEvent.h"
+#include "navigator/SearchNewNavigatorEvent.h"
+#include "navigator/NewNavigatorMessageEvent.h"
+#include "navigator/CreateRoomMessageEvent.h"
 
 // Room
-#include "communication/incoming/room/LeaveRoomMessageEvent.h"
-#include "communication/incoming/room/RoomInfoMessageEvent.h"
-#include "communication/incoming/room/EnterRoomMessageEvent.h"
-#include "communication/incoming/room/HeightMapMessageEvent.h"
-#include "communication/incoming/room/WalkMessageEvent.h"
+#include "room/LeaveRoomMessageEvent.h"
+#include "room/RoomInfoMessageEvent.h"
+#include "room/EnterRoomMessageEvent.h"
+#include "room/HeightMapMessageEvent.h"
+#include "room/WalkMessageEvent.h"
+
+// Messenger
+#include "messenger/MessengerInitMessageEvent.h"
+#include "messenger/MessengerSearchMessageEvent.h"
+#include "messenger/MessengerRequestMessageEvent.h"
+#include "messenger/MessengerAcceptMessageEvent.h"
+#include "messenger/MessengerDeclineMessageEvent.h"
+#include "messenger/MessengerDeleteFriendMessageEvent.h"
+#include "messenger/MessengerTalkMessageEvent.h"
+#include "messenger/FollowFriendMessageEvent.h"
 
 /*
     MessageHandler constructor
@@ -38,16 +52,18 @@
     Loads all incoming message handlers into a map for easier access
 */
 MessageHandler::MessageHandler() :
-    messages(new std::map<int, MessageEvent*>())
-{
-    
+    messages(new std::map<int, MessageEvent*>()) {
+
     // Login
     this->createEvent(Incoming::VersionCheckMessageEvent, new VersionCheckMessageEvent());
     this->createEvent(Incoming::UniqueIDMessageEvent, new UniqueIDMessageEvent());
     this->createEvent(Incoming::AuthenticateMessageEvent, new AuthenticateMessageEvent());
 
     // User
-    this->createEvent(Incoming::UserDataMessageEvent, new UserDataMessageEvent());
+    this->createEvent(Incoming::InfoRetrieveMessageEvent, new InfoRetrieveMessageEvent());
+    this->createEvent(Incoming::CurrencyBalanceMessageEvent, new CurrencyBalanceMessageEvent());
+
+    // Misc
     this->createEvent(Incoming::LatencyTestMessageEvent, new LatencyTestMessageEvent());
     this->createEvent(Incoming::EventLogMessageEvent, new EventLogMessageEvent());
     
@@ -55,13 +71,23 @@ MessageHandler::MessageHandler() :
     this->createEvent(Incoming::SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
     this->createEvent(Incoming::NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
     this->createEvent(Incoming::LeaveRoomMessageEvent, new LeaveRoomMessageEvent());
+    this->createEvent(Incoming::CreateRoomMessageEvent, new CreateRoomMessageEvent());
 
     // Room
     this->createEvent(Incoming::RoomInfoMessageEvent, new RoomInfoMessageEvent());
     this->createEvent(Incoming::EnterRoomMessageEvent, new EnterRoomMessageEvent());
     this->createEvent(Incoming::HeightMapMessageEvent, new HeightMapMessageEvent());
     this->createEvent(Incoming::UserWalkMessageEvent, new WalkMessageEvent());
-    
+
+    // Messenger
+    this->createEvent(Incoming::MessengerSearchMessageEvent, new MessengerSearchMessageEvent());
+    this->createEvent(Incoming::MessengerInitMessageEvent, new MessengerInitMessageEvent());
+    this->createEvent(Incoming::MessengerRequestMessageEvent, new MessengerRequestMessageEvent());
+    this->createEvent(Incoming::MessengerAcceptMessageEvent, new MessengerAcceptMessageEvent());
+    this->createEvent(Incoming::MessengerDeclineMessageEvent, new MessengerDeclineMessageEvent());
+    this->createEvent(Incoming::MessengerDeleteFriendMessageEvent, new MessengerDeleteFriendMessageEvent());
+    this->createEvent(Incoming::FollowFriendMessageEvent, new FollowFriendMessageEvent());
+    this->createEvent(Incoming::MessengerTalkMessageEvent, new MessengerTalkMessageEvent());
 }
 
 /*
@@ -106,9 +132,9 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
 
     if (this->messages->count(header)) {
         this->messages->find(header)->second->handle(player, request);
-        std::cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages->find(header)->second).name() << ") " << std::endl;
+        //std::cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages->find(header)->second).name() << ") " << std::endl;
     } else {
-        std::cout << " [MessageHandler] Unhandled message " << header << std::endl;
+        //std::cout << " [MessageHandler] Unhandled message " << header << std::endl;
     }
 }
 /* 
@@ -118,9 +144,7 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
 */
 MessageHandler::~MessageHandler() { 
 
-    for (auto pair : *this->messages) {
-        delete pair.second;
-    }
+    for (auto pair : *this->messages) delete pair.second;
 
     delete messages;
 }

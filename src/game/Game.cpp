@@ -8,8 +8,10 @@
 */
 #include "stdafx.h"
 
+#include "Game.h"
+
 #include "boot/Icarus.h"
-#include "game/Game.h"
+#include "dao/RoomDao.h"
 
 Game::Game() :
     navigator_manager(new NavigatorManager()),
@@ -17,6 +19,14 @@ Game::Game() :
     executor_service(ExecutorService::createSchedulerService(Icarus::getConfiguration()->getInt("thread.pool.size"), std::chrono::milliseconds(500))) {
 }
 
+/*
+    Function that loads data after everything else needed to be loaded first
+
+    @return none
+*/
+void Game::createGame() {
+    RoomDao::addPublicRooms();
+}
 
 Game::~Game() {
 

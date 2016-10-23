@@ -7,20 +7,35 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #include "stdafx.h"
-#include "communication/streams/Request.h"
+#include "Request.h"
 
 /*
 Request constructor
 
 @return full received packet
 */
-Request::Request(char *full_message) : 
-    full_message(full_message), index(0) {
+Request::Request(int length, char *full_message) : 
+    length(length),
+    full_message(full_message), 
+    index(0) {
 
     this->header = this->readShort();
 }
 
 Request::~Request() { }
+
+/*
+Read an boolean represented as 1 byte
+
+@return boolean
+*/
+bool Request::readBool() {
+
+    char number = ((int)full_message[index]) == 1;
+
+    index = index + 1;
+    return number;
+}
 
 /*
 Read an integer represented as 16 bits
@@ -36,6 +51,7 @@ short Request::readShort() {
     index = index + 2;
     return number;
 }
+
 
 /*
 Read an integer represented as 32 bits
@@ -64,7 +80,6 @@ std::string Request::readString() {
     int length = readShort();
     std::string str;
     
-
     for (int i = 0; i < length; i++) {
         str += this->full_message[index++];
     }

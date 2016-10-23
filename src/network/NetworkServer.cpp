@@ -7,15 +7,17 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #include "stdafx.h"
-#include "network/NetworkServer.h"
+#include "NetworkServer.h"
 
 /*
 Network server constructor
 
 @return none
 */
-NetworkServer::NetworkServer(boost::asio::io_service& io_service, short port) : 
-    acceptor(io_service, tcp::endpoint(tcp::v4(), port)), socket(io_service), connection_id(0) {
+NetworkServer::NetworkServer(boost::asio::io_service& io_service, std::string host, short port) : 
+    acceptor(io_service, tcp::endpoint(tcp::endpoint(tcp::v4(), port))), /*boost::asio::ip::address::from_string(host), port)),//*/
+	socket(io_service),
+	connection_id(0) {
     
     this->startAccept();
 }
@@ -35,6 +37,7 @@ Start accepting clients
 @return none
 */
 void NetworkServer::startAccept() {
+
     acceptor.async_accept(socket, [this](boost::system::error_code ec) {
 
         if (!ec) {

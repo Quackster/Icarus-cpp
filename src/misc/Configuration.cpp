@@ -12,8 +12,8 @@
 #include <iostream>
 #include <sstream>
 
-#include "misc/Configuration.h"
-#include "misc/Utilities.h"
+#include "Configuration.h"
+#include "Utilities.h"
 
 /*
     Constructor for Configuration, it will parse it when a new instance of Configuration is created
@@ -21,8 +21,8 @@
     @param file path
 */
 Configuration::Configuration(std::string file) : 
-    file(file), values(new std::map<std::string, std::string>()) {
-
+    file(file), 
+    values(new std::map<std::string, std::string>()) {
     this->parse();
 }
 
@@ -48,8 +48,15 @@ void Configuration::parse() {
         output_file << "database.database=icarus;" << std::endl;
         output_file << "database.pool.size=5;" << std::endl;
         output_file << std::endl;
-        output_file << "tcp.server.port=30000;" << std::endl;
+		output_file << "tcp.server.host=0.0.0.0;" << std::endl;
+		output_file << "tcp.server.port=30000;" << std::endl;
+		output_file << std::endl;
+		output_file << "rcon.server.host=0.0.0.0;" << std::endl;
+		output_file << "rcon.server.port=3902;" << std::endl;
+		output_file << std::endl;
         output_file << "thread.pool.size=4;" << std::endl;
+		output_file << std::endl;
+		output_file << "game.revision=PRODUCTION-201610182204-587747738;" << std::endl;
         output_file.close();
     }
 

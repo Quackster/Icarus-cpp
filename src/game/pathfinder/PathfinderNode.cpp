@@ -7,20 +7,21 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #include "stdafx.h"
-#include "game/pathfinder/PathfinderNode.h"
+#include "PathfinderNode.h"
 
 
 PathfinderNode::PathfinderNode() :
-    position(Position(0, 0)), node(nullptr), in_open(false), in_close(false), cost(99999999)
-{
-
-    
-}
+    position(Position(0, 0)), 
+    node(nullptr), 
+    in_open(false), 
+    in_close(false), 
+    cost(99999999) { }
 
 PathfinderNode::PathfinderNode(Position position) :
-    node(nullptr), in_open(false), in_close(false), position(position), cost(99999999) { }
+    node(nullptr), 
+    in_open(false), 
+    in_close(false), 
+    position(position), 
+    cost(99999999) { }
 
-
-PathfinderNode::~PathfinderNode()
-{
-}
+PathfinderNode::~PathfinderNode() { }

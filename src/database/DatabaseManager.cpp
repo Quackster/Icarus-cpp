@@ -13,9 +13,13 @@
     Constructor for database manager
 */
 DatabaseManager::DatabaseManager(std::string host, std::string port, std::string username, std::string password, std::string database, int pool_size) :
-    host(host), port(port), username(username), password(password), database(database), pool_size(pool_size), tested_connection(false) {
-
-}
+    host(host), 
+    port(port), 
+    username(username), 
+    password(password), 
+    database(database), 
+    pool_size(pool_size), 
+    tested_connection(false) { }
 
 /*
     Tests connection to the database, will attempt to make a pool and store 5 connections, 

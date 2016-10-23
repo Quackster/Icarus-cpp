@@ -9,7 +9,6 @@
 #include "stdafx.h"
 
 #include "boot/Icarus.h"
-#include "game/room/RoomData.h"
 
 /*
     Constructor for RoomData
@@ -17,12 +16,13 @@
 RoomData::RoomData(int id,
     std::string name,
     char room_type,
+    std::string thumbnail,
     int owner_id,
     std::string owner_name,
     int group_id,
     std::string description,
     std::string password,
-    int users_now,
+    //int users_now,
     int users_max,
     //std::string model,
     RoomModel *model,
@@ -51,13 +51,14 @@ RoomData::RoomData(int id,
     std::vector<int> user_rights) :
     id(id),
     name(name),
-        room_type(room_type),
+    room_type(room_type),
+    thumbnail(thumbnail),
     owner_id(owner_id),
     owner_name(owner_name),
     group_id(group_id),
     description(description),
     password(password),
-    users_now(users_now),
+    //users_now(users_now),
     users_max(users_max),
     model(model),
     wallpaper(wallpaper),
@@ -66,6 +67,7 @@ RoomData::RoomData(int id,
     tags(tags),
     trade_state(trade_state),
     state(state),
+    score(score),
     category(category),
     allow_pets(allow_pets),
     allow_pets_eat(allow_pets_eat),
@@ -83,8 +85,6 @@ RoomData::RoomData(int id,
     who_can_ban(who_can_ban),
     user_rights(user_rights)
 {
-
-    // Update owner?
     this->isOwnerOnline();
     this->virtual_id = 0;
 }
@@ -94,14 +94,12 @@ RoomData::RoomData(int id,
 
     @return boolean
 */
-    bool RoomData::isOwnerOnline() {
-        this->owner = Icarus::getPlayerManager()->getPlayerById(this->owner_id);
-        return this->owner != nullptr;
-    }
+bool RoomData::isOwnerOnline() {
+    this->owner = Icarus::getPlayerManager()->getPlayerById(this->owner_id);
+    return this->owner != nullptr;
+}
 
 /*
     Deconstructor for RoomData
 */
-RoomData::~RoomData()
-{
-}
+RoomData::~RoomData() { }

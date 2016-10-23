@@ -13,7 +13,7 @@
 #include <algorithm>
 #include <locale> 
 
-#include "misc/Utilities.h"
+#include "Utilities.h"
 
 /*
 Splits a given string by delimeter

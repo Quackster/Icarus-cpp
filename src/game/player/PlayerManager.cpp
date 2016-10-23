@@ -68,6 +68,13 @@ void PlayerManager::removeSession(int connection_id) {
         // Remove session from map, remove it early to prevent any issues
         this->sessions->erase(connection_id);
 
+        if (session->getDetails() != nullptr) {
+            this->authenticated_sessions->erase(session->getDetails()->getId());
+        }
+
+        // Stop session from listening for more packets
+        session->getNetworkConnection()->setConnectionState(false);
+
         // Clear session of any responsibilites
         session->clear();
 
@@ -84,7 +91,7 @@ Checks whether or not the connection ID with session exists
 @return whether or not connection ID exists
 */
 bool PlayerManager::containsSession(int connection_id) {
-    return this->sessions->count(connection_id) == 1 ? true : false;
+    return this->sessions->count(connection_id) == 1;
 }
 
 /*
@@ -118,5 +125,4 @@ Player *PlayerManager::getPlayerById(int user_id) {
     else {
         return nullptr;
     }
-
 }

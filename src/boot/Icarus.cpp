@@ -10,8 +10,13 @@
 #include <thread>
 #include <string>
 
+#include <boost/thread.hpp>
+
 #include "stdafx.h"
-#include "boot/Icarus.h"
+#include "Icarus.h"
+
+#include "network/rcon/RconServer.h"
+
 //#include "thread/ExampleRunnable.h"
 
 
@@ -97,6 +102,7 @@ void Icarus::boot() {
 
     std::cout << " [BOOT] [Game] Creating game instance" << std::endl;
     Icarus::game = new Game();
+    game->createGame();
 
     /*for (int i = 0; i < 10; i++) {
         //std::shared_ptr<ExampleRunnable> newRunnable = std::shared_ptr<ExampleRunnable>(i);
@@ -109,10 +115,21 @@ void Icarus::boot() {
         Start server
     */
     int server_port = configuration->getInt("tcp.server.port");
-    std::cout << std::endl  << " [BOOT] [NetworkServer] Starting server on port " << server_port << std::endl;
-    
+	int rcon_port = configuration->getInt("rcon.server.port");
+
+	//std::cout << std::endl << " [BOOT] [ReconServer] Starting rcon server on port " << rcon_port;
+    std::cout << std::endl  << " [BOOT] [NetworkServer] Starting main server on port " << server_port << std::endl;
+
     boost::asio::io_service io_service;
-    network_server = new NetworkServer(io_service, server_port);
+    network_server = new NetworkServer(io_service, configuration->getString("tcp.server.host"), server_port);
+
+    /*boost::asio::io_service rcon_service;
+    auto rcon_server = new RconServer(rcon_service, configuration->getString("rcon.server.host"), rcon_port);
+
+    boost::thread_group threads;
+    threads.create_thread(boost::bind(&boost::asio::io_service::run, &io_service));
+    rcon_service.run();
+    threads.join_all();*/
     io_service.run();
 }
 

@@ -10,8 +10,7 @@
 
 #include <algorithm>
 
-#include "game/pathfinder/Pathfinder.h"
-
+#include "Pathfinder.h"
 
 /*
     Deconstructor for Pathfinder
@@ -19,41 +18,45 @@
 Pathfinder::~Pathfinder() { }
 
 /*
-    Creates a valid path when given current coordinates and goal coordinates, the list returned
-    is actually backwards and needs to be reversed.
+Creates a valid path when given current coordinates and goal coordinates, the list returned
+is actually backwards and needs to be reversed.
 
-    @param Position start
-    @param Position end
-    @return vector of positions
+@param Position start
+@param Position end
+@return vector of positions
 */
 std::deque<Position> Pathfinder::makePath(Position start, Position end, Room *room) {
 
     std::deque<Position> positions;
-    std::shared_ptr<PathfinderNode> nodes = makePathReversed(start, end, room);
 
-    if (nodes != nullptr) {
-        while (nodes != nullptr) {
-            positions.push_back(nodes->getPosition());
-            nodes = nodes->getNextNode();
+    if (!start.sameAs(end)) {
+        
+        std::shared_ptr<PathfinderNode> nodes = makePathReversed(start, end, room);
+
+        if (nodes != nullptr) {
+            while (nodes != nullptr) {
+                positions.push_back(nodes->getPosition());
+                nodes = nodes->getNextNode();
+            }
         }
-    }
 
-    std::reverse(positions.begin(), positions.end());
+        std::reverse(positions.begin(), positions.end());
 
-    if (positions.size() > 0) {
-        positions.pop_front(); // idk why but it always puts an invalid tile at the front ??? need to fix later
+        if (positions.size() > 0) {
+            positions.pop_front(); // idk why but it always puts an invalid tile at the front ??? need to fix later
+        }
     }
 
     return positions;
 }
 
 /*
-    Returns a tree of PathfinderNode's which needs to be looped through to get the valid path with
-    node->getNextNode()
+Returns a tree of PathfinderNode's which needs to be looped through to get the valid path with
+node->getNextNode()
 
-    @param Position start
-    @param Position end
-    @return vector of positions
+@param Position start
+@param Position end
+@return vector of positions
 */
 std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Position end, Room *room) {
 
@@ -83,7 +86,7 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
         open_list.pop_front();
         current->setInClose(true);
 
-        for (Position pos : Pathfinder::getPoints()) {
+        for (Position pos : Pathfinder::getPoints()) { // looping through all 8 points
 
             tmp = current->getPosition().addPoint(pos);
             bool is_final_move = tmp.sameAs(end);
@@ -91,6 +94,11 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
             if (isValidStep(room, current->getPosition(), tmp, is_final_move)) {
 
                 if (map[tmp.getX()][tmp.getY()] == nullptr) {
+
+                    /*if (!room->getModel()->isValidSquare(tmp.getX(), tmp.getY())) {
+                        return nullptr;
+                    }*/
+
                     node = std::make_shared<PathfinderNode>(tmp);
                     map[tmp.getX()][tmp.getY()] = node;
                 }
@@ -159,22 +167,15 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is
             return false;
         }
 
-        if (room->getModel()->getSquares()[tmp.getX() * map_size_y + tmp.getY()] == 1) {
+        if (tmp.getX() < 0 || tmp.getY() < 0) {
             return false;
         }
 
-        int height_tmp = room->getModel()->getSquareHeight()[tmp.getX() * map_size_y + tmp.getY()];
-        int height_current = room->getModel()->getSquareHeight()[current.getX() * map_size_y + current.getY()];
-        int difference = 0;
-
-        if (height_tmp > height_current) {
-            difference = height_tmp - height_current;
-        }
-        else if (height_tmp < height_current) {
-            difference = height_current = height_tmp;
+        if (current.getX() < 0|| current.getY() < 0) {
+            return false;
         }
 
-        if (difference > 1) { 
+        if (!room->getModel()->isValidSquare(tmp.getX(), tmp.getY())) {
             return false;
         }
 
