@@ -37,6 +37,7 @@ public:
 
     int getBytesWritten() { return index + 4/*the length at the start*/;  }
     std::vector<char> getMessage() { return message; }
+	int getHeader() { return header; }
 
 private:
     short header;

@@ -7,6 +7,8 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+#include "boot/Icarus.h"
+
 #include "communication/incoming/MessageEvent.h"
 #include "communication/outgoing/login/AuthenticateMessageComposer.h"
 
@@ -21,8 +23,11 @@ public:
 
         std::string revision = request.readString();
 
-        if (revision != "PRODUCTION-201610182204-587747738") {
-            player->getNetworkConnection()->getSocket().close();
+        if (revision == Icarus::getConfiguration()->getString("game.revision")) {
+			return;
         }
+
+		// Kick user if they're using incorrect swfs
+		player->getNetworkConnection()->getSocket().close();
     }
 };

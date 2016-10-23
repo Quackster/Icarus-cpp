@@ -201,8 +201,6 @@ void Room::serialise(Response &response, const bool enter_room) {
     if (this->room_data->getThumbnail().length() > 0) {
         response.writeString(this->room_data->getThumbnail());
     }
-
-	std::cout << "response type: " << response_type;
 }
 
 /*
@@ -211,7 +209,7 @@ void Room::serialise(Response &response, const bool enter_room) {
     @param entity ptr
     @return boolean
 */
-bool Room::hasEntity(Entity* entity) {
+bool Room::hasEntity(Entity *entity) {
     return this->entities->count(entity->getRoomUser()->getVirtualId()) > 0;
 }
 

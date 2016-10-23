@@ -22,8 +22,6 @@ public:
         this->player = player;
         this->is_loading = is_loading;
         this->check_entry = check_entry;
-
-		std::cout << " Room data rec" << (is_loading ? "t" : "f") << ", " << check_entry << std::endl;
     }
 
     const Response compose() const {
@@ -47,7 +45,7 @@ public:
     }
 
     const int getHeader() const {
-        return Outgoing::RoomDataMessageComposer;
+		return 3896;// Outgoing::RoomDataMessageComposer;
     }
 
 private:
