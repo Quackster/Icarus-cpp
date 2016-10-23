@@ -38,6 +38,7 @@ Start accepting clients
 @return none
 */
 void RconServer::startAccept() {
+
     acceptor.async_accept(socket, [this](boost::system::error_code ec) {
 
         if (!ec) {

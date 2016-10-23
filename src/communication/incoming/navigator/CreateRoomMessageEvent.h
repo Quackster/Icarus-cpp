@@ -9,6 +9,8 @@
 #pragma once
 #include "communication/incoming/MessageEvent.h"
 
+#include "dao/NavigatorDao.h"
+
 class CreateRoomMessageEvent : public MessageEvent {
 
 public:
@@ -30,7 +32,9 @@ public:
         int max_users = request.readInt();
         int trade_settings = request.readInt();
 
-        std::cout << "Room name: " << room_name << std::endl;
+		int id = NavigatorDao::createRoom(room_name, description, room_model, player->getDetails()->getId(), category, max_users, trade_settings);
+
+        std::cout << "Room name: " << room_name << ", id: " << id << std::endl;
 
     }
 };
