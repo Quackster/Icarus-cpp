@@ -21,7 +21,7 @@ public:
 
         std::string revision = request.readString();
 
-        if (revision != "PRODUCTION-201512012203-525044429") {
+        if (revision != "PRODUCTION-201610182204-587747738") {
             player->getNetworkConnection()->getSocket().close();
         }
     }

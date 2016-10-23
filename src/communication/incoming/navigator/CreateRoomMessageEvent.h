@@ -28,6 +28,14 @@ public:
         std::string description = request.readString();
         std::string room_model = request.readString();
 
+		if (room_name.length() < 1) {
+			return;
+		}
+
+		if (room_model.length() < 1) {
+			return;
+		}
+
         int category = request.readInt();
         int max_users = request.readInt();
         int trade_settings = request.readInt();

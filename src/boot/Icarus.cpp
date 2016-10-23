@@ -117,20 +117,20 @@ void Icarus::boot() {
     int server_port = configuration->getInt("tcp.server.port");
 	int rcon_port = configuration->getInt("rcon.server.port");
 
-	std::cout << std::endl << " [BOOT] [ReconServer] Starting rcon server on port " << rcon_port;
+	//std::cout << std::endl << " [BOOT] [ReconServer] Starting rcon server on port " << rcon_port;
     std::cout << std::endl  << " [BOOT] [NetworkServer] Starting main server on port " << server_port << std::endl;
 
     boost::asio::io_service io_service;
     network_server = new NetworkServer(io_service, configuration->getString("tcp.server.host"), server_port);
 
-    boost::asio::io_service rcon_service;
+    /*boost::asio::io_service rcon_service;
     auto rcon_server = new RconServer(rcon_service, configuration->getString("rcon.server.host"), rcon_port);
 
     boost::thread_group threads;
     threads.create_thread(boost::bind(&boost::asio::io_service::run, &io_service));
     rcon_service.run();
-    threads.join_all();
-    //io_service.run();
+    threads.join_all();*/
+    io_service.run();
 }
 
 /*
