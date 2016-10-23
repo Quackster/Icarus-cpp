@@ -16,12 +16,14 @@
 class RoomDataMessageComposer : public MessageComposer {
 
 public:
-    RoomDataMessageComposer(Room *room, Player *player, bool is_loading = 1, bool check_entry = 1) {
+    RoomDataMessageComposer(Room *room, Player *player, bool is_loading, bool check_entry) {
 
         this->room = room;
         this->player = player;
         this->is_loading = is_loading;
         this->check_entry = check_entry;
+
+		std::cout << " Room data rec" << (is_loading ? "t" : "f") << ", " << check_entry << std::endl;
     }
 
     const Response compose() const {

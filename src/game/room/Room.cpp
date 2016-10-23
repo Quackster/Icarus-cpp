@@ -201,6 +201,8 @@ void Room::serialise(Response &response, const bool enter_room) {
     if (this->room_data->getThumbnail().length() > 0) {
         response.writeString(this->room_data->getThumbnail());
     }
+
+	std::cout << "response type: " << response_type;
 }
 
 /*

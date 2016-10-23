@@ -22,10 +22,7 @@ NetworkConnection constructor
 NetworkConnection::NetworkConnection(int connection_id, tcp::socket socket) : 
     connection_id(connection_id), 
     socket(std::move(socket)), 
-    connection_state(true) { 
-
-	std::cout << "testddd" << std::endl;
-}
+    connection_state(true) { }
 
 NetworkConnection::~NetworkConnection() { }
 
@@ -67,10 +64,6 @@ void NetworkConnection::recieveData() {
 
                         if (request.getMessageId() > 0) {
                             this->handleData(request);
-
-                            //std::cout << "[" << (int)buffer[0] << "]" << "[" << (int)buffer[1] << "]" << "[" << (int)buffer[2] << "]" << "[" << (int)buffer[3] << "]" << std::endl;
-
-
                             this->recieveData();
                         }
                     }

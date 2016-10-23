@@ -31,6 +31,6 @@ public:
         int is_loading = request.readInt();
         int check_entry = request.readInt();
 
-        player->send(RoomDataMessageComposer(room, player, is_loading == 1, check_entry == 1));
+		player->send(RoomDataMessageComposer(room, player, is_loading == 1, check_entry == 1));
     }
 };
