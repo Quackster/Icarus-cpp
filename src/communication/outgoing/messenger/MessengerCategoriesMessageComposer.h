@@ -22,7 +22,7 @@ public:
 
     const Response compose() const {
         Response response = this->createResponse();
-        //response.writeInt(300);
+        response.writeInt(300);
         response.writeInt(300);
         response.writeInt(800);
         response.writeInt(1000);
