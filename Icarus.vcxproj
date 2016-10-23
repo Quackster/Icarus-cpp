@@ -154,6 +154,8 @@
     <ClCompile Include="src\game\room\RoomManager.cpp" />
     <ClCompile Include="src\game\room\RoomUser.cpp" />
     <ClCompile Include="src\game\room\tasks\RoomRunnable.cpp" />
+    <ClCompile Include="src\network\rcon\RconConnection.cpp" />
+    <ClCompile Include="src\network\rcon\RconServer.cpp" />
     <ClCompile Include="src\thread\ExecutorService.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\navigator\NavigatorCategory.cpp" />
@@ -179,7 +181,7 @@
     <ClInclude Include="src\boot\Icarus.h" />
     <ClInclude Include="src\communication\headers\Incoming.h" />
     <ClInclude Include="src\communication\headers\Outgoing.h" />
-    <ClInclude Include="src\communication\incoming\DefaultMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\misc\DefaultMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\login\AuthenticateMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\login\UniqueIDMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\login\VersionCheckMessageEvent.h" />
@@ -283,6 +285,8 @@
     <ClInclude Include="src\misc\Utilities.h" />
     <ClInclude Include="src\network\NetworkConnection.h" />
     <ClInclude Include="src\network\NetworkServer.h" />
+    <ClInclude Include="src\network\rcon\RconConnection.h" />
+    <ClInclude Include="src\network\rcon\RconServer.h" />
     <ClInclude Include="src\stdafx.h" />
     <ClInclude Include="src\targetver.h" />
     <ClInclude Include="src\thread\BlockingQueue.h" />

@@ -135,15 +135,15 @@
     <ClCompile Include="src\game\room\model\Rotation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\network\rcon\RconConnection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\rcon\RconServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="includes\communication\incoming\messenger\MessengerAcceptMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\communication\incoming\MessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\incoming\DefaultMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\boot\Icarus.h">
@@ -474,6 +474,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\misc\DefaultMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\network\rcon\RconServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\network\rcon\RconConnection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

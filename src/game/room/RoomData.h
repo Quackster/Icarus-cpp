@@ -10,7 +10,7 @@
 #include <string>
 #include <vector>
 
-#include "game/room/model/RoomModel.h"
+#include "model/RoomModel.h"
 
 class Room;
 class RoomData

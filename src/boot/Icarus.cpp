@@ -10,8 +10,12 @@
 #include <thread>
 #include <string>
 
+#include <boost/thread.hpp>
+
 #include "stdafx.h"
 #include "Icarus.h"
+
+#include "network/rcon/RconServer.h"
 
 //#include "thread/ExampleRunnable.h"
 
@@ -115,7 +119,15 @@ void Icarus::boot() {
     
     boost::asio::io_service io_service;
     network_server = new NetworkServer(io_service, server_port);
-    io_service.run();
+
+    boost::asio::io_service rcon_service;
+    auto rcon_server = new RconServer(rcon_service, 31012);
+
+    boost::thread_group threads;
+    threads.create_thread(boost::bind(&boost::asio::io_service::run, &io_service));
+    rcon_service.run();
+    threads.join_all();
+    //io_service.run();
 }
 
 /*

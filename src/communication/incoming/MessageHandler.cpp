@@ -9,42 +9,42 @@
 #include "stdafx.h"
 
 #include "communication/headers/Incoming.h"
-#include "communication/incoming/MessageHandler.h"
+#include "MessageHandler.h"
 
 // Login
-#include "communication/incoming/login/AuthenticateMessageEvent.h"
-#include "communication/incoming/login/UniqueIDMessageEvent.h"
-#include "communication/incoming/login/VersionCheckMessageEvent.h"
+#include "login/AuthenticateMessageEvent.h"
+#include "login/UniqueIDMessageEvent.h"
+#include "login/VersionCheckMessageEvent.h"
 
 // User
-#include "communication/incoming/user/InfoRetrieveMessageEvent.h"
-#include "communication/incoming/user/CurrencyBalanceMessageEvent.h"
+#include "user/InfoRetrieveMessageEvent.h"
+#include "user/CurrencyBalanceMessageEvent.h"
 
 // Misc
-#include "communication/incoming/misc/LatencyTestMessageEvent.h"
-#include "communication/incoming/misc/EventLogMessageEvent.h"
+#include "misc/LatencyTestMessageEvent.h"
+#include "misc/EventLogMessageEvent.h"
 
 // Navigator
-#include "communication/incoming/navigator/SearchNewNavigatorEvent.h"
-#include "communication/incoming/navigator/NewNavigatorMessageEvent.h"
-#include "communication/incoming/navigator/CreateRoomMessageEvent.h"
+#include "navigator/SearchNewNavigatorEvent.h"
+#include "navigator/NewNavigatorMessageEvent.h"
+#include "navigator/CreateRoomMessageEvent.h"
 
 // Room
-#include "communication/incoming/room/LeaveRoomMessageEvent.h"
-#include "communication/incoming/room/RoomInfoMessageEvent.h"
-#include "communication/incoming/room/EnterRoomMessageEvent.h"
-#include "communication/incoming/room/HeightMapMessageEvent.h"
-#include "communication/incoming/room/WalkMessageEvent.h"
+#include "room/LeaveRoomMessageEvent.h"
+#include "room/RoomInfoMessageEvent.h"
+#include "room/EnterRoomMessageEvent.h"
+#include "room/HeightMapMessageEvent.h"
+#include "room/WalkMessageEvent.h"
 
 // Messenger
-#include "communication/incoming/messenger/MessengerInitMessageEvent.h"
-#include "communication/incoming/messenger/MessengerSearchMessageEvent.h"
-#include "communication/incoming/messenger/MessengerRequestMessageEvent.h"
-#include "communication/incoming/messenger/MessengerAcceptMessageEvent.h"
-#include "communication/incoming/messenger/MessengerDeclineMessageEvent.h"
-#include "communication/incoming/messenger/MessengerDeleteFriendMessageEvent.h"
-#include "communication/incoming/messenger/MessengerTalkMessageEvent.h"
-#include "communication/incoming/messenger/FollowFriendMessageEvent.h"
+#include "messenger/MessengerInitMessageEvent.h"
+#include "messenger/MessengerSearchMessageEvent.h"
+#include "messenger/MessengerRequestMessageEvent.h"
+#include "messenger/MessengerAcceptMessageEvent.h"
+#include "messenger/MessengerDeclineMessageEvent.h"
+#include "messenger/MessengerDeleteFriendMessageEvent.h"
+#include "messenger/MessengerTalkMessageEvent.h"
+#include "messenger/FollowFriendMessageEvent.h"
 
 /*
     MessageHandler constructor
