@@ -224,6 +224,7 @@
     <ClInclude Include="src\communication\outgoing\messenger\MessengerUpdateMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\messenger\RemoveFriendMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\CreateRoomMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\navigator\NavigatorPreferencesMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\FlatCategoriesMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\NavigatorCategoriesComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\NavigatorMetaDataComposer.h" />

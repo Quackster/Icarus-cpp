@@ -56,7 +56,7 @@ void Configuration::parse() {
 		output_file << std::endl;
         output_file << "thread.pool.size=4;" << std::endl;
 		output_file << std::endl;
-		output_file << "game.revision=PRODUCTION-201610182204-587747738;" << std::endl;
+		output_file << "game.revision=PRODUCTION-201512012203-525044429;" << std::endl;
         output_file.close();
     }
 

@@ -43,6 +43,7 @@ public:
 	static const int NavigatorLiftedRoomsComposer = 2631;
 	static const int NavigatorMetaDataComposer = 3732;
 	static const int NavigatorSavedSearchesComposer = 591;
+	static const int NavigatorPreferencesMessageComposer = 2478;
 	//static const int NewNavigatorSizeMessageComposer = 2726;
 	//static const int RelationshipMessageComposer = 1709;
 	static const int RemoveFriendMessageComposer = 3412;
@@ -65,7 +66,6 @@ public:
 	static const int UserObjectMessageComposer = 3762;
 	static const int UserStatusMessageComposer = 2627;
 	static const int RoomOwnerRightsComposer = 625;
-	static const int RoomEditSettingsComposer = 1131;
 	//static const int ChatOptionsMessageComposer = 93;
 	//static const int WallOptionsMessageComposer = 2877;
 	//static const int RoomSettingsOKMessageComposer = 3773;

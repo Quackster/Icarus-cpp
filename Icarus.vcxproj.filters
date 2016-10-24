@@ -485,5 +485,8 @@
     <ClInclude Include="src\network\rcon\RconConnection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\communication\outgoing\navigator\NavigatorPreferencesMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

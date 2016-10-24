@@ -12,6 +12,7 @@
 #include "communication/outgoing/navigator/FlatCategoriesMessageComposer.h"
 #include "communication/outgoing/navigator/NavigatorCategoriesComposer.h"
 #include "communication/outgoing/navigator/NavigatorMetaDataComposer.h"
+#include "communication/outgoing/navigator/NavigatorPreferencesMessageComposer.h"
 
 #include "communication/outgoing/user/CreditsMessageComposer.h"
 #include "communication/outgoing/user/UserObjectMessageComposer.h"
@@ -27,5 +28,6 @@ public:
         player->send(FlatCategoriesMessageComposer(Icarus::getGame()->getNavigatorManager()->getCategories(), player->getDetails()->getRank()));
         player->send(NavigatorCategoriesComposer(Icarus::getGame()->getNavigatorManager()->getCategories()));
         player->send(NavigatorMetaDataComposer());
+		player->send(NavigatorPreferencesMessageComposer());
     }
 };
