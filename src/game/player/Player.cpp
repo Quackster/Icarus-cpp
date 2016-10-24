@@ -107,22 +107,11 @@ void Player::clear() {
     so there won't be any more packet receiving
 */
 Player::~Player() {
-    std::cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
+	std::cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 
-    if (messenger != nullptr) {
-        messenger->sendStatus(true); // offline for everyone :'(
-        delete messenger;
-    }
+	messenger->sendStatus(true); // offline for everyone :'(
 
-    if (session_details != nullptr) {
-        delete session_details;
-    }
-
-    if (room_user != nullptr) {
-        delete room_user;
-    }
-
-    this->messenger = nullptr;
-    this->session_details = nullptr;
-    this->room_user = nullptr;
+	delete messenger;
+	delete session_details;
+	delete room_user;
 }

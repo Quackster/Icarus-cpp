@@ -8,6 +8,8 @@
 */
 #include "stdafx.h"
 
+#include <iostream>
+
 #include "game/player/PlayerDetails.h"
 
 /*
@@ -26,4 +28,6 @@ PlayerDetails::PlayerDetails(int id, std::string username, std::string motto, st
 /*
     Deconstructor for session details
 */
-PlayerDetails::~PlayerDetails() { }
+PlayerDetails::~PlayerDetails() { 
+	std::cout << "Details disposed" << std::endl;
+}

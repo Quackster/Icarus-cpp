@@ -30,13 +30,9 @@ public:
         /*
             Delete and close any previous connection
         */
-        if (Icarus::getPlayerManager()->getPlayers()->count(details->getId()) == 1) {
+        if (Icarus::getPlayerManager()->getPlayers()->count(details->getId()) == 1 || details == nullptr) {
             session->getNetworkConnection()->getSocket().close();
-            return;
-        }
-
-        if (details == nullptr) {
-            session->getNetworkConnection()->getSocket().close();
+			delete details;
             return;
         }
         else {
