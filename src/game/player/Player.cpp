@@ -22,7 +22,8 @@
 Player::Player(NetworkConnection *network_connection) : 
     network_connection(network_connection), 
     session_details(nullptr), 
-    room_user(nullptr) {
+    room_user(nullptr),
+	logged_in(false) {
     
     std::cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 }
@@ -49,6 +50,7 @@ void Player::login() {
     */
     this->room_user = new RoomUser(this);
     this->messenger = new Messenger(
+		this,
         this->session_details->getId(), 
         MessengerDao::getFriends(this->session_details->getId()), 
         MessengerDao::getRequests(this->session_details->getId()));
@@ -100,6 +102,14 @@ void Player::clear() {
 }
 
 /*
+	Close connection
+*/
+void Player::close() {
+	this->network_connection->setConnectionState(false);
+	this->network_connection->getSocket().close();
+}
+
+/*
     Session deconstructor, called when session disconnects, 
     is deleted from SessionManager class
 
@@ -109,7 +119,9 @@ void Player::clear() {
 Player::~Player() {
 	std::cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
 
-	messenger->sendStatus(true); // offline for everyone :'(
+	if (this->logged_in) {
+		messenger->sendStatus(true); // offline for everyone :'(
+	}
 
 	delete messenger;
 	delete session_details;

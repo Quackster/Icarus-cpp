@@ -129,10 +129,21 @@ void MessageHandler::createEvent(int header, MessageEvent *event) {
     @return none
 */
 void MessageHandler::invoke(int header, Request &request, Player *player) {
-
+	
     if (this->messages->count(header)) {
+
+		if (header != Incoming::VersionCheckMessageEvent &&
+			header != Incoming::UniqueIDMessageEvent &&
+			header != Incoming::AuthenticateMessageEvent) {
+
+			if (!player->authenticated()) {
+				printf("Player tried to send packet while not logged in, scripting maybe?\n");
+				return;
+			}
+		}
+
         this->messages->find(header)->second->handle(player, request);
-        //std::cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages->find(header)->second).name() << ") " << std::endl;
+        std::cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages->find(header)->second).name() << ") " << std::endl;
     } else {
         //std::cout << " [MessageHandler] Unhandled message " << header << std::endl;
     }

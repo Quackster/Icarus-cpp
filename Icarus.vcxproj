@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="src\communication\incoming\MessageHandler.cpp" />
     <ClCompile Include="src\dao\MessengerDao.cpp" />
+    <ClCompile Include="src\dao\MySQLDao.cpp" />
     <ClCompile Include="src\game\messenger\Messenger.cpp" />
     <ClCompile Include="src\game\messenger\MessengerUser.cpp" />
     <ClCompile Include="src\game\navigator\populators\OfficialRoomPopulator.cpp" />
@@ -249,6 +250,7 @@
     <ClInclude Include="src\communication\streams\Request.h" />
     <ClInclude Include="src\communication\streams\Response.h" />
     <ClInclude Include="src\dao\MessengerDao.h" />
+    <ClInclude Include="src\dao\MySQLDao.h" />
     <ClInclude Include="src\dao\NavigatorDao.h" />
     <ClInclude Include="src\dao\RoomDao.h" />
     <ClInclude Include="src\dao\UserDao.h" />

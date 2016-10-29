@@ -141,6 +141,9 @@
     <ClCompile Include="src\network\rcon\RconServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\dao\MySQLDao.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\communication\incoming\MessageEvent.h">
@@ -486,6 +489,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\outgoing\navigator\NavigatorPreferencesMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dao\MySQLDao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

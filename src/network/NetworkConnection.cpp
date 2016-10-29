@@ -121,7 +121,7 @@ void NetworkConnection::handleData(Request request) {
         Icarus::getPlayerManager()->addSession(player, this->getConnectionId());
     }
 
-    std::cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << "/ ";
+    /*std::cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << "/ ";
 
     for (int i = 0; i < request.getMessageLength(); i++) {
 
@@ -136,7 +136,7 @@ void NetworkConnection::handleData(Request request) {
         }
     }
 
-    std::cout << std::endl;
+    std::cout << std::endl;*/
     
     //cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
     Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getPlayerManager()->getSession(this->connection_id));

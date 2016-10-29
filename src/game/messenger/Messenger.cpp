@@ -23,7 +23,8 @@
     @param map of user ids and messenger user ptrs of which are friends
     @param map of user ids and messenger user ptrs of which are requests
 */
-Messenger::Messenger(int user_id, std::map<int, MessengerUser*> *friends, std::map<int, MessengerUser*> *requests) :
+Messenger::Messenger(Entity *player, int user_id, std::map<int, MessengerUser*> *friends, std::map<int, MessengerUser*> *requests) :
+	player(player),
     user_id(user_id),
     friends(friends),
     requests(requests),
@@ -134,7 +135,9 @@ void Messenger::removeRequest(int user_id) {
 */
 void Messenger::sendStatus(bool force_offline, bool login_status) {
 
-    const Response response = MessengerUpdateMessageComposer(std::make_unique<MessengerUser>(this->user_id).get(), force_offline).compose();
+	std::cout << "stuff: " << force_offline << std::endl;
+
+    /*const Response response = MessengerUpdateMessageComposer(std::make_unique<MessengerUser>(this->user_id).get(), force_offline).compose();
 
     for (auto kvp : *this->friends) {
 
@@ -145,5 +148,5 @@ void Messenger::sendStatus(bool force_offline, bool login_status) {
                 friend_->getPlayer()->getNetworkConnection()->send(response);
             }
         }
-    }
+    }*/
 }

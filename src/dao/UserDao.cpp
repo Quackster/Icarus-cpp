@@ -1,7 +1,37 @@
 #pragma once
 #include "stdafx.h"
 #include "dao/UserDao.h"
+#include "dao/MySQLDao.h"
 #include "boot/Icarus.h"
+
+/*
+	Returns true or false if a user exists by sso ticket
+
+	@param sso ticket
+	@return bool
+*/
+bool UserDao::exists(std::string sso_ticket) {
+
+	bool output = false;
+	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+	try {
+		std::shared_ptr<sql::Connection> sqlConnection = connection->sqlConnection;
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sqlConnection->prepareStatement("SELECT id FROM users WHERE sso_ticket = ?")); {
+			statement->setString(1, sso_ticket);
+		}
+
+		std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+		output = resultSet->next();
+	}
+	catch (sql::SQLException &e) {
+		Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+	}
+
+	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+	return output;
+}
 
 /*
     Returns username by given user id
@@ -82,7 +112,7 @@ PlayerDetails *UserDao::findUserByTicket(Player *player, std::string ssoTicket) 
     try {
 
         std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
-        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, username, rank, motto, figure, credits FROM users WHERE sso_ticket = ? LIMIT 1")); {
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, username, rank, mission, figure, credits FROM users WHERE sso_ticket = ? LIMIT 1")); {
             statement->setString(1, ssoTicket);
         }
 
@@ -96,7 +126,7 @@ PlayerDetails *UserDao::findUserByTicket(Player *player, std::string ssoTicket) 
             return new PlayerDetails(
                 result_set->getInt("id"),
                 result_set->getString("username"),
-                result_set->getString("motto"),
+                result_set->getString("mission"),
                 result_set->getString("figure"),
                 result_set->getInt("rank"),
                 result_set->getInt("credits")
@@ -129,7 +159,7 @@ std::shared_ptr<PlayerDetails> UserDao::getDetails(int user_id) {
     try {
 
         std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
-        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, username, rank, motto, figure, credits FROM users WHERE id = ? LIMIT 1")); {
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, username, rank, mission, figure, credits FROM users WHERE id = ? LIMIT 1")); {
             statement->setInt(1, user_id);
         }
 
@@ -143,7 +173,7 @@ std::shared_ptr<PlayerDetails> UserDao::getDetails(int user_id) {
             details = std::make_shared<PlayerDetails>(
                 result_set->getInt("id"),
                 result_set->getString("username"),
-                result_set->getString("motto"),
+                result_set->getString("mission"),
                 result_set->getString("figure"),
                 result_set->getInt("rank"),
                 result_set->getInt("credits")

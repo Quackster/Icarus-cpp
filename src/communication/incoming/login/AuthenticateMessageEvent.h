@@ -25,17 +25,22 @@ public:
 
     void handle(Player *session, Request &request) {
 
-        PlayerDetails *details = UserDao::findUserByTicket(session, request.readString());
+		std::string sso_ticket = request.readString();
 
-        /*
-            Delete and close any previous connection
-        */
-        if (Icarus::getPlayerManager()->getPlayers()->count(details->getId()) == 1 || details == nullptr) {
+        if (!UserDao::exists(sso_ticket)) {
             session->getNetworkConnection()->getSocket().close();
-			delete details;
             return;
         }
-        else {
+        else {   
+			
+			PlayerDetails *details = UserDao::findUserByTicket(session, sso_ticket);
+
+			if (Icarus::getPlayerManager()->getPlayers()->count(details->getId()) > 0) {
+				session->getNetworkConnection()->getSocket().close();
+				delete details;
+				return;
+			}
+
             session->setDetails(details);
         }
 
