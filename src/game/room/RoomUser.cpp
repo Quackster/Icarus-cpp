@@ -30,7 +30,7 @@ RoomUser::RoomUser(Entity *entity) : entity(entity) {
 void RoomUser::setStatus(std::string key, std::string value, bool update) {
 
     if (value.length() > 0) {
-		this->statuses[key] = value;
+        this->statuses[key] = value;
     }
     else {
         this->statuses.erase(key);
@@ -87,27 +87,27 @@ void RoomUser::reset() {
     this->room = nullptr;
     this->is_walking = false;
     this->is_loading_room = false;
-	this->next = Position();
+    this->next = Position();
 
 }
 
 /*
-	Set next values, used for walking and ending of walking
+    Set next values, used for walking and ending of walking
 
-	@return none
+    @return none
 */
 void RoomUser::setNextValues(bool still_walking) {
 
-	int height = this->room->getModel()->getSquareHeight()[this->next.getX() * this->room->getModel()->getMapSizeY() + this->next.getY()];
+    int height = this->room->getModel()->getSquareHeight()[this->next.getX() * this->room->getModel()->getMapSizeY() + this->next.getY()];
 
-	
-	this->x = this->next.getX();
-	this->y = this->next.getY();
-	this->height = height;
+    
+    this->x = this->next.getX();
+    this->y = this->next.getY();
+    this->height = height;
 
-	if (!still_walking) {
-		this->is_walking = false;
-	}
+    if (!still_walking) {
+        this->is_walking = false;
+    }
 
 }
 

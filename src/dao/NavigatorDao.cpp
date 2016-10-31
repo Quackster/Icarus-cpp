@@ -13,39 +13,39 @@
 
 int NavigatorDao::createRoom(std::string room_name, std::string description, std::string room_model, int owner_id, int category, int max_users, int trade_settings) {
 
-	int room_id = -1;
+    int room_id = -1;
 
-	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
-	try {
+    try {
 
-		// Insert room data
-		std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
-		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("INSERT INTO rooms (name, description, owner_id, model, category, users_max, trade_state) VALUES (?, ?, ?, ?, ?, ?, ?);")); {
-			statement->setString(1, room_name);
-			statement->setString(2, description);
-			statement->setInt(3, owner_id);
-			statement->setString(4, room_model);
-			statement->setInt(5, category);
-			statement->setInt(6, max_users);
-			statement->setInt(7, trade_settings);
-			statement->executeUpdate();
-		}
+        // Insert room data
+        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("INSERT INTO rooms (name, description, owner_id, model, category, users_max, trade_state) VALUES (?, ?, ?, ?, ?, ?, ?);")); {
+            statement->setString(1, room_name);
+            statement->setString(2, description);
+            statement->setInt(3, owner_id);
+            statement->setString(4, room_model);
+            statement->setInt(5, category);
+            statement->setInt(6, max_users);
+            statement->setInt(7, trade_settings);
+            statement->executeUpdate();
+        }
 
-		// Last inserted id
-		std::shared_ptr<sql::Statement> stmnt = std::shared_ptr<sql::Statement>(sql_connection->createStatement()); {
-			auto result_set = stmnt->executeQuery("SELECT LAST_INSERT_ID() as id;");
-			result_set->next();
-			room_id = result_set->getInt("id");
-		}
-	}
-	catch (sql::SQLException &e) {
-		Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
-	}
+        // Last inserted id
+        std::shared_ptr<sql::Statement> stmnt = std::shared_ptr<sql::Statement>(sql_connection->createStatement()); {
+            auto result_set = stmnt->executeQuery("SELECT LAST_INSERT_ID() as id;");
+            result_set->next();
+            room_id = result_set->getInt("id");
+        }
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
 
-	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
 
-	return room_id;
+    return room_id;
 }
 
 /*

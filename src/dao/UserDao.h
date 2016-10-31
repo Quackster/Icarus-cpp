@@ -23,7 +23,7 @@ private:
     UserDao() { };
 
 public:
-	static bool exists(std::string sso_ticket);
+    static bool exists(std::string sso_ticket);
     static std::string getName(int user_id);
     static int getIdByUsername(std::string username);
     static PlayerDetails *findUserByTicket(Player *player, std::string sso_ticket);

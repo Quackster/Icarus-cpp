@@ -29,5 +29,5 @@ PlayerDetails::PlayerDetails(int id, std::string username, std::string motto, st
     Deconstructor for session details
 */
 PlayerDetails::~PlayerDetails() { 
-	std::cout << "Details disposed" << std::endl;
+    std::cout << "Details disposed" << std::endl;
 }

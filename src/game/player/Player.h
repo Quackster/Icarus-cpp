@@ -20,7 +20,7 @@ public:
     ~Player();
     void login();
     void clear();
-	void close();
+    void close();
     void send(const MessageComposer &composer);
 
     NetworkConnection *getNetworkConnection() { return this->network_connection; }

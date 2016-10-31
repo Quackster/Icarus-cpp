@@ -115,9 +115,9 @@ void Icarus::boot() {
         Start server
     */
     int server_port = configuration->getInt("tcp.server.port");
-	int rcon_port = configuration->getInt("rcon.server.port");
+    int rcon_port = configuration->getInt("rcon.server.port");
 
-	//std::cout << std::endl << " [BOOT] [ReconServer] Starting rcon server on port " << rcon_port;
+    //std::cout << std::endl << " [BOOT] [ReconServer] Starting rcon server on port " << rcon_port;
     std::cout << std::endl  << " [BOOT] [NetworkServer] Starting main server on port " << server_port << std::endl;
 
     boost::asio::io_service io_service;

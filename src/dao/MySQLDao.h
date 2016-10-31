@@ -23,6 +23,6 @@ private:
     MySQLDao() { };
 
 public:
-	static bool exists(std::string query);
+    static bool exists(std::string query);
 };
 

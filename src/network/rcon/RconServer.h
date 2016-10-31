@@ -15,11 +15,11 @@ class RconServer
 {
 public:
     RconServer(boost::asio::io_service& io_service, std::string host, short port);
-	~RconServer();
+    ~RconServer();
     void startAccept();
 
 private:
     int connection_id;
-	tcp::acceptor acceptor;
-	tcp::socket socket;
+    tcp::acceptor acceptor;
+    tcp::socket socket;
 };

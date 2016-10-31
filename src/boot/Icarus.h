@@ -26,7 +26,7 @@ class Icarus
 
 public:
     ~Icarus();
-	static void boot();
+    static void boot();
     static PlayerManager *getPlayerManager();// { return sessionManager; }
     static NetworkServer *getNetworkServer();
     static MessageHandler *getMessageHandler();// { return networkServer; }

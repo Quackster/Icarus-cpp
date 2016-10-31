@@ -36,7 +36,7 @@ void RoomRunnable::run() {
         return;
     }
 
-	std::vector<Entity*> update_entities;
+    std::vector<Entity*> update_entities;
 
     RoomModel *room_model = this->room->getModel();
 
@@ -49,16 +49,16 @@ void RoomRunnable::run() {
 
                 this->processEntity(entity);
 
-				RoomUser *room_user = entity->getRoomUser();
+                RoomUser *room_user = entity->getRoomUser();
 
-				if (room_user->getNeedsUpdate()) {
-					update_entities.push_back(entity);
-				}
+                if (room_user->getNeedsUpdate()) {
+                    update_entities.push_back(entity);
+                }
             }
         }
     }
 
-	this->room->send(UserStatusMessageComposer(update_entities));
+    this->room->send(UserStatusMessageComposer(update_entities));
 
     if (room->getPlayers().size() > 0 && this->room->getRunnable() != nullptr) {
         Icarus::getGame()->getGameScheduler()->schedule(/*std::make_shared<RoomRunnable>(this->room)*/this->room->getRunnable());
@@ -71,41 +71,41 @@ void RoomRunnable::processEntity(Entity *entity) {
 
     if (room_user->isWalking()) {
 
-		if (room_user->getPath().size() > 0) {
+        if (room_user->getPath().size() > 0) {
 
-			Position next = room_user->getPath().front();
-			room_user->getPath().pop_front();
+            Position next = room_user->getPath().front();
+            room_user->getPath().pop_front();
 
-			room_user->setStatus("lay", "");
-			room_user->setStatus("sit", "");
+            room_user->setStatus("lay", "");
+            room_user->setStatus("sit", "");
 
-			int rotation = Rotation::getRotation(room_user->getPosition().getX(), room_user->getPosition().getY(), next.getX(), next.getY());
-			int height = this->room->getModel()->getSquareHeight()[next.getX() * this->room->getModel()->getMapSizeY() + next.getY()];
+            int rotation = Rotation::getRotation(room_user->getPosition().getX(), room_user->getPosition().getY(), next.getX(), next.getY());
+            int height = this->room->getModel()->getSquareHeight()[next.getX() * this->room->getModel()->getMapSizeY() + next.getY()];
 
-			room_user->setRotation(rotation, true, false);
+            room_user->setRotation(rotation, true, false);
 
-			std::stringstream ss;
-			ss << next.getX();
-			ss << ",";
-			ss << next.getY();
-			ss << ",";
-			ss << height;
+            std::stringstream ss;
+            ss << next.getX();
+            ss << ",";
+            ss << next.getY();
+            ss << ",";
+            ss << height;
 
-			room_user->setStatus("mv", ss.str());
-			room_user->setNext(next);
-			//room_user->updateStatus();
-			/*room_user->setX(next.getX());
-			room_user->setY(next.getY());
-			room_user->setHeight(height);*/
-			
-			room_user->setNeedsUpdate(true);
-		}
-		else {
+            room_user->setStatus("mv", ss.str());
+            room_user->setNext(next);
+            //room_user->updateStatus();
+            /*room_user->setX(next.getX());
+            room_user->setY(next.getY());
+            room_user->setHeight(height);*/
+            
+            room_user->setNeedsUpdate(true);
+        }
+        else {
 
-			room_user->setNext(Position());
-			room_user->setNeedsUpdate(true);
-		}
+            room_user->setNext(Position());
+            room_user->setNeedsUpdate(true);
+        }
 
-		
+        
     }
 }

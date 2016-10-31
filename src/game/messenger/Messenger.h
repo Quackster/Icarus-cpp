@@ -16,7 +16,7 @@ class Messenger {
 private:
     bool initialised;
     int user_id;
-	const Entity *player;
+    const Entity *player;
 
     std::map<int, MessengerUser*> *friends = nullptr;
     std::map<int, MessengerUser*> *requests = nullptr;

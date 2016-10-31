@@ -25,27 +25,27 @@ public:
 
     void handle(Player *session, Request &request) {
 
-		std::string sso_ticket = request.readString();
+        std::string sso_ticket = request.readString();
 
         if (!UserDao::exists(sso_ticket)) {
             session->getNetworkConnection()->getSocket().close();
             return;
         }
         else {   
-			
-			PlayerDetails *details = UserDao::findUserByTicket(session, sso_ticket);
+            
+            PlayerDetails *details = UserDao::findUserByTicket(session, sso_ticket);
 
-			if (Icarus::getPlayerManager()->getPlayers()->count(details->getId()) > 0) {
-				session->getNetworkConnection()->getSocket().close();
-				delete details;
-				return;
-			}
+            if (Icarus::getPlayerManager()->getPlayers()->count(details->getId()) > 0) {
+                session->getNetworkConnection()->getSocket().close();
+                delete details;
+                return;
+            }
 
             session->setDetails(details);
         }
 
         session->send(AuthenticateMessageComposer());
-		session->send(UniqueMachineIDMessageComposer(""));// session->getUniqueId()));
+        session->send(UniqueMachineIDMessageComposer(""));// session->getUniqueId()));
         session->send(HomeRoomMessageComposer(0, false));
         session->send(LandingWidgetMessageComposer());
 

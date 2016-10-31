@@ -52,7 +52,7 @@ void RconConnection::recieveData() {
                 "<p>parapgraph</p>"
                 "<marquee>" + std::string(buffer) + "</marquee>");*/
 
-			
+            
             
         }
     });

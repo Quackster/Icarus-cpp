@@ -12,16 +12,16 @@
 class NavigatorPreferencesMessageComposer : public MessageComposer {
 
 public:
-	NavigatorPreferencesMessageComposer() { }
+    NavigatorPreferencesMessageComposer() { }
 
     const Response compose() const {
         Response response = this->createResponse();
-		response.writeInt(68);
-		response.writeInt(42);
-		response.writeInt(425);
-		response.writeInt(535);
-		response.writeBool(false);
-		response.writeInt(0);
+        response.writeInt(68);
+        response.writeInt(42);
+        response.writeInt(425);
+        response.writeInt(535);
+        response.writeBool(false);
+        response.writeInt(0);
         return response;
     }
 

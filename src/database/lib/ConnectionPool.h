@@ -20,7 +20,7 @@
  * Connection and ConnectionFactory are virtual classes that should be overridden to their actual type.
  *
  * NOTE: To avoid using templates AND inheritance at the same time in the ConnectionFactory, ConnectionFactory::create must create a derved type 
- * but return the base class. 	
+ * but return the base class.     
  */
 
 #include <set>
@@ -31,32 +31,32 @@
 
 struct ConnectionUnavailable : std::exception { 
 
-	char const* what() const throw() {
+    char const* what() const throw() {
 
-		return "Unable to allocate connection";
-	}; 
+        return "Unable to allocate connection";
+    }; 
 };
 
 
 class Connection {
 
 public:
-	Connection(){};
-	virtual ~Connection(){};
+    Connection(){};
+    virtual ~Connection(){};
 
 };
 
 class ConnectionFactory {
 
 public:
-	virtual std::shared_ptr<Connection> create()=0;
+    virtual std::shared_ptr<Connection> create()=0;
 
 };
 
 struct ConnectionPoolStats {
 
-	size_t pool_size;
-	size_t borrowed_size;
+    size_t pool_size;
+    size_t borrowed_size;
 
 };
 
@@ -65,116 +65,116 @@ class ConnectionPool {
 
 public:
 
-	ConnectionPoolStats get_stats() {
+    ConnectionPoolStats get_stats() {
 
-		// Lock
-		boost::mutex::scoped_lock lock(this->io_mutex);
+        // Lock
+        boost::mutex::scoped_lock lock(this->io_mutex);
 
-		// Get stats
-		ConnectionPoolStats stats;
-		stats.pool_size=this->pool.size();
-		stats.borrowed_size=this->borrowed.size();			
+        // Get stats
+        ConnectionPoolStats stats;
+        stats.pool_size=this->pool.size();
+        stats.borrowed_size=this->borrowed.size();            
 
-		return stats;
-	};
+        return stats;
+    };
 
-	ConnectionPool(size_t pool_size, ConnectionFactory *factory){
+    ConnectionPool(size_t pool_size, ConnectionFactory *factory){
 
-		// Setup
-		this->pool_size=pool_size;
-		this->factory=factory;
+        // Setup
+        this->pool_size=pool_size;
+        this->factory=factory;
 
-		// Fill the pool
-		while(this->pool.size() < this->pool_size){
+        // Fill the pool
+        while(this->pool.size() < this->pool_size){
 
-			this->pool.push_back(this->factory->create());
-		}
-
-
-	};
-
-	~ConnectionPool() {
+            this->pool.push_back(this->factory->create());
+        }
 
 
-	};
+    };
 
-	/**
-		* Borrow
-		*
-		* Borrow a connection for temporary use
-		*
-		* When done, either (a) call unborrow() to return it, or (b) (if it's bad) just let it go out of scope.  This will cause it to automatically be replaced.
-		* @retval a shared_ptr to the connection object
-		*/
+    ~ConnectionPool() {
+
+
+    };
+
+    /**
+        * Borrow
+        *
+        * Borrow a connection for temporary use
+        *
+        * When done, either (a) call unborrow() to return it, or (b) (if it's bad) just let it go out of scope.  This will cause it to automatically be replaced.
+        * @retval a shared_ptr to the connection object
+        */
     std::shared_ptr<T> borrow(){
 
-		// Lock
-		boost::mutex::scoped_lock lock(this->io_mutex);
+        // Lock
+        boost::mutex::scoped_lock lock(this->io_mutex);
 
-		// Check for a free connection
-		if(this->pool.size()==0){
+        // Check for a free connection
+        if(this->pool.size()==0){
 
-			// Are there any crashed connections listed as "borrowed"?
-			for(std::set<std::shared_ptr<Connection> >::iterator it=this->borrowed.begin(); it!=this->borrowed.end(); ++it){
+            // Are there any crashed connections listed as "borrowed"?
+            for(std::set<std::shared_ptr<Connection> >::iterator it=this->borrowed.begin(); it!=this->borrowed.end(); ++it){
 
-				if((*it).unique()) {
+                if((*it).unique()) {
 
-					// This connection has been abandoned! Destroy it and create a new connection
-					try {
+                    // This connection has been abandoned! Destroy it and create a new connection
+                    try {
 
-						// If we are able to create a new connection, return it
+                        // If we are able to create a new connection, return it
                         std::shared_ptr<Connection> conn=this->factory->create();
-						this->borrowed.erase(it);
-						this->borrowed.insert(conn);
+                        this->borrowed.erase(it);
+                        this->borrowed.insert(conn);
 
-						return std::static_pointer_cast<T>(conn);
+                        return std::static_pointer_cast<T>(conn);
 
-					} catch(std::exception& e) {
+                    } catch(std::exception& e) {
 
-						// Error creating a replacement connection
-						throw ConnectionUnavailable();
-					}
-				}
-			}
+                        // Error creating a replacement connection
+                        throw ConnectionUnavailable();
+                    }
+                }
+            }
 
-			// Nothing available
-			throw ConnectionUnavailable();
-		}
+            // Nothing available
+            throw ConnectionUnavailable();
+        }
 
-		// Take one off the front
+        // Take one off the front
         std::shared_ptr<Connection>conn=this->pool.front();
-		this->pool.pop_front();
+        this->pool.pop_front();
 
-		// Add it to the borrowed list
-		this->borrowed.insert(conn);
+        // Add it to the borrowed list
+        this->borrowed.insert(conn);
 
-		return std::static_pointer_cast<T>(conn);
-	};
+        return std::static_pointer_cast<T>(conn);
+    };
 
-	/**
-		* Unborrow a connection
-		*
-		* Only call this if you are returning a working connection.  If the connection was bad, just let it go out of scope (so the connection manager can replace it).
-		* @param the connection
-		*/
-	void unborrow(std::shared_ptr<T> conn) {
+    /**
+        * Unborrow a connection
+        *
+        * Only call this if you are returning a working connection.  If the connection was bad, just let it go out of scope (so the connection manager can replace it).
+        * @param the connection
+        */
+    void unborrow(std::shared_ptr<T> conn) {
 
-		// Lock
-		boost::mutex::scoped_lock lock(this->io_mutex);
+        // Lock
+        boost::mutex::scoped_lock lock(this->io_mutex);
 
-		// Push onto the pool
-		this->pool.push_back(std::static_pointer_cast<Connection>(conn));
+        // Push onto the pool
+        this->pool.push_back(std::static_pointer_cast<Connection>(conn));
 
-		// Unborrow
-		this->borrowed.erase(conn);
+        // Unborrow
+        this->borrowed.erase(conn);
 
-	};
+    };
 
 protected:
     ConnectionFactory *factory;
-	size_t pool_size;
+    size_t pool_size;
     std::deque<std::shared_ptr<Connection>> pool;
     std::set<std::shared_ptr<Connection>> borrowed;
-	boost::mutex io_mutex;
+    boost::mutex io_mutex;
 
 };

@@ -24,10 +24,10 @@ public:
         std::string revision = request.readString();
 
         if (revision == Icarus::getConfiguration()->getString("game.revision")) {
-			return;
+            return;
         }
 
-		// Kick user if they're using incorrect swfs
-		player->getNetworkConnection()->getSocket().close();
+        // Kick user if they're using incorrect swfs
+        player->getNetworkConnection()->getSocket().close();
     }
 };

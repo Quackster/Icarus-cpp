@@ -28,19 +28,19 @@ public:
         std::string description = request.readString();
         std::string room_model = request.readString();
 
-		if (room_name.length() < 1) {
-			return;
-		}
+        if (room_name.length() < 1) {
+            return;
+        }
 
-		if (room_model.length() < 1) {
-			return;
-		}
+        if (room_model.length() < 1) {
+            return;
+        }
 
         int category = request.readInt();
         int max_users = request.readInt();
         int trade_settings = request.readInt();
 
-		int id = NavigatorDao::createRoom(room_name, description, room_model, player->getDetails()->getId(), category, max_users, trade_settings);
+        int id = NavigatorDao::createRoom(room_name, description, room_model, player->getDetails()->getId(), category, max_users, trade_settings);
 
         std::cout << "Room name: " << room_name << ", id: " << id << std::endl;
 

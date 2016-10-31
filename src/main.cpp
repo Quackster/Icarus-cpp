@@ -13,10 +13,10 @@
 int main(int argc, char* argv[]) {
 
     try {
-		Icarus::boot();
-	} catch (std::exception& e) {
+        Icarus::boot();
+    } catch (std::exception& e) {
         std::cout << std::endl << " Error occurred: " << e.what() << std::endl;
-	}
+    }
 
     if (argc > 1) {
         if (std::string(argv[1]) == "-hang") {
@@ -24,5 +24,5 @@ int main(int argc, char* argv[]) {
         }
     }
 
-	return 0;
+    return 0;
 }

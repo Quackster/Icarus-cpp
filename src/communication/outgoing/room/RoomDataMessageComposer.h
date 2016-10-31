@@ -45,7 +45,7 @@ public:
     }
 
     const int getHeader() const {
-		return Outgoing::RoomDataMessageComposer;
+        return Outgoing::RoomDataMessageComposer;
     }
 
 private:
