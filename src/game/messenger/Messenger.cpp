@@ -137,7 +137,7 @@ void Messenger::sendStatus(bool force_offline, bool login_status) {
 
 	std::cout << "stuff: " << force_offline << std::endl;
 
-    /*const Response response = MessengerUpdateMessageComposer(std::make_unique<MessengerUser>(this->user_id).get(), force_offline).compose();
+    const Response response = MessengerUpdateMessageComposer(std::make_unique<MessengerUser>(this->user_id).get(), force_offline).compose();
 
     for (auto kvp : *this->friends) {
 
@@ -148,5 +148,5 @@ void Messenger::sendStatus(bool force_offline, bool login_status) {
                 friend_->getPlayer()->getNetworkConnection()->send(response);
             }
         }
-    }*/
+    }
 }

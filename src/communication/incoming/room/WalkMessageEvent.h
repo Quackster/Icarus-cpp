@@ -51,7 +51,7 @@ public:
             return;
         }
 
-        auto &path = Pathfinder::makePath(room_user->getPosition(), room_user->getGoal(), room);
+        auto path = Pathfinder::makePath(room_user->getPosition(), room_user->getGoal(), room);
 
         if (path.size() == 0) {
             return; // TODO: Call pathfinder to retry again.
