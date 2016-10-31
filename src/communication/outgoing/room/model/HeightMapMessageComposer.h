@@ -27,6 +27,7 @@ public:
         RoomModel *model = room->getModel();
 
         Response response = this->createResponse();
+
         response.writeInt(model->getMapSizeX());
         response.writeInt(model->getMapSizeX() * model->getMapSizeY());
 

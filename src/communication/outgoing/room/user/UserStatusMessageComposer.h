@@ -34,25 +34,45 @@ public:
 
         for (auto entity : entities) {
 
-            if (entity->getRoomUser() == nullptr) {
-                std::cout << "null room user!!\n";
-                continue;
-            }
+			RoomUser *room_user = entity->getRoomUser();
 
-            response.writeInt(entity->getRoomUser()->getVirtualId());
-            response.writeInt(entity->getRoomUser()->getX());
-            response.writeInt(entity->getRoomUser()->getY());
-            response.writeString(std::to_string(entity->getRoomUser()->getHeight()));
-            response.writeInt(entity->getRoomUser()->getHeadRotation());
-            response.writeInt(entity->getRoomUser()->getRotation());
+            response.writeInt(room_user->getVirtualId());
+            response.writeInt(room_user->getX());
+            response.writeInt(room_user->getY());
+            response.writeString(std::to_string(room_user->getHeight()));
+            response.writeInt(room_user->getHeadRotation());
+            response.writeInt(room_user->getRotation());
+
+			if (room_user->isWalking()) {
+				if (!room_user->getNext().isEmpty()) {
+
+					Position next = room_user->getNext();
+					int height = room_user->getRoom()->getModel()->getSquareHeight()[next.getX() * room_user->getRoom()->getModel()->getMapSizeY() + next.getY()];
+
+					room_user->setX(next.getX());
+					room_user->setY(next.getY());
+					room_user->setHeight(height);
+				}
+				else {
+					room_user->setStatus("mv", "");
+					room_user->setWalking(false);
+				}
+			}
+
+			printf("sent update xddd\n");
 
             std::string status = "/";
 
-            for (auto kvp : entity->getRoomUser()->getStatuses()) {
+            for (auto kvp : room_user->getStatuses()) {
                 status += kvp.first + " " + kvp.second + "/";
             }
 
             response.writeString(status + "/");
+
+			if (room_user->getNeedsUpdate()) {
+				room_user->setNeedsUpdate(false);
+			}
+
         }
 
         return response;

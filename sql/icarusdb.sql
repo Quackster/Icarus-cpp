@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2
+-- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Generation Time: Oct 30, 2016 at 09:35 PM
--- Server version: 5.6.33
--- PHP Version: 5.6.26
+-- Host: localhost
+-- Generation Time: Oct 31, 2016 at 03:47 AM
+-- Server version: 5.7.16-0ubuntu0.16.04.1
+-- PHP Version: 7.0.8-0ubuntu0.16.04.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -10608,7 +10608,7 @@ CREATE TABLE `users` (
   `rank` tinyint(1) NOT NULL DEFAULT '1',
   `join_date` bigint(20) NOT NULL,
   `last_online` bigint(20) NOT NULL,
-  `sso_ticket` varchar(50) NOT NULL,
+  `sso_ticket` varchar(120) DEFAULT NULL,
   `email` varchar(256) NOT NULL,
   `mission` varchar(50) NOT NULL DEFAULT '',
   `figure` varchar(200) NOT NULL DEFAULT '',
@@ -10620,7 +10620,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `figure`, `credits`) VALUES
-(1, 'Alex', 'ed5ab160907a5f0cd750bcf5421b2478d0ebf55a', 7, 0, 1456876800, 'ssoticket', 'we2@2.com', 'I like cake, I like cake, I like cake, I like cake', 'hd-180-1.ch-255-66.lg-280-110.sh-305-62.ha-1012-110.hr-828-61', 100),
+(1, 'Alex', 'ed5ab160907a5f0cd750bcf5421b2478d0ebf55a', 7, 0, 1456876800, 'sso-icarus-alB9iZ2hxy-JRTnZ9-oMcQdTvjL8', 'we2@2.com', 'I like cake, I like cake, I like cake, I like cake', 'hd-180-1.ch-255-66.lg-280-110.sh-305-62.ha-1012-110.hr-828-61', 100),
 (2, 'TheTesting123', 'ed5ab160907a5f0cd750bcf5421b2478d0ebf55a', 1, 0, 0, '123', '', 'I like cake, I like cake, I like cake, I like cake', 'hd-3096-1.hr-3012-45.ch-883-109.lg-280-110.sh-305-62', 0),
 (3, 'John', 'ed5ab160907a5f0cd750bcf5421b2478d0ebf55a', 1, 0, 0, 'john', '', 'topkek', 'hr-893-54.hd-185-26.ch-265-91.lg-280-76.sh-300-83.ha-1013-100.he-1603-71.ea-1406-.fa-1205-75.ca-1809-', 0);
 
