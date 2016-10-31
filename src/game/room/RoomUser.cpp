@@ -103,6 +103,7 @@ void RoomUser::stopWalking() {
 	RoomModel *model = this->room->getModel();
 
 	if (this->getPosition().getX() == model->getDoorX() && this->getPosition().getY() == model->getDoorY()) {
+		room->leave(entity, true);
 	}
 }
 
