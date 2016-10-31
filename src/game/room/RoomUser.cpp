@@ -92,40 +92,14 @@ void RoomUser::reset() {
 }
 
 /*
-    Set next values, used for walking and ending of walking
-
-    @return none
-*/
-void RoomUser::setNextValues(bool still_walking) {
-
-    int height = this->room->getModel()->getSquareHeight()[this->next.getX() * this->room->getModel()->getMapSizeY() + this->next.getY()];
-
-    
-    this->x = this->next.getX();
-    this->y = this->next.getY();
-    this->height = height;
-
-    if (!still_walking) {
-        this->is_walking = false;
-    }
-
-}
-
-/*
     Stop walking handler
 
     @param update user
 */
-/*void RoomUser::stopWalking(bool needs_update) {
+void RoomUser::stopWalking() {
 
-    if (this->statuses.count("mv") > 0) {
-        this->statuses.erase("mv"); // remove status
-    }
-
-    this->needs_update = needs_update;
-    this->path.clear();
-    this->is_walking = false;
-}*/
+    std::cout << "stopped walking" << std::endl;
+}
 
 /*
     Deconstructor for room user

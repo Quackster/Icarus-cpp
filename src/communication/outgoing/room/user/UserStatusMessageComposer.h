@@ -56,6 +56,7 @@ public:
                 else {
                     room_user->setStatus("mv", "");
                     room_user->setWalking(false);
+                    room_user->stopWalking();
                 }
             }
 

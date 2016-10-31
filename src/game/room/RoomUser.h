@@ -53,7 +53,7 @@ private:
 public:
 
     void reset();
-    //void stopWalking(bool needs_update);
+    void stopWalking();
     void setStatus(std::string key, std::string value, bool update = false);
     void updateStatus();
 
@@ -61,7 +61,6 @@ public:
     bool &getLoadingRoom() { return is_loading_room; }
     bool &getNeedsUpdate() { return needs_update; }
     bool &isWalking() { return is_walking; }
-    void setNextValues(bool still_walking = true);
     int &getRotation() { return rotation; }
     int &getHeadRotation() { return head_rotation; }
     int &getGoalX() { return goal_x; }
