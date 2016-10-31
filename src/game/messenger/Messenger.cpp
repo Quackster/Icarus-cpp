@@ -135,8 +135,6 @@ void Messenger::removeRequest(int user_id) {
 */
 void Messenger::sendStatus(bool force_offline, bool login_status) {
 
-	std::cout << "stuff: " << force_offline << std::endl;
-
     const Response response = MessengerUpdateMessageComposer(std::make_unique<MessengerUser>(this->user_id).get(), force_offline).compose();
 
     for (auto kvp : *this->friends) {

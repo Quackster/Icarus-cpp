@@ -164,9 +164,6 @@ void NetworkConnection::send(const MessageComposer &composer) {
 
     // Write to socket
     this->writeData(response.getData(), response.getBytesWritten());
-
-
-	std::cout << " Sent back: " << response.getHeader() << std::endl;
 }
 
 
