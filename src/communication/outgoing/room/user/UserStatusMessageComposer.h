@@ -59,8 +59,6 @@ public:
                 }
             }
 
-            printf("sent update xddd\n");
-
             std::string status = "/";
 
             for (auto kvp : room_user->getStatuses()) {

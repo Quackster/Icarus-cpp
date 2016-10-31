@@ -31,7 +31,7 @@ Tick handler for room runnable
 */
 void RoomRunnable::run() {
 
-    if (this->room->isDisposed() || this->room->getData() == nullptr || this->room->getEntities() == nullptr) {
+    if (this->room->isDisposed()) {
         this->room->setRunnable(nullptr);
         return;
     }
@@ -61,7 +61,7 @@ void RoomRunnable::run() {
     this->room->send(UserStatusMessageComposer(update_entities));
 
     if (room->getPlayers().size() > 0 && this->room->getRunnable() != nullptr) {
-        Icarus::getGame()->getGameScheduler()->schedule(/*std::make_shared<RoomRunnable>(this->room)*/this->room->getRunnable());
+        Icarus::getGame()->getGameScheduler()->schedule(this->room->getRunnable());
     }
 }
 
@@ -74,6 +74,7 @@ void RoomRunnable::processEntity(Entity *entity) {
         if (room_user->getPath().size() > 0) {
 
             Position next = room_user->getPath().front();
+
             room_user->getPath().pop_front();
 
             room_user->setStatus("lay", "");
@@ -92,20 +93,12 @@ void RoomRunnable::processEntity(Entity *entity) {
             ss << height;
 
             room_user->setStatus("mv", ss.str());
-            room_user->setNext(next);
-            //room_user->updateStatus();
-            /*room_user->setX(next.getX());
-            room_user->setY(next.getY());
-            room_user->setHeight(height);*/
-            
-            room_user->setNeedsUpdate(true);
+            room_user->setNext(next);  
         }
         else {
-
             room_user->setNext(Position());
-            room_user->setNeedsUpdate(true);
         }
 
-        
+        room_user->setNeedsUpdate(true);
     }
 }
