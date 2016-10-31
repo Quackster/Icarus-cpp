@@ -32,6 +32,7 @@ Tick handler for room runnable
 void RoomRunnable::run() {
 
     if (this->room->isDisposed()) {
+
         this->room->setRunnable(nullptr);
         return;
     }
@@ -62,7 +63,10 @@ void RoomRunnable::run() {
 
     if (room->getPlayers().size() > 0 && this->room->getRunnable() != nullptr) {
         Icarus::getGame()->getGameScheduler()->schedule(this->room->getRunnable());
-    }
+	}
+	else {
+		this->room->setRunnable(nullptr);
+	}
 }
 
 void RoomRunnable::processEntity(Entity *entity) {

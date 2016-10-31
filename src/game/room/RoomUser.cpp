@@ -74,8 +74,6 @@ void RoomUser::setRotation(int rotation, bool set_head_rotation, bool update) {
     @return none
 */
 void RoomUser::reset() {
-
-    this->virtual_id = 0;
     this->last_chat_id = 0;
     this->dance_id = 0;
     this->x = 0;
@@ -101,8 +99,11 @@ void RoomUser::reset() {
 */
 void RoomUser::stopWalking() {
 
-    
-	setStatus("sit", std::to_string(height + 1), true);
+	Room *room = this->room;
+	RoomModel *model = this->room->getModel();
+
+	if (this->getPosition().getX() == model->getDoorX() && this->getPosition().getY() == model->getDoorY()) {
+	}
 }
 
 /*

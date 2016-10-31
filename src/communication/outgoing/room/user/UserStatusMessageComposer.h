@@ -71,7 +71,6 @@ public:
             if (room_user->getNeedsUpdate()) {
                 room_user->setNeedsUpdate(false);
             }
-
         }
 
         return response;
