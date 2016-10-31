@@ -37,17 +37,20 @@ void RoomUser::setStatus(std::string key, std::string value, bool update) {
     }
 
     if (update) {
-        this->updateStatus();
+        //this->updateStatus();
+		this->needs_update = true;
     }
 }
 
 /*
-    Updatest status, if value is empty, the status entry will be deleted
+    Schedule player status to be updated for everyone in a room, loop happens every 0.5s
+	this technically doesn't run instantly
 
     @return none
 */
 void RoomUser::updateStatus() {    
-    this->room->send(UserStatusMessageComposer(this->entity));
+    //this->room->send(UserStatusMessageComposer(this->entity));
+	this->needs_update = true;
 }
 /*
     Sets rotation of user, optional to set head rotation too, and also optional to update player status
@@ -92,13 +95,14 @@ void RoomUser::reset() {
 }
 
 /*
-    Stop walking handler
+    Stop walking handler, called when a user stops walking
 
-    @param update user
+	@return none
 */
 void RoomUser::stopWalking() {
 
-    std::cout << "stopped walking" << std::endl;
+    
+	setStatus("sit", std::to_string(height + 1), true);
 }
 
 /*
