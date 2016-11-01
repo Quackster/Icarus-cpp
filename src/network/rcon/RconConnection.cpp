@@ -10,6 +10,7 @@
 
 #include <sstream>
 
+#include "misc/Utilities.h"
 #include "boot/Icarus.h"
 #include "RconConnection.h"
 
@@ -45,6 +46,19 @@ void RconConnection::recieveData() {
     socket.async_receive(boost::asio::buffer(buffer, maxLength), [this, self](boost::system::error_code ec, std::size_t length) {
 
         if (!ec) {
+
+			std::string rcon_command = std::string(buffer);
+
+			if (rcon_command.find("password=" + Icarus::getConfiguration()->getString("rcon.server.password")) == std::string::npos) {
+				return;
+			}
+
+			std::vector<std::string> command_parts = Utilities::split(rcon_command, ';');
+
+			std::string command = command_parts[1];
+			std::string command_data = command_parts[2];
+
+			std::cout << "Command: " << command << ", command data: " << command_data << std::endl;
 
             /*this->sendResponse(
                 "<title>testing123"

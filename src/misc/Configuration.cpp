@@ -37,6 +37,7 @@ void Configuration::parse() {
     if (!std::ifstream(this->file)) {
         std::ofstream output_file;
         output_file.open(this->file);
+		output_file << std::endl;
 		output_file << "############################" << std::endl;
         output_file << "##     Database config    ##" << std::endl;
 		output_file << "############################" << std::endl;
@@ -61,6 +62,7 @@ void Configuration::parse() {
 		output_file << std::endl;
         output_file << "rcon.server.host=0.0.0.0;" << std::endl;
         output_file << "rcon.server.port=3902;" << std::endl;
+		output_file << "rcon.server.password=alexthebest;" << std::endl;
 		output_file << std::endl;
 		output_file << "###################$####" << std::endl;
 		output_file << "##     Game config    ##" << std::endl;
