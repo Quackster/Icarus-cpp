@@ -143,9 +143,15 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
         }
 
         this->messages->find(header)->second->handle(player, request);
-        std::cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages->find(header)->second).name() << ") " << std::endl;
+
+		if (Icarus::getConfiguration()->getBool("log.message.handled")) {
+			std::cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages->find(header)->second).name() << ") " << std::endl;
+		}
     } else {
-        //std::cout << " [MessageHandler] Unhandled message " << header << std::endl;
+        
+		if (Icarus::getConfiguration()->getBool("log.message.unhandled")) {
+			std::cout << " [MessageHandler] Unhandled message " << header << std::endl;
+		}
     }
 }
 /* 

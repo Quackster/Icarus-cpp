@@ -156,29 +156,6 @@ void Room::leave(Entity *entity, const bool hotel_view, const bool dispose) {
 		this->dispose();
 	}
 }
-/*void Room::leave(Player *player, const bool hotel_view, const bool dispose) {
-
-    if (this->hasEntity(player)) {
-
-        if (hotel_view) {
-            player->send(HotelViewMessageComposer());
-        }
-
-        // Remove entity from vector
-        this->entities->erase(player->getRoomUser()->getVirtualId());
-
-        // Remove entity from room
-        this->send(RemoveUserMessageComposer(player->getRoomUser()->getVirtualId()));
-
-        // Reset room user
-        player->getRoomUser()->reset();
-        player->getMessenger()->sendStatus(false);
-    }
-
-    if (dispose) {
-        this->dispose();
-    }
-}*/
 
 /*
     Serialise room data for response
@@ -308,7 +285,6 @@ void Room::dispose(const bool force_dispose) {
     @return none
 */
 void Room::reset() {
-	printf("reset..\n");
     this->disposed = true;
 }
 

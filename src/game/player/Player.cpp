@@ -25,7 +25,9 @@ Player::Player(NetworkConnection *network_connection) :
     room_user(nullptr),
     logged_in(false) {
     
-    std::cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
+	if (Icarus::getConfiguration()->getBool("log.player.connect")) {
+		std::cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
+	}
 }
 
 /*
@@ -117,7 +119,10 @@ void Player::close() {
     so there won't be any more packet receiving
 */
 Player::~Player() {
-    std::cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
+
+	if (Icarus::getConfiguration()->getBool("log.player.disconnect")) {
+		std::cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
+	}
 
     if (this->logged_in) {
         messenger->sendStatus(true); // offline for everyone :'(

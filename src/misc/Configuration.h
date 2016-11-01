@@ -18,6 +18,7 @@ public:
     //~Configuration();
     std::string getString(std::string key);
     int getInt(std::string key);
+	bool getBool (std::string key);
     std::map<std::string, std::string> *getValues();
 
 private:

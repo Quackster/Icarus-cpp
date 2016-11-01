@@ -120,23 +120,25 @@ void NetworkConnection::handleData(Request request) {
         Player *player = new Player(this);
         Icarus::getPlayerManager()->addSession(player, this->getConnectionId());
     }
+	
+	if (Icarus::getConfiguration()->getBool("log.network.rawpacket")) {
+		std::cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << "/ ";
 
-    /*std::cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << "/ ";
+		for (int i = 0; i < request.getMessageLength(); i++) {
 
-    for (int i = 0; i < request.getMessageLength(); i++) {
+			char ch = request.getBuffer()[i];
+			int ch_int = (int)ch;
 
-        char ch = request.getBuffer()[i];
-        int ch_int = (int)ch;
+			if (ch_int > -1 && ch_int < 14) {
+				std::cout << "[" << ch_int << "]";
+			}
+			else {
+				std::cout << request.getBuffer()[i];
+			}
+		}
 
-        if (ch_int > -1 && ch_int < 14) {
-            std::cout << "[" << ch_int << "]";
-        }
-        else {
-            std::cout << request.getBuffer()[i];
-        }
-    }
-
-    std::cout << std::endl;*/
+		std::cout << std::endl;
+	}
     
     //cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
     Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getPlayerManager()->getSession(this->connection_id));

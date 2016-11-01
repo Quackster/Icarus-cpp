@@ -47,16 +47,40 @@ void Configuration::parse() {
         output_file << "database.password=changeme;" << std::endl;
         output_file << "database.database=icarus;" << std::endl;
         output_file << "database.pool.size=5;" << std::endl;
-        output_file << std::endl;
+		output_file << std::endl;
+		output_file << "#######################" << std::endl;
+		output_file << "##     TCP server    ##" << std::endl;
+		output_file << "#######################" << std::endl;
+		output_file << std::endl;
         output_file << "tcp.server.host=0.0.0.0;" << std::endl;
         output_file << "tcp.server.port=30000;" << std::endl;
-        output_file << std::endl;
+		output_file << std::endl;
+		output_file << "########################" << std::endl;
+		output_file << "##     RCON server    ##" << std::endl;
+		output_file << "########################" << std::endl;
+		output_file << std::endl;
         output_file << "rcon.server.host=0.0.0.0;" << std::endl;
         output_file << "rcon.server.port=3902;" << std::endl;
-        output_file << std::endl;
+		output_file << std::endl;
+		output_file << "###################$####" << std::endl;
+		output_file << "##     Game config    ##" << std::endl;
+		output_file << "##################$#####" << std::endl;
+		output_file << std::endl;
         output_file << "thread.pool.size=4;" << std::endl;
         output_file << std::endl;
         output_file << "game.revision=PRODUCTION-201512012203-525044429;" << std::endl;
+		output_file << std::endl;
+		output_file << "###################$######" << std::endl;
+		output_file << "##    Logging config    ##" << std::endl;
+		output_file << "##################$#######" << std::endl;
+		output_file << std::endl;
+		output_file << "log.player.connect=true;" << std::endl;
+		output_file << "log.player.disconnect=true;" << std::endl;
+		output_file << std::endl;
+		output_file << "log.message.handled=true;" << std::endl;
+		output_file << "log.message.unhandled=true;" << std::endl;
+		output_file << std::endl;
+		output_file << "log.network.rawpacket=true;" << std::endl;
         output_file.close();
     }
 
@@ -93,10 +117,25 @@ std::string Configuration::getString(std::string key) {
 }
 
 /*
-Returns int value by given string key. attemps to cast from string to int.
+	Returns boolean value by given string key
 
-@param string key to look up value
-@return string value
+	@param string key to look up value
+	@return boolean value
+*/
+bool Configuration::getBool(std::string key) {
+
+	if (this->values->count(key)) {
+		return this->values->find(key)->second == "true";
+	}
+
+	return nullptr;
+}
+
+/*
+	Returns int value by given string key. attemps to cast from string to int.
+
+	@param string key to look up value
+	@return string value
 */
 int Configuration::getInt(std::string key) {
     if (this->values->count(key)) {
