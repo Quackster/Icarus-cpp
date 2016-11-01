@@ -37,9 +37,9 @@ void Configuration::parse() {
     if (!std::ifstream(this->file)) {
         std::ofstream output_file;
         output_file.open(this->file);
-        output_file << "##########################" << std::endl;
-        output_file << "##     Icarus config    ##" << std::endl;
-        output_file << "##########################" << std::endl;
+		output_file << "############################" << std::endl;
+        output_file << "##     Database config    ##" << std::endl;
+		output_file << "############################" << std::endl;
         output_file << std::endl;
         output_file << "database.hostname=127.0.0.1;" << std::endl;
         output_file << "database.port=3306;" << std::endl;
