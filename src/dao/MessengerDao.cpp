@@ -249,7 +249,9 @@ std::map<std::string, int> MessengerDao::getOfflineMessages(int user_id) {
 	catch (sql::SQLException &e) {
 		Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
 	}
-
+	
+	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+	
 	return results;
 
 }
