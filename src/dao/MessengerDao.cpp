@@ -232,7 +232,7 @@ std::map<std::string, int> MessengerDao::getOfflineMessages(int user_id) {
 	try {
 
 		std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
-		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT to_id, from_id, offline, message FROM messenger_messages WHERE unread = 1 AND to_id = ?")); {
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT to_id, from_id, unread, message FROM messenger_messages WHERE unread = 1 AND to_id = ?")); {
 			statement->setInt(1, user_id);
 		}
 
