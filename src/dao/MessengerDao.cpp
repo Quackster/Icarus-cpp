@@ -14,6 +14,13 @@
 #include "dao/MessengerDao.h"
 #include "dao/MySQLDao.h"
 
+/*
+    Return all friends and the messenger user instance
+
+    @param user id
+
+    @return map of user id keys and messager user ptr instance
+*/
 std::map<int, MessengerUser*> *MessengerDao::getFriends(int user_id) {
 
     std::map<int, MessengerUser*> *friends = new std::map<int, MessengerUser*>();
@@ -49,6 +56,13 @@ std::map<int, MessengerUser*> *MessengerDao::getFriends(int user_id) {
     return friends;
 }
 
+/*
+    Returns all friend request that have been sent to the user
+
+    @param user id
+
+    @return map of user id keys and messager user ptr instance
+*/
 std::map<int, MessengerUser*> *MessengerDao::getRequests(int user_id) {
 
     std::map<int, MessengerUser*> *friends = new std::map<int, MessengerUser*>();
@@ -77,6 +91,13 @@ std::map<int, MessengerUser*> *MessengerDao::getRequests(int user_id) {
 
 }
 
+/*
+    Returns list of users if their name is simillar to the search query
+
+    @param query
+
+    @return vector of user ids
+*/
 std::vector<int> MessengerDao::search(std::string query) {
 
     std::vector<int> results;
@@ -105,6 +126,14 @@ std::vector<int> MessengerDao::search(std::string query) {
     return results;
 }
 
+/*
+    Create new friend request entry
+
+    @param the friend request sender
+    @param the friend request receiver
+
+    @return none
+*/
 bool MessengerDao::newRequest(int fromId, int toId) {
 
     bool success = false;
@@ -138,6 +167,14 @@ bool MessengerDao::newRequest(int fromId, int toId) {
     return success;
 }
 
+/*
+    Remove friend requests
+
+    @param the friend request sender
+    @param the friend request receiver
+
+    @return none
+*/
 bool MessengerDao::removeRequest(int fromId, int toId) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
@@ -156,7 +193,14 @@ bool MessengerDao::removeRequest(int fromId, int toId) {
     return false;
 }
 
+/*
+    Removes friendship entry in database
 
+    @param the original friend request sender
+    @param the friend request receiver
+
+    @return none
+*/
 bool MessengerDao::removeFriend(int friendId, int userId) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
@@ -175,6 +219,14 @@ bool MessengerDao::removeFriend(int friendId, int userId) {
     return false;
 }
 
+/*  
+    Creates new friendship entry in database
+
+    @param the original friend request sender
+    @param the friend request receiver
+
+    @return none
+*/
 bool MessengerDao::newFriend(int sender, int receiver) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
@@ -199,6 +251,16 @@ bool MessengerDao::newFriend(int sender, int receiver) {
     return false;
 }
 
+/*
+    Logs offline message with unread/read
+
+    @param to_id, the user the message is sent to
+    @param from_id, the user the message is sent from
+    @param message, the message contents
+    @param unread or not
+
+    @return none
+*/
 void MessengerDao::offlineMessage(int to, int from, std::string message, bool unread) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
@@ -224,6 +286,13 @@ void MessengerDao::offlineMessage(int to, int from, std::string message, bool un
 
 }
 
+/*
+    Returns all messages sent to the user while they were offline in map<message, from_id> format
+    Will mark them as read once this function has been called
+
+    @param id of the user the messages were sent to
+    @return map
+*/
 std::map<std::string, int> MessengerDao::getOfflineMessages(int user_id) {
 
     std::map<std::string, int> results;

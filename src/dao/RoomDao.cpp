@@ -222,10 +222,10 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
 }
 
 /*
-Get list of room ids that the player owns
+    Get list of room ids that the player owns
 
-@param room id
-@return vector of room ids
+    @param room id
+    @return vector of room ids
 */
 std::vector<int> RoomDao::getRights(int room_id) {
 

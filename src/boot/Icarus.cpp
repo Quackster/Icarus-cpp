@@ -8,6 +8,7 @@
 */
 #include <chrono>
 #include <thread>
+#include <ctime>
 #include <string>
 
 #include <boost/thread.hpp>
@@ -117,6 +118,8 @@ void Icarus::boot() {
     int server_port = configuration->getInt("tcp.server.port");
     int rcon_port = configuration->getInt("rcon.server.port");
 
+    //std::cout << "Current timestamp: " << getUnixTimestamp() << std::endl;
+
     std::cout << std::endl << " [BOOT] [ReconServer] Starting rcon server on port " << rcon_port;
     std::cout << std::endl  << " [BOOT] [NetworkServer] Starting main server on port " << server_port << std::endl;
 
@@ -132,6 +135,16 @@ void Icarus::boot() {
     threads.join_all();
 
     //io_service.run();
+}
+
+/*
+    Get current Unix timestamp
+
+    @return long
+*/
+long Icarus::getUnixTimestamp() {
+    time_t t = std::time(0);
+    return static_cast<long> (t);
 }
 
 /*

@@ -189,4 +189,14 @@ std::shared_ptr<PlayerDetails> UserDao::getDetails(int user_id) {
 
     return details;
 };
+/*
+    Updates players last online
 
+    @param id of the user to update
+    @return none
+*/
+
+void UserDao::updateLastOnline(int user_id) {
+
+
+}
