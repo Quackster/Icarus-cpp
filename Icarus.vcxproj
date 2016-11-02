@@ -232,11 +232,12 @@
     <ClInclude Include="src\communication\outgoing\navigator\NavigatorCategoriesComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\NavigatorMetaDataComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\SearchResultSetComposer.h" />
+    <ClInclude Include="src\communication\outgoing\room\entry\RoomOwnerRightsComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\entry\NoRightsMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\entry\PrepareRoomMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\entry\RightsLevelMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\entry\RoomModelMessageComposer.h" />
-    <ClInclude Include="src\communication\outgoing\room\entry\RoomOwnerMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\room\entry\HasOwnerRightsMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\entry\RoomRatingMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\entry\RoomSpacesMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\model\FloorMapMessageComposer.h" />

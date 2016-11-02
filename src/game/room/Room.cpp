@@ -16,7 +16,7 @@
 #include "communication/outgoing/room/entry/RoomRatingMessageComposer.h"
 #include "communication/outgoing/room/entry/RoomModelMessageComposer.h"
 #include "communication/outgoing/room/entry/RoomSpacesMessageComposer.h"
-#include "communication/outgoing/room/entry/RoomOwnerMessageComposer.h"
+#include "communication/outgoing/room/entry/HasOwnerRightsMessageComposer.h"
 #include "communication/outgoing/room/entry/RightsLevelMessageComposer.h"
 #include "communication/outgoing/room/entry/NoRightsMessageComposer.h"
 #include "communication/outgoing/room/entry/PrepareRoomMessageComposer.h"
@@ -85,11 +85,13 @@ void Room::enter(Player *player) {
 
     if (this->hasRights(player->getDetails()->getId(), true)) {
         player->getRoomUser()->setStatus("flatctrl", "useradmin");
-        player->send(RoomOwnerMessageComposer());
+        
         player->send(RightsLevelMessageComposer(4));
+		player->send(HasOwnerRightsMessageComposer());
     }
     else if (this->hasRights(player->getDetails()->getId(), false)) {
         player->getRoomUser()->setStatus("flatctrl", "1");
+
         player->send(RightsLevelMessageComposer(1));
     }
 

@@ -14,6 +14,7 @@
 
 #include "communication/outgoing/room/RoomDataMessageComposer.h"        
 
+#include "communication/outgoing/room/entry/RoomOwnerRightsComposer.h"
 #include "communication/outgoing/room/user/UserDisplayMessageComposer.h"
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
 
@@ -36,11 +37,7 @@ public:
         player->send(UserDisplayMessageComposer(*room->getEntities()));
         player->send(UserStatusMessageComposer(*room->getEntities()));
         player->send(RoomDataMessageComposer(room, player, true, true));
-
-        Response res(Outgoing::RoomOwnerRightsComposer);
-        res.writeInt(room->getData()->getId());
-        res.writeBool(false);
-        player->getNetworkConnection()->send(res);
+		player->send(RoomOwnerRightsComposer(room->getData()->getId(), room->hasRights(player->getDetails()->getId(), true)));
 
         // Tell friends we're in a room! :)
         player->getMessenger()->sendStatus(false);

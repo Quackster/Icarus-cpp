@@ -7,24 +7,27 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-
-#include "game/room/Room.h"
-#include "game/player/Player.h"
-
 #include "communication/outgoing/MessageComposer.h"
 
-class RoomOwnerMessageComposer : public MessageComposer {
+class RoomOwnerRightsComposer : public MessageComposer {
 
 public:
-    RoomOwnerMessageComposer() { }
+	RoomOwnerRightsComposer(int user_id, bool has_rights) : 
+		user_id(user_id), 
+		has_rights(has_rights) { }
 
     const Response compose() const {
         Response response = this->createResponse();
+		response.writeInt(this->user_id);
+		response.writeBool(this->has_rights);
         return response;
     }
 
     const int getHeader() const {
-        return Outgoing::HasOwnerRightsMessageComposer;
+        return Outgoing::RoomOwnerRightsComposer;
     }
 
+private:
+	int user_id;
+	bool has_rights;
 };
