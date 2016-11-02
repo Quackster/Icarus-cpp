@@ -198,5 +198,22 @@ std::shared_ptr<PlayerDetails> UserDao::getDetails(int user_id) {
 
 void UserDao::updateLastOnline(int user_id) {
 
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+    try {
+
+        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE users SET last_online = ? WHERE id = ?")); {
+            statement->setInt64(1, Icarus::getUnixTimestamp());
+            statement->setInt(2, user_id);
+        }
+
+       statement->execute();
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
+
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
 
 }

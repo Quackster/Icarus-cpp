@@ -10,7 +10,10 @@
 
 #include "game/player/Player.h"
 #include "game/player/PlayerDetails.h"
+
+#include "dao/UserDao.h"
 #include "dao/MessengerDao.h"
+
 #include "boot/Icarus.h"
 
 /*
@@ -63,6 +66,11 @@ void Player::login() {
     */
     Icarus::getPlayerManager()->getPlayers()->insert(std::make_pair(this->session_details->getId(), this));
     Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->getId());
+
+    /*
+        Update last online
+    */
+    UserDao::updateLastOnline(this->session_details->getId());
 }
 
 /*
