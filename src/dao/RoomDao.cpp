@@ -152,7 +152,7 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
 
         for (int room_id : room_ids) {
 
-            std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, name, room_type, thumbnail, owner_id, group_id, description, password, users_max, model, wallpaper, floor, outside, tags, trade_state, state, score, category, allow_pets, allow_pets_eat, allow_walkthrough, hidewall, wall_thickness, floor_thickness, chat_type, chat_balloon, chat_speed, chat_max_distance, chat_flood_protection, who_can_mute, who_can_kick, who_can_ban FROM rooms WHERE id = ? ")); {
+            std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, name, room_type, thumbnail, owner_id, group_id, description, password, users_max, model, wallpaper, floor, outside, tags, trade_state, state, score, category, allow_pets, allow_pets_eat, allow_walkthrough, hidewall, wall_thickness, floor_thickness, chat_mode, chat_size, chat_speed, chat_flood, chat_distance, who_can_mute, who_can_kick, who_can_ban FROM rooms WHERE id = ? ")); {
                 statement->setInt(1, room_id);
             }
 
@@ -196,11 +196,11 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
                     result_set->getBoolean("hidewall"),
                     result_set->getInt("wall_thickness"),
                     result_set->getInt("floor_thickness"),
-                    result_set->getInt("chat_type"),
-                    result_set->getInt("chat_balloon"),
+                    result_set->getInt("chat_mode"),
+                    result_set->getInt("chat_size"),
                     result_set->getInt("chat_speed"),
-                    result_set->getInt("chat_max_distance"),
-                    result_set->getInt("chat_flood_protection"),
+                    result_set->getInt("chat_flood"),
+                    result_set->getInt("chat_distance"),
                     result_set->getInt("who_can_mute"),
                     result_set->getInt("who_can_kick"),
                     result_set->getInt("who_can_ban"),

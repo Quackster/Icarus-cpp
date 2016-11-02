@@ -106,6 +106,7 @@ char* Response::getData() {
         //char* size = this->getBytes(this->index, true);
 
         char size[4];
+
         size[0] = (char)this->index & 0xff;
         size[1] = (char)(this->index >> 8) & 0xff;
         size[2] = (char)(this->index >> 16) & 0xff;
@@ -118,45 +119,3 @@ char* Response::getData() {
         
     return this->message.data();
 }
-
-
-/*
-Converts a short (16 bits) to little-endian represented in a char array
-
-@parameter reverse, if true, will return in big endian format
-@return char array
-
-char* Response::getBytes(short i) {
-
-char *output = new char[2];
-
-output[0] = (char)(i >> 8) & 0xff;
-output[1] = (char)(i) & 0xff;
-
-return output;
-}
-
-
-Converts a integer (32 bits) to little-endian represented in a char array
-
-@parameter reverse, if true, will return in big endian format
-@return char array
-
-char* Response::getBytes(int i, bool reverse) {
-
-char *output = new char[4];
-
-if (reverse) {
-output[0] = (char)i & 0xff;
-output[1] = (char)(i >> 8) & 0xff;
-output[2] = (char)(i >> 16) & 0xff;
-output[3] = (char)(i >> 24) & 0xff;
-} else {
-output[3] = (char)i & 0xff;
-output[2] = (char)(i >> 8) & 0xff;
-output[1] = (char)(i >> 16) & 0xff;
-output[0] = (char)(i >> 24) & 0xff;
-};
-
-return output;
-}*/

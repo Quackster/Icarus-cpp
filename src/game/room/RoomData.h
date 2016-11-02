@@ -42,11 +42,11 @@ public:
         bool hide_wall,
         int floor_thickness,
         int wall_thickness,
-        int chat_type,
-        int chat_balloon,
+        int chat_mode,
+        int chat_size,
         int chat_speed,
-        int chat_max_distance,
-        int chat_flood_protection,
+        int chat_flood,
+        int chat_distance,
         int who_can_mute,
         int who_can_kick,
         int who_can_ban,
@@ -81,11 +81,12 @@ public:
     int &getWhoCanBan() { return who_can_ban; }
     //bool hasMoonwalk() { return moonwalk; }
 
-    int getChatType() { return chat_type; }
-    int getChatBalloon() { return chat_balloon; };
+
+    int getChatMode() { return chat_mode; }
+    int getChatSize() { return chat_size; }
     int getChatSpeed() { return chat_speed; }
-    int getChatMaxDistance() { return chat_max_distance; }
-    int getChatFloodProtection() { return chat_flood_protection; }
+    int getChatFlood() { return chat_flood; }
+    int getChatDistance() { return chat_mode; }
 
     int getVirtualId() { this->virtual_id = this->virtual_id + 1; return virtual_id; }
 
@@ -121,11 +122,11 @@ private:
     int floor_thickness;
     int wall_thickness;
     bool hide_wall;
-    int chat_type;
-    int chat_balloon;
+    int chat_mode;
+    int chat_size;
     int chat_speed;
-    int chat_max_distance;
-    int chat_flood_protection;
+    int chat_flood;
+    int chat_distance;
     int who_can_mute;
     int who_can_kick;
     int who_can_ban;
