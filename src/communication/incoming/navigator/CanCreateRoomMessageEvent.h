@@ -16,10 +16,10 @@
 class CanCreateRoomMessageEvent : public MessageEvent {
 
 public:
-	CanCreateRoomMessageEvent() { }
+    CanCreateRoomMessageEvent() { }
 
-	void handle(Player *player, Request &request) {
-		player->send(CanCreateRoomMessageComposer(player));
+    void handle(Player *player, Request &request) {
+        player->send(CanCreateRoomMessageComposer(player));
 
-	}
+    }
 };

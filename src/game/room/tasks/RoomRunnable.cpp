@@ -63,10 +63,10 @@ void RoomRunnable::run() {
 
     if (room->getPlayers().size() > 0 && this->room->getRunnable() != nullptr) {
         Icarus::getGame()->getGameScheduler()->schedule(this->room->getRunnable());
-	}
-	else {
-		this->room->setRunnable(nullptr);
-	}
+    }
+    else {
+        this->room->setRunnable(nullptr);
+    }
 }
 
 void RoomRunnable::processEntity(Entity *entity) {

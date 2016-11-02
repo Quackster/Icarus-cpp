@@ -24,11 +24,11 @@ Player::Player(NetworkConnection *network_connection) :
     session_details(nullptr), 
     room_user(nullptr),
     logged_in(false),
-	disconnected(false) {
+    disconnected(false) {
     
-	if (Icarus::getConfiguration()->getBool("log.player.connect")) {
-		std::cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
-	}
+    if (Icarus::getConfiguration()->getBool("log.player.connect")) {
+        std::cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
+    }
 }
 
 /*
@@ -76,12 +76,12 @@ void Player::send(const MessageComposer &composer) {
 }
 
 /*
-	Gets list of player rooms
+    Gets list of player rooms
 
-	@return vector of room ptr
+    @return vector of room ptr
 */
 std::vector<Room*> Player::getRooms() {
-	return Icarus::getGame()->getRoomManager()->getPlayerRooms(this->session_details->getId());
+    return Icarus::getGame()->getRoomManager()->getPlayerRooms(this->session_details->getId());
 }
 
 /*
@@ -130,11 +130,11 @@ void Player::close() {
 */
 Player::~Player() {
 
-	this->getNetworkConnection()->setConnectionState(false);
+    this->getNetworkConnection()->setConnectionState(false);
 
-	if (Icarus::getConfiguration()->getBool("log.player.disconnect")) {
-		std::cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
-	}
+    if (Icarus::getConfiguration()->getBool("log.player.disconnect")) {
+        std::cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
+    }
 
     if (this->logged_in) {
         messenger->sendStatus(true); // offline for everyone :'(

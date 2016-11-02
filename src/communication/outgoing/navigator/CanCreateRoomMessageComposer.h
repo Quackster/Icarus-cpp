@@ -16,13 +16,13 @@ class CanCreateRoomMessageComposer : public MessageComposer {
 
 public:
 
-	CanCreateRoomMessageComposer(Player *player) : player(player) { }
+    CanCreateRoomMessageComposer(Player *player) : player(player) { }
 
     const Response compose() const {
 
         Response response = this->createResponse();
-		response.writeInt(player->getRooms().size() >= Icarus::getGame()->MAX_ROOMS_PER_ACCOUNT ? 1 : 0);
-		response.writeInt(Icarus::getGame()->MAX_ROOMS_PER_ACCOUNT);
+        response.writeInt(player->getRooms().size() >= Icarus::getGame()->MAX_ROOMS_PER_ACCOUNT ? 1 : 0);
+        response.writeInt(Icarus::getGame()->MAX_ROOMS_PER_ACCOUNT);
         return response;
     }
 
@@ -31,5 +31,5 @@ public:
     }
 
 private:
-	Player *player;
+    Player *player;
 };

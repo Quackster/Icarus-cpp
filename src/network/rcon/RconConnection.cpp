@@ -47,18 +47,18 @@ void RconConnection::recieveData() {
 
         if (!ec) {
 
-			std::string rcon_command = std::string(buffer);
+            std::string rcon_command = std::string(buffer);
 
-			if (rcon_command.find("password=" + Icarus::getConfiguration()->getString("rcon.server.password")) == std::string::npos) {
-				return;
-			}
+            if (rcon_command.find("password=" + Icarus::getConfiguration()->getString("rcon.server.password")) == std::string::npos) {
+                return;
+            }
 
-			std::vector<std::string> command_parts = Utilities::split(rcon_command, ';');
+            std::vector<std::string> command_parts = Utilities::split(rcon_command, ';');
 
-			std::string command = command_parts[1];
-			std::string command_data = command_parts[2];
+            std::string command = command_parts[1];
+            std::string command_data = command_parts[2];
 
-			std::cout << "Command: " << command << ", command data: " << command_data << std::endl;
+            std::cout << "Command: " << command << ", command data: " << command_data << std::endl;
 
             /*this->sendResponse(
                 "<title>testing123"

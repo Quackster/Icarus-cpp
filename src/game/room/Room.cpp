@@ -87,7 +87,7 @@ void Room::enter(Player *player) {
         player->getRoomUser()->setStatus("flatctrl", "useradmin");
         
         player->send(RightsLevelMessageComposer(4));
-		player->send(HasOwnerRightsMessageComposer());
+        player->send(HasOwnerRightsMessageComposer());
     }
     else if (this->hasRights(player->getDetails()->getId(), false)) {
         player->getRoomUser()->setStatus("flatctrl", "1");
@@ -131,32 +131,32 @@ void Room::enter(Player *player) {
 */
 void Room::leave(Entity *entity, const bool hotel_view, const bool dispose) {
 
-	if (this->hasEntity(entity)) {
+    if (this->hasEntity(entity)) {
 
-		// Remove entity from vector
-		this->entities->erase(entity->getRoomUser()->getVirtualId());
+        // Remove entity from vector
+        this->entities->erase(entity->getRoomUser()->getVirtualId());
 
-		// Remove entity from room
-		this->send(RemoveUserMessageComposer(entity->getRoomUser()->getVirtualId()));
+        // Remove entity from room
+        this->send(RemoveUserMessageComposer(entity->getRoomUser()->getVirtualId()));
 
 
-		if (entity->getEntityType() == PLAYER) {
-			if (hotel_view) {
+        if (entity->getEntityType() == PLAYER) {
+            if (hotel_view) {
 
-				Player *player = dynamic_cast<Player*>(entity);
+                Player *player = dynamic_cast<Player*>(entity);
 
-				player->send(HotelViewMessageComposer());
-				player->getMessenger()->sendStatus(false);
-			}
-		}
+                player->send(HotelViewMessageComposer());
+                player->getMessenger()->sendStatus(false);
+            }
+        }
 
-		// Reset room user
-		entity->getRoomUser()->reset();
-	}
+        // Reset room user
+        entity->getRoomUser()->reset();
+    }
 
-	if (dispose) {
-		this->dispose();
-	}
+    if (dispose) {
+        this->dispose();
+    }
 }
 
 /*

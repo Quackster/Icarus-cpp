@@ -49,7 +49,7 @@ public:
     static const int RemoveUserMessageComposer = 3475;
     static const int UserObjectMessageComposer = 3762;
     static const int UserStatusMessageComposer = 2627;
-	static const int CanCreateRoomMessageComposer = 3645;//1913;
-	static const int RoomOwnerRightsComposer = 625;
-	static const int HasOwnerRightsMessageComposer = 2037;
+    static const int CanCreateRoomMessageComposer = 3645;//1913;
+    static const int RoomOwnerRightsComposer = 625;
+    static const int HasOwnerRightsMessageComposer = 2037;
 };

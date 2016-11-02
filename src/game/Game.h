@@ -18,7 +18,7 @@ public:
     ~Game();
     void createGame();
 
-	int MAX_ROOMS_PER_ACCOUNT = 20;
+    int MAX_ROOMS_PER_ACCOUNT = 20;
 
     NavigatorManager *getNavigatorManager() { return navigator_manager; }
     ExecutorService *getGameScheduler() { return executor_service; }

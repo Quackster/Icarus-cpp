@@ -35,7 +35,7 @@ public:
             return;
         }
 
-		MessengerDao::offlineMessage(friend_id, player->getDetails()->getId(), message, !user->isOnline());
+        MessengerDao::offlineMessage(friend_id, player->getDetails()->getId(), message, !user->isOnline());
 
         if (user->isOnline()) {
             user->getPlayer()->send(MessengerMessageComposer(player->getDetails()->getId(), message));

@@ -12,14 +12,14 @@
 class RoomOwnerRightsComposer : public MessageComposer {
 
 public:
-	RoomOwnerRightsComposer(int user_id, bool has_rights) : 
-		user_id(user_id), 
-		has_rights(has_rights) { }
+    RoomOwnerRightsComposer(int user_id, bool has_rights) : 
+        user_id(user_id), 
+        has_rights(has_rights) { }
 
     const Response compose() const {
         Response response = this->createResponse();
-		response.writeInt(this->user_id);
-		response.writeBool(this->has_rights);
+        response.writeInt(this->user_id);
+        response.writeBool(this->has_rights);
         return response;
     }
 
@@ -28,6 +28,6 @@ public:
     }
 
 private:
-	int user_id;
-	bool has_rights;
+    int user_id;
+    bool has_rights;
 };

@@ -122,7 +122,7 @@ void Icarus::boot() {
 
     boost::asio::io_service io_service;
     network_server = new NetworkServer(io_service, configuration->getString("tcp.server.host"), server_port);
-	
+    
     boost::asio::io_service rcon_service;
     auto rcon_server = new RconServer(rcon_service, configuration->getString("rcon.server.host"), rcon_port);
 

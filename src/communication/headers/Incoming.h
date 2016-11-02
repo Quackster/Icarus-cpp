@@ -32,11 +32,11 @@ public:
     static const int MessengerDeleteFriendMessageEvent = 2169;
     static const int MessengerTalkMessageEvent = 400;
     static const int FollowFriendMessageEvent = 3254;
-	static const int CanCreateRoomMessageEvent = 1968;
-	static const int CreateRoomMessageEvent = 828;
-	static const int ChatMessageEvent = 132;
-	static const int ShoutMessageEvent = 1508;
-	static const int DanceMessageEvent = 1666;
-	static const int StartTypingMessageEvent = 1752;
-	static const int StopTypingMessageEvent = 998;
+    static const int CanCreateRoomMessageEvent = 1968;
+    static const int CreateRoomMessageEvent = 828;
+    static const int ChatMessageEvent = 132;
+    static const int ShoutMessageEvent = 1508;
+    static const int DanceMessageEvent = 1666;
+    static const int StartTypingMessageEvent = 1752;
+    static const int StopTypingMessageEvent = 998;
 };

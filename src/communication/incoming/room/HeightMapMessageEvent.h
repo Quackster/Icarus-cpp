@@ -37,7 +37,7 @@ public:
         player->send(UserDisplayMessageComposer(*room->getEntities()));
         player->send(UserStatusMessageComposer(*room->getEntities()));
         player->send(RoomDataMessageComposer(room, player, true, true));
-		player->send(RoomOwnerRightsComposer(room->getData()->getId(), room->hasRights(player->getDetails()->getId(), true)));
+        player->send(RoomOwnerRightsComposer(room->getData()->getId(), room->hasRights(player->getDetails()->getId(), true)));
 
         // Tell friends we're in a room! :)
         player->getMessenger()->sendStatus(false);

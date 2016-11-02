@@ -44,14 +44,14 @@ public:
         int trade_settings = request.readInt();
 
 
-		if (player->getRooms().size() >= Icarus::getGame()->MAX_ROOMS_PER_ACCOUNT) {
-			player->send(CanCreateRoomMessageComposer(player));
-			return;
-		}
+        if (player->getRooms().size() >= Icarus::getGame()->MAX_ROOMS_PER_ACCOUNT) {
+            player->send(CanCreateRoomMessageComposer(player));
+            return;
+        }
 
-		int id = NavigatorDao::createRoom(room_name, description, room_model, player->getDetails()->getId(), category, max_users, trade_settings);
+        int id = NavigatorDao::createRoom(room_name, description, room_model, player->getDetails()->getId(), category, max_users, trade_settings);
 
-		player->send(CreateRoomMessageComposer(id, room_name));
+        player->send(CreateRoomMessageComposer(id, room_name));
 
     }
 };

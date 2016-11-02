@@ -81,11 +81,11 @@ public:
     int &getWhoCanBan() { return who_can_ban; }
     //bool hasMoonwalk() { return moonwalk; }
 
-	int getChatType() { return chat_type; }
-	int getChatBalloon() { return chat_balloon; };
-	int getChatSpeed() { return chat_speed; }
-	int getChatMaxDistance() { return chat_max_distance; }
-	int getChatFloodProtection() { return chat_flood_protection; }
+    int getChatType() { return chat_type; }
+    int getChatBalloon() { return chat_balloon; };
+    int getChatSpeed() { return chat_speed; }
+    int getChatMaxDistance() { return chat_max_distance; }
+    int getChatFloodProtection() { return chat_flood_protection; }
 
     int getVirtualId() { this->virtual_id = this->virtual_id + 1; return virtual_id; }
 

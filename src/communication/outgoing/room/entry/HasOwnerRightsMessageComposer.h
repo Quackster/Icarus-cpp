@@ -16,7 +16,7 @@
 class HasOwnerRightsMessageComposer : public MessageComposer {
 
 public:
-	HasOwnerRightsMessageComposer() { }
+    HasOwnerRightsMessageComposer() { }
 
     const Response compose() const {
         Response response = this->createResponse();

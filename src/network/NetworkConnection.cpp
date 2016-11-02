@@ -37,62 +37,62 @@ void NetworkConnection::recieveData() {
         return; // Person disconnected, stop listing for data, in case somehow it still is (when it shouldn't) ;)
     }
 
-	try {
-		auto self(shared_from_this());
+    try {
+        auto self(shared_from_this());
 
-		// only 4 bytes for now, the length
-		socket.async_receive(boost::asio::buffer(buffer, 4), [this, self](boost::system::error_code ec, std::size_t length) {
+        // only 4 bytes for now, the length
+        socket.async_receive(boost::asio::buffer(buffer, 4), [this, self](boost::system::error_code ec, std::size_t length) {
 
-			if (!ec) {
+            if (!ec) {
 
-				// If the first part of the packet starts with '<'
-				//    then we send the flash policy back
+                // If the first part of the packet starts with '<'
+                //    then we send the flash policy back
 
-				if (buffer[0] == 60) {
-					this->sendPolicy();
-					this->recieveData();
-				}
-				else {
+                if (buffer[0] == 60) {
+                    this->sendPolicy();
+                    this->recieveData();
+                }
+                else {
 
-					// Use bitwise operators to get the length needed to read the rest of the message
-					int message_length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | (buffer[3]);
+                    // Use bitwise operators to get the length needed to read the rest of the message
+                    int message_length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | (buffer[3]);
 
-					// Read rest of message, to prevent any combined packets
-					socket.async_receive(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
+                    // Read rest of message, to prevent any combined packets
+                    socket.async_receive(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
 
-						if (length > 0) {
-							Request request(message_length, buffer);
+                        if (length > 0) {
+                            Request request(message_length, buffer);
 
-							if (request.getMessageId() > 0) {
-								this->handleData(request);
-								this->recieveData();
-							}
-						}
-					});
-				}
-			}
-			else {
+                            if (request.getMessageId() > 0) {
+                                this->handleData(request);
+                                this->recieveData();
+                            }
+                        }
+                    });
+                }
+            }
+            else {
 
-				// Handle session disconnect
-				if (length == 0) {
-					if (Icarus::getPlayerManager()->containsSession(this->connection_id)) {
-						Icarus::getPlayerManager()->removeSession(this->connection_id);
-					}
-					else {
-						// Remove connection if it was just a policy request
-						Icarus::getNetworkServer()->removeNetworkConnection(this);
-					}
-				}
-			}
+                // Handle session disconnect
+                if (length == 0) {
+                    if (Icarus::getPlayerManager()->containsSession(this->connection_id)) {
+                        Icarus::getPlayerManager()->removeSession(this->connection_id);
+                    }
+                    else {
+                        // Remove connection if it was just a policy request
+                        Icarus::getNetworkServer()->removeNetworkConnection(this);
+                    }
+                }
+            }
 
-		});
-	}
-	catch (std::exception &e) {
-		std::cout << "Player connection error: " << e.what() << std::endl;
-	}
-	catch (...) {
-		std::cout << "Player connection error " << std::endl;
-	}
+        });
+    }
+    catch (std::exception &e) {
+        std::cout << "Player connection error: " << e.what() << std::endl;
+    }
+    catch (...) {
+        std::cout << "Player connection error " << std::endl;
+    }
 }
 
 /*
@@ -102,27 +102,27 @@ Write data handle
 */
 void NetworkConnection::writeData(char* data, int length) {
 
-	if (!this->connection_state && this != nullptr) {
-		return; // Person disconnected, stop writing data...
-	}
+    if (!this->connection_state && this != nullptr) {
+        return; // Person disconnected, stop writing data...
+    }
 
-	try {
+    try {
 
-		auto self(shared_from_this());
+        auto self(shared_from_this());
 
-		boost::asio::async_write(socket, boost::asio::buffer(data, /*this->max_length*/length), [this, self, data](boost::system::error_code ec, std::size_t length) {
-			if (!ec) {
-				// send success
-			}
-		});
+        boost::asio::async_write(socket, boost::asio::buffer(data, /*this->max_length*/length), [this, self, data](boost::system::error_code ec, std::size_t length) {
+            if (!ec) {
+                // send success
+            }
+        });
 
-	}
-	catch (std::exception &e) {
-		std::cout << "Player connection error: " << e.what() << std::endl;
-	}
-	catch (...) {
-		std::cout << "Player connection error " << std::endl;
-	}
+    }
+    catch (std::exception &e) {
+        std::cout << "Player connection error: " << e.what() << std::endl;
+    }
+    catch (...) {
+        std::cout << "Player connection error " << std::endl;
+    }
 }
 
 /*
@@ -137,25 +137,25 @@ void NetworkConnection::handleData(Request request) {
         Player *player = new Player(this);
         Icarus::getPlayerManager()->addSession(player, this->getConnectionId());
     }
-	
-	if (Icarus::getConfiguration()->getBool("log.network.rawpacket")) {
-		std::cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << "/ ";
+    
+    if (Icarus::getConfiguration()->getBool("log.network.rawpacket")) {
+        std::cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << "/ ";
 
-		for (int i = 0; i < request.getMessageLength(); i++) {
+        for (int i = 0; i < request.getMessageLength(); i++) {
 
-			char ch = request.getBuffer()[i];
-			int ch_int = (int)ch;
+            char ch = request.getBuffer()[i];
+            int ch_int = (int)ch;
 
-			if (ch_int > -1 && ch_int < 14) {
-				std::cout << "[" << ch_int << "]";
-			}
-			else {
-				std::cout << request.getBuffer()[i];
-			}
-		}
+            if (ch_int > -1 && ch_int < 14) {
+                std::cout << "[" << ch_int << "]";
+            }
+            else {
+                std::cout << request.getBuffer()[i];
+            }
+        }
 
-		std::cout << std::endl;
-	}
+        std::cout << std::endl;
+    }
     
     //cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;
     Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getPlayerManager()->getSession(this->connection_id));
