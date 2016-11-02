@@ -241,27 +241,14 @@ std::map<std::string, int> MessengerDao::getOfflineMessages(int user_id) {
 		while (result_set->next()) {
 			results.insert(std::make_pair(result_set->getString("message"), result_set->getInt("from_id")));
 		}
-
+		
+		std::shared_ptr<sql::Statement> update_statement = std::shared_ptr<sql::Statement>(sql_connection->createStatement());
+		
+		update_statement->execute("UPDATE messenger_messages SET unread = 0 WHERE unread = 1 AND to_id = " + std::to_string(user_id));
 	}
 	catch (sql::SQLException &e) {
 		Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
 	}
-
-	/*--------------------------------------
-		MARK ALL UNREAD MESSAGES AS READ
-	----------------------------------------*/
-	connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
-
-	try {
-		std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
-		std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sql_connection->createStatement());
-		statement->execute("UPDATE messenger_messages SET unread = 0 WHERE unread = 1 AND to_id = " + std::to_string(user_id));
-	}
-	catch (sql::SQLException &e) {
-		Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
-	}
-
-	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
 
 	return results;
 
