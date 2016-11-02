@@ -9,6 +9,9 @@
 #pragma once
 #include "communication/incoming/MessageEvent.h"
 
+#include "communication/outgoing/navigator/CanCreateRoomMessageComposer.h"
+#include "communication/outgoing/navigator/CreateRoomMessageComposer.h"
+
 #include "dao/NavigatorDao.h"
 
 class CreateRoomMessageEvent : public MessageEvent {
@@ -40,9 +43,15 @@ public:
         int max_users = request.readInt();
         int trade_settings = request.readInt();
 
-        int id = NavigatorDao::createRoom(room_name, description, room_model, player->getDetails()->getId(), category, max_users, trade_settings);
 
-        std::cout << "Room name: " << room_name << ", id: " << id << std::endl;
+		if (player->getRooms().size() >= Icarus::getGame()->MAX_ROOMS_PER_ACCOUNT) {
+			player->send(CanCreateRoomMessageComposer(player));
+			return;
+		}
+
+		int id = NavigatorDao::createRoom(room_name, description, room_model, player->getDetails()->getId(), category, max_users, trade_settings);
+
+		player->send(CreateRoomMessageComposer(id, room_name));
 
     }
 };

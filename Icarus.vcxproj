@@ -199,6 +199,7 @@
     <ClInclude Include="src\communication\incoming\misc\EventLogMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\misc\LatencyTestMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\CreateRoomMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\navigator\CanCreateRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\NewNavigatorMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\SearchNewNavigatorEvent.h" />
     <ClInclude Include="src\communication\incoming\room\EnterRoomMessageEvent.h" />
@@ -225,6 +226,7 @@
     <ClInclude Include="src\communication\outgoing\messenger\MessengerUpdateMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\messenger\RemoveFriendMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\CreateRoomMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\navigator\CanCreateRoomMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\NavigatorPreferencesMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\FlatCategoriesMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\NavigatorCategoriesComposer.h" />

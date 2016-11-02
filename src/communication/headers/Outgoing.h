@@ -83,4 +83,6 @@ public:
     //static const int PlaceWallItemMessageComposer = 1366;
     //static const int RemoveInventoryItemComposer = 639;
     //static const int MOTDMessageComposer = 773;
+
+	static const int CanCreateRoomMessageComposer = 3645;//1913;
 };

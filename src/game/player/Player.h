@@ -10,6 +10,8 @@
 
 #include "network/NetworkConnection.h"
 
+
+
 #include "game/entities/Entity.h"
 #include "game/messenger/Messenger.h"
 
@@ -31,9 +33,12 @@ public:
     RoomUser *getRoomUser() { 
         return this->room_user; 
     }
+
+	std::vector<Room*> getRooms();
     
     Messenger *getMessenger() { return this->messenger; }
     bool authenticated() { return logged_in; }
+	bool disposed() { return disconnected; }
 
     void setUniqueId(std::string unique_id) { this->unique_id = unique_id; }
     void setDetails(EntityDetails *details) { this->session_details = details; }
@@ -47,4 +52,5 @@ private:
     Messenger *messenger = nullptr;
     std::string unique_id;
     bool logged_in;
+	bool disconnected;
 };
