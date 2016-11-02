@@ -11,6 +11,8 @@
 #include "game/messenger/MessengerUser.h"
 #include "communication/incoming/MessageEvent.h"
 
+#include "dao/MessengerDao.h"
+
 #include "communication/outgoing/messenger/MessengerMessageComposer.h"
 
 class MessengerTalkMessageEvent : public MessageEvent {
@@ -32,6 +34,8 @@ public:
         if (message.length() < 1) {
             return;
         }
+
+		MessengerDao::offlineMessage(friend_id, player->getDetails()->getId(), message, !user->isOnline());
 
         if (user->isOnline()) {
             user->getPlayer()->send(MessengerMessageComposer(player->getDetails()->getId(), message));

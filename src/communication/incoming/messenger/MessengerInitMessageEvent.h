@@ -11,6 +11,7 @@
 #include "dao/MessengerDao.h"
 #include "communication/incoming/MessageEvent.h"
 
+#include "communication/outgoing/messenger/MessengerMessageComposer.h"
 #include "communication/outgoing/messenger/MessengerCategoriesMessageComposer.h"
 #include "communication/outgoing/messenger/FriendsListMessageComposer.h"
 #include "communication/outgoing/messenger/MessengerRequestsMessageComposer.h"
@@ -29,6 +30,14 @@ public:
         player->send(MessengerCategoriesMessageComposer());
         player->send(FriendsListMessageComposer(player->getMessenger()->getFriends()));
         player->send(MessengerRequestsMessageComposer(player->getDetails(), player->getMessenger()->getRequests()));
+
+		std::map<std::string, int> offline_messages = MessengerDao::getOfflineMessages(player->getDetails()->getId());
+
+		if (offline_messages.size() > 0) {
+			for (auto kvp : offline_messages) {
+				player->send(MessengerMessageComposer(kvp.second, kvp.first));
+			}
+		}
        
     }
 };

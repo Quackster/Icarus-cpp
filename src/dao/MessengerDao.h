@@ -28,5 +28,8 @@ public:
     static bool removeRequest(int fromId, int toId);
     static bool removeFriend(int fromId, int toId);
     static bool newFriend(int sender, int receiver);
+	static void offlineMessage(int to, int from, std::string message, bool offline = false);
+	static std::map<std::string, int> getOfflineMessages(int user_id);
+
 };
 
