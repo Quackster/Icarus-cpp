@@ -152,37 +152,50 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
     @param if last move
     @return boolean true if valid, false if not.
 */
-bool Pathfinder::isValidStep(Room *room, Position current, Position tmp, bool is_final_move) {
+bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, bool is_final_move) {
 
     try {
 
         int map_size_x = room->getModel()->getMapSizeX();
         int map_size_y = room->getModel()->getMapSizeY();
 
-        if (tmp.getX() >= map_size_x || tmp.getY() >= map_size_y) {
+        if (neighbour.getX() >= map_size_x 
+            || neighbour.getY() >= map_size_y) {
             return false;
         }
 
-        if (current.getX() >= map_size_x || current.getY() >= map_size_y) {
+        if (current.getX() >= map_size_x 
+            || current.getY() >= map_size_y) {
             return false;
         }
 
-        if (tmp.getX() < 0 || tmp.getY() < 0) {
+        if (neighbour.getX() < 0 || neighbour.getY() < 0) {
+            return false;
+        }
+        
+        if (current.getX() < 0 || current.getY() < 0) {
             return false;
         }
 
-        if (current.getX() < 0|| current.getY() < 0) {
+        if (!room->getModel()->isValidSquare(neighbour.getX(), neighbour.getY())) {
             return false;
         }
 
-        if (!room->getModel()->isValidSquare(tmp.getX(), tmp.getY())) {
-            return false;
-        }
+        /*if (current.getX() != neighbour.getX() 
+            && current.getY() != neighbour.getY()) {
+
+            bool diagonal1 = room->getModel()->isValidSquare(neighbour.getX(), current.getY());
+            bool diagonal2 = room->getModel()->isValidSquare(current.getX(), neighbour.getY());
+
+            if (!diagonal1 || !diagonal2)
+                return false;
+        }*/
 
         return true;
 
     }
     catch (std::exception &e) {
+        std::cout << "Pathfinder exception: " << e.what() << std::endl;
         return false;
     }
 

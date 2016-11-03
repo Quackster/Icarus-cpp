@@ -50,6 +50,7 @@ NavigatorTab* NavigatorManager::getTab(std::string tab_name) {
 
 /*
     Returns all parent tabs, (those who have -1 as child id
+
     @return vector list of parent tabs
 */
 std::vector<NavigatorTab*> NavigatorManager::getParentTabs() {
@@ -63,6 +64,23 @@ std::vector<NavigatorTab*> NavigatorManager::getParentTabs() {
     }
 
     return tabs;
+}
+
+/*
+    Returns category by specified id, will return nullptr if no
+    category has been found
+
+    @return navigator category ptr
+*/
+NavigatorCategory *NavigatorManager::getCategoryById(int category_id) {
+
+    for (auto category : *this->categories) {
+        if (category->getId() == category_id) {
+            return category;
+        }
+    }
+
+    return nullptr;
 }
 
 /*

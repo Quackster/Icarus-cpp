@@ -23,6 +23,7 @@ public:
 
     NavigatorTab *getTab(std::string tab_name);
     std::vector<NavigatorTab*> getParentTabs();
+    NavigatorCategory *getCategoryById(int category_id);
     std::vector<NavigatorTab*> *getTabs() { return tabs; }
     std::vector<NavigatorCategory*> *getCategories() { return categories; }
     RoomPopulator *getPopulator(std::string name);

@@ -37,6 +37,7 @@
 #include "room/WalkMessageEvent.h"
 #include "room/RoomEditInfoMessageEvent.h"
 #include "room/DeleteRoomMessageEvent.h"
+#include "room/SaveRoomMessageEvent.h"
 
 // Messenger
 #include "messenger/MessengerInitMessageEvent.h"
@@ -82,6 +83,7 @@ MessageHandler::MessageHandler() :
     this->createEvent(Incoming::UserWalkMessageEvent, new WalkMessageEvent());
     this->createEvent(Incoming::RoomEditInfoMessageEvent, new RoomEditInfoMessageEvent());
     this->createEvent(Incoming::DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
+    this->createEvent(Incoming::SaveRoomMessageEvent, new SaveRoomMessageEvent());
 
     // Messenger
     this->createEvent(Incoming::MessengerSearchMessageEvent, new MessengerSearchMessageEvent());

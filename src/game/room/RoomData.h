@@ -89,6 +89,43 @@ public:
     int getChatFlood() { return chat_flood; }
     int getChatDistance() { return chat_distance; }
     int getVirtualId() { this->virtual_id = this->virtual_id + 1; return virtual_id; }
+
+    void setName(std::string name) { this->name = name; }
+    void setName(std::string description) { this->description = description; }
+    /*
+    
+    std::string room_name = request.readString();
+        std::string description = request.readString();
+        int access_type = request.readInt();
+        int max_users = request.readInt();
+        int category_id = request.readInt();
+        int tag_size = request.readInt();
+
+        std::vector<std::string> tags;
+
+        for (int i = 0; i < tag_size; i++) {
+            tags.push_back(request.readString());
+        }
+
+        int trade_settings = request.readInt();
+        int allow_pets = request.readInt();
+        int allow_pets_eat = request.readInt();
+        int allow_walkthrough = request.readInt();
+        int hide_wall = request.readInt();
+        int wall_thickness = request.readInt();
+        int floor_thickness = request.readInt();
+        int who_can_mute = request.readInt();
+        int who_can_kick = request.readInt();
+        int who_can_ban = request.readInt();
+        int chat_mode = request.readInt();
+        int chat_size = request.readInt();
+        int chat_speed = request.readInt();
+        int chat_distance = request.readInt();
+        int chat_flood = request.readInt();
+        int trade_settings = request.readInt();
+    */
+
+
     std::vector<int> &getUserRights() { return user_rights; }
     ~RoomData();
 
