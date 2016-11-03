@@ -22,9 +22,9 @@ public:
         response.writeInt(this->categories->size());
 
         for (auto category : *this->categories) {
-            response.writeInt(category->getId());
-            response.writeString(category->getName());
-            response.writeBool(category->getMinimumRank() <= rank);
+            response.writeInt(category->id);
+            response.writeString(category->name);
+            response.writeBool(category->minimum_rank <= rank);
             response.writeBool(false);
             response.writeString("NONE");
             response.writeString("");

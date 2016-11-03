@@ -12,6 +12,8 @@
 
 #include "boot/Icarus.h"
 
+#include "dao/RoomDao.h"
+
 #include "communication/outgoing/user/HotelViewMessageComposer.h"
 #include "communication/outgoing/room/entry/RoomRatingMessageComposer.h"
 #include "communication/outgoing/room/entry/RoomModelMessageComposer.h"
@@ -334,7 +336,7 @@ void Room::send(const MessageComposer &composer) {
 
 bool Room::isOwnerOnline() {
     this->room_data->owner = Icarus::getPlayerManager()->getPlayerById(this->room_data->owner_id);
-    return this->room_data->owner == nullptr;
+    return this->room_data->owner != nullptr;
 }
 
 /*
@@ -344,6 +346,15 @@ bool Room::isOwnerOnline() {
 */
 void Room::updateVirtualId() {
     this->room_data->virtual_id = this->room_data->virtual_id + 1;
+}
+
+/*
+    Save room data
+
+    @return none
+*/
+void Room::save() {
+    RoomDao::updateRoom(this->room_id, this);
 }
 
 /*

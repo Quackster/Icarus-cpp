@@ -32,7 +32,9 @@ public:
     void send(const MessageComposer &composer);
     bool isOwnerOnline();
     void updateVirtualId();
+    void save();
     void scheduleRunnable();
+
 
 
     ////

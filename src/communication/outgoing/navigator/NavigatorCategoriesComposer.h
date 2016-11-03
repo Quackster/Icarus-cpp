@@ -22,7 +22,7 @@ public:
         response.writeInt(4 + ((int)categories->size()));
 
         for (auto category : *categories) {
-            response.writeString("category__" + category->getName());
+            response.writeString("category__" + category->name);
         }
 
         response.writeString("recommended");

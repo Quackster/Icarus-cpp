@@ -8,6 +8,8 @@
 */
 #include "stdafx.h"
 
+#include <numeric>
+
 #include "UserDao.h"
 #include "RoomDao.h"
 
@@ -73,6 +75,8 @@ void RoomDao::addPublicRooms() {
             Room *room = getRoom(result_set->getInt("id"));
             Icarus::getGame()->getRoomManager()->getPublicRooms()->push_back(room);
             Icarus::getGame()->getRoomManager()->getRooms()->insert(std::make_pair(room->getId(), room));
+
+            room->getData()->private_room = false; // If this is set to true, then when a user leaves the public room would be disposed/removed from server memory...
         }
 
     }
@@ -271,6 +275,77 @@ void RoomDao::deleteRoom(int room_id) {
         statement->setInt(1, room_id);
         statement->execute();
 
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
+
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+}
+
+/*
+    Updates the entire room details
+
+    @return none
+*/
+void RoomDao::updateRoom(int room_id, Room *room) {
+
+    /*        room_data->name = room_name;
+        room_data->description = description;
+        room_data->state = access_type;
+        room_data->users_max = max_users;
+        room_data->category = category_id;
+        room_data->tags = tags;
+        room_data->trade_state = trade_settings;
+        room_data->allow_pets = allow_pets;
+        room_data->allow_pets_eat = allow_pets_eat;
+        room_data->allow_walkthrough = allow_walkthrough;
+        room_data->hide_wall = hide_wall;
+        room_data->wall_thickness = wall_thickness;
+        room_data->floor_thickness = floor_thickness;
+        room_data->who_can_mute = who_can_mute;
+        room_data->chat_mode = chat_mode;
+        room_data->chat_size = chat_size;
+        room_data->chat_speed = chat_speed;
+        room_data->chat_distance = chat_distance;
+        room_data->chat_flood = chat_flood;*/
+
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+    try {
+
+        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE rooms SET name = ?, description = ?, state = ?, users_max = ?, category = ?, tags = ?, trade_state = ?, allow_pets = ?, allow_pets_eat = ?, allow_walkthrough = ?, hide_wall = ?, wall_thickness = ?, floor_thickness = ?, who_can_mute = ?, who_can_ban = ?, who_can_kick = ?, chat_mode = ?, chat_size = ?, chat_speed = ?, chat_distance = ?, chat_flood = ?  WHERE id = ?")); {
+
+            RoomData *room_data = room->getData();
+
+
+
+            statement->setString(1, room_data->name);
+            statement->setString(2, room_data->description);
+            statement->setInt(3, room_data->state);
+            statement->setInt(4, room_data->users_max);
+            statement->setInt(5, room_data->category);
+            statement->setString(6, std::accumulate(room_data->tags.begin(), room_data->tags.end(), std::string(",")));
+            statement->setInt(7, room_data->trade_state);
+            statement->setInt(8, room_data->allow_pets);
+            statement->setInt(9, room_data->allow_pets_eat);
+            statement->setInt(10, room_data->allow_walkthrough);
+            statement->setInt(11, room_data->hide_wall);
+            statement->setInt(12, room_data->wall_thickness);
+            statement->setInt(13, room_data->floor_thickness);
+            statement->setInt(14, room_data->who_can_mute);
+            statement->setInt(15, room_data->who_can_kick);
+            statement->setInt(16, room_data->who_can_ban);
+            statement->setInt(17, room_data->chat_mode);
+            statement->setInt(18, room_data->chat_size);
+            statement->setInt(19, room_data->chat_speed);
+            statement->setInt(20, room_data->chat_distance);
+            statement->setInt(21, room_data->chat_flood);
+            statement->setInt(21, room_data->id);
+        }
+
+        statement->execute();
     }
     catch (sql::SQLException &e) {
         Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);

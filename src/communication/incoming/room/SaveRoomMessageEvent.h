@@ -19,22 +19,30 @@ public:
         // TODO: Move this variable elsewhere
         int MAX_ROOM_NAME_LENGTH = 50;
 
-        if (!player->getRoomUser()->inRoom()) {
+        Room *room = Icarus::getGame()->getRoomManager()->getRoom(request.readInt());
+
+        if (room == nullptr) {
             return;
         }
-
-        Room *room = player->getRoomUser()->getRoom();
 
         if (!room->hasRights(player->getDetails()->getId(), true)) {
             return;
         }
 
+        RoomData *room_data = room->getData();
+
         std::string room_name = request.readString();
         std::string description = request.readString();
         int access_type = request.readInt();
+        std::string password = request.readString();
         int max_users = request.readInt();
         int category_id = request.readInt();
         int tag_size = request.readInt();
+
+        if (tag_size > 2) {
+            printf("return 1\n");
+            return; // definitely scripting if try to put more than 2 tags...
+        }
 
         std::vector<std::string> tags;
 
@@ -61,16 +69,16 @@ public:
         int chat_distance = request.readInt();
         int chat_flood = request.readInt();
 
-        if (chat_mode < 0 || chat_mode > 1) {
-            return;
+        if (chat_mode != 1) {
+            chat_mode = 0;
         }
 
-        if (chat_size < 0 || chat_size > 1) {
-            return;
+        if (chat_size != 1) {
+            chat_size = 0;
         }
 
-        if (chat_speed < 0 || chat_speed > 1) {
-            return;
+        if (chat_speed != 1) {
+            chat_speed = 0;
         }
 
         if (chat_distance > 100 || chat_distance < 0) {
@@ -85,15 +93,15 @@ public:
             trade_settings = 1;
         }
 
-        if (who_can_mute < 0 || who_can_mute > 1) {
+        if (who_can_mute != 1) {
             who_can_mute = 0;
         }
 
-        if (who_can_kick < 0 || who_can_kick > 1) {
+        if (who_can_kick != 1) {
             who_can_kick = 0;
         }
 
-        if (who_can_ban < 0 || who_can_ban > 1) {
+        if (who_can_ban != 1) {
             who_can_ban = 0;
         }
 
@@ -111,10 +119,27 @@ public:
             category_id = 1; // Category ID 1: No Category
         }
 
-        if (tag_size > 2) {
-            return; // definitely scripting if try to put more than 2 tags...
-        }
-
-
+        room_data->name = room_name;
+        room_data->description = description;
+        room_data->state = access_type;
+        room_data->users_max = max_users;
+        room_data->category = category_id;
+        room_data->tags = tags;
+        room_data->trade_state = trade_settings;
+        room_data->allow_pets = allow_pets;
+        room_data->allow_pets_eat = allow_pets_eat;
+        room_data->allow_walkthrough = allow_walkthrough;
+        room_data->hide_wall = hide_wall;
+        room_data->wall_thickness = wall_thickness;
+        room_data->floor_thickness = floor_thickness;
+        room_data->who_can_mute = who_can_mute;
+        room_data->who_can_kick = who_can_kick;
+        room_data->who_can_ban = who_can_ban;
+        room_data->chat_mode = chat_mode;
+        room_data->chat_size = chat_size;
+        room_data->chat_speed = chat_speed;
+        room_data->chat_distance = chat_distance;
+        room_data->chat_flood = chat_flood;
+        room->save();
     }
 };
