@@ -63,6 +63,7 @@ Enter room handler
 void Room::enter(Player *player) {
 
     this->disposed = false;
+    this->updateVirtualId();
 
     // So we don't forget what room we entered 8-)
     player->getRoomUser()->setRoom(this);
@@ -334,6 +335,15 @@ void Room::send(const MessageComposer &composer) {
 bool Room::isOwnerOnline() {
     this->room_data->owner = Icarus::getPlayerManager()->getPlayerById(this->room_data->owner_id);
     return this->room_data->owner == nullptr;
+}
+
+/*
+    Updates virtual id
+
+    @return none
+*/
+void Room::updateVirtualId() {
+    this->room_data->virtual_id = this->room_data->virtual_id + 1;
 }
 
 /*

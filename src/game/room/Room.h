@@ -31,6 +31,7 @@ public:
     void setRoomData(RoomData *room_data) { this->room_data = room_data; };
     void send(const MessageComposer &composer);
     bool isOwnerOnline();
+    void updateVirtualId();
     void scheduleRunnable();
 
 
