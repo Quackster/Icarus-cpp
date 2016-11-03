@@ -25,7 +25,7 @@
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
 
 /*
-    Constructor for rooms
+Constructor for rooms
 */
 Room::Room(int room_id) :
     room_id(room_id),
@@ -33,22 +33,24 @@ Room::Room(int room_id) :
     entities(new std::map<int, Entity*>()),
     runnable(nullptr) { } //std::make_shared<RoomRunnable>(this)) { }
 
-/*
-    Whether or not the user has room rights, has optional option for
-    owner/staff check only
-*/
+                          /*
+                          Whether or not the user has room rights, has optional option for
+                          owner/staff check only
+                          */
 bool Room::hasRights(const int user_id, const bool owner_check_only) {
 
     if (owner_check_only) {
-        return this->room_data->getOwnerId() == user_id;
+        return this->room_data->owner_id == user_id;
     }
     else {
 
-        if (this->room_data->getOwnerId() == user_id) {
+        if (this->room_data->owner_id == user_id) {
             return true;
         }
         else {
-            return std::find(this->room_data->getUserRights().begin(), this->room_data->getUserRights().end(), user_id) != this->room_data->getUserRights().end();
+
+            // Check to see if user id is located in room_data->user_rights vector
+            return std::find(this->room_data->user_rights.begin(), this->room_data->user_rights.end(), user_id) != this->room_data->user_rights.end();
         }
     }
 }
@@ -65,13 +67,15 @@ void Room::enter(Player *player) {
     // So we don't forget what room we entered 8-)
     player->getRoomUser()->setRoom(this);
     player->getRoomUser()->setLoadingRoom(true);
-    player->getRoomUser()->setVirtualId(this->getData()->getVirtualId());
+    player->getRoomUser()->setVirtualId(this->getData()->virtual_id);
+
+    // TODO: Virtual id calculation
 
     player->send(RoomModelMessageComposer(this->getModel()->getName(), this->room_id));
-    player->send(RoomRatingMessageComposer(room_data->getScore()));
+    player->send(RoomRatingMessageComposer(room_data->score));
 
-    int floor = stoi(room_data->getFloor());
-    int wall = stoi(room_data->getWallpaper());
+    int floor = stoi(room_data->floor);
+    int wall = stoi(room_data->wallpaper);
 
     if (floor > 0) {
         player->send(RoomSpacesMessageComposer("floor", std::to_string(floor)));
@@ -81,11 +85,11 @@ void Room::enter(Player *player) {
         player->send(RoomSpacesMessageComposer("wall", std::to_string(wall)));
     }
 
-    player->send(RoomSpacesMessageComposer("landscape", room_data->getOutside()));
+    player->send(RoomSpacesMessageComposer("landscape", room_data->outside));
 
     if (this->hasRights(player->getDetails()->getId(), true)) {
         player->getRoomUser()->setStatus("flatctrl", "useradmin");
-        
+
         player->send(RightsLevelMessageComposer(4));
         player->send(HasOwnerRightsMessageComposer());
     }
@@ -122,12 +126,12 @@ void Room::enter(Player *player) {
 
 
 /*
-    Leave room, can send to hotel if option is given or dispose room
+Leave room, can send to hotel if option is given or dispose room
 
-    @param player ptr
-    @param hotel view
-    @param dispose room
-    @return none
+@param player ptr
+@param hotel view
+@param dispose room
+@return none
 */
 void Room::leave(Entity *entity, const bool hotel_view, const bool dispose) {
 
@@ -160,9 +164,9 @@ void Room::leave(Entity *entity, const bool hotel_view, const bool dispose) {
 }
 
 /*
-    Kick all users in room
+Kick all users in room
 
-    @return none
+@return none
 */
 void Room::kickPlayers() {
 
@@ -175,29 +179,29 @@ void Room::kickPlayers() {
 }
 
 /*
-    Serialise room data for response
-    this is used in a number of places
+Serialise room data for response
+this is used in a number of places
 
-    @param response
-    @return none
+@param response
+@return none
 */
 void Room::serialise(Response &response, const bool enter_room) {
 
     response.writeInt(this->room_id);
-    response.writeString(this->room_data->getName());
-    response.writeInt(this->room_data->getOwnerId());
-    response.writeString(this->room_data->getOwnerName()); // Owner name
-    response.writeInt(this->room_data->getState());
+    response.writeString(this->room_data->name);
+    response.writeInt(this->room_data->owner);
+    response.writeString(this->room_data->owner_name); // Owner name
+    response.writeInt(this->room_data->state);
     response.writeInt(this->getPlayers().size()); // Users now
-    response.writeInt(this->room_data->getUsersMax());
-    response.writeString(this->room_data->getDescription());
-    response.writeInt(this->room_data->getTradeState());
-    response.writeInt(this->room_data->getScore());
+    response.writeInt(this->room_data->users_max);
+    response.writeString(this->room_data->description);
+    response.writeInt(this->room_data->trade_state);
+    response.writeInt(this->room_data->score);
     response.writeInt(0);
-    response.writeInt(this->room_data->getCategory());
-    response.writeInt(this->room_data->getTags().size());
+    response.writeInt(this->room_data->category);
+    response.writeInt(this->room_data->tags.size());
 
-    for (std::string tag : this->room_data->getTags()) {
+    for (std::string tag : this->room_data->tags) {
         response.writeString(tag);
     }
 
@@ -207,30 +211,30 @@ void Room::serialise(Response &response, const bool enter_room) {
         response_type = 32;
     }
 
-    if (this->room_data->isPrivate()) {
+    if (this->room_data->private_room) {
         response_type += 8;
     }
 
-    if (this->room_data->hasAllowPets()) {
+    if (this->room_data->allow_pets) {
         response_type += 16;
     }
 
-    if (this->room_data->getThumbnail().length() > 0) {
+    if (this->room_data->thumbnail.length() > 0) {
         response_type += 1;
     }
 
     response.writeInt(response_type);
 
-    if (this->room_data->getThumbnail().length() > 0) {
-        response.writeString(this->room_data->getThumbnail());
+    if (this->room_data->thumbnail.length() > 0) {
+        response.writeString(this->room_data->thumbnail);
     }
 }
 
 /*
-    Returns whether or not the entity exists in the list of entities
+Returns whether or not the entity exists in the list of entities
 
-    @param entity ptr
-    @return boolean
+@param entity ptr
+@return boolean
 */
 bool Room::hasEntity(Entity *entity) {
     return this->entities->count(entity->getRoomUser()->getVirtualId()) > 0;
@@ -259,10 +263,10 @@ const std::vector<Player*> Room::getPlayers() {
 
 
 /*
-    Dispose handler for Room
+Dispose handler for Room
 
-    @param (optional) force dispose of room
-    @return none
+@param (optional) force dispose of room
+@return none
 */
 void Room::dispose(const bool force_dispose) {
 
@@ -279,8 +283,8 @@ void Room::dispose(const bool force_dispose) {
 
         if (empty_room) {
             reset = true;
-            if (this->room_data->isOwnerOnline() == false) {
-                if (this->room_data->isPrivate()) {
+            if (this->isOwnerOnline() == false) {
+                if (this->room_data->private_room) {
                     remove = true;
                 }
             }
@@ -297,20 +301,20 @@ void Room::dispose(const bool force_dispose) {
 }
 
 /*
-    Function to reset all room states to default
-    used when there's no more users in the room or the room is getting deleted from memory
+Function to reset all room states to default
+used when there's no more users in the room or the room is getting deleted from memory
 
-    @return none
+@return none
 */
 void Room::reset() {
     this->disposed = true;
 }
 
 /*
-    Broadcast packet to entire room
+Broadcast packet to entire room
 
-    @param MessageComposer class
-    @return none
+@param MessageComposer class
+@return none
 */
 void Room::send(const MessageComposer &composer) {
 
@@ -322,9 +326,20 @@ void Room::send(const MessageComposer &composer) {
 }
 
 /*
-    Reschedule room runnable if it's not nullptr, it will not schedule if the room has been disposed
+    True or false whether or not the owner is online
 
-    @return none
+    @return boolean
+*/
+
+bool Room::isOwnerOnline() {
+    this->room_data->owner = Icarus::getPlayerManager()->getPlayerById(this->room_data->owner_id);
+    return this->room_data->owner == nullptr;
+}
+
+/*
+Reschedule room runnable if it's not nullptr, it will not schedule if the room has been disposed
+
+@return none
 */
 void Room::scheduleRunnable() {
 
@@ -336,7 +351,7 @@ void Room::scheduleRunnable() {
 }
 
 /*
-    Deconstructor for rooms
+Deconstructor for rooms
 */
 Room::~Room()
 {

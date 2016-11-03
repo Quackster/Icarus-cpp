@@ -30,16 +30,17 @@ public:
     void dispose(const bool force_disposal = false);
     void setRoomData(RoomData *room_data) { this->room_data = room_data; };
     void send(const MessageComposer &composer);
+    bool isOwnerOnline();
     void scheduleRunnable();
 
 
     ////
     //  Getters and setters
     ////
-    int getId() { return this->room_data->getId(); }
+    int getId() { return this->room_data->id; }
   
     RoomData *getData() { return room_data; }
-    RoomModel *getModel() { return this->room_data->getModel(); }
+    RoomModel *getModel() { return this->room_data->model; }
     const std::vector<Player*> getPlayers();
     
     std::map<int, Entity*> *getEntities() { return entities; }

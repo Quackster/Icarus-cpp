@@ -150,7 +150,6 @@
     <ClCompile Include="src\game\navigator\populators\DefaultPopulator.cpp" />
     <ClCompile Include="src\game\navigator\populators\MyRoomPopulator.cpp" />
     <ClCompile Include="src\game\room\model\Rotation.cpp" />
-    <ClCompile Include="src\game\room\RoomData.cpp" />
     <ClCompile Include="src\game\room\Room.cpp" />
     <ClCompile Include="src\game\room\RoomManager.cpp" />
     <ClCompile Include="src\game\room\RoomUser.cpp" />
@@ -202,6 +201,7 @@
     <ClInclude Include="src\communication\incoming\navigator\CanCreateRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\NewNavigatorMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\SearchNewNavigatorEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\SaveRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\DeleteRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\EnterRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\RoomEditInfoMessageEvent.h" />

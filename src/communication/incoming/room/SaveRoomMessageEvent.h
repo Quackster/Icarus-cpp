@@ -46,18 +46,20 @@ public:
         int allow_pets = request.readInt();
         int allow_pets_eat = request.readInt();
         int allow_walkthrough = request.readInt();
+
         int hide_wall = request.readInt();
         int wall_thickness = request.readInt();
         int floor_thickness = request.readInt();
+
         int who_can_mute = request.readInt();
         int who_can_kick = request.readInt();
         int who_can_ban = request.readInt();
+
         int chat_mode = request.readInt();
         int chat_size = request.readInt();
         int chat_speed = request.readInt();
         int chat_distance = request.readInt();
         int chat_flood = request.readInt();
-        int trade_settings = request.readInt();
 
         if (chat_mode < 0 || chat_mode > 1) {
             return;
@@ -95,7 +97,7 @@ public:
             who_can_ban = 0;
         }
 
-        if (room_name.length < 2) {
+        if (room_name.length() < 2) {
             return;
         }
 

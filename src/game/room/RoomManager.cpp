@@ -58,7 +58,7 @@ std::vector<Room*> RoomManager::getPlayerRooms(int user_id) {
 
         Room* room = room_entry.second;
 
-        if (room->getData()->getOwnerId() == user_id) {
+        if (room->getData()->owner_id == user_id) {
             rooms.push_back(room);
         }
     }
@@ -114,7 +114,7 @@ Room *RoomManager::getRoom(int room_id) {
 */
 void RoomManager::addRoom(Room *room) {
 
-    if (!this->hasRoom(room->getData()->getId())) {
+    if (!this->hasRoom(room->getData()->id)) {
         this->rooms->insert(std::make_pair(room->getId(), room));
     }
 }

@@ -23,35 +23,35 @@ public:
         RoomData *room_data = room->getData();
 
         Response response = this->createResponse();
-        response.writeInt(room_data->getId());
-        response.writeString(room_data->getName());
-        response.writeString(room_data->getDescription());
-        response.writeInt(room_data->getState());
-        response.writeInt(room_data->getCategory());
-        response.writeInt(room_data->getUsersMax());
-        response.writeInt(room_data->getUsersMax());
-        response.writeInt(room_data->getTags().size());
+        response.writeInt(room_data->id);
+        response.writeString(room_data->name);
+        response.writeString(room_data->description);
+        response.writeInt(room_data->state);
+        response.writeInt(room_data->category);
+        response.writeInt(room_data->users_max);
+        response.writeInt(room_data->users_max);
+        response.writeInt(room_data->tags.size());
         
-        for (auto tag : room_data->getTags()) {
+        for (auto tag : room_data->tags) {
             response.writeString(tag);
         }
 
-        response.writeInt(room_data->getTradeState());
-        response.writeInt(room_data->hasAllowPets());
-        response.writeInt(room_data->hasAllowPetsEat());
-        response.writeInt(room_data->hasAllowWalkthrough());
-        response.writeInt(room_data->hasHideWall());
-        response.writeInt(room_data->getWallThickness());
-        response.writeInt(room_data->getFloorThickness());
-        response.writeInt(room_data->getChatSpeed());
-        response.writeInt(room_data->getChatSize());
-        response.writeInt(room_data->getChatSpeed());
-        response.writeInt(room_data->getChatDistance());
-        response.writeInt(room_data->getChatFlood());
+        response.writeInt(room_data->trade_state);
+        response.writeInt(room_data->allow_pets);
+        response.writeInt(room_data->allow_pets_eat);
+        response.writeInt(room_data->allow_walkthrough);
+        response.writeInt(room_data->hide_wall);
+        response.writeInt(room_data->wall_thickness);
+        response.writeInt(room_data->floor_thickness);
+        response.writeInt(room_data->chat_speed);
+        response.writeInt(room_data->chat_size);
+        response.writeInt(room_data->chat_speed);
+        response.writeInt(room_data->chat_distance);
+        response.writeInt(room_data->chat_flood);
         response.writeBool(false);
-        response.writeInt(room_data->getWhoCanMute());
-        response.writeInt(room_data->getWhoCanKick());
-        response.writeInt(room_data->getWhoCanBan());
+        response.writeInt(room_data->who_can_mute);
+        response.writeInt(room_data->who_can_kick);
+        response.writeInt(room_data->who_can_ban);
 
         return response;
     }

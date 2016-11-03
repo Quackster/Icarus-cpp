@@ -32,15 +32,15 @@ public:
         response.writeBool(false);
         response.writeBool(false);
         response.writeBool(false);
-        response.writeInt(room->getData()->getWhoCanMute());
-        response.writeInt(room->getData()->getWhoCanKick());
-        response.writeInt(room->getData()->getWhoCanBan());
+        response.writeInt(room->getData()->who_can_mute);
+        response.writeInt(room->getData()->who_can_kick);
+        response.writeInt(room->getData()->who_can_ban);
         response.writeBool(room->hasRights(player->getDetails()->getId(), true)); // TODO: Rights, true if moderator or room owner
-        response.writeInt(room->getData()->getChatMode());
-        response.writeInt(room->getData()->getChatSize());
-        response.writeInt(room->getData()->getChatSpeed());
-        response.writeInt(room->getData()->getChatFlood());
-        response.writeInt(room->getData()->getChatDistance());
+        response.writeInt(room->getData()->chat_mode);
+        response.writeInt(room->getData()->chat_size);
+        response.writeInt(room->getData()->chat_speed);
+        response.writeInt(room->getData()->chat_flood);
+        response.writeInt(room->getData()->chat_distance);
         return response;
     }
 

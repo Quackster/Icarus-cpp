@@ -168,44 +168,43 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
                 // 'delete' called from the .deleteRoom function from RoomManager
                 Room *room = new Room(room_id);
 
-                room->setRoomData(new RoomData(
-                    room_id,
-                    result_set->getString("name"),
-                    (char)result_set->getInt("room_type"),
-                    result_set->getString("thumbnail"),
-                    result_set->getInt("owner_id"),
-                    UserDao::getName(result_set->getInt("owner_id")),
-                    result_set->getInt("group_id"),
-                    result_set->getString("description"),
-                    result_set->getString("password"),
-                    //result_set->getInt("users_now"),
-                    result_set->getInt("users_max"),
-                    Icarus::getGame()->getRoomManager()->getModel(result_set->getString("model")),
-                    //result_set->getString("model"),
-                    result_set->getString("wallpaper"),
-                    result_set->getString("floor"),
-                    result_set->getString("outside"),
-                    Utilities::split(result_set->getString("tags"), ','),
-                    result_set->getInt("trade_state"),
-                    result_set->getInt("state"),
-                    result_set->getInt("score"),
-                    result_set->getInt("category"),
-                    result_set->getBoolean("allow_pets"),
-                    result_set->getBoolean("allow_pets_eat"),
-                    result_set->getBoolean("allow_walkthrough"),
-                    result_set->getBoolean("hidewall"),
-                    result_set->getInt("wall_thickness"),
-                    result_set->getInt("floor_thickness"),
-                    result_set->getInt("chat_mode"),
-                    result_set->getInt("chat_size"),
-                    result_set->getInt("chat_speed"),
-                    result_set->getInt("chat_flood"),
-                    result_set->getInt("chat_distance"),
-                    result_set->getInt("who_can_mute"),
-                    result_set->getInt("who_can_kick"),
-                    result_set->getInt("who_can_ban"),
-                    getRights(room_id)
-                 ));
+                RoomData *room_data = new RoomData();
+                room->setRoomData(room_data);
+
+                room_data->id = room_id;
+                room_data->name = result_set->getString("name");
+                room_data->room_type = (char)result_set->getInt("room_type");
+                room_data->thumbnail = result_set->getString("thumbnail");
+                room_data->owner_id = result_set->getInt("owner_id");
+                room_data->owner_name = UserDao::getName(result_set->getInt("owner_id"));
+                room_data->group_id = result_set->getInt("group_id");
+                room_data->description = result_set->getString("description");
+                room_data->password = result_set->getString("password");
+                room_data->users_max = result_set->getInt("users_max");
+                room_data->model = Icarus::getGame()->getRoomManager()->getModel(result_set->getString("model"));
+                room_data->wallpaper = result_set->getString("wallpaper");
+                room_data->floor = result_set->getString("floor");
+                room_data->outside = result_set->getString("outside");
+                room_data->tags = Utilities::split(result_set->getString("tags"), ',');
+                room_data->trade_state = result_set->getInt("trade_state");
+                room_data->state = result_set->getInt("state");
+                room_data->score = result_set->getInt("score");
+                room_data->category = result_set->getInt("category");
+                room_data->allow_pets = result_set->getBoolean("allow_pets");
+                room_data->allow_pets_eat = result_set->getBoolean("allow_pets_eat");
+                room_data->allow_walkthrough = result_set->getBoolean("allow_walkthrough");
+                room_data->hide_wall = result_set->getBoolean("hidewall");
+                room_data->wall_thickness = result_set->getInt("wall_thickness");
+                room_data->floor_thickness = result_set->getInt("floor_thickness");
+                room_data->chat_mode = result_set->getInt("chat_mode");
+                room_data->chat_size = result_set->getInt("chat_size");
+                room_data->chat_speed = result_set->getInt("chat_speed");
+                room_data->chat_flood = result_set->getInt("chat_flood");
+                room_data->chat_distance = result_set->getInt("chat_distance");
+                room_data->who_can_mute = result_set->getInt("who_can_mute");
+                room_data->who_can_kick = result_set->getInt("who_can_kick");
+                room_data->who_can_ban = result_set->getInt("who_can_ban");
+                room_data->user_rights = getRights(room_id);
 
                 rooms.push_back(room);
             }
