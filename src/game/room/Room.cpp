@@ -160,6 +160,21 @@ void Room::leave(Entity *entity, const bool hotel_view, const bool dispose) {
 }
 
 /*
+    Kick all users in room
+
+    @return none
+*/
+void Room::kickPlayers() {
+
+    for (auto player : this->getPlayers()) {
+
+        if (player->getRoomUser()->inRoom()) {
+            player->getRoomUser()->getRoom()->leave(player, true);
+        }
+    }
+}
+
+/*
     Serialise room data for response
     this is used in a number of places
 
@@ -257,16 +272,17 @@ void Room::dispose(const bool force_dispose) {
     if (force_dispose) {
         reset = true;
         remove = true;
-        return;
     }
+    else {
 
-    bool empty_room = this->getPlayers().size() == 0;
+        bool empty_room = this->getPlayers().size() == 0;
 
-    if (empty_room) {
-        reset = true;
-        if (this->room_data->isOwnerOnline() == false) {
-            if (this->room_data->isPrivate()) {
-                remove = true;
+        if (empty_room) {
+            reset = true;
+            if (this->room_data->isOwnerOnline() == false) {
+                if (this->room_data->isPrivate()) {
+                    remove = true;
+                }
             }
         }
     }

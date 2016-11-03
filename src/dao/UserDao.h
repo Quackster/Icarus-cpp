@@ -28,6 +28,6 @@ public:
     static int getIdByUsername(std::string username);
     static PlayerDetails *findUserByTicket(Player *player, std::string sso_ticket);
     static std::shared_ptr<PlayerDetails>  getDetails(int user_id);
-    static void updateLastOnline(int user_id);
+    static void updateUser(int user_id, EntityDetails *details);
 };
 

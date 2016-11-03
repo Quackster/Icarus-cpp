@@ -254,3 +254,28 @@ std::vector<int> RoomDao::getRights(int room_id) {
 
     return rooms;
 }
+
+/*
+    Delete room from database entry
+
+    @param room id
+    @return none
+*/
+void RoomDao::deleteRoom(int room_id) {
+
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+    try {
+
+        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("DELETE FROM rooms WHERE id = ? "));
+        statement->setInt(1, room_id);
+        statement->execute();
+
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
+
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+}

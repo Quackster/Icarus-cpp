@@ -26,6 +26,7 @@ public:
     void serialise(Response &response, const bool enter_room = false);
     void enter(Player *player);
     void leave(Entity *entity, const bool hotel_view, const bool dispose = true);
+    void kickPlayers();
     void dispose(const bool force_disposal = false);
     void setRoomData(RoomData *room_data) { this->room_data = room_data; };
     void send(const MessageComposer &composer);

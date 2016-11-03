@@ -40,4 +40,5 @@ public:
     static const int StartTypingMessageEvent = 1752;
     static const int StopTypingMessageEvent = 998;
     static const int RoomEditInfoMessageEvent = 2035;
+    static const int DeleteRoomMessageEvent = 2126;
 };

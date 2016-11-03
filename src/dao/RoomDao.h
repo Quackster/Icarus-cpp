@@ -30,5 +30,6 @@ public:
     static Room* getRoom(int room_id);
     static std::vector<Room*> getRooms(std::vector<int> room_ids);
     static std::vector<int> getRights(int room_id);
+    static void deleteRoom(int room_id);
 };
 

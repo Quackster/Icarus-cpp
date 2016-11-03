@@ -196,7 +196,7 @@ std::shared_ptr<PlayerDetails> UserDao::getDetails(int user_id) {
     @return none
 */
 
-void UserDao::updateLastOnline(int user_id) {
+void UserDao::updateUser(int user_id, EntityDetails *details) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 

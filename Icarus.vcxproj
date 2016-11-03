@@ -182,7 +182,7 @@
     <ClInclude Include="src\boot\Icarus.h" />
     <ClInclude Include="src\communication\headers\Incoming.h" />
     <ClInclude Include="src\communication\headers\Outgoing.h" />
-    <ClInclude Include="src\communication\incoming\misc\DefaultMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\DefaultMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\login\AuthenticateMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\login\UniqueIDMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\login\VersionCheckMessageEvent.h" />
@@ -202,6 +202,7 @@
     <ClInclude Include="src\communication\incoming\navigator\CanCreateRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\NewNavigatorMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\SearchNewNavigatorEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\DeleteRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\EnterRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\RoomEditInfoMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\HeightMapMessageEvent.h" />

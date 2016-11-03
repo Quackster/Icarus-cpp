@@ -70,7 +70,7 @@ void Player::login() {
     /*
         Update last online
     */
-    UserDao::updateLastOnline(this->session_details->getId());
+    UserDao::updateUser(this->session_details->getId(), this->session_details);
 }
 
 /*
