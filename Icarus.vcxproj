@@ -203,6 +203,7 @@
     <ClInclude Include="src\communication\incoming\navigator\NewNavigatorMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\SearchNewNavigatorEvent.h" />
     <ClInclude Include="src\communication\incoming\room\EnterRoomMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\RoomEditInfoMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\HeightMapMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\LeaveRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\RoomInfoMessageEvent.h" />
@@ -243,6 +244,7 @@
     <ClInclude Include="src\communication\outgoing\room\model\FloorMapMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\model\HeightMapMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\RoomDataMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\room\RoomSettingsDataMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\user\RemoveUserMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\user\UserDisplayMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\user\UserStatusMessageComposer.h" />

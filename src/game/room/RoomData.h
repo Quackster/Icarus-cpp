@@ -64,7 +64,6 @@ public:
     std::string &getDescription() { return description; }
     std::string &getPassword() { return password; }
     int &getUsersMax() { return users_max; }
-    //std::string getModel() { return model; }
     RoomModel *getModel() { return this->model; }
     std::string &getWallpaper() { return wallpaper; }
     std::string &getFloor() { return floor; }
@@ -75,23 +74,22 @@ public:
     int &getScore() { return score; }
     int &getCategory() { return category; }
     bool &hasAllowPets() { return allow_pets; }
+    bool &hasAllowPetsEat() { return allow_pets_eat; }
+    bool &hasAllowWalkthrough() { return allow_walkthrough; }
+    bool &hasHideWall() { return hide_wall; }
+    int &getFloorThickness() { return floor_thickness; }
+    int &getWallThickness() { return wall_thickness; }
     int getWallHeight() { return -1; }
     int &getWhoCanMute() { return who_can_mute; }
     int &getWhoCanKick() { return who_can_kick; }
     int &getWhoCanBan() { return who_can_ban; }
-    //bool hasMoonwalk() { return moonwalk; }
-
-
     int getChatMode() { return chat_mode; }
     int getChatSize() { return chat_size; }
     int getChatSpeed() { return chat_speed; }
     int getChatFlood() { return chat_flood; }
-    int getChatDistance() { return chat_mode; }
-
+    int getChatDistance() { return chat_distance; }
     int getVirtualId() { this->virtual_id = this->virtual_id + 1; return virtual_id; }
-
     std::vector<int> &getUserRights() { return user_rights; }
-
     ~RoomData();
 
 private:

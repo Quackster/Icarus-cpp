@@ -272,21 +272,6 @@
     <ClInclude Include="src\communication\outgoing\messenger\RemoveFriendMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\outgoing\navigator\CreateRoomMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\navigator\FlatCategoriesMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\navigator\NavigatorCategoriesComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\navigator\NavigatorMetaDataComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\navigator\SearchResultSetComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\communication\outgoing\room\entry\NoRightsMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -303,21 +288,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\outgoing\room\entry\RoomSpacesMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\room\model\FloorMapMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\room\model\HeightMapMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\room\user\RemoveUserMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\room\user\UserDisplayMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\room\user\UserStatusMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\outgoing\room\RoomDataMessageComposer.h">
@@ -485,22 +455,58 @@
     <ClInclude Include="src\network\rcon\RconConnection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\outgoing\navigator\NavigatorPreferencesMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\dao\MySQLDao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\incoming\navigator\CanCreateRoomMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\outgoing\navigator\CanCreateRoomMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\communication\outgoing\room\entry\RoomOwnerRightsComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\outgoing\room\entry\HasOwnerRightsMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\RoomEditInfoMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\RoomSettingsDataMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\model\FloorMapMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\model\HeightMapMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\user\RemoveUserMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\user\UserDisplayMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\user\UserStatusMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\navigator\CanCreateRoomMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\navigator\CreateRoomMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\navigator\FlatCategoriesMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\navigator\NavigatorCategoriesComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\navigator\NavigatorMetaDataComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\navigator\NavigatorPreferencesMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\navigator\SearchResultSetComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

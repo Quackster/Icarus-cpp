@@ -39,4 +39,5 @@ public:
     static const int DanceMessageEvent = 1666;
     static const int StartTypingMessageEvent = 1752;
     static const int StopTypingMessageEvent = 998;
+    static const int RoomEditInfoMessageEvent = 2035;
 };
