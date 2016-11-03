@@ -75,7 +75,7 @@ std::vector<NavigatorTab*> NavigatorManager::getParentTabs() {
 NavigatorCategory *NavigatorManager::getCategoryById(int category_id) {
 
     for (auto category : *this->categories) {
-        if (category->getId() == category_id) {
+        if (category->id == category_id) {
             return category;
         }
     }

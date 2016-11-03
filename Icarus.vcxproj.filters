@@ -54,9 +54,6 @@
     <ClCompile Include="src\dao\NavigatorDao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\navigator\NavigatorCategory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\thread\ExecutorService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -116,11 +116,10 @@ std::vector<NavigatorCategory*> *NavigatorDao::getCategories() {
 
         while (result_set->next()) {
 
-            NavigatorCategory *category = new NavigatorCategory(
-                result_set->getInt("id"),
-                result_set->getString("title"),
-                result_set->getInt("min_rank")
-            );
+            NavigatorCategory *category = new NavigatorCategory();
+            category->id = result_set->getInt("id");
+            category->name = result_set->getString("title");
+            category->minimum_rank = result_set->getInt("min_rank");
 
             categories->push_back(category);
         }

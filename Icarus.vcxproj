@@ -158,7 +158,6 @@
     <ClCompile Include="src\network\rcon\RconServer.cpp" />
     <ClCompile Include="src\thread\ExecutorService.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
-    <ClCompile Include="src\game\navigator\NavigatorCategory.cpp" />
     <ClCompile Include="src\dao\NavigatorDao.cpp" />
     <ClCompile Include="src\game\navigator\NavigatorManager.cpp" />
     <ClCompile Include="src\game\navigator\NavigatorTab.cpp" />
