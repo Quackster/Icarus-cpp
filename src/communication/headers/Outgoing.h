@@ -53,4 +53,5 @@ public:
     static const int RoomOwnerRightsComposer = 625;
     static const int HasOwnerRightsMessageComposer = 2037;
     static const int RoomSettingsDataMessageComposer = 1131;
+    static const int MessageInviteMessageComposer = 141;
 };

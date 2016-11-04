@@ -15,7 +15,8 @@
 class UserObjectMessageComposer : public MessageComposer {
 
 public:
-    UserObjectMessageComposer(Player *player) : player(player) { }
+    UserObjectMessageComposer(Player *player) : 
+        player(player) { }
 
     const Response compose() const {
         Response response = this->createResponse();

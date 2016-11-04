@@ -14,7 +14,8 @@
 class CreditsMessageComposer : public MessageComposer {
 
 public:
-    CreditsMessageComposer(int credits) : credits(credits) { }
+    CreditsMessageComposer(int credits) : 
+        credits(credits) { }
 
     const Response compose() const {
         Response response = this->createResponse();

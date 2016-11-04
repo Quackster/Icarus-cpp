@@ -16,7 +16,10 @@
 class SearchResultSetComposer : public MessageComposer {
 
 public:
-    SearchResultSetComposer(Player* player, NavigatorTab *tab, std::string query) : player(player), tab(tab), query(query) { }
+    SearchResultSetComposer(Player* player, NavigatorTab *tab, std::string query) : 
+        player(player), 
+        tab(tab), 
+        query(query) { }
 
     const Response compose() const {
         Response response = this->createResponse();

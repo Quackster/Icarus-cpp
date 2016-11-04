@@ -31,6 +31,7 @@ public:
     void removeRequest(int user_id);
     void removeFriend(int user_id);
     void sendStatus(bool force_offline, bool login_status = false);
+    void send(const MessageComposer &composer);
 
     std::map<int, MessengerUser*> *getFriends() {
         return friends;

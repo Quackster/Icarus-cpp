@@ -113,7 +113,7 @@ EntityDetails *UserDao::findUserByTicket(Player *player, std::string ssoTicket) 
     try {
 
         std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
-        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, username, rank, mission, figure, credits FROM users WHERE sso_ticket = ? LIMIT 1")); {
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT * FROM users WHERE sso_ticket = ? LIMIT 1")); {
             statement->setString(1, ssoTicket);
         }
 

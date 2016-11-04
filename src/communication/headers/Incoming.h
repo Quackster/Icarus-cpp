@@ -31,6 +31,7 @@ public:
     static const int MessengerDeclineMessageEvent = 1384;
     static const int MessengerDeleteFriendMessageEvent = 2169;
     static const int MessengerTalkMessageEvent = 400;
+    static const int MessengerInviteMessageEvent = 2671;
     static const int FollowFriendMessageEvent = 3254;
     static const int CanCreateRoomMessageEvent = 1968;
     static const int CreateRoomMessageEvent = 828;

@@ -503,5 +503,11 @@
     <ClInclude Include="src\communication\incoming\room\SaveRoomMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\communication\incoming\messenger\MessengerInviteMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\messenger\MessageInviteMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

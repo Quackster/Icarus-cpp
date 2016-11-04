@@ -7,29 +7,27 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-
-#include "game/room/Room.h"
-#include "game/player/Player.h"
-
 #include "communication/outgoing/MessageComposer.h"
 
-class RightsLevelMessageComposer : public MessageComposer {
+class MessageInviteMessageComposer : public MessageComposer {
 
 public:
-    RightsLevelMessageComposer(int rights_level) : 
-        rights_level(rights_level) { }
+    MessageInviteMessageComposer(int user_id, std::string message) :
+        user_id(user_id),
+        message(message) { }
 
     const Response compose() const {
         Response response = this->createResponse();
-        response.writeInt(rights_level);
+        response.writeInt(this->user_id);
+        response.writeString(this->message);
         return response;
     }
 
     const int getHeader() const {
-        return Outgoing::RightsLevelMessageComposer;
+        return Outgoing::MessageInviteMessageComposer;
     }
 
-private:
-    int rights_level;
-
+public:
+    int user_id;
+    std::string message;
 };

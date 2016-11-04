@@ -15,7 +15,9 @@
 class FlatCategoriesMessageComposer : public MessageComposer {
 
 public:
-    FlatCategoriesMessageComposer(std::vector<NavigatorCategory*> *categories, int rank) : categories(categories), rank(rank) {  }
+    FlatCategoriesMessageComposer(std::vector<NavigatorCategory*> *categories, int rank) : 
+        categories(categories), 
+        rank(rank) {  }
     
     const Response compose() const {
         Response response = this->createResponse();

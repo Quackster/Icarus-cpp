@@ -148,3 +148,14 @@ void Messenger::sendStatus(bool force_offline, bool login_status) {
         }
     }
 }
+
+/*
+    Send message to all online friends
+
+    @param message composer
+    @return none
+*/
+void Messenger::send(const MessageComposer &composer) {
+
+
+}

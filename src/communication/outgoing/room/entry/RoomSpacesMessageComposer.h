@@ -16,8 +16,9 @@
 class RoomSpacesMessageComposer : public MessageComposer {
 
 public:
-    RoomSpacesMessageComposer(std::string space, std::string data)
-        : space(space), data(data) { }
+    RoomSpacesMessageComposer(std::string space, std::string data) : 
+        space(space), 
+        data(data) { }
 
     const Response compose() const {
         Response response = this->createResponse();

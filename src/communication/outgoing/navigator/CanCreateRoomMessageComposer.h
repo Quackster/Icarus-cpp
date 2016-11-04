@@ -16,7 +16,8 @@ class CanCreateRoomMessageComposer : public MessageComposer {
 
 public:
 
-    CanCreateRoomMessageComposer(Player *player) : player(player) { }
+    CanCreateRoomMessageComposer(Player *player) : 
+        player(player) { }
 
     const Response compose() const {
 

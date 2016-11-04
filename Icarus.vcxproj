@@ -185,6 +185,7 @@
     <ClInclude Include="src\communication\incoming\login\VersionCheckMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\MessageEvent.h" />
     <ClInclude Include="src\communication\incoming\MessageHandler.h" />
+    <ClInclude Include="src\communication\incoming\messenger\MessengerInviteMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\messenger\FollowFriendMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\messenger\MessengerAcceptMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\messenger\MessengerDeclineMessageEvent.h" />
@@ -215,6 +216,7 @@
     <ClInclude Include="src\communication\outgoing\login\LandingWidgetMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\login\UniqueMachineIDMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\MessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\messenger\MessageInviteMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\messenger\FollowErrorMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\messenger\FollowFriendMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\messenger\FriendsListMessageComposer.h" />

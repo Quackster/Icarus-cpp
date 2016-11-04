@@ -48,6 +48,7 @@
 #include "messenger/MessengerDeleteFriendMessageEvent.h"
 #include "messenger/MessengerTalkMessageEvent.h"
 #include "messenger/FollowFriendMessageEvent.h"
+#include "messenger/MessengerInviteMessageEvent.h"
 
 /*
     MessageHandler constructor
@@ -94,6 +95,7 @@ MessageHandler::MessageHandler() :
     this->createEvent(Incoming::MessengerDeleteFriendMessageEvent, new MessengerDeleteFriendMessageEvent());
     this->createEvent(Incoming::FollowFriendMessageEvent, new FollowFriendMessageEvent());
     this->createEvent(Incoming::MessengerTalkMessageEvent, new MessengerTalkMessageEvent());
+    this->createEvent(Incoming::MessengerInviteMessageEvent, new MessengerInviteMessageEvent());
 }
 
 /*

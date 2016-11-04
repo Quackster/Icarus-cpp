@@ -13,7 +13,8 @@ class HomeRoomMessageComposer : public MessageComposer {
 
 public:
     HomeRoomMessageComposer(int room_id, bool force_enter) :
-        room_id(room_id), force_enter(force_enter) { }
+        room_id(room_id), 
+        force_enter(force_enter) { }
 
     const Response compose() const {
         Response response = this->createResponse();

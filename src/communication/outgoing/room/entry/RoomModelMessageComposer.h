@@ -16,8 +16,9 @@
 class RoomModelMessageComposer : public MessageComposer {
 
 public:
-    RoomModelMessageComposer(std::string model_name, int room_id) 
-        : model_name(model_name), room_id(room_id) { }
+    RoomModelMessageComposer(std::string model_name, int room_id) : 
+        model_name(model_name), 
+        room_id(room_id) { }
 
     const Response compose() const {
         Response response = this->createResponse();
