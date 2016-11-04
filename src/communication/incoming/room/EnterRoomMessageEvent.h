@@ -73,9 +73,13 @@ public:
 
             if (room->getData()->room_state == ROOM_STATE_PASSWORD) {
 
-                player->send(GenericErrorMessageComposer(-100002));
-                player->send(HotelViewMessageComposer());
-                return;
+                std::string password = request.readString();
+
+                if (password != room->getData()->password) {
+                    player->send(GenericErrorMessageComposer(-100002));
+                    player->send(HotelViewMessageComposer());
+                    return;
+                }
             }
         }
 
