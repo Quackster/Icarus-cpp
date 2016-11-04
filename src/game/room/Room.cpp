@@ -27,7 +27,7 @@
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
 
 /*
-Constructor for rooms
+    Constructor for rooms
 */
 Room::Room(int room_id) :
     room_id(room_id),
@@ -35,10 +35,10 @@ Room::Room(int room_id) :
     entities(new std::map<int, Entity*>()),
     runnable(nullptr) { } //std::make_shared<RoomRunnable>(this)) { }
 
-                          /*
-                          Whether or not the user has room rights, has optional option for
-                          owner/staff check only
-                          */
+/*
+    Whether or not the user has room rights, has optional option for
+    owner/staff check only
+*/
 bool Room::hasRights(const int user_id, const bool owner_check_only) {
 
     if (owner_check_only) {
@@ -129,12 +129,12 @@ void Room::enter(Player *player) {
 
 
 /*
-Leave room, can send to hotel if option is given or dispose room
+    Leave room, can send to hotel if option is given or dispose room
 
-@param player ptr
-@param hotel view
-@param dispose room
-@return none
+    @param player ptr
+    @param hotel view
+    @param dispose room
+    @return none
 */
 void Room::leave(Entity *entity, const bool hotel_view, const bool dispose) {
 
@@ -167,9 +167,9 @@ void Room::leave(Entity *entity, const bool hotel_view, const bool dispose) {
 }
 
 /*
-Kick all users in room
+    Kick all users in room
 
-@return none
+    @return none
 */
 void Room::kickPlayers() {
 
@@ -182,11 +182,11 @@ void Room::kickPlayers() {
 }
 
 /*
-Serialise room data for response
-this is used in a number of places
+    Serialise room data for response
+    this is used in a number of places
 
-@param response
-@return none
+    @param response
+    @return none
 */
 void Room::serialise(Response &response, const bool enter_room) {
 
@@ -234,10 +234,10 @@ void Room::serialise(Response &response, const bool enter_room) {
 }
 
 /*
-Returns whether or not the entity exists in the list of entities
+    Returns whether or not the entity exists in the list of entities
 
-@param entity ptr
-@return boolean
+    @param entity ptr
+    @return boolean
 */
 bool Room::hasEntity(Entity *entity) {
     return this->entities->count(entity->getRoomUser()->getVirtualId()) > 0;
@@ -266,10 +266,10 @@ const std::vector<Player*> Room::getPlayers() {
 
 
 /*
-Dispose handler for Room
+    Dispose handler for Room
 
-@param (optional) force dispose of room
-@return none
+    @param (optional) force dispose of room
+    @return none
 */
 void Room::dispose(const bool force_dispose) {
 
@@ -304,20 +304,20 @@ void Room::dispose(const bool force_dispose) {
 }
 
 /*
-Function to reset all room states to default
-used when there's no more users in the room or the room is getting deleted from memory
+    Function to reset all room states to default
+    used when there's no more users in the room or the room is getting deleted from memory
 
-@return none
+    @return none
 */
 void Room::reset() {
     this->disposed = true;
 }
 
 /*
-Broadcast packet to entire room
+    Broadcast packet to entire room
 
-@param MessageComposer class
-@return none
+    @param MessageComposer class
+    @return none
 */
 void Room::send(const MessageComposer &composer) {
 
@@ -358,9 +358,9 @@ void Room::save() {
 }
 
 /*
-Reschedule room runnable if it's not nullptr, it will not schedule if the room has been disposed
+    Reschedule room runnable if it's not nullptr, it will not schedule if the room has been disposed
 
-@return none
+    @return none
 */
 void Room::scheduleRunnable() {
 
@@ -372,7 +372,7 @@ void Room::scheduleRunnable() {
 }
 
 /*
-Deconstructor for rooms
+    Deconstructor for rooms
 */
 Room::~Room()
 {

@@ -13,8 +13,15 @@
 #include "model/RoomModel.h"
 
 class Room;
-struct RoomData
-{
+
+enum RoomState {
+    ROOM_STATE_OPEN,
+    ROOM_STATE_INVISIBLE,
+    ROOM_STATE_DOORBELL,
+    ROOM_STATE_PASSWORD,
+};
+
+struct RoomData {
     int id;
     std::string name;
     char room_type;
@@ -33,6 +40,7 @@ struct RoomData
     std::vector<std::string> tags;
     int trade_state;
     int state;
+    RoomState room_state;
     int score;
     int category;
     bool allow_pets;

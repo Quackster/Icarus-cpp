@@ -54,4 +54,8 @@ public:
     static const int HasOwnerRightsMessageComposer = 2037;
     static const int RoomSettingsDataMessageComposer = 1131;
     static const int MessageInviteMessageComposer = 141;
+    static const int RoomEnterErrorMessageComposer = 1675;
+    static const int GenericDoorbellMessageComposer = 2057;
+    static const int GenericErrorMessageComposer = 524;
+    static const int GenericNoAnswerDoorbellMessageComposer = 1868;
 };

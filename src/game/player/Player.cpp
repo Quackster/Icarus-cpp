@@ -68,6 +68,15 @@ void Player::login() {
 }
 
 /*
+    Returns true or not if player has certain permission
+
+    @return bool
+*/
+bool Player::hasFuse(std::string fuse_right) {
+    return false;
+}
+
+/*
     Save player details
 
     @return none

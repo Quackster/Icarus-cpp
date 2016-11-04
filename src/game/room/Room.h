@@ -28,7 +28,6 @@ public:
     void leave(Entity *entity, const bool hotel_view, const bool dispose = true);
     void kickPlayers();
     void dispose(const bool force_disposal = false);
-    void setRoomData(RoomData *room_data) { this->room_data = room_data; };
     void send(const MessageComposer &composer);
     bool isOwnerOnline();
     void updateVirtualId();
@@ -43,11 +42,14 @@ public:
     int getId() { return this->room_data->id; }
   
     RoomData *getData() { return room_data; }
-    RoomModel *getModel() { return this->room_data->model; }
-    const std::vector<Player*> getPlayers();
+    RoomModel *getModel() { return this->room_data->model; }  
     
     std::map<int, Entity*> *getEntities() { return entities; }
     std::shared_ptr<RoomRunnable> getRunnable() { return this->runnable; }
+    
+    const std::vector<Player*> getPlayers();
+    
+    void setRoomData(RoomData *room_data) { this->room_data = room_data; };
     void setRunnable(std::shared_ptr<RoomRunnable> runnable) { this->runnable = runnable; }
 
     bool hasEntity(Entity *entity);

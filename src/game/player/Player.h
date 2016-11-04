@@ -20,6 +20,9 @@ class Player : public Entity {
 public:
     Player(NetworkConnection *network_connection);
     ~Player();
+
+    bool hasFuse(std::string fuse_right);
+
     void login();
     void save();
     void clear();
