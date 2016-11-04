@@ -75,7 +75,7 @@ bool Utilities::isNumber(const std::string& s)
     @param remove everything except letters and numbers
     @return escaped string
 */
-std::string Utilities::escape(std::string &str, bool allow_breaks, bool strip_non_alphanumeric) {
+std::string Utilities::escape(std::string &str, bool allow_breaks, bool strip_non_alphanumeric, bool replace_spaces) {
 
     if (str.length() > 0) {
 
@@ -91,7 +91,11 @@ std::string Utilities::escape(std::string &str, bool allow_breaks, bool strip_no
         }
 
         if (strip_non_alphanumeric) {
-            str = escapeEverything(str);
+            str = removeNonAlphanumeric(str);
+        }
+
+        if (replace_spaces) {
+            str = removeChar(str, ' ');
         }
     }
 
@@ -104,15 +108,13 @@ std::string Utilities::escape(std::string &str, bool allow_breaks, bool strip_no
     @param string to escape
     @return fixed string
 */
-std::string Utilities::escapeEverything(std::string &s) {
+std::string Utilities::removeNonAlphanumeric(std::string &s) {
 
 
-    for (std::string::iterator i = s.begin(); i != s.end(); i++)
-    {
+    for (std::string::iterator i = s.begin(); i != s.end(); i++) {
         char ch = s.at(i - s.begin());
 
-        if (!isalpha(ch))
-        {
+        if (!isalpha(ch) && !isNumber(std::string(ch + ""))) {
             s.erase(i);
             i--;
         }
@@ -129,13 +131,35 @@ std::string Utilities::escapeEverything(std::string &s) {
     @param replace with
     @return fixed string
 */
-std::string Utilities::replaceChar(std::string &str, char ch1, char ch2) {
-    for (int i = 0; i < str.length(); ++i) {
-        if (str[i] == ch1)
-            str[i] = ch2;
+std::string Utilities::replaceChar(std::string &s, char ch1, char ch2) {
+
+    for (std::string::iterator i = s.begin(); i != s.end(); i++) {
+        if (s.at(i - s.begin()) == ch1)  {
+            s[i - s.begin()] = ch2;
+            i--;
+        }
     }
 
-    return str;
+    return s;
+}
+
+/*
+    Remove char in string
+
+    @param string to edit
+    @param find char to remove
+    @return fixed string
+*/
+std::string Utilities::removeChar(std::string &s, char ch1) {
+
+    for (std::string::iterator i = s.begin(); i != s.end(); i++) {
+        if (s.at(i - s.begin()) == ch1) {
+            s.erase(i);
+            i--;
+        }
+    }
+
+    return s;
 }
 
 /*
@@ -148,7 +172,6 @@ std::string Utilities::replaceChar(std::string &str, char ch1, char ch2) {
 std::string Utilities::join(std::vector<std::string> strings, std::string delim) {
 
     if (strings.size() > 0) {
-
         return std::accumulate(std::next(strings.begin()), strings.end(), strings[0], [](std::string a, std::string b) {
             return a + ',' + b;
         });

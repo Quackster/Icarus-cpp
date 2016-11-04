@@ -12,7 +12,7 @@
 #include "communication/outgoing/room/model/FloorMapMessageComposer.h"
 #include "communication/outgoing/room/model/HeightMapMessageComposer.h"
 
-#include "communication/outgoing/room/RoomDataMessageComposer.h"        
+#include "communication/outgoing/room/RoomDataMessageComposer.h"
 
 #include "communication/outgoing/room/entry/RoomOwnerRightsComposer.h"
 #include "communication/outgoing/room/user/UserDisplayMessageComposer.h"

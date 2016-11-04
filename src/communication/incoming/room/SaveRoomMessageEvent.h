@@ -10,6 +10,7 @@
 
 #include "misc/Utilities.h"
 
+#include "communication/outgoing/room/RoomDataMessageComposer.h"
 #include "communication/incoming/MessageEvent.h"
 
 class SaveRoomMessageEvent : public MessageEvent {
@@ -49,7 +50,14 @@ public:
         std::vector<std::string> tags;
 
         for (int i = 0; i < tag_size; i++) {
-            tags.push_back(Utilities::escape(request.readString(), false, true));
+
+            std::string new_tag = Utilities::escape(request.readString(), false, true);
+
+            std::cout << "tag: " << new_tag << std::endl;
+
+            if (new_tag.length() > 0) {
+                tags.push_back(new_tag);
+            }
         }
 
         int trade_settings = request.readInt();
@@ -143,5 +151,7 @@ public:
         room_data->chat_distance = chat_distance;
         room_data->chat_flood = chat_flood;
         room->save();
+
+        room->send(RoomDataMessageComposer(room, player, false, false));
     }
 };
