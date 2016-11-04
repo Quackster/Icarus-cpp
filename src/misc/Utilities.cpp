@@ -172,8 +172,8 @@ std::string Utilities::removeChar(std::string &s, char ch1) {
 std::string Utilities::join(std::vector<std::string> strings, std::string delim) {
 
     if (strings.size() > 0) {
-        return std::accumulate(std::next(strings.begin()), strings.end(), strings[0], [](std::string a, std::string b) {
-            return a + ',' + b;
+        return std::accumulate(std::next(strings.begin()), strings.end(), strings[0], [delim](std::string a, std::string b) {
+            return a + delim + b;
         });
     }
     else {
