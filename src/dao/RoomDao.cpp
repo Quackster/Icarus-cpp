@@ -8,8 +8,6 @@
 */
 #include "stdafx.h"
 
-#include <numeric>
-
 #include "UserDao.h"
 #include "RoomDao.h"
 
@@ -304,10 +302,7 @@ void RoomDao::updateRoom(int room_id, Room *room) {
             statement->setInt(3, room_data->state);
             statement->setInt(4, room_data->users_max);
             statement->setInt(5, room_data->category);
-            statement->setString(6, std::accumulate(std::next(room_data->tags.begin()), room_data->tags.end(), room_data->tags[0], [](std::string a, std::string b) {
-                return a + ',' + b;
-            }));
-
+            statement->setString(6, Utilities::join(room_data->tags, ","));
             statement->setInt(7, room_data->trade_state);
             statement->setInt(8, room_data->allow_pets);
             statement->setInt(9, room_data->allow_pets_eat);

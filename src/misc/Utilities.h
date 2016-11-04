@@ -20,5 +20,9 @@ public:
     static std::vector<std::string> split(const std::string &s, char delim);
     static std::string trim(std::string &str);
     static bool isNumber(const std::string& s);
+    static std::string escape(std::string &input, bool allow_breaks = false, bool strip_non_alphanumeric = false);
+    static std::string escapeEverything(std::string &input);
+    static std::string replaceChar(std::string &str, char ch1, char ch2);
+    static std::string join(std::vector<std::string> strings, std::string delim);
 };
 

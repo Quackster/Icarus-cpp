@@ -12,6 +12,8 @@
 #include "communication/outgoing/navigator/CanCreateRoomMessageComposer.h"
 #include "communication/outgoing/navigator/CreateRoomMessageComposer.h"
 
+#include "misc/Utilities.h"
+
 #include "dao/NavigatorDao.h"
 
 class CreateRoomMessageEvent : public MessageEvent {
@@ -27,8 +29,8 @@ public:
         //[0][0][0][9]
         //[0][0][0][0][0][0][2]
 
-        std::string room_name = request.readString();
-        std::string description = request.readString();
+        std::string room_name = Utilities::escape(request.readString());
+        std::string description = Utilities::escape(request.readString(), true);
         std::string room_model = request.readString();
 
         if (room_name.length() < 1) {
@@ -36,6 +38,10 @@ public:
         }
 
         if (room_model.length() < 1) {
+            return;
+        }
+
+        if (Icarus::getGame()->getRoomManager()->getModel(room_model) == nullptr) {
             return;
         }
 

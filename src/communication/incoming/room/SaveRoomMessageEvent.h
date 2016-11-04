@@ -7,6 +7,9 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+
+#include "misc/Utilities.h"
+
 #include "communication/incoming/MessageEvent.h"
 
 class SaveRoomMessageEvent : public MessageEvent {
@@ -31,23 +34,22 @@ public:
 
         RoomData *room_data = room->getData();
 
-        std::string room_name = request.readString();
-        std::string description = request.readString();
+        std::string room_name = Utilities::escape(request.readString());
+        std::string description = Utilities::escape(request.readString(), true);
         int access_type = request.readInt();
-        std::string password = request.readString();
+        std::string password = Utilities::escape(request.readString(), false, true);
         int max_users = request.readInt();
         int category_id = request.readInt();
         int tag_size = request.readInt();
 
         if (tag_size > 2) {
-            printf("return 1\n");
-            return; // definitely scripting if try to put more than 2 tags...
+            return; 
         }
 
         std::vector<std::string> tags;
 
         for (int i = 0; i < tag_size; i++) {
-            tags.push_back(request.readString());
+            tags.push_back(Utilities::escape(request.readString(), false, true));
         }
 
         int trade_settings = request.readInt();
