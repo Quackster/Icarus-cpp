@@ -69,7 +69,7 @@ void PlayerManager::removeSession(int connection_id) {
         this->sessions->erase(connection_id);
 
         if (session->getDetails() != nullptr) {
-            this->authenticated_sessions->erase(session->getDetails()->getId());
+            this->authenticated_sessions->erase(session->getDetails()->id);
         }
 
         // Stop session from listening for more packets

@@ -8,17 +8,14 @@
 */
 #pragma once
 
-class EntityDetails
+struct EntityDetails
 {
-
-public:
-
-    ~EntityDetails() { }
-
-    virtual int &getId() = 0;
-    virtual std::string const &getUsername() const = 0;
-    virtual std::string const &getMotto() const = 0;
-    virtual std::string const &getFigure() const = 0;
-    virtual int &getRank() = 0;
-    virtual int &getCredits() = 0;
+    int id;
+    std::string username;
+    std::string motto;
+    std::string figure;
+    int rank;
+    int credits;
+    std::string machine_id;
+    bool authenticated;
 };

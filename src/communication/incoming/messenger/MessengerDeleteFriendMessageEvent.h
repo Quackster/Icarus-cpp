@@ -33,14 +33,14 @@ public:
                 MessengerUser *user = player->getMessenger()->getFriend(friend_id);
 
                 if (user->isOnline()) {
-                    user->getPlayer()->getMessenger()->removeFriend(player->getDetails()->getId());
-                    user->getPlayer()->send(RemoveFriendMessageComposer(player->getDetails()->getId()));
+                    user->getPlayer()->getMessenger()->removeFriend(player->getDetails()->id);
+                    user->getPlayer()->send(RemoveFriendMessageComposer(player->getDetails()->id));
                 }
 
                 player->getMessenger()->removeFriend(friend_id);
                 player->send(RemoveFriendMessageComposer(friend_id));
 
-                MessengerDao::removeFriend(friend_id, player->getDetails()->getId());
+                MessengerDao::removeFriend(friend_id, player->getDetails()->id);
             }
         }
     }

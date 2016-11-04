@@ -27,7 +27,7 @@ public:
         std::vector<MessengerUser> strangers;
 
         for (int id : search) {
-           if (id != player->getDetails()->getId()) {
+           if (id != player->getDetails()->id) {
                 if (player->getMessenger()->isFriend(id)) {
                     friends.push_back(MessengerUser(id));
                 }

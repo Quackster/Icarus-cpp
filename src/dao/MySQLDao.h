@@ -14,7 +14,6 @@
 #include "mysql.h"
 
 #include "game/player/Player.h"
-#include "game/player/PlayerDetails.h"
 
 class MySQLDao
 {

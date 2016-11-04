@@ -28,8 +28,8 @@ void MessengerUser::update() {
 
 void MessengerUser::serialise(Response &response, const bool force_offline) { 
 
-    response.writeInt(this->details->getId());
-    response.writeString(this->details->getUsername());
+    response.writeInt(this->details->id);
+    response.writeString(this->details->username);
     response.writeInt(1); // gender
     response.writeBool(force_offline ? false : this->isOnline());
     response.writeBool(force_offline ? false : this->inRoom());
@@ -40,9 +40,9 @@ void MessengerUser::serialise(Response &response, const bool force_offline) {
         response.writeString("");
     }
     else {
-        response.writeString(this->isOnline() ? this->details->getFigure() : "");
+        response.writeString(this->isOnline() ? this->details->figure : "");
         response.writeInt(0);
-        response.writeString(this->isOnline() ? this->details->getMotto() : "");
+        response.writeString(this->isOnline() ? this->details->motto : "");
     }
 
     response.writeString("");
@@ -55,14 +55,14 @@ void MessengerUser::serialise(Response &response, const bool force_offline) {
 
 void MessengerUser::serialiseSearch(Response &response) {
 
-    response.writeInt(this->getDetails()->getId());
-    response.writeString(this->getDetails()->getUsername());
-    response.writeString(this->getDetails()->getMotto());
+    response.writeInt(this->getDetails()->id);
+    response.writeString(this->getDetails()->username);
+    response.writeString(this->getDetails()->motto);
     response.writeBool(this->isOnline());
     response.writeBool(this->inRoom());
     response.writeString("");
     response.writeInt(0);
-    response.writeString(this->isOnline() ? this->getDetails()->getFigure() : "");
+    response.writeString(this->isOnline() ? this->getDetails()->figure : "");
     response.writeString("");
 }
 

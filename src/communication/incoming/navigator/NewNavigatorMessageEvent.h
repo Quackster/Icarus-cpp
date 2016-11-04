@@ -25,7 +25,7 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        player->send(FlatCategoriesMessageComposer(Icarus::getGame()->getNavigatorManager()->getCategories(), player->getDetails()->getRank()));
+        player->send(FlatCategoriesMessageComposer(Icarus::getGame()->getNavigatorManager()->getCategories(), player->getDetails()->rank));
         player->send(NavigatorCategoriesComposer(Icarus::getGame()->getNavigatorManager()->getCategories()));
         player->send(NavigatorMetaDataComposer());
         player->send(NavigatorPreferencesMessageComposer());

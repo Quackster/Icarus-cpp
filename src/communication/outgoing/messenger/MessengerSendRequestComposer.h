@@ -9,7 +9,6 @@
 #pragma once
 #include <string>
 
-#include "game/player/PlayerDetails.h"
 #include "communication/outgoing/MessageComposer.h"
 
 class MessengerSendRequestComposer : public MessageComposer {
@@ -20,9 +19,9 @@ public:
 
     const Response compose() const {
         Response response = this->createResponse();
-        response.writeInt(this->details->getId());
-        response.writeString(this->details->getUsername());
-        response.writeString(this->details->getFigure());
+        response.writeInt(this->details->id);
+        response.writeString(this->details->username);
+        response.writeString(this->details->figure);
         return response;
     }
 

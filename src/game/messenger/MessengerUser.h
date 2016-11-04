@@ -7,7 +7,6 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-#include "game/player/PlayerDetails.h"
 #include "communication/streams/Response.h"
 
 class Player;
@@ -15,7 +14,7 @@ class MessengerUser {
 
 private:
     int user_id;
-    std::shared_ptr<PlayerDetails> details;
+    std::shared_ptr<EntityDetails> details;
     Player *session;
 
 
@@ -31,6 +30,6 @@ public:
         return session;
     };
 
-    std::shared_ptr<PlayerDetails> getDetails() { return details; };
+    std::shared_ptr<EntityDetails> getDetails() { return details; };
     bool isOnline() { this->update(); return session != nullptr; }
 };

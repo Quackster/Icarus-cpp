@@ -31,7 +31,7 @@ public:
         player->send(FriendsListMessageComposer(player->getMessenger()->getFriends()));
         player->send(MessengerRequestsMessageComposer(player->getDetails(), player->getMessenger()->getRequests()));
 
-        std::map<std::string, int> offline_messages = MessengerDao::getOfflineMessages(player->getDetails()->getId());
+        std::map<std::string, int> offline_messages = MessengerDao::getOfflineMessages(player->getDetails()->id);
 
         if (offline_messages.size() > 0) {
             for (auto kvp : offline_messages) {

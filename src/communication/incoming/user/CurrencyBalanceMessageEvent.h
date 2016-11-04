@@ -17,6 +17,6 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        player->send(CreditsMessageComposer(player->getDetails()->getCredits()));
+        player->send(CreditsMessageComposer(player->getDetails()->credits));
     }
 };

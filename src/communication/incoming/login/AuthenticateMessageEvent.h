@@ -33,9 +33,9 @@ public:
         }
         else {   
             
-            PlayerDetails *details = UserDao::findUserByTicket(session, sso_ticket);
+            EntityDetails *details = UserDao::findUserByTicket(session, sso_ticket);
 
-            if (Icarus::getPlayerManager()->getPlayers()->count(details->getId()) > 0) {
+            if (Icarus::getPlayerManager()->getPlayers()->count(details->id) > 0) {
                 session->getNetworkConnection()->getSocket().close();
                 delete details;
                 return;

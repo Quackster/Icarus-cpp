@@ -21,6 +21,7 @@ public:
     Player(NetworkConnection *network_connection);
     ~Player();
     void login();
+    void save();
     void clear();
     void close();
     void send(const MessageComposer &composer);

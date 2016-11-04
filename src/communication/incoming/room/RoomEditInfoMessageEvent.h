@@ -28,7 +28,7 @@ public:
 
         Room *room = player->getRoomUser()->getRoom();
 
-        if (!room->hasRights(player->getDetails()->getId(), true)) {
+        if (!room->hasRights(player->getDetails()->id, true)) {
             return;
         }
 

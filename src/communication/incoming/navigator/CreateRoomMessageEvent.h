@@ -49,7 +49,7 @@ public:
             return;
         }
 
-        int id = NavigatorDao::createRoom(room_name, description, room_model, player->getDetails()->getId(), category, max_users, trade_settings);
+        int id = NavigatorDao::createRoom(room_name, description, room_model, player->getDetails()->id, category, max_users, trade_settings);
 
         player->send(CreateRoomMessageComposer(id, room_name));
 

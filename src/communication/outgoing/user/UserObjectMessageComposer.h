@@ -19,11 +19,11 @@ public:
 
     const Response compose() const {
         Response response = this->createResponse();
-        response.writeInt(player->getDetails()->getId());
-        response.writeString(player->getDetails()->getUsername());
-        response.writeString(player->getDetails()->getFigure());
+        response.writeInt(player->getDetails()->id);
+        response.writeString(player->getDetails()->username);
+        response.writeString(player->getDetails()->figure);
         response.writeString("M");
-        response.writeString(player->getDetails()->getMotto());
+        response.writeString(player->getDetails()->motto);
         response.writeString("");
         response.writeBool(false);
         response.writeInt(0); // Respect

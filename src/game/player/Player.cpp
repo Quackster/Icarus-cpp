@@ -9,7 +9,6 @@
 #include "stdafx.h"
 
 #include "game/player/Player.h"
-#include "game/player/PlayerDetails.h"
 
 #include "dao/UserDao.h"
 #include "dao/MessengerDao.h"
@@ -44,7 +43,7 @@ void Player::login() {
     /*
         Remove teh clones
     */
-    if (Icarus::getPlayerManager()->getPlayers()->count(this->session_details->getId()) == 1) {
+    if (Icarus::getPlayerManager()->getPlayers()->count(this->session_details->id) == 1) {
         //this->getNetworkConnection()->getSocket().close();
         return;
     }
@@ -57,20 +56,24 @@ void Player::login() {
     this->room_user = new RoomUser(this);
     this->messenger = new Messenger(
         this,
-        this->session_details->getId(), 
-        MessengerDao::getFriends(this->session_details->getId()), 
-        MessengerDao::getRequests(this->session_details->getId()));
+        this->session_details->id, 
+        MessengerDao::getFriends(this->session_details->id), 
+        MessengerDao::getRequests(this->session_details->id));
 
     /*
         Cache room data
     */
-    Icarus::getPlayerManager()->getPlayers()->insert(std::make_pair(this->session_details->getId(), this));
-    Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->getId());
+    Icarus::getPlayerManager()->getPlayers()->insert(std::make_pair(this->session_details->id, this));
+    Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->id);
+}
 
-    /*
-        Update last online
-    */
-    UserDao::updateUser(this->session_details->getId(), this->session_details);
+/*
+    Save player details
+
+    @return none
+*/
+void Player::save() {
+    UserDao::updateUser(this->session_details->id, this->session_details);
 }
 
 /*
@@ -89,7 +92,7 @@ void Player::send(const MessageComposer &composer) {
     @return vector of room ptr
 */
 std::vector<Room*> Player::getRooms() {
-    return Icarus::getGame()->getRoomManager()->getPlayerRooms(this->session_details->getId());
+    return Icarus::getGame()->getRoomManager()->getPlayerRooms(this->session_details->id);
 }
 
 /*
@@ -113,7 +116,7 @@ void Player::clear() {
             }
         }
 
-        std::vector<Room*> rooms = Icarus::getGame()->getRoomManager()->getPlayerRooms(this->session_details->getId()); {
+        std::vector<Room*> rooms = Icarus::getGame()->getRoomManager()->getPlayerRooms(this->session_details->id); {
             for (Room *room : rooms) {
                 room->dispose();
             }

@@ -25,11 +25,12 @@ public:
 
         for (int i = 0; i < amount; i++) {
 
-            int to_id = player->getDetails()->getId();
+            int to_id = player->getDetails()->id;
             int from_id = request.readInt();
 
             MessengerDao::removeRequest(from_id, to_id);
             MessengerDao::removeRequest(to_id, from_id);
+
             MessengerDao::newFriend(to_id, from_id);
 
             MessengerUser *user = new MessengerUser(from_id);

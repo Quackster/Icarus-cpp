@@ -34,10 +34,10 @@ public:
         response.writeInt(this->entities.size());
 
         for (auto entity : entities) {
-            response.writeInt(entity->getDetails()->getId());
-            response.writeString(entity->getDetails()->getUsername());
-            response.writeString(entity->getDetails()->getMotto());
-            response.writeString(entity->getDetails()->getFigure());
+            response.writeInt(entity->getDetails()->id);
+            response.writeString(entity->getDetails()->username);
+            response.writeString(entity->getDetails()->motto);
+            response.writeString(entity->getDetails()->figure);
             response.writeInt(entity->getRoomUser()->getVirtualId());
             response.writeInt(entity->getRoomUser()->getX());
             response.writeInt(entity->getRoomUser()->getY());

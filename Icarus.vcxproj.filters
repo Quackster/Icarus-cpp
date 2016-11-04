@@ -75,9 +75,6 @@
     <ClCompile Include="src\game\player\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\player\PlayerDetails.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\game\player\PlayerManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -381,9 +378,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\player\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\player\PlayerDetails.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\player\PlayerManager.h">

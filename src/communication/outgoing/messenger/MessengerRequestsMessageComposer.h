@@ -22,13 +22,13 @@ public:
 
     const Response compose() const {
         Response response = this->createResponse();
-        response.writeInt(this->details->getId());
+        response.writeInt(this->details->id);
         response.writeInt(this->requests->size());
 
         for (auto kvp : *requests) {
-            response.writeInt(kvp.second->getDetails()->getId());
-            response.writeString(kvp.second->getDetails()->getUsername());
-            response.writeString(kvp.second->getDetails()->getFigure());
+            response.writeInt(kvp.second->getDetails()->id);
+            response.writeString(kvp.second->getDetails()->username);
+            response.writeString(kvp.second->getDetails()->figure);
         }
 
         return response;

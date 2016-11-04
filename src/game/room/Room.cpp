@@ -90,13 +90,13 @@ void Room::enter(Player *player) {
 
     player->send(RoomSpacesMessageComposer("landscape", room_data->outside));
 
-    if (this->hasRights(player->getDetails()->getId(), true)) {
+    if (this->hasRights(player->getDetails()->id, true)) {
         player->getRoomUser()->setStatus("flatctrl", "useradmin");
 
         player->send(RightsLevelMessageComposer(4));
         player->send(HasOwnerRightsMessageComposer());
     }
-    else if (this->hasRights(player->getDetails()->getId(), false)) {
+    else if (this->hasRights(player->getDetails()->id, false)) {
         player->getRoomUser()->setStatus("flatctrl", "1");
 
         player->send(RightsLevelMessageComposer(1));

@@ -39,7 +39,7 @@ public:
             return;
         }
 
-        if (MessengerDao::newRequest(player->getDetails()->getId(), user_id)) {
+        if (MessengerDao::newRequest(player->getDetails()->id, user_id)) {
 
             MessengerUser *user = new MessengerUser(user_id);
             player->getMessenger()->getRequests()->insert(std::make_pair(user_id, user));

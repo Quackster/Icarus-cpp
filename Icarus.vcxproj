@@ -168,7 +168,6 @@
     <ClCompile Include="src\database\DatabaseManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\game\player\Player.cpp" />
-    <ClCompile Include="src\game\player\PlayerDetails.cpp" />
     <ClCompile Include="src\game\player\PlayerManager.cpp" />
     <ClCompile Include="src\misc\Configuration.cpp" />
     <ClCompile Include="src\misc\Utilities.cpp" />
@@ -280,7 +279,6 @@
     <ClInclude Include="src\game\pathfinder\PathfinderNode.h" />
     <ClInclude Include="src\game\pathfinder\Position.h" />
     <ClInclude Include="src\game\player\Player.h" />
-    <ClInclude Include="src\game\player\PlayerDetails.h" />
     <ClInclude Include="src\game\player\PlayerManager.h" />
     <ClInclude Include="src\game\room\model\RoomModel.h" />
     <ClInclude Include="src\game\room\model\Rotation.h" />

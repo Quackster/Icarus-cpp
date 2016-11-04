@@ -105,9 +105,10 @@ int UserDao::getIdByUsername(std::string username) {
 
     @return SessionData ptr or nullptr (check if this returns nullptr for failure of finding user)
 */
-PlayerDetails *UserDao::findUserByTicket(Player *player, std::string ssoTicket) {
+EntityDetails *UserDao::findUserByTicket(Player *player, std::string ssoTicket) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+    EntityDetails *details = nullptr;
 
     try {
 
@@ -123,14 +124,14 @@ PlayerDetails *UserDao::findUserByTicket(Player *player, std::string ssoTicket) 
             /*
                 This pointer gets deleted in the 'Session' deconstructor
             */
-            return new PlayerDetails(
-                result_set->getInt("id"),
-                result_set->getString("username"),
-                result_set->getString("mission"),
-                result_set->getString("figure"),
-                result_set->getInt("rank"),
-                result_set->getInt("credits")
-            );
+            details = new EntityDetails();
+
+            details->id = result_set->getInt("id");
+            details->username = result_set->getString("username");
+            details->motto = result_set->getString("mission");
+            details->figure = result_set->getString("figure");
+            details->rank = result_set->getInt("rank");
+            details->credits = result_set->getInt("credits");
         }
 
     }
@@ -140,7 +141,7 @@ PlayerDetails *UserDao::findUserByTicket(Player *player, std::string ssoTicket) 
 
     Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
 
-    return nullptr;
+    return details;
 }
 
 /*
@@ -151,10 +152,10 @@ PlayerDetails *UserDao::findUserByTicket(Player *player, std::string ssoTicket) 
 
     @return SessionData ptr or nullptr (check if this returns nullptr for failure of finding user)
 */
-std::shared_ptr<PlayerDetails> UserDao::getDetails(int user_id) {
+std::shared_ptr<EntityDetails> UserDao::getDetails(int user_id) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
-    std::shared_ptr<PlayerDetails> details = nullptr;
+    std::shared_ptr<EntityDetails> details = nullptr;
 
     try {
 
@@ -167,17 +168,13 @@ std::shared_ptr<PlayerDetails> UserDao::getDetails(int user_id) {
 
         while (result_set->next()) {
 
-            /*
-            This pointer gets deleted in the 'Session' deconstructor
-            */
-            details = std::make_shared<PlayerDetails>(
-                result_set->getInt("id"),
-                result_set->getString("username"),
-                result_set->getString("mission"),
-                result_set->getString("figure"),
-                result_set->getInt("rank"),
-                result_set->getInt("credits")
-            );
+            details = std::make_shared<EntityDetails>();
+            details->id = result_set->getInt("id");
+            details->username = result_set->getString("username");
+            details->motto = result_set->getString("mission");
+            details->figure = result_set->getString("figure");
+            details->rank = result_set->getInt("rank");
+            details->credits = result_set->getInt("credits");
         }
 
     }
@@ -190,7 +187,7 @@ std::shared_ptr<PlayerDetails> UserDao::getDetails(int user_id) {
     return details;
 };
 /*
-    Updates players last online
+    Updates player details
 
     @param id of the user to update
     @return none
