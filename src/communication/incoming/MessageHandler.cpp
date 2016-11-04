@@ -39,6 +39,10 @@
 #include "room/DeleteRoomMessageEvent.h"
 #include "room/SaveRoomMessageEvent.h"
 
+// Doorbell
+#include "room/doorbell/AnswerDoorbellMessageEvent.h"
+#include "room/doorbell/EnterDoorbellMessageEvent.h"
+
 // Messenger
 #include "messenger/MessengerInitMessageEvent.h"
 #include "messenger/MessengerSearchMessageEvent.h"
@@ -85,6 +89,10 @@ MessageHandler::MessageHandler() :
     this->createEvent(Incoming::RoomEditInfoMessageEvent, new RoomEditInfoMessageEvent());
     this->createEvent(Incoming::DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
     this->createEvent(Incoming::SaveRoomMessageEvent, new SaveRoomMessageEvent());
+
+    // Doorbell
+    this->createEvent(Incoming::AnswerDoorbellMessageEvent, new AnswerDoorbellMessageEvent());
+    this->createEvent(Incoming::EnterDoorbellMessageEvent, new EnterDoorbellMessageEvent());
 
     // Messenger
     this->createEvent(Incoming::MessengerSearchMessageEvent, new MessengerSearchMessageEvent());

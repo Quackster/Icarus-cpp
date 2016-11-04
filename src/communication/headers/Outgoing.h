@@ -58,4 +58,5 @@ public:
     static const int GenericDoorbellMessageComposer = 2057;
     static const int GenericErrorMessageComposer = 524;
     static const int GenericNoAnswerDoorbellMessageComposer = 1868;
+    static const int AcceptUserInsideRoomMessageComposer = 875;
 };

@@ -200,6 +200,8 @@
     <ClInclude Include="src\communication\incoming\navigator\CanCreateRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\NewNavigatorMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\SearchNewNavigatorEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\doorbell\EnterDoorbellMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\doorbell\AnswerDoorbellMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\SaveRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\DeleteRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\EnterRoomMessageEvent.h" />
@@ -234,6 +236,7 @@
     <ClInclude Include="src\communication\outgoing\navigator\NavigatorCategoriesComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\NavigatorMetaDataComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\SearchResultSetComposer.h" />
+    <ClInclude Include="src\communication\outgoing\room\doorbell\AcceptUserInsideRoomMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\doorbell\RoomEnterErrorMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\doorbell\GenericNoAnswerDoorbellMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\doorbell\GenericErrorMessageComposer.h" />

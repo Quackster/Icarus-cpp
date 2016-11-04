@@ -11,19 +11,20 @@
 #include "game/player/PlayerManager.h"
 
 /*
-Constructor for Session Manager
+    Constructor for Session Manager
 
-Initialises the map for storing sessions along with their connection ID
+    Initialises the map for storing sessions along with their connection ID
 */
 PlayerManager::PlayerManager() : 
     sessions(new std::map<int, Player*>()),
-    authenticated_sessions(new std::map<int, Player*>()) {
+    authenticated_sessions(new std::map<int, Player*>()),
+    authenticated_sessions_username(new std::map<std::string, Player*>()) {
 }
 
 /*
-Deconstructor for Session Manager
+    Deconstructor for Session Manager
 
-Deletes all pointer variables
+    Deletes all pointer variables
 */
 PlayerManager::~PlayerManager() {
 
@@ -37,13 +38,14 @@ PlayerManager::~PlayerManager() {
     // Delete sessions map
     delete sessions;
     delete authenticated_sessions;
+    delete authenticated_sessions_username;
 }
 
 /*
-Adds a session to the map if their connection ID doesn't already exist
+    Adds a session to the map if their connection ID doesn't already exist
 
-@param Session pointer
-@param connectionID integer
+    @param Session pointer
+    @param connectionID integer
 */
 void PlayerManager::addSession(Player *player, int connection_id) {
 
@@ -53,10 +55,10 @@ void PlayerManager::addSession(Player *player, int connection_id) {
 }
 
 /*
-Removes session from map if their connection ID exists
+    Removes session from map if their connection ID exists
 
-@param connectionID integer
-@return none
+    @param connectionID integer
+    @return none
 */
 void PlayerManager::removeSession(int connection_id) {
 
@@ -70,6 +72,7 @@ void PlayerManager::removeSession(int connection_id) {
 
         if (session->getDetails() != nullptr) {
             this->authenticated_sessions->erase(session->getDetails()->id);
+            this->authenticated_sessions_username->erase(session->getDetails()->username);
         }
 
         // Stop session from listening for more packets
@@ -85,21 +88,21 @@ void PlayerManager::removeSession(int connection_id) {
 }
 
 /*
-Checks whether or not the connection ID with session exists
+    Checks whether or not the connection ID with session exists
 
-@param connectionID integer
-@return whether or not connection ID exists
+    @param connectionID integer
+    @return whether or not connection ID exists
 */
 bool PlayerManager::containsSession(int connection_id) {
     return this->sessions->count(connection_id) == 1;
 }
 
 /*
-Returns the session from the map if their connection ID exists, will return NULL if
-the session doesn't exist
+    Returns the session from the map if their connection ID exists, will return NULL if
+    the session doesn't exist
 
-@param connectionID integer
-@return Session* instance
+    @param connectionID integer
+    @return Session* instance
 */
 Player *PlayerManager::getSession(int connection_id) {
 
@@ -121,6 +124,22 @@ Player *PlayerManager::getPlayerById(int user_id) {
 
     if (this->authenticated_sessions->count(user_id)) {
         return this->authenticated_sessions->find(user_id)->second;
+    }
+    else {
+        return nullptr;
+    }
+}
+
+/*
+    Gets player by username, if it doesn't exist nullptr will be returned
+
+    @param username
+    @return player ptr
+*/
+Player *PlayerManager::getPlayerByUsername(std::string username) {
+
+    if (this->authenticated_sessions_username->count(username)) {
+        return this->authenticated_sessions_username->find(username)->second;
     }
     else {
         return nullptr;

@@ -521,5 +521,14 @@
     <ClInclude Include="src\communication\outgoing\room\doorbell\GenericDoorbellMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\doorbell\AnswerDoorbellMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\doorbell\AcceptUserInsideRoomMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\doorbell\EnterDoorbellMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

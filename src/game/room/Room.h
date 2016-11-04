@@ -28,7 +28,7 @@ public:
     void leave(Entity *entity, const bool hotel_view, const bool dispose = true);
     void kickPlayers();
     void dispose(const bool force_disposal = false);
-    void send(const MessageComposer &composer);
+    void send(const MessageComposer &composer, bool users_with_rights = false);
     bool isOwnerOnline();
     void updateVirtualId();
     void save();

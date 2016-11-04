@@ -22,12 +22,15 @@ public:
     void removeSession(int connection_id);
     bool containsSession(int connection_id);
     Player *getSession(int connection_id);
-    Player *getPlayerById(int user_id);
 
-    std::map<int, Player*> *getPlayers() { return this->authenticated_sessions; }
+    Player *getPlayerById(int user_id);
+    Player *getPlayerByUsername(std::string user_name);
+
+    std::map<int, Player*> *getPlayersIDLookup() { return this->authenticated_sessions; }
+    std::map<std::string, Player*> *getPlayersUsernameLookup() { return this->authenticated_sessions_username; }
 
 private:
     std::map<int, Player*> *sessions;
     std::map<int, Player*> *authenticated_sessions;
-
+    std::map<std::string, Player*> *authenticated_sessions_username;
 };

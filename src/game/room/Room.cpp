@@ -46,14 +46,8 @@ bool Room::hasRights(const int user_id, const bool owner_check_only) {
     }
     else {
 
-        if (this->room_data->owner_id == user_id) {
-            return true;
-        }
-        else {
-
-            // Check to see if user id is located in room_data->user_rights vector
-            return std::find(this->room_data->user_rights.begin(), this->room_data->user_rights.end(), user_id) != this->room_data->user_rights.end();
-        }
+        // Check to see if user id is located in room_data->user_rights vector
+        return std::find(this->room_data->user_rights.begin(), this->room_data->user_rights.end(), user_id) != this->room_data->user_rights.end();
     }
 }
 
@@ -319,12 +313,26 @@ void Room::reset() {
     @param MessageComposer class
     @return none
 */
-void Room::send(const MessageComposer &composer) {
+void Room::send(const MessageComposer &composer, bool users_with_rights) {
 
     Response response = composer.compose();
 
-    for (Player *player : this->getPlayers()) {
-        player->getNetworkConnection()->send(response);
+    if (!users_with_rights) {
+
+        for (Player *player : this->getPlayers()) {
+            player->getNetworkConnection()->send(response);
+        }
+    }
+    else {
+
+        for (int user_id : this->room_data->user_rights) {
+
+            Player *player = Icarus::getPlayerManager()->getPlayerById(user_id);
+
+            if (player != nullptr) {
+                player->getNetworkConnection()->send(response);
+            }
+        }
     }
 }
 

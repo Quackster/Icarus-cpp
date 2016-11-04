@@ -43,4 +43,7 @@ public:
     static const int RoomEditInfoMessageEvent = 2035;
     static const int DeleteRoomMessageEvent = 2126;
     static const int SaveRoomMessageEvent = 915;
+
+    static const int AnswerDoorbellMessageEvent = 1491;
+    static const int EnterDoorbellMessageEvent = 2347;
 };

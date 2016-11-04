@@ -56,7 +56,11 @@ public:
             if (room->getData()->room_state == ROOM_STATE_DOORBELL) {
 
                 if (room->getPlayers().size() > 0) {
-                    player->send(HotelViewMessageComposer());
+
+                    // Send to all users who have rights in that particular room
+                    room->send(GenericDoorbellMessageComposer(player->getDetails()->username), true);
+
+                    // Tell user we're ringing doorbell
                     player->send(GenericDoorbellMessageComposer(1));
                 }
                 else {

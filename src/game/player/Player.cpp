@@ -43,12 +43,18 @@ void Player::login() {
     /*
         Remove teh clones
     */
-    if (Icarus::getPlayerManager()->getPlayers()->count(this->session_details->id) == 1) {
+    if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(this->session_details->id) == 1) {
         //this->getNetworkConnection()->getSocket().close();
         return;
     }
 
-    this->logged_in = true;
+    this->logged_in = true;    
+    
+    /*
+        Insert players into lookup dictionaries
+    */
+    Icarus::getPlayerManager()->getPlayersIDLookup()->insert(std::make_pair(this->session_details->id, this));
+    Icarus::getPlayerManager()->getPlayersUsernameLookup()->insert(std::make_pair(this->session_details->username, this));
 
     /*
         Load player variables
@@ -63,7 +69,7 @@ void Player::login() {
     /*
         Cache room data
     */
-    Icarus::getPlayerManager()->getPlayers()->insert(std::make_pair(this->session_details->id, this));
+
     Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->id);
 }
 
@@ -117,7 +123,6 @@ void Player::clear() {
     }
 
     if (this->logged_in) {
-
 
         if (this->room_user != nullptr) {
             if (this->room_user->getRoom() != nullptr) {
