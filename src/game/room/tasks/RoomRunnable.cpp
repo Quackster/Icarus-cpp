@@ -22,7 +22,8 @@
 /*
     Constructor for room runnable
 */
-RoomRunnable::RoomRunnable(Room *room) : room(room) { }
+RoomRunnable::RoomRunnable(Room *room) : 
+    room(room) { }
 
 /*
 Tick handler for room runnable
@@ -31,8 +32,9 @@ Tick handler for room runnable
 */
 void RoomRunnable::run() {
 
-    if (this->room->isDisposed()) {
-
+    if (this->room == nullptr ||
+        this->room->isDisposed() || 
+        this->room->getEntities()->size() == 0) {
         this->room->setRunnable(nullptr);
         return;
     }
@@ -41,6 +43,7 @@ void RoomRunnable::run() {
 
     RoomModel *room_model = this->room->getModel();
 
+    mtx.lock();
     for (auto kvp: *this->room->getEntities()) {
 
         Entity *entity = kvp.second;
@@ -58,6 +61,7 @@ void RoomRunnable::run() {
             }
         }
     }
+    mtx.unlock();
 
     this->room->send(UserStatusMessageComposer(update_entities));
 

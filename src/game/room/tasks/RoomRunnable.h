@@ -7,8 +7,12 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+
+#include <mutex>
+
 #include "thread/Runnable.h"
 #include "game/room/Room.h"
+
 
 class RoomRunnable : public Runnable {
 
@@ -18,5 +22,6 @@ public:
     void processEntity(Entity *entity);
     Room *room;
     bool cancelled = true;
+    std::mutex mtx;
 
 };
