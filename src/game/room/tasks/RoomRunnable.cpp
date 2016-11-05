@@ -34,7 +34,7 @@ void RoomRunnable::run() {
 
     if (this->room == nullptr ||
         this->room->isDisposed() ||
-        this->room->getEntities()->size() == 0) {
+        this->room->getEntities().size() == 0) {
         this->room->setRunnable(nullptr);
         return;
     }
@@ -45,14 +45,11 @@ void RoomRunnable::run() {
 
     mtx.lock(); // Lock entities thread
 
-    std::map<int, Entity*> *entities = this->room->getEntities();
+    std::map<int, Entity*> entities = this->room->getEntities();
 
-    if (entities == nullptr) {
-        return;
-    }
-    for (int i = 0; i < entities->size(); i++) {
+    for (int i = 0; i < entities.size(); i++) {
 
-        Entity *entity = entities->at(i);
+        Entity *entity = entities[i];
 
         if (entity != nullptr) {
             if (entity->getRoomUser() != nullptr) {

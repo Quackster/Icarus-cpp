@@ -32,7 +32,7 @@
 Room::Room(int room_id) :
     room_id(room_id),
     disposed(false),
-    entities(new std::map<int, Entity*>()),
+    //entities(new std::map<int, Entity*>()),
     runnable(nullptr) { } //std::make_shared<RoomRunnable>(this)) { }
 
 /*
@@ -97,7 +97,7 @@ void Room::enter(Player *player) {
     }
 
     if (!this->hasEntity(player)) {
-        this->entities->insert(std::make_pair(player->getRoomUser()->getVirtualId(), player));
+        this->entities.insert(std::make_pair(player->getRoomUser()->getVirtualId(), player));
     }
 
     if (this->getPlayers().size() == 1) {
@@ -135,7 +135,7 @@ void Room::leave(Entity *entity, const bool hotel_view, const bool dispose) {
     if (this->hasEntity(entity)) {
 
         // Remove entity from vector
-        this->entities->erase(entity->getRoomUser()->getVirtualId());
+        this->entities.erase(entity->getRoomUser()->getVirtualId());
 
         // Remove entity from room
         this->send(RemoveUserMessageComposer(entity->getRoomUser()->getVirtualId()));
@@ -234,7 +234,7 @@ void Room::serialise(Response &response, const bool enter_room) {
     @return boolean
 */
 bool Room::hasEntity(Entity *entity) {
-    return this->entities->count(entity->getRoomUser()->getVirtualId()) > 0;
+    return this->entities.count(entity->getRoomUser()->getVirtualId()) > 0;
 }
 
 /*
@@ -246,7 +246,7 @@ const std::vector<Player*> Room::getPlayers() {
 
     std::vector<Player*> players;
 
-    for (auto kvp : *this->entities) {
+    for (auto kvp : this->entities) {
 
         Entity *entity = kvp.second;
 
@@ -386,7 +386,7 @@ Room::~Room()
 {
     std::cout << " Room ID " << this->room_id << " disposed." << std::endl;
 
-    for (auto kvp : *this->entities) {
+    for (auto kvp : this->entities) {
 
         Entity *entity = kvp.second;
 
@@ -398,6 +398,6 @@ Room::~Room()
     delete room_data;
     this->room_data = nullptr;
 
-    delete entities;
-    this->entities = nullptr;
+   // delete entities;
+    //this->entities = nullptr;
 }
