@@ -35,8 +35,12 @@ public:
 
         RoomData *room_data = room->getData();
 
-        std::string room_name = Utilities::escape(request.readString());
-        std::string description = Utilities::escape(request.readString(), true);
+        std::string room_name = request.readString();
+        room_name = Utilities::escape(room_name);
+
+        std::string description = request.readString();
+        description = Utilities::escape(description, true);
+
         int access_type = request.readInt();
         std::string password = Utilities::escape(request.readString(), false, true);
         int max_users = request.readInt();

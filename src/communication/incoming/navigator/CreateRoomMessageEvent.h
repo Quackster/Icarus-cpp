@@ -29,8 +29,14 @@ public:
         //[0][0][0][9]
         //[0][0][0][0][0][0][2]
 
-        std::string room_name = Utilities::escape(request.readString());
-        std::string description = Utilities::escape(request.readString(), true);
+
+
+        std::string room_name = request.readString();
+        room_name = Utilities::escape(room_name);
+
+        std::string description = request.readString();
+        description = Utilities::escape(description, true);
+
         std::string room_model = request.readString();
 
         if (room_name.length() < 1) {
