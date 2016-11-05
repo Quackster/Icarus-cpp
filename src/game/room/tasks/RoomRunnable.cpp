@@ -33,7 +33,7 @@ Tick handler for room runnable
 void RoomRunnable::run() {
 
     if (this->room == nullptr ||
-        this->room->isDisposed() || 
+        this->room->isDisposed() ||
         this->room->getEntities()->size() == 0) {
         this->room->setRunnable(nullptr);
         return;
@@ -43,10 +43,16 @@ void RoomRunnable::run() {
 
     RoomModel *room_model = this->room->getModel();
 
-    mtx.lock();
-    for (auto kvp: *this->room->getEntities()) {
+    mtx.lock(); // Lock entities thread
 
-        Entity *entity = kvp.second;
+    std::map<int, Entity*> *entities = this->room->getEntities();
+
+    if (entities == nullptr) {
+        return;
+    }
+    for (int i = 0; i < entities->size(); i++) {
+
+        Entity *entity = entities->at(i);
 
         if (entity != nullptr) {
             if (entity->getRoomUser() != nullptr) {
@@ -61,7 +67,8 @@ void RoomRunnable::run() {
             }
         }
     }
-    mtx.unlock();
+
+    mtx.unlock(); // Unlock entities thread
 
     this->room->send(UserStatusMessageComposer(update_entities));
 
