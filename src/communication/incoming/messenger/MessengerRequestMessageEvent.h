@@ -42,7 +42,7 @@ public:
         if (MessengerDao::newRequest(player->getDetails()->id, user_id)) {
 
             MessengerUser *user = new MessengerUser(user_id);
-            player->getMessenger()->getRequests()->insert(std::make_pair(user_id, user));
+            player->getMessenger()->getRequests().insert(std::make_pair(user_id, user));
 
             if (user->isOnline()) {
                 user->getPlayer()->send(MessengerSendRequestComposer(player->getDetails()));

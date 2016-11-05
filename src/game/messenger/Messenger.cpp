@@ -23,7 +23,7 @@
     @param map of user ids and messenger user ptrs of which are friends
     @param map of user ids and messenger user ptrs of which are requests
 */
-Messenger::Messenger(Entity *player, int user_id, std::map<int, MessengerUser*> *friends, std::map<int, MessengerUser*> *requests) :
+Messenger::Messenger(Entity *player, int user_id, std::map<int, MessengerUser*> friends, std::map<int, MessengerUser*> requests) :
     player(player),
     user_id(user_id),
     friends(friends),
@@ -37,8 +37,8 @@ Messenger::~Messenger() {
     this->clearFriends();
     this->clearRequests(); 
     
-    delete this->friends;
-    delete this->requests;
+    /*delete this->friends;
+    delete this->requests;*/
 }
 
 /*
@@ -48,8 +48,8 @@ Messenger::~Messenger() {
 */
 void Messenger::clearFriends() {
 
-    for (auto friend_ : *this->friends) delete friend_.second;
-    this->friends->clear();
+    for (auto friend_ : this->friends) delete friend_.second;
+    this->friends.clear();
 }
 
 /*
@@ -59,8 +59,8 @@ void Messenger::clearFriends() {
 */
 void Messenger::clearRequests() {
 
-    for (auto request : *this->requests) delete request.second;
-    this->requests->clear();
+    for (auto request : this->requests) delete request.second;
+    this->requests.clear();
 }
 
 /*
@@ -71,8 +71,8 @@ void Messenger::clearRequests() {
 */
 MessengerUser *Messenger::getRequest(int user_id) { 
 
-    if (this->requests->count(user_id)) {
-        return this->requests->find(user_id)->second;
+    if (this->requests.count(user_id)) {
+        return this->requests.find(user_id)->second;
     }
 
     return nullptr;
@@ -86,8 +86,8 @@ MessengerUser *Messenger::getRequest(int user_id) {
 */
 MessengerUser *Messenger::getFriend(int user_id) { 
 
-    if (this->friends->count(user_id)) {
-        return this->friends->find(user_id)->second;
+    if (this->friends.count(user_id)) {
+        return this->friends.find(user_id)->second;
     }
 
     return nullptr;
@@ -115,15 +115,15 @@ bool Messenger::isFriend(int id) {
 
 void Messenger::removeFriend(int user_id) {
 
-    MessengerUser *user = this->friends->find(user_id)->second;
-    this->friends->erase(user_id);
+    MessengerUser *user = this->friends.find(user_id)->second;
+    this->friends.erase(user_id);
     delete user;
 }
 
 void Messenger::removeRequest(int user_id) {
 
-    MessengerUser *user = this->requests->find(user_id)->second;
-    this->requests->erase(user_id);
+    MessengerUser *user = this->requests.find(user_id)->second;
+    this->requests.erase(user_id);
     delete user;
 }
 
@@ -137,7 +137,7 @@ void Messenger::sendStatus(bool force_offline, bool login_status) {
 
     const Response response = MessengerUpdateMessageComposer(std::make_unique<MessengerUser>(this->user_id).get(), force_offline).compose();
 
-    for (auto kvp : *this->friends) {
+    for (auto kvp : this->friends) {
 
         MessengerUser *friend_ = kvp.second;
 

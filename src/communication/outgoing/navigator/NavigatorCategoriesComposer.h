@@ -15,14 +15,14 @@
 class NavigatorCategoriesComposer : public MessageComposer {
 
 public:
-    NavigatorCategoriesComposer(std::vector<NavigatorCategory*> *categories) : 
+    NavigatorCategoriesComposer(std::vector<NavigatorCategory*> categories) : 
         categories(categories) {  }
 
     const Response compose() const {
         Response response = this->createResponse();
-        response.writeInt(4 + ((int)categories->size()));
+        response.writeInt(4 + ((int)categories.size()));
 
-        for (auto category : *categories) {
+        for (auto category : categories) {
             response.writeString("category__" + category->name);
         }
 
@@ -38,6 +38,6 @@ public:
     }
 
 private:
-    std::vector<NavigatorCategory*> *categories;
+    std::vector<NavigatorCategory*> categories;
 
 };

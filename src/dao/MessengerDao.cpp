@@ -21,9 +21,9 @@
 
     @return map of user id keys and messager user ptr instance
 */
-std::map<int, MessengerUser*> *MessengerDao::getFriends(int user_id) {
+std::map<int, MessengerUser*> MessengerDao::getFriends(int user_id) {
 
-    std::map<int, MessengerUser*> *friends = new std::map<int, MessengerUser*>();
+    std::map<int, MessengerUser*> friends;// = new std::map<int, MessengerUser*>();
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
     try {
@@ -43,7 +43,7 @@ std::map<int, MessengerUser*> *MessengerDao::getFriends(int user_id) {
                 friend_ = new MessengerUser(resultSet->getInt("receiver"));
             }
 
-            friends->insert(std::make_pair(friend_->getDetails()->id, friend_));
+            friends.insert(std::make_pair(friend_->getDetails()->id, friend_));
         }
 
     }
@@ -63,9 +63,9 @@ std::map<int, MessengerUser*> *MessengerDao::getFriends(int user_id) {
 
     @return map of user id keys and messager user ptr instance
 */
-std::map<int, MessengerUser*> *MessengerDao::getRequests(int user_id) {
+std::map<int, MessengerUser*> MessengerDao::getRequests(int user_id) {
 
-    std::map<int, MessengerUser*> *friends = new std::map<int, MessengerUser*>();
+    std::map<int, MessengerUser*> friends;// = new std::map<int, MessengerUser*>();
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
     try {
@@ -77,7 +77,7 @@ std::map<int, MessengerUser*> *MessengerDao::getRequests(int user_id) {
         while (result_set->next()) {
 
             MessengerUser *friend_ = new MessengerUser(result_set->getInt("from_id"));
-            friends->insert(std::make_pair(friend_->getDetails()->id, friend_));
+            friends.insert(std::make_pair(friend_->getDetails()->id, friend_));
         }
 
     }

@@ -16,15 +16,16 @@
 class FriendsListMessageComposer : public MessageComposer {
 
 public:
-    FriendsListMessageComposer(const std::map<int, MessengerUser*> *friends) : friends(friends) { }
+    FriendsListMessageComposer(const std::map<int, MessengerUser*> friends) : 
+        friends(friends) { }
 
     const Response compose() const {
         Response response = this->createResponse();
         response.writeInt(1);
         response.writeInt(0);
-        response.writeInt(this->friends->size());
+        response.writeInt(this->friends.size());
 
-        for (auto friend_ : *this->friends) {
+        for (auto friend_ : this->friends) {
             friend_.second->serialise(response, false);
         }
         
@@ -36,5 +37,5 @@ public:
     }
 
 private:
-    const std::map<int, MessengerUser*> *friends;
+    const std::map<int, MessengerUser*> friends;
 };

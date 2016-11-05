@@ -17,6 +17,7 @@ class RoomManager
 public:
     RoomManager();
     ~RoomManager();
+
     void createPlayerRooms(int user_id);
     std::vector<Room*> getPlayerRooms(int user_id);
 
@@ -26,12 +27,12 @@ public:
     void addRoom(Room *room);
     void deleteRoom(int room_id);
 
-    std::map<int, Room*> *getRooms() { return rooms; }
-    std::vector<Room*> *getPublicRooms() { return public_rooms; }
+    std::map<int, Room*> &getRooms() { return rooms; }
+    std::vector<Room*> &getPublicRooms() { return public_rooms; }
 
 private:
-    std::map<int, Room*> *rooms;
-    std::vector<Room*> *public_rooms;
-    std::map<std::string, RoomModel*> *models;
+    std::map<int, Room*> rooms;
+    std::vector<Room*> public_rooms;
+    std::map<std::string, RoomModel*> models;
 };
 

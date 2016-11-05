@@ -16,16 +16,16 @@
 class MessengerRequestsMessageComposer : public MessageComposer {
 
 public:
-    MessengerRequestsMessageComposer(EntityDetails *details, std::map<int, MessengerUser*> *requests) :
+    MessengerRequestsMessageComposer(EntityDetails *details, std::map<int, MessengerUser*> requests) :
         details(details),
         requests(requests) { }
 
     const Response compose() const {
         Response response = this->createResponse();
         response.writeInt(this->details->id);
-        response.writeInt(this->requests->size());
+        response.writeInt(this->requests.size());
 
-        for (auto kvp : *requests) {
+        for (auto kvp : requests) {
             response.writeInt(kvp.second->getDetails()->id);
             response.writeString(kvp.second->getDetails()->username);
             response.writeString(kvp.second->getDetails()->figure);
@@ -40,5 +40,5 @@ public:
 
 private:
     EntityDetails *details;
-    std::map<int, MessengerUser*> *requests;
+    std::map<int, MessengerUser*> requests;
 };

@@ -7,7 +7,7 @@ std::vector<Room*> PopularPopulator::populate(bool room_limit, Player* player) {
 
     std::vector<Room*> rooms;
 
-    for (auto kvp : *Icarus::getGame()->getRoomManager()->getRooms()) {
+    for (auto kvp : Icarus::getGame()->getRoomManager()->getRooms()) {
 
         Room *room = kvp.second;
 

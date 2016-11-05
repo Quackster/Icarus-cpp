@@ -26,7 +26,7 @@ std::vector<NavigatorTab*> NavigatorTab::getChildTabs() {
 
     std::vector<NavigatorTab*> tabs = std::vector<NavigatorTab*>();
 
-    for (auto tab : *Icarus::getGame()->getNavigatorManager()->getTabs()) {
+    for (auto tab : Icarus::getGame()->getNavigatorManager()->getTabs()) {
         if (tab->getChildId() == this->id) {
             tabs.push_back(tab);
         }

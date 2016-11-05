@@ -54,9 +54,9 @@ int NavigatorDao::createRoom(std::string room_name, std::string description, std
     @param child id
     @return list of tabs
 */
-std::vector<NavigatorTab*> *NavigatorDao::getTabsByChildId(int child_id) {
+std::vector<NavigatorTab*> NavigatorDao::getTabsByChildId(int child_id) {
 
-    std::vector<NavigatorTab*> *tabs = new std::vector<NavigatorTab*>();
+    std::vector<NavigatorTab*> tabs;// = new std::vector<NavigatorTab*>();
     
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
     bool has_user = false;
@@ -81,11 +81,11 @@ std::vector<NavigatorTab*> *NavigatorDao::getTabsByChildId(int child_id) {
 
             );
 
-            tabs->push_back(tab);
+            tabs.push_back(tab);
             
             // Also add child tabs
-            auto childTabs = std::shared_ptr<std::vector<NavigatorTab*>>(getTabsByChildId(tab->getId()));
-            tabs->insert(tabs->end(), childTabs->begin(), childTabs->end());
+            auto childTabs = std::vector<NavigatorTab*>(getTabsByChildId(tab->getId()));
+            tabs.insert(tabs.end(), childTabs.begin(), childTabs.end());
         }
 
     }
@@ -103,9 +103,9 @@ std::vector<NavigatorTab*> *NavigatorDao::getTabsByChildId(int child_id) {
 
     @return vector ptr categories
 */
-std::vector<NavigatorCategory*> *NavigatorDao::getCategories() {
+std::vector<NavigatorCategory*> NavigatorDao::getCategories() {
 
-    std::vector<NavigatorCategory*> *categories = new std::vector<NavigatorCategory*>();
+    std::vector<NavigatorCategory*> categories;// = new std::vector<NavigatorCategory*>();
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
     try {
@@ -121,7 +121,7 @@ std::vector<NavigatorCategory*> *NavigatorDao::getCategories() {
             category->name = result_set->getString("title");
             category->minimum_rank = result_set->getInt("min_rank");
 
-            categories->push_back(category);
+            categories.push_back(category);
         }
 
     }

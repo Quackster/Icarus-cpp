@@ -19,9 +19,9 @@
     
     @return room model ptr instances
 */
-std::map<std::string, RoomModel*> *RoomDao::getModels() {
+std::map<std::string, RoomModel*> RoomDao::getModels() {
 
-    std::map<std::string, RoomModel*> *models = new std::map<std::string, RoomModel*>();
+    std::map<std::string, RoomModel*> models;// = new std::map<std::string, RoomModel*>();
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
     try {
@@ -32,7 +32,7 @@ std::map<std::string, RoomModel*> *RoomDao::getModels() {
         std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
 
         while (result_set->next()) {
-            models->insert(std::make_pair(result_set->getString("id"), 
+            models.insert(std::make_pair(result_set->getString("id"), 
                 new RoomModel(
                     result_set->getString("id"), 
                     result_set->getString("heightmap"), 
@@ -71,8 +71,8 @@ void RoomDao::addPublicRooms() {
 
         while (result_set->next()) {
             Room *room = getRoom(result_set->getInt("id"));
-            Icarus::getGame()->getRoomManager()->getPublicRooms()->push_back(room);
-            Icarus::getGame()->getRoomManager()->getRooms()->insert(std::make_pair(room->getId(), room));
+            Icarus::getGame()->getRoomManager()->getPublicRooms().push_back(room);
+            Icarus::getGame()->getRoomManager()->getRooms().insert(std::make_pair(room->getId(), room));
 
             room->getData()->private_room = false; // If this is set to true, then when a user leaves the public room would be disposed/removed from server memory...
         }

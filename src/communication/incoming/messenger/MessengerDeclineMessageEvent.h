@@ -22,7 +22,7 @@ public:
 
         if (delete_all) {
 
-            for (auto kvp : *player->getMessenger()->getRequests()) {
+            for (auto kvp : player->getMessenger()->getRequests()) {
                 MessengerDao::removeRequest(kvp.first, player->getDetails()->id);
             }
 

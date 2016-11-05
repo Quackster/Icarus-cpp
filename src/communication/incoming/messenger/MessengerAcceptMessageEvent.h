@@ -34,13 +34,13 @@ public:
             MessengerDao::newFriend(to_id, from_id);
 
             MessengerUser *user = new MessengerUser(from_id);
-            player->getMessenger()->getFriends()->insert(std::make_pair(from_id, user));
+            player->getMessenger()->getFriends().insert(std::make_pair(from_id, user));
 
             if (user->isOnline()) {
 
                 MessengerUser *to = new MessengerUser(to_id);
 
-                user->getPlayer()->getMessenger()->getFriends()->insert(std::make_pair(to_id, to));
+                user->getPlayer()->getMessenger()->getFriends().insert(std::make_pair(to_id, to));
                 user->getPlayer()->send(MessengerUpdateMessageComposer(to, false));
             }
 

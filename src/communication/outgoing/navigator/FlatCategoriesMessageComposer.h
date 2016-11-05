@@ -15,15 +15,15 @@
 class FlatCategoriesMessageComposer : public MessageComposer {
 
 public:
-    FlatCategoriesMessageComposer(std::vector<NavigatorCategory*> *categories, int rank) : 
+    FlatCategoriesMessageComposer(std::vector<NavigatorCategory*> categories, int rank) : 
         categories(categories), 
         rank(rank) {  }
     
     const Response compose() const {
         Response response = this->createResponse();
-        response.writeInt(this->categories->size());
+        response.writeInt(this->categories.size());
 
-        for (auto category : *this->categories) {
+        for (auto category : this->categories) {
             response.writeInt(category->id);
             response.writeString(category->name);
             response.writeBool(category->minimum_rank <= rank);
@@ -41,7 +41,7 @@ public:
     }
 
 private:
-    std::vector<NavigatorCategory*> *categories;
+    std::vector<NavigatorCategory*> categories;
     int rank;
 
 };

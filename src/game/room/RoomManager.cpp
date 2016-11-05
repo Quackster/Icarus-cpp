@@ -14,8 +14,8 @@
     Constructor for room manager
 */
 RoomManager::RoomManager() :
-    rooms(new std::map<int, Room*>()), 
-    public_rooms(new std::vector<Room*>()),
+    rooms(std::map<int, Room*>()), 
+    public_rooms(std::vector<Room*>()),
     models(RoomDao::getModels()) {
 }
 
@@ -54,7 +54,7 @@ std::vector<Room*> RoomManager::getPlayerRooms(int user_id) {
 
     std::vector<Room*> rooms;
 
-    for (auto room_entry : *this->rooms) {
+    for (auto room_entry : this->rooms) {
 
         Room* room = room_entry.second;
 
@@ -74,8 +74,8 @@ std::vector<Room*> RoomManager::getPlayerRooms(int user_id) {
 */
 RoomModel *RoomManager::getModel(std::string model_id) {
 
-    if (this->models->count(model_id)) {
-        return this->models->find(model_id)->second;
+    if (this->models.count(model_id)) {
+        return this->models.find(model_id)->second;
     }
 
     return nullptr;
@@ -88,7 +88,7 @@ RoomModel *RoomManager::getModel(std::string model_id) {
     @return if room id is in map or not
 */
 bool RoomManager::hasRoom(int room_id) {
-    return this->rooms->count(room_id) == 1 ? true : false;
+    return this->rooms.count(room_id) == 1 ? true : false;
 }
 
 /*
@@ -100,7 +100,7 @@ bool RoomManager::hasRoom(int room_id) {
 Room *RoomManager::getRoom(int room_id) {
 
     if (this->hasRoom(room_id)) {
-        return this->rooms->find(room_id)->second;
+        return this->rooms.find(room_id)->second;
     }
 
     return nullptr;
@@ -115,7 +115,7 @@ Room *RoomManager::getRoom(int room_id) {
 void RoomManager::addRoom(Room *room) {
 
     if (!this->hasRoom(room->getData()->id)) {
-        this->rooms->insert(std::make_pair(room->getId(), room));
+        this->rooms.insert(std::make_pair(room->getId(), room));
     }
 }
 
@@ -130,7 +130,7 @@ void RoomManager::deleteRoom(int room_id) {
     if (this->hasRoom(room_id)) {
 
         Room *room = this->getRoom(room_id);
-        this->rooms->erase(room_id);
+        this->rooms.erase(room_id);
 
         delete room;
     }
@@ -141,10 +141,10 @@ void RoomManager::deleteRoom(int room_id) {
 */
 RoomManager::~RoomManager() {
 
-    for (auto room_entry : *this->rooms) delete room_entry.second;
-    for (auto model_entry : *this->models) delete model_entry.second;
+    for (auto room_entry : this->rooms) delete room_entry.second;
+    for (auto model_entry : this->models) delete model_entry.second;
 
-    delete this->rooms;
+    /*delete this->rooms;
     delete this->public_rooms;
-    delete this->models;
+    delete this->models;*/
 }

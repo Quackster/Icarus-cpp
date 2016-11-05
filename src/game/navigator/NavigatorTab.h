@@ -17,14 +17,14 @@ public:
 
     std::vector<NavigatorTab*> getChildTabs();
 
-    int getId() { return id; }
-    int getChildId() { return child_id; }
-    std::string getTabName() { return tab_name; }
-    std::string getTitle() { return title; }
-    char getButtonType() { return button_type; }
-    bool getClosed() { return closed; }
-    bool getThumbnail() { return thumbnail; }
-    std::string getPopulatorName() { return populator; }
+    const int &getId() const { return id; }
+    const int &getChildId() const { return child_id; }
+    const std::string &getTabName() const { return tab_name; }
+    const std::string &getTitle() const { return title; }
+    const char &getButtonType() const { return button_type; }
+    const bool &getClosed() const { return closed; }
+    const bool &getThumbnail() const { return thumbnail; }
+    const std::string &getPopulatorName() const { return populator; }
 
 private:
     int id;
