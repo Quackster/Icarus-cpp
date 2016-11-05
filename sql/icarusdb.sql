@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 02, 2016 at 03:35 AM
+-- Generation Time: Nov 05, 2016 at 08:16 AM
 -- Server version: 5.6.33
 -- PHP Version: 5.6.26
 
@@ -10328,6 +10328,17 @@ CREATE TABLE `messenger_messages` (
   `message` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `messenger_messages`
+--
+
+INSERT INTO `messenger_messages` (`id`, `to_id`, `from_id`, `time_sent`, `unread`, `message`) VALUES
+(1, 2, 1, '2016-11-04 05:16:51', 0, 'wdwqdqwd'),
+(2, 2, 1, '2016-11-04 05:16:52', 0, '231432432'),
+(3, 2, 1, '2016-11-04 05:17:01', 0, '$##@$#@$#@,,,'),
+(4, 2, 1, '2016-11-04 14:26:34', 0, 'xddd'),
+(5, 2, 1, '2016-11-04 14:27:15', 0, 'hi brooo');
+
 -- --------------------------------------------------------
 
 --
@@ -10418,8 +10429,8 @@ CREATE TABLE `rooms` (
   `room_type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 = private room, 1 = public',
   `owner_id` int(100) NOT NULL DEFAULT '-1',
   `group_id` int(11) NOT NULL DEFAULT '0',
-  `thumbnail` varchar(100) NOT NULL,
-  `description` varchar(250) NOT NULL,
+  `thumbnail` varchar(100) DEFAULT NULL,
+  `description` varchar(250) DEFAULT NULL,
   `password` varchar(25) NOT NULL DEFAULT '',
   `users_now` int(11) NOT NULL DEFAULT '0',
   `users_max` int(11) NOT NULL DEFAULT '25',
@@ -10438,11 +10449,11 @@ CREATE TABLE `rooms` (
   `hidewall` tinyint(1) NOT NULL DEFAULT '0',
   `wall_thickness` tinyint(3) NOT NULL DEFAULT '1',
   `floor_thickness` tinyint(3) NOT NULL DEFAULT '1',
-  `chat_type` int(11) NOT NULL DEFAULT '0',
-  `chat_balloon` int(11) NOT NULL DEFAULT '0',
+  `chat_mode` int(11) NOT NULL DEFAULT '0',
+  `chat_size` int(11) NOT NULL DEFAULT '0',
   `chat_speed` int(11) NOT NULL DEFAULT '0',
-  `chat_max_distance` int(11) NOT NULL DEFAULT '20',
-  `chat_flood_protection` int(11) NOT NULL DEFAULT '0',
+  `chat_flood` int(11) NOT NULL DEFAULT '0',
+  `chat_distance` int(11) NOT NULL DEFAULT '100',
   `who_can_mute` int(11) NOT NULL DEFAULT '0',
   `who_can_kick` int(11) NOT NULL DEFAULT '0',
   `who_can_ban` int(11) NOT NULL DEFAULT '0'
@@ -10452,14 +10463,14 @@ CREATE TABLE `rooms` (
 -- Dumping data for table `rooms`
 --
 
-INSERT INTO `rooms` (`id`, `name`, `room_type`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_type`, `chat_balloon`, `chat_speed`, `chat_max_distance`, `chat_flood_protection`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
-(1, 'Testing Room', 0, 1, 0, '', '', '', 0, 25, 'model_q', '1006', '301', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 20, 1, 0, 0, 0),
-(3, 'Room 3', 0, 1, 0, '', '', '', 0, 25, 'model_d', '407', '610', '0.0', 'gergegre,rgergge', 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 20, 0, 0, 0, 0),
-(4, 'Alex\'s Cool Room', 0, 1, 0, '', '', '', 0, 25, 'model_a', '506', '601', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 20, 0, 0, 0, 0),
-(5, 'Hotel Lobby', 1, -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 20, 0, 0, 0, 0),
-(12, 'dfewfwffe', 0, 1, 0, '', 'dsvsvd', '', 0, 10, 'model_a', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 20, 0, 0, 0, 0),
-(13, 'topkek', 0, 2, 0, '', '', '', 0, 10, 'model_b', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 20, 0, 0, 0, 0),
-(14, 'Another test', 0, 2, 0, '', '', '', 0, 10, 'model_c', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 20, 0, 0, 0, 0);
+INSERT INTO `rooms` (`id`, `name`, `room_type`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
+(1, 'Awesome Room', 0, 1, 0, '', 'dwq1233', '', 0, 25, 'model_q', '1006', '301', '0.0', 'feweefwefew', 1, 3, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1),
+(3, 'Room 3', 0, 1, 0, '', '', '', 0, 45, 'model_d', '407', '610', '0.0', 't54tert,retretert', 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1),
+(4, 'Alex\'s Cool Room', 0, 1, 0, '', '', '', 0, 25, 'model_a', '506', '601', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 100, 0, 0, 0),
+(5, 'Hotel Lobby', 1, -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 100, 0, 0, 0),
+(13, 'topkek', 0, 2, 0, '', '', '', 0, 10, 'model_b', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 100, 0, 0, 0),
+(14, 'My test room', 0, 2, 0, '', 'This is a little description :)', '', 0, 10, 'model_c', '0', '0', '0', '', 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0),
+(15, 'Icarus HQ', 0, 2, 0, '', 'The official heardquarters of the Icarus Hotel, topkek amirite?', '', 0, 10, 'model_a', '0', '0', '0', '', 2, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -10637,8 +10648,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `figure`, `credits`) VALUES
-(1, 'Alex', 'ed5ab160907a5f0cd750bcf5421b2478d0ebf55a', 7, 0, 1456876800, 'ssoticket', 'we2@2.com', 'I like cake, I like cake, I like cake, I like cake', 'hd-180-1.ch-255-66.lg-280-110.sh-305-62.ha-1012-110.hr-828-61', 100),
-(2, 'TheTesting123', 'ed5ab160907a5f0cd750bcf5421b2478d0ebf55a', 1, 0, 0, '123', '', 'I like cake, I like cake, I like cake, I like cake', 'hd-3096-1.hr-3012-45.ch-883-109.lg-280-110.sh-305-62', 0),
+(1, 'Alex', 'ed5ab160907a5f0cd750bcf5421b2478d0ebf55a', 7, 0, 1478187504, 'ssoticket', 'we2@2.com', 'I like cake, I like cake, I like cake, I like cake', 'hd-180-1.ch-255-66.lg-280-110.sh-305-62.ha-1012-110.hr-828-61', 100),
+(2, 'TheTesting123', 'ed5ab160907a5f0cd750bcf5421b2478d0ebf55a', 1, 0, 1478185280, '123', '', 'I like cake, I like cake, I like cake, I like cake', 'hd-3096-1.hr-3012-45.ch-883-109.lg-280-110.sh-305-62', 0),
 (3, 'John', 'ed5ab160907a5f0cd750bcf5421b2478d0ebf55a', 1, 0, 0, 'john', '', 'topkek', 'hr-893-54.hd-185-26.ch-265-91.lg-280-76.sh-300-83.ha-1013-100.he-1603-71.ea-1406-.fa-1205-75.ca-1809-', 0);
 
 --
@@ -10777,7 +10788,7 @@ ALTER TABLE `messenger_friendships`
 -- AUTO_INCREMENT for table `messenger_messages`
 --
 ALTER TABLE `messenger_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `messenger_requests`
 --
@@ -10797,7 +10808,7 @@ ALTER TABLE `navigator_tabs`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `room_rights`
 --
@@ -10827,7 +10838,7 @@ ALTER TABLE `site_refs`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3004;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
