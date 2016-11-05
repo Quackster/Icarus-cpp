@@ -79,10 +79,10 @@ void Configuration::parse() {
         output_file << "log.player.connect=true;" << std::endl;
         output_file << "log.player.disconnect=true;" << std::endl;
         output_file << std::endl;
-        output_file << "log.message.handled=true;" << std::endl;
-        output_file << "log.message.unhandled=true;" << std::endl;
+        output_file << "log.message.handled=false;" << std::endl;
+        output_file << "log.message.unhandled=false;" << std::endl;
         output_file << std::endl;
-        output_file << "log.network.rawpacket=true;" << std::endl;
+        output_file << "log.network.rawpacket=false;" << std::endl;
         output_file.close();
     }
 
