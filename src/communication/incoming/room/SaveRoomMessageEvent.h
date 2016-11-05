@@ -42,7 +42,10 @@ public:
         description = Utilities::escape(description, true);
 
         int access_type = request.readInt();
-        std::string password = Utilities::escape(request.readString(), false, true);
+       
+        std::string password = request.readString();
+        password = Utilities::escape(password);
+
         int max_users = request.readInt();
         int category_id = request.readInt();
         int tag_size = request.readInt();
@@ -55,9 +58,8 @@ public:
 
         for (int i = 0; i < tag_size; i++) {
 
-            std::string new_tag = Utilities::escape(request.readString(), false, true);
-
-            std::cout << "tag: " << new_tag << std::endl;
+            std::string new_tag = request.readString();
+            new_tag = Utilities::escape(new_tag, false, true);
 
             if (new_tag.length() > 0) {
                 tags.push_back(new_tag);
@@ -137,6 +139,7 @@ public:
         room_data->description = description;
         room_data->state = access_type;
         room_data->users_max = max_users;
+        room_data->password = password;
         room_data->category = category_id;
         room_data->tags = tags;
         room_data->trade_state = trade_settings;

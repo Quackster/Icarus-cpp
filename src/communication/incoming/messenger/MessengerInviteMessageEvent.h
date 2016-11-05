@@ -40,7 +40,8 @@ public:
             }
         }
 
-        std::string invite_message = Utilities::escape(request.readString(), true);
+        std::string invite_message = request.readString();
+        invite_message = Utilities::escape(invite_message, true);
 
         MessageInviteMessageComposer message_compose = MessageInviteMessageComposer(player->getDetails()->id, invite_message);
 
