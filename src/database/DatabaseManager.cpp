@@ -68,7 +68,7 @@ void DatabaseManager::printException(sql::SQLException &e, char* file, char* fun
 
     std::string message = e.what();
 
-    if (message.find("has gone away") == std::string::npos) {
+    if (message.find("has gone away") != std::string::npos) {
         
         if (mysql_connection_factory != nullptr) {
             delete this->mysql_connection_factory;
