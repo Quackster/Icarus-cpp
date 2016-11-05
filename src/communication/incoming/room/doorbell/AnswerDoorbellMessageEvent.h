@@ -48,7 +48,7 @@ public:
 
         if (!accept) {
             client->send(GenericNoAnswerDoorbellMessageComposer());
-            player->send(HotelViewMessageComposer());
+            client->send(HotelViewMessageComposer());
         }
         else {
             client->send(AcceptUserInsideRoomMessageComposer());
