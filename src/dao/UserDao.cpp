@@ -26,6 +26,14 @@ bool UserDao::exists(std::string sso_ticket) {
     }
     catch (sql::SQLException &e) {
         Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+
+        std::string error_message = e.what();
+
+        // If MySQL has gone away, we will try again since the database manager would have already reconnected
+        if (error_message.find("has gone away") != std::string::npos) {
+            return exists(sso_ticket);
+        }
+
     }
 
     Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
@@ -105,7 +113,7 @@ int UserDao::getIdByUsername(std::string username) {
 
     @return SessionData ptr or nullptr (check if this returns nullptr for failure of finding user)
 */
-EntityDetails *UserDao::findUserByTicket(Player *player, std::string ssoTicket) {
+EntityDetails *UserDao::findUserByTicket(Player *player, std::string sso_ticket) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
     EntityDetails *details = nullptr;
@@ -114,7 +122,7 @@ EntityDetails *UserDao::findUserByTicket(Player *player, std::string ssoTicket) 
 
         std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT * FROM users WHERE sso_ticket = ? LIMIT 1")); {
-            statement->setString(1, ssoTicket);
+            statement->setString(1, sso_ticket);
         }
 
         std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
@@ -137,6 +145,13 @@ EntityDetails *UserDao::findUserByTicket(Player *player, std::string ssoTicket) 
     }
     catch (sql::SQLException &e) {
         Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+
+        std::string error_message = e.what();
+
+        // If MySQL has gone away, we will try again since the database manager would have already reconnected
+        if (error_message.find("has gone away") != std::string::npos) {
+            return findUserByTicket(player, sso_ticket);
+        }
     }
 
     Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);

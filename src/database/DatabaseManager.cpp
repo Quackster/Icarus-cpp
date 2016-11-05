@@ -19,7 +19,9 @@ DatabaseManager::DatabaseManager(std::string host, std::string port, std::string
     password(password), 
     database(database), 
     pool_size(pool_size), 
-    tested_connection(false) { }
+    tested_connection(false),
+    mysql_connection_factory(nullptr),
+    mysql_pool(nullptr) { }
 
 /*
     Tests connection to the database, will attempt to make a pool and store 5 connections, 
@@ -63,6 +65,21 @@ void DatabaseManager::printException(sql::SQLException &e, char* file, char* fun
     std::cout << " [ERROR] Error code: " << e.getErrorCode() << std::endl;
     std::cout << " [ERROR] SQLState: " << e.getSQLState() << std::endl;
     std::cout << std::endl;
+
+    std::string message = e.what();
+
+    if (message.find("has gone away") == std::string::npos) {
+        
+        if (mysql_connection_factory != nullptr) {
+            delete this->mysql_connection_factory;
+            this->mysql_connection_factory = new MySQLConnectionFactory(this->host, this->port, this->username, this->password, this->database);
+        }
+
+        if (mysql_pool != nullptr) {
+            delete this->mysql_pool;
+            this->mysql_pool = new ConnectionPool<MySQLConnection>(this->pool_size, this->mysql_connection_factory);
+        }
+    }
 }
 
 /*
