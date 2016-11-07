@@ -45,7 +45,7 @@ public:
 
         if (room->getPlayers().size() >= room->getData()->users_max) {
 
-            if (!player->hasFuse("user_enter_full_rooms") && !room->getData()->owner_id != player->getDetails()->id) {
+            if (!player->hasFuse("user_enter_full_rooms") && room->getData()->owner_id != player->getDetails()->id) {
                 player->send(RoomEnterErrorMessageComposer(1));
                 player->send(HotelViewMessageComposer());
                 return;

@@ -545,12 +545,6 @@
     <ClInclude Include="src\dao\CatalogueDao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\incoming\room\user\StartTypingMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\incoming\room\user\StopTypingMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\communication\incoming\room\user\ChatMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -561,6 +555,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\outgoing\room\user\FloodFilterMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\user\TypingStatusMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\user\TypingStatusMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

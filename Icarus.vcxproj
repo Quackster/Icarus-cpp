@@ -180,8 +180,8 @@
   <ItemGroup>
     <ClInclude Include="src\communication\incoming\room\user\ChatMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\user\ShoutMessageEvent.h" />
-    <ClInclude Include="src\communication\incoming\room\user\StopTypingMessageEvent.h" />
-    <ClInclude Include="src\communication\incoming\room\user\StartTypingMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\user\TypingStatusMessageEvent.h" />
+    <ClInclude Include="src\communication\outgoing\room\user\TypingStatusMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\user\FloodFilterMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\user\TalkMessageComposer.h" />
     <ClInclude Include="src\game\catalogue\CatalogueManager.h" />
