@@ -135,9 +135,11 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\catalogue\CatalogueManager.cpp" />
     <ClCompile Include="src\communication\incoming\MessageHandler.cpp" />
     <ClCompile Include="src\dao\MessengerDao.cpp" />
     <ClCompile Include="src\dao\MySQLDao.cpp" />
+    <ClCompile Include="src\dao\CatalogueDao.cpp" />
     <ClCompile Include="src\game\messenger\Messenger.cpp" />
     <ClCompile Include="src\game\messenger\MessengerUser.cpp" />
     <ClCompile Include="src\game\navigator\populators\OfficialRoomPopulator.cpp" />
@@ -176,6 +178,13 @@
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\communication\incoming\room\user\ChatMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\user\ShoutMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\user\StopTypingMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\user\StartTypingMessageEvent.h" />
+    <ClInclude Include="src\communication\outgoing\room\user\FloodFilterMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\room\user\TalkMessageComposer.h" />
+    <ClInclude Include="src\game\catalogue\CatalogueManager.h" />
     <ClInclude Include="src\boot\Icarus.h" />
     <ClInclude Include="src\communication\headers\Incoming.h" />
     <ClInclude Include="src\communication\headers\Outgoing.h" />
@@ -270,9 +279,11 @@
     <ClInclude Include="src\database\DatabaseManager.h" />
     <ClInclude Include="src\database\lib\ConnectionPool.h" />
     <ClInclude Include="src\database\lib\MySQLConnection.h" />
+    <ClInclude Include="src\game\catalogue\CatalogueTab.h" />
     <ClInclude Include="src\game\entities\Entity.h" />
     <ClInclude Include="src\game\entities\EntityDetails.h" />
     <ClInclude Include="src\game\entities\EntityType.h" />
+    <ClInclude Include="src\dao\CatalogueDao.h" />
     <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\game\messenger\Messenger.h" />
     <ClInclude Include="src\game\messenger\MessengerUser.h" />

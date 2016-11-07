@@ -50,12 +50,16 @@ private:
     bool needs_update;
     bool is_loading_room;
 
+    int chat_flood_timer;
+    int chat_count;
+
 public:
 
     void reset();
     void stopWalking();
     void setStatus(std::string key, std::string value, bool update = false);
     void updateStatus();
+    void chat(std::string message, int bubble, int count, bool shout = false, bool spam_check = true);
 
     bool inRoom() { return room != nullptr; };
     bool &getLoadingRoom() { return is_loading_room; }

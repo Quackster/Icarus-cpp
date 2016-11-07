@@ -135,6 +135,12 @@
     <ClCompile Include="src\game\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\catalogue\CatalogueManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dao\CatalogueDao.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\communication\incoming\MessageEvent.h">
@@ -528,6 +534,33 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\incoming\room\doorbell\EnterDoorbellMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\catalogue\CatalogueTab.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\catalogue\CatalogueManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dao\CatalogueDao.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\user\StartTypingMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\user\StopTypingMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\user\ChatMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\user\ShoutMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\user\TalkMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\user\FloodFilterMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

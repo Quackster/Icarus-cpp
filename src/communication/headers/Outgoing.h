@@ -59,4 +59,10 @@ public:
     static const int GenericErrorMessageComposer = 524;
     static const int GenericNoAnswerDoorbellMessageComposer = 1868;
     static const int AcceptUserInsideRoomMessageComposer = 875;
+
+    static const int ShoutMessageComposer = 2046;//727
+    static const int ChatMessageComposer = 273;//1470;
+    static const int TypingStatusMessageComposer = 2604;//4;
+    static const int FloodFilterMessageComposer = 626;
+
 };

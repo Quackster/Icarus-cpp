@@ -35,15 +35,14 @@ public:
     static const int FollowFriendMessageEvent = 3254;
     static const int CanCreateRoomMessageEvent = 1968;
     static const int CreateRoomMessageEvent = 828;
-    static const int ChatMessageEvent = 132;
-    static const int ShoutMessageEvent = 1508;
     static const int DanceMessageEvent = 1666;
-    static const int StartTypingMessageEvent = 1752;
-    static const int StopTypingMessageEvent = 998;
     static const int RoomEditInfoMessageEvent = 2035;
     static const int DeleteRoomMessageEvent = 2126;
     static const int SaveRoomMessageEvent = 915;
-
     static const int AnswerDoorbellMessageEvent = 1491;
     static const int EnterDoorbellMessageEvent = 2347;
+    static const int ChatMessageEvent = 132;
+    static const int ShoutMessageEvent = 1508;
+    static const int StartTypingMessageEvent = 1752;//168;
+    static const int StopTypingMessageEvent = 998;//1409;
 };

@@ -9,9 +9,13 @@
 #include "stdafx.h"
 
 #include "Room.h"
+
+#include "boot/Icarus.h"
 #include "game/entities/Entity.h"
 
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
+#include "communication/outgoing/room/user/TalkMessageComposer.h"
+#include "communication/outgoing/room/user/FloodFilterMessageComposer.h"
 
 /*
     Constructor for room user
@@ -89,6 +93,8 @@ void RoomUser::reset() {
     this->is_walking = false;
     this->is_loading_room = false;
     this->next = Position();
+    this->chat_count = 0;
+    this->chat_flood_timer = 0;
 
 }
 
@@ -104,6 +110,72 @@ void RoomUser::stopWalking() {
 
     if (this->getPosition().getX() == model->getDoorX() && this->getPosition().getY() == model->getDoorY()) {
         room->leave(entity, true);
+    }
+}
+
+/*
+    Chat handler
+
+    @param message to chat
+    @param chat bubble type
+    @param count
+    @param shout (default is false)
+    @param spam check (default is true)
+    @return none
+*/
+void RoomUser::chat(std::string message, int bubble, int count, bool shout, bool spam_check) {
+
+    int MAX_CHAT_BEFORE_FLOOD = 4;
+    int CHAT_FLOOD_SECONDS = 4;
+    int CHAT_FLOOD_WAIT = 20;
+
+    bool is_staff = false;
+    Player *player = nullptr;
+
+    if (dynamic_cast<Player*>(this->entity) != NULL) {
+
+        player = dynamic_cast<Player*>(this->entity);
+        is_staff = player->hasFuse("moderator");
+    }
+
+    // if current time less than the chat flood timer (last chat time + seconds to check)
+    // say that they still need to wait before shouting again
+    if (spam_check) {
+        if (Icarus::getUnixTimestamp() < this->chat_flood_timer && this->chat_count >= MAX_CHAT_BEFORE_FLOOD) {
+
+            if (!is_staff) {
+                if (player != nullptr) {
+                    player->send(FloodFilterMessageComposer(CHAT_FLOOD_WAIT));
+                }
+                return;
+            }
+        }
+    }
+
+    // TODO: Check if not bot
+    // The below function validates the chat bubbles
+    if (bubble == 2 || (bubble == 23 && !player->hasFuse("moderator")) || bubble < 0 || bubble > 29 || bubble == 1) {
+        bubble = 0;// 0;// this.lastChatId;
+    }
+
+    this->room->send(TalkMessageComposer(this->virtual_id, shout, message, count, bubble));
+
+    // if the users timestamp has passed the check but the chat count is still high
+    // the chat count is reset then
+
+    if (spam_check) {
+        if (!player->hasFuse("moderator")) {
+
+            if (Icarus::getUnixTimestamp() > this->chat_flood_timer && this->chat_count >= MAX_CHAT_BEFORE_FLOOD) {
+                this->chat_count = 0;
+            }
+            else {
+                this->chat_count = this->chat_count + 1;
+            }
+
+            this->chat_flood_timer = (Icarus::getUnixTimestamp() + CHAT_FLOOD_SECONDS);
+
+        }
     }
 }
 
