@@ -311,7 +311,7 @@ void RoomDao::updateRoom(int room_id, Room *room) {
     try {
 
         std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
-        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE rooms SET name = ?, description = ?, state = ?, users_max = ?, category = ?, tags = ?, trade_state = ?, allow_pets = ?, allow_pets_eat = ?, allow_walkthrough = ?, hidewall = ?, wall_thickness = ?, floor_thickness = ?, who_can_mute = ?, who_can_ban = ?, who_can_kick = ?, chat_mode = ?, chat_size = ?, chat_speed = ?, chat_distance = ?, chat_flood = ?  WHERE id = ?")); {
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE rooms SET name = ?, description = ?, state = ?, users_max = ?, category = ?, tags = ?, trade_state = ?, allow_pets = ?, allow_pets_eat = ?, allow_walkthrough = ?, hidewall = ?, wall_thickness = ?, floor_thickness = ?, who_can_mute = ?, who_can_ban = ?, who_can_kick = ?, chat_mode = ?, chat_size = ?, chat_speed = ?, chat_distance = ?, chat_flood = ?, password = ?  WHERE id = ?")); {
 
             RoomData *room_data = room->getData();
 
@@ -336,7 +336,8 @@ void RoomDao::updateRoom(int room_id, Room *room) {
             statement->setInt(19, room_data->chat_speed);
             statement->setInt(20, room_data->chat_distance);
             statement->setInt(21, room_data->chat_flood);
-            statement->setInt(22, room_data->id);
+            statement->setString(22, room_data->password);
+            statement->setInt(23, room_data->id);
         }
 
         statement->execute();
