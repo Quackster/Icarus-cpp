@@ -25,9 +25,7 @@ public:
 
         int room_id = request.readInt();
 
-        if (player->getRoomUser()->getRoom() != nullptr) {
-            player->getRoomUser()->getRoom()->leave(player, false);// , !(player->getRoomUser()->getRoom()->getId() == room_id));
-        }
+        player->getRoomUser()->leaveRoom(false);
 
         Room *room = Icarus::getGame()->getRoomManager()->getRoom(room_id);
 

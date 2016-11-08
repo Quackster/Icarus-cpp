@@ -48,10 +48,7 @@ public:
 
         if (!accept) {
             client->send(GenericNoAnswerDoorbellMessageComposer());
-            
-            if (player->getRoomUser()->inRoom()) {
-                player->getRoomUser()->getRoom()->leave(player, true);
-            }
+            player->getRoomUser()->leaveRoom();
         }
         else {
             client->send(AcceptUserInsideRoomMessageComposer());

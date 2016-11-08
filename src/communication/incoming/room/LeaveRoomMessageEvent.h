@@ -15,9 +15,6 @@ public:
     LeaveRoomMessageEvent() { }
 
     void handle(Player *player, Request &request) {
-
-        if (player->getRoomUser()->getRoom() != nullptr) {
-            player->getRoomUser()->getRoom()->leave(player, true, true);
-        }
+        player->getRoomUser()->leaveRoom();
     }
 };

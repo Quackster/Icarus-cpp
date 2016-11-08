@@ -126,7 +126,7 @@ void RoomUser::stopWalking() {
     RoomModel *model = this->room->getModel();
 
     if (this->getPosition().getX() == model->getDoorX() && this->getPosition().getY() == model->getDoorY()) {
-        room->leave(entity, true);
+        this->leaveRoom();
     }
 }
 
@@ -194,6 +194,19 @@ void RoomUser::chat(std::string message, int bubble, int count, bool shout, bool
 
         }
     }
+}
+
+/*
+    Leave room handler instead of calling the direct Room->leaveRoom method
+
+    @param go to hotel view after leave room
+    @return none
+*/
+void RoomUser::leaveRoom(bool hotel_view) {
+    if (this->room != nullptr) {
+        this->room->leave(this->entity, hotel_view);
+    }
+
 }
 
 /*
