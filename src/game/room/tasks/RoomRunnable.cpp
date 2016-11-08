@@ -32,48 +32,57 @@ Tick handler for room runnable
 */
 void RoomRunnable::run() {
 
-    if (this->room == nullptr ||
-        this->room->isDisposed() ||
-        this->room->getEntities().size() == 0) {
-        this->room->setRunnable(nullptr);
-        return;
-    }
+    try {
+        if (this->room == nullptr ||
+            this->room->isDisposed() ||
+            this->room->getEntities().size() == 0) {
+            this->room->setRunnable(nullptr);
+            return;
+        }
 
-    std::vector<Entity*> update_entities;
+        std::vector<Entity*> update_entities;
 
-    RoomModel *room_model = this->room->getModel();
+        RoomModel *room_model = this->room->getModel();
 
-    mtx.lock(); // Lock entities thread
+        mtx.lock(); // Lock entities thread
 
-    std::map<int, Entity*> entities = this->room->getEntities();
+        std::map<int, Entity*> entities = this->room->getEntities();
 
-    for (int i = 0; i < entities.size(); i++) {
+        for (int i = 0; i < entities.size(); i++) {
 
-        Entity *entity = entities[i];
+            Entity *entity = entities[i];
 
-        if (entity != nullptr) {
-            if (entity->getRoomUser() != nullptr) {
+            if (entity != nullptr) {
+                if (entity->getRoomUser() != nullptr) {
 
-                this->processEntity(entity);
+                    this->processEntity(entity);
 
-                RoomUser *room_user = entity->getRoomUser();
+                    RoomUser *room_user = entity->getRoomUser();
 
-                if (room_user->getNeedsUpdate()) {
-                    update_entities.push_back(entity);
+                    if (room_user->getNeedsUpdate()) {
+                        update_entities.push_back(entity);
+                    }
                 }
             }
         }
+
+        mtx.unlock(); // Unlock entities thread
+
+        this->room->send(UserStatusMessageComposer(update_entities));
+
+        if (room->getPlayers().size() > 0 && this->room->getRunnable() != nullptr) {
+            Icarus::getGame()->getGameScheduler()->schedule(this->room->getRunnable());
+        }
+        else {
+            this->room->setRunnable(nullptr);
+        }
+
     }
-
-    mtx.unlock(); // Unlock entities thread
-
-    this->room->send(UserStatusMessageComposer(update_entities));
-
-    if (room->getPlayers().size() > 0 && this->room->getRunnable() != nullptr) {
-        Icarus::getGame()->getGameScheduler()->schedule(this->room->getRunnable());
+    catch (std::exception& e) {
+        std::cout << std::endl << " Error occurred in room runnable: " << e.what() << std::endl;
     }
-    else {
-        this->room->setRunnable(nullptr);
+    catch (...) {
+        std::cout << std::endl << " Error occurred in room runnable... " << std::endl;
     }
 }
 
