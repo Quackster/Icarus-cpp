@@ -85,9 +85,11 @@ public:
     Entity *getEntity() { return this->entity; }
     Position &getNext() { return next; }
 
-    int const getSignTime() const { return sign_time; }
+    int const &getSignTime() const { return sign_time; }
     void setSignTime(int sign_time) { this ->sign_time = sign_time; };
 
+    int const &getDanceId() const { return dance_id; }
+    void setDanceId(int dance_id) { this->dance_id = dance_id; };
 
     void setLoadingRoom(bool is_loading_room) { this->is_loading_room = is_loading_room; }
     void setNeedsUpdate(bool needs_update) { this->needs_update = needs_update; }

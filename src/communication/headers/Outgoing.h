@@ -49,7 +49,7 @@ public:
     static const int RemoveUserMessageComposer = 3475;
     static const int UserObjectMessageComposer = 3762;
     static const int UserStatusMessageComposer = 2627;
-    static const int CanCreateRoomMessageComposer = 3645;//1913;
+    static const int CanCreateRoomMessageComposer = 3645;
     static const int RoomOwnerRightsComposer = 625;
     static const int HasOwnerRightsMessageComposer = 2037;
     static const int RoomSettingsDataMessageComposer = 1131;
@@ -59,10 +59,9 @@ public:
     static const int GenericErrorMessageComposer = 524;
     static const int GenericNoAnswerDoorbellMessageComposer = 1868;
     static const int AcceptUserInsideRoomMessageComposer = 875;
-
-    static const int ShoutMessageComposer = 2046;//727
-    static const int ChatMessageComposer = 273;//1470;
-    static const int TypingStatusMessageComposer = 2604;//4;
+    static const int ShoutMessageComposer = 2046;
+    static const int ChatMessageComposer = 273;
+    static const int TypingStatusMessageComposer = 2604;
     static const int FloodFilterMessageComposer = 626;
-
+    static const int DanceStatusMessageComposer = 1005;
 };

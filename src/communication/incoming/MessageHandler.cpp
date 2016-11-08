@@ -42,6 +42,7 @@
 #include "room/user/ShoutMessageEvent.h"
 #include "room/user/TypingStatusMessageEvent.h"
 #include "room/user/ShowSignMessageEvent.h"
+#include "room/user/DanceMessageEvent.h"
 
 // Doorbell
 #include "room/doorbell/AnswerDoorbellMessageEvent.h"
@@ -98,6 +99,7 @@ MessageHandler::MessageHandler() :
     this->createEvent(Incoming::StartTypingMessageEvent, new TypingStatusMessageEvent());
     this->createEvent(Incoming::StopTypingMessageEvent, new TypingStatusMessageEvent());
     this->createEvent(Incoming::ShowSignMessageEvent, new ShowSignMessageEvent());
+    this->createEvent(Incoming::DanceMessageEvent, new DanceMessageEvent());
 
     // Doorbell
     this->createEvent(Incoming::AnswerDoorbellMessageEvent, new AnswerDoorbellMessageEvent());

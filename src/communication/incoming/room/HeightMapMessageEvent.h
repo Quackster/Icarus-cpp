@@ -7,16 +7,20 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+
+#include "game/room/Room.h"
+
 #include "communication/incoming/MessageEvent.h"
 
 #include "communication/outgoing/room/model/FloorMapMessageComposer.h"
 #include "communication/outgoing/room/model/HeightMapMessageComposer.h"
 
 #include "communication/outgoing/room/RoomDataMessageComposer.h"
-
 #include "communication/outgoing/room/entry/RoomOwnerRightsComposer.h"
+
 #include "communication/outgoing/room/user/UserDisplayMessageComposer.h"
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
+#include "communication/outgoing/room/user/DanceStatusMessageComposer.h"
 
 class HeightMapMessageEvent : public MessageEvent {
 
@@ -42,5 +46,16 @@ public:
         // Tell friends we're in a room! :)
         player->getMessenger()->sendStatus(false);
         player->getRoomUser()->setLoadingRoom(false);
+
+        // Show anyone dancing
+        for (auto kvp : room->getEntities()) {
+
+            Entity *entity = kvp.second;
+            RoomUser *room_user = entity->getRoomUser();
+
+            if (room_user->getDanceId() > 0) {
+                player->send(DanceStatusMessageComposer(room_user->getVirtualId(), room_user->getDanceId()));
+            }
+        }
     }
 };

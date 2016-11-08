@@ -43,7 +43,7 @@ public:
     static const int EnterDoorbellMessageEvent = 2347;
     static const int ChatMessageEvent = 132;
     static const int ShoutMessageEvent = 1508;
-    static const int StartTypingMessageEvent = 1752;//168;
-    static const int StopTypingMessageEvent = 998;//1409;
+    static const int StartTypingMessageEvent = 1752;
+    static const int StopTypingMessageEvent = 998;
     static const int ShowSignMessageEvent = 2604;
 };

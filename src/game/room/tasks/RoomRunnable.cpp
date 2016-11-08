@@ -112,11 +112,12 @@ void RoomRunnable::processEntity(Entity *entity) {
 
             room_user->setStatus("mv", ss.str());
             room_user->setNext(next);  
+            room_user->setNeedsUpdate(true);
         }
         else {
             room_user->setNext(Position());
+            room_user->setNeedsUpdate(true);
         }
 
-        room_user->setNeedsUpdate(true);
     }
 }

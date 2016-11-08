@@ -566,5 +566,11 @@
     <ClInclude Include="src\game\entities\EntityType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\user\DanceMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\user\DanceStatusMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
