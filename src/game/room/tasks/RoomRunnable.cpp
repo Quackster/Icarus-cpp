@@ -81,22 +81,14 @@ void RoomRunnable::processEntity(Entity *entity) {
 
     RoomUser *room_user = entity->getRoomUser();
 
-    std::cout << "CURRENT TIMESTAMP: " << Icarus::getUnixTimestamp();
-
     if (Icarus::getUnixTimestamp() > room_user->getSignTime()) {
-
-        std::cout << "CURRENT TIMESTAMP: " << Icarus::getUnixTimestamp();
-
-
         if (room_user->containsStatus("sign")) {
             room_user->setStatus("sign", "");
             room_user->setNeedsUpdate(true);
         }
     }
 
-
     if (room_user->isWalking()) {
-
         if (room_user->getPath().size() > 0) {
 
             Position next = room_user->getPath().front();
@@ -107,7 +99,7 @@ void RoomRunnable::processEntity(Entity *entity) {
             room_user->setStatus("sit", "");
 
             int rotation = Rotation::getRotation(room_user->getPosition().getX(), room_user->getPosition().getY(), next.getX(), next.getY());
-            int height = this->room->getModel()->getSquareHeight()[next.getX() * this->room->getModel()->getMapSizeY() + next.getY()];
+            int height = this->room->getModel()->getSquareHeight(next.getX(), next.getY());
 
             room_user->setRotation(rotation, true, false);
 

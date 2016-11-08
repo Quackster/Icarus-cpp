@@ -47,7 +47,7 @@ public:
                 if (!room_user->getNext().isEmpty()) {
 
                     Position next = room_user->getNext();
-                    int height = room_user->getRoom()->getModel()->getSquareHeight()[next.getX() * room_user->getRoom()->getModel()->getMapSizeY() + next.getY()];
+                    int height = room_user->getRoom()->getModel()->getSquareHeight(next.getX(), next.getY());
 
                     room_user->setX(next.getX());
                     room_user->setY(next.getY());
@@ -67,8 +67,6 @@ public:
             }
 
             response.writeString(status + "/");
-
-            std::cout << "status value: " << status << std::endl;
 
             if (room_user->getNeedsUpdate()) {
                 room_user->setNeedsUpdate(false);

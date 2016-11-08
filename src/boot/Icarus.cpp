@@ -56,18 +56,10 @@ void Icarus::boot() {
          << " - LeonHartley " << std::endl 
          << " - Cecer " << std::endl;
     std::cout << std::endl;
-    //std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    /*
-        Load configuration
-    */
     std::cout << " [BOOT] [Configuration] Loading configuration" << std::endl;
     Icarus::configuration = new Configuration("configuration.ini");
     std::cout << " [BOOT] [Configuration] Loaded " << configuration->getValues()->size() << " values" << std::endl;
-
-    /*
-        Test MySQL connection
-    */
     std::cout << std::endl;
     std::cout << " [BOOT] [DatabaseManager] Testing MySQL connection" << std::endl;
 
@@ -77,48 +69,30 @@ void Icarus::boot() {
         configuration->getString("database.username"), 
         configuration->getString("database.password"),
         configuration->getString("database.database"),
-        configuration->getInt("database.pool.size"));
+        configuration->getInt("database.pool.size")
+    );
 
 
     if (Icarus::database_manager->testConnection()) {
         std::cout << " [BOOT] [DatabaseManager] Connection to MySQL server was successful" << std::endl;
         std::cout << " [BOOT] [DatabaseManager] Started database pooling (database name: " << configuration->getString("database.database") << ") with a pool size of " << configuration->getInt("database.pool.size") << std::endl;
-    } else {
+    }
+    else {
         std::cout << " [ATTENTION] Connection to mysql server failed " << std::endl;
         return;
     }
 
-    /*
-        Load managers
-    */
-
     std::cout << std::endl;
     std::cout << " [BOOT] [SessionManager] Creating session manager " << std::endl;
     Icarus::player_manager = new PlayerManager();
-
     std::cout << " [BOOT] [MessageHandler] Creating message handler " << std::endl << std::endl;
     Icarus::message_handler = new MessageHandler();
-
-    std::cout << std::endl;
-
     std::cout << " [BOOT] [Game] Creating game instance" << std::endl;
     Icarus::game = new Game();
     game->createGame();
 
-    /*for (int i = 0; i < 10; i++) {
-        //std::shared_ptr<ExampleRunnable> newRunnable = std::shared_ptr<ExampleRunnable>(i);
-        Icarus::getGame()->getGameScheduler()->schedule(std::make_shared<ExampleRunnable>(i));
-    }
-
-    Icarus::getGame()->getGameScheduler()->stop();*/
-
-    /*
-        Start server
-    */
     int server_port = configuration->getInt("tcp.server.port");
     int rcon_port = configuration->getInt("rcon.server.port");
-
-    //std::cout << "Current timestamp: " << getUnixTimestamp() << std::endl;
 
     std::cout << std::endl << " [BOOT] [ReconServer] Starting rcon server on port " << rcon_port;
     std::cout << std::endl  << " [BOOT] [NetworkServer] Starting main server on port " << server_port << std::endl;
@@ -133,8 +107,6 @@ void Icarus::boot() {
     threads.create_thread(boost::bind(&boost::asio::io_service::run, &io_service));
     rcon_service.run();
     threads.join_all();
-
-    //io_service.run();
 }
 
 /*

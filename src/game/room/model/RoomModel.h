@@ -25,7 +25,7 @@ public:
 
     std::string *getSquareChar() { return square_char; }
     
-    double *getSquareHeight() { return square_height; }
+    double getSquareHeight(int x, int y) const { return square_height[x * map_size_y + y]; }
     int *getSquares() { return squares; }
     const bool isValidSquare(int x, int y) const { return squares[x * map_size_y + y] == 0; }
 

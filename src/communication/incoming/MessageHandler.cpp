@@ -140,7 +140,7 @@ MessageEvent *MessageHandler::getMessageEvent(int header) {
 void MessageHandler::createEvent(int header, MessageEvent *event) {
 
     if (!this->messages->count(header)) {
-        std::cout << " [MessageHandler] Event registered: " << header << " for event (" << typeid(*event).name() << ") " << std::endl;
+        //std::cout << " [MessageHandler] Event registered: " << header << " for event (" << typeid(*event).name() << ") " << std::endl;
         this->messages->insert(std::make_pair(header, event));
     }
 }
