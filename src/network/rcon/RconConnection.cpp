@@ -49,7 +49,7 @@ void RconConnection::recieveData() {
 
             std::string rcon_command = std::string(buffer);
 
-            if (rcon_command.find("password=" + Icarus::getConfiguration()->getString("rcon.server.password")) == std::string::npos) {
+            if (rcon_command.find("password=" + Icarus::getServerConfiguration()->getString("rcon.server.password")) == std::string::npos) {
                 return;
             }
 

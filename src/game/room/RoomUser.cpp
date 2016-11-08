@@ -34,13 +34,7 @@ RoomUser::RoomUser(Entity *entity) : entity(entity) {
 void RoomUser::setStatus(std::string key, std::string value, bool update) {
 
     if (value.length() > 0) {
-
-        if (this->containsStatus(key)) {
-            this->statuses[key] = value;
-        }
-        else {
-            this->statuses.insert(std::make_pair(key, value));
-        }
+        this->statuses[key] = value;
     }
     else {
         this->statuses.erase(key);
@@ -142,9 +136,9 @@ void RoomUser::stopWalking() {
 */
 void RoomUser::chat(std::string message, int bubble, int count, bool shout, bool spam_check) {
 
-    int MAX_CHAT_BEFORE_FLOOD = 5;
-    int CHAT_FLOOD_SECONDS = 4;
-    int CHAT_FLOOD_WAIT = 20;
+    int MAX_CHAT_BEFORE_FLOOD = Icarus::getGameConfiguration()->getInt("chat.flood.max");
+    int CHAT_FLOOD_SECONDS = Icarus::getGameConfiguration()->getInt("chat.flood.seconds");
+    int CHAT_FLOOD_WAIT = Icarus::getGameConfiguration()->getInt("chat.flood.wait");
 
     bool is_staff = false;
     Player *player = nullptr;

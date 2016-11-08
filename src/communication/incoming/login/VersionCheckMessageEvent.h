@@ -23,7 +23,7 @@ public:
 
         std::string revision = request.readString();
 
-        if (revision == Icarus::getConfiguration()->getString("game.revision")) {
+        if (revision == Icarus::getGameConfiguration()->getString("game.revision")) {
             return;
         }
 

@@ -138,7 +138,7 @@ void NetworkConnection::handleData(Request request) {
         Icarus::getPlayerManager()->addSession(player, this->getConnectionId());
     }
     
-    if (Icarus::getConfiguration()->getBool("log.network.rawpacket")) {
+    if (Icarus::getLogConfiguration()->getBool("log.network.rawpacket")) {
         std::cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << "/ ";
 
         for (int i = 0; i < request.getMessageLength(); i++) {

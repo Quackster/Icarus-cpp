@@ -37,52 +37,75 @@ void Configuration::parse() {
     if (!std::ifstream(this->file)) {
         std::ofstream output_file;
         output_file.open(this->file);
-        output_file << std::endl;
-        output_file << "############################" << std::endl;
-        output_file << "##     Database config    ##" << std::endl;
-        output_file << "############################" << std::endl;
-        output_file << std::endl;
-        output_file << "database.hostname=127.0.0.1;" << std::endl;
-        output_file << "database.port=3306;" << std::endl;
-        output_file << "database.username=user;" << std::endl;
-        output_file << "database.password=changeme;" << std::endl;
-        output_file << "database.database=icarus;" << std::endl;
-        output_file << "database.pool.size=5;" << std::endl;
-        output_file << std::endl;
-        output_file << "#######################" << std::endl;
-        output_file << "##     TCP server    ##" << std::endl;
-        output_file << "#######################" << std::endl;
-        output_file << std::endl;
-        output_file << "tcp.server.host=0.0.0.0;" << std::endl;
-        output_file << "tcp.server.port=30000;" << std::endl;
-        output_file << std::endl;
-        output_file << "########################" << std::endl;
-        output_file << "##     RCON server    ##" << std::endl;
-        output_file << "########################" << std::endl;
-        output_file << std::endl;
-        output_file << "rcon.server.host=0.0.0.0;" << std::endl;
-        output_file << "rcon.server.port=3902;" << std::endl;
-        output_file << "rcon.server.password=alexthebest;" << std::endl;
-        output_file << std::endl;
-        output_file << "########################" << std::endl;
-        output_file << "##     Game config    ##" << std::endl;
-        output_file << "########################" << std::endl;
-        output_file << std::endl;
-        output_file << "thread.pool.size=4;" << std::endl;
-        output_file << std::endl;
-        output_file << "game.revision=PRODUCTION-201512012203-525044429;" << std::endl;
-        output_file << std::endl;
-        output_file << "##########################" << std::endl;
-        output_file << "##    Logging config    ##" << std::endl;
-        output_file << "##########################" << std::endl;
-        output_file << std::endl;
-        output_file << "log.player.connect=true;" << std::endl;
-        output_file << "log.player.disconnect=true;" << std::endl;
-        output_file << std::endl;
-        output_file << "log.message.handled=false;" << std::endl;
-        output_file << "log.message.unhandled=false;" << std::endl;
-        output_file << std::endl;
-        output_file << "log.network.rawpacket=false;" << std::endl;
+
+        /*Icarus::database_configuration = new Configuration("logs/database.ini");
+        Icarus::game_configuration = new Configuration("logs/game.ini");
+        Icarus::server_configuration = new Configuration("logs/server.ini");
+        Icarus::log_configuration = new Configuration("logs/log.ini");*/
+
+        if (this->file == "config/database.ini") {
+            output_file << std::endl;
+            output_file << "############################" << std::endl;
+            output_file << "##     Database config    ##" << std::endl;
+            output_file << "############################" << std::endl;
+            output_file << std::endl;
+            output_file << "database.hostname=127.0.0.1;" << std::endl;
+            output_file << "database.port=3306;" << std::endl;
+            output_file << "database.username=user;" << std::endl;
+            output_file << "database.password=changeme;" << std::endl;
+            output_file << "database.database=icarus;" << std::endl;
+            output_file << "database.pool.size=5;" << std::endl;
+        }
+
+        if (this->file == "config/log.ini") {
+            output_file << std::endl;
+            output_file << "##########################" << std::endl;
+            output_file << "##    Logging config    ##" << std::endl;
+            output_file << "##########################" << std::endl;
+            output_file << std::endl;
+            output_file << "log.player.connect=true;" << std::endl;
+            output_file << "log.player.disconnect=true;" << std::endl;
+            output_file << std::endl;
+            output_file << "log.message.handled=false;" << std::endl;
+            output_file << "log.message.unhandled=false;" << std::endl;
+            output_file << std::endl;
+            output_file << "log.network.rawpacket=false;" << std::endl;
+        }
+
+        if (this->file == "config/server.ini") {
+            output_file << std::endl;
+            output_file << "#######################" << std::endl;
+            output_file << "##     TCP server    ##" << std::endl;
+            output_file << "#######################" << std::endl;
+            output_file << std::endl;
+            output_file << "tcp.server.host=0.0.0.0;" << std::endl;
+            output_file << "tcp.server.port=30000;" << std::endl;
+            output_file << std::endl;
+            output_file << "########################" << std::endl;
+            output_file << "##     RCON server    ##" << std::endl;
+            output_file << "########################" << std::endl;
+            output_file << std::endl;
+            output_file << "rcon.server.host=0.0.0.0;" << std::endl;
+            output_file << "rcon.server.port=3902;" << std::endl;
+            output_file << "rcon.server.password=alexthebest;" << std::endl;
+        }
+
+        if (this->file == "config/game.ini") {
+            output_file << std::endl;
+            output_file << "########################" << std::endl;
+            output_file << "##     Game config    ##" << std::endl;
+            output_file << "########################" << std::endl;
+            output_file << std::endl;
+            output_file << "thread.pool.size=4;" << std::endl;
+            output_file << std::endl;
+            output_file << "game.revision=PRODUCTION-201512012203-525044429;" << std::endl;
+            output_file << std::endl;
+            output_file << "chat.flood.max=5;" << std::endl;
+            output_file << "chat.flood.seconds=4;" << std::endl;
+            output_file << "chat.flood.wait=20;" << std::endl;
+            output_file << std::endl;
+        }
+
         output_file.close();
     }
 
@@ -115,7 +138,7 @@ std::string Configuration::getString(std::string key) {
         return this->values->find(key)->second;
     }
 
-    return nullptr;
+    return "";
 }
 
 /*

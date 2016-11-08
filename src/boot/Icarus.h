@@ -32,7 +32,12 @@ public:
     static NetworkServer *getNetworkServer();
     static MessageHandler *getMessageHandler();// { return networkServer; }
     static DatabaseManager *getDatabaseManager();
-    static Configuration *getConfiguration();
+
+    static Configuration *getDatabaseConfiguration();
+    static Configuration *getGameConfiguration();
+    static Configuration *getLogConfiguration();
+    static Configuration *getServerConfiguration();
+
     static Game *getGame();
 
 private:
@@ -40,8 +45,14 @@ private:
     static NetworkServer *network_server;
     static MessageHandler *message_handler;
     static DatabaseManager *database_manager;
-    static Configuration *configuration;
+
+    static Configuration *server_configuration;
+    static Configuration *game_configuration;
+    static Configuration *log_configuration;
+    static Configuration *database_configuration;
+
     static Game *game;
+
 
 };
 

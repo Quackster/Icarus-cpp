@@ -64,57 +64,56 @@
 
     Loads all incoming message handlers into a map for easier access
 */
-MessageHandler::MessageHandler() :
-    messages(new std::map<int, MessageEvent*>()) {
+MessageHandler::MessageHandler() {
 
     // Login
-    this->createEvent(Incoming::VersionCheckMessageEvent, new VersionCheckMessageEvent());
-    this->createEvent(Incoming::UniqueIDMessageEvent, new UniqueIDMessageEvent());
-    this->createEvent(Incoming::AuthenticateMessageEvent, new AuthenticateMessageEvent());
+   this->messages[Incoming::VersionCheckMessageEvent] = new VersionCheckMessageEvent();
+   this->messages[Incoming::UniqueIDMessageEvent] = new UniqueIDMessageEvent();
+   this->messages[Incoming::AuthenticateMessageEvent] = new AuthenticateMessageEvent();
 
     // User
-    this->createEvent(Incoming::InfoRetrieveMessageEvent, new InfoRetrieveMessageEvent());
-    this->createEvent(Incoming::CurrencyBalanceMessageEvent, new CurrencyBalanceMessageEvent());
+   this->messages[Incoming::InfoRetrieveMessageEvent] = new InfoRetrieveMessageEvent();
+   this->messages[Incoming::CurrencyBalanceMessageEvent] = new CurrencyBalanceMessageEvent();
 
     // Misc
-    this->createEvent(Incoming::LatencyTestMessageEvent, new LatencyTestMessageEvent());
-    this->createEvent(Incoming::EventLogMessageEvent, new EventLogMessageEvent());
+   this->messages[Incoming::LatencyTestMessageEvent] = new LatencyTestMessageEvent();
+   this->messages[Incoming::EventLogMessageEvent] = new EventLogMessageEvent();
     
     // Navigator
-    this->createEvent(Incoming::SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
-    this->createEvent(Incoming::NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
-    this->createEvent(Incoming::LeaveRoomMessageEvent, new LeaveRoomMessageEvent());
-    this->createEvent(Incoming::CreateRoomMessageEvent, new CreateRoomMessageEvent());
+   this->messages[Incoming::SearchNewNavigatorEvent] = new SearchNewNavigatorEvent();
+   this->messages[Incoming::NewNavigatorMessageEvent] = new NewNavigatorMessageEvent();
+   this->messages[Incoming::LeaveRoomMessageEvent] = new LeaveRoomMessageEvent();
+   this->messages[Incoming::CreateRoomMessageEvent] = new CreateRoomMessageEvent();
 
     // Room
-    this->createEvent(Incoming::RoomInfoMessageEvent, new RoomInfoMessageEvent());
-    this->createEvent(Incoming::EnterRoomMessageEvent, new EnterRoomMessageEvent());
-    this->createEvent(Incoming::HeightMapMessageEvent, new HeightMapMessageEvent());
-    this->createEvent(Incoming::UserWalkMessageEvent, new WalkMessageEvent());
-    this->createEvent(Incoming::RoomEditInfoMessageEvent, new RoomEditInfoMessageEvent());
-    this->createEvent(Incoming::DeleteRoomMessageEvent, new DeleteRoomMessageEvent());
-    this->createEvent(Incoming::SaveRoomMessageEvent, new SaveRoomMessageEvent());
-    this->createEvent(Incoming::ChatMessageEvent, new ChatMessageEvent());
-    this->createEvent(Incoming::ShoutMessageEvent, new ShoutMessageEvent());
-    this->createEvent(Incoming::StartTypingMessageEvent, new TypingStatusMessageEvent());
-    this->createEvent(Incoming::StopTypingMessageEvent, new TypingStatusMessageEvent());
-    this->createEvent(Incoming::ShowSignMessageEvent, new ShowSignMessageEvent());
-    this->createEvent(Incoming::DanceMessageEvent, new DanceMessageEvent());
+   this->messages[Incoming::RoomInfoMessageEvent] = new RoomInfoMessageEvent();
+   this->messages[Incoming::EnterRoomMessageEvent] = new EnterRoomMessageEvent();
+   this->messages[Incoming::HeightMapMessageEvent] = new HeightMapMessageEvent();
+   this->messages[Incoming::UserWalkMessageEvent] = new WalkMessageEvent();
+   this->messages[Incoming::RoomEditInfoMessageEvent] = new RoomEditInfoMessageEvent();
+   this->messages[Incoming::DeleteRoomMessageEvent] = new DeleteRoomMessageEvent();
+   this->messages[Incoming::SaveRoomMessageEvent] = new SaveRoomMessageEvent();
+   this->messages[Incoming::ChatMessageEvent] = new ChatMessageEvent();
+   this->messages[Incoming::ShoutMessageEvent] = new ShoutMessageEvent();
+   this->messages[Incoming::StartTypingMessageEvent] = new TypingStatusMessageEvent();
+   this->messages[Incoming::StopTypingMessageEvent] = new TypingStatusMessageEvent();
+   this->messages[Incoming::ShowSignMessageEvent] = new ShowSignMessageEvent();
+   this->messages[Incoming::DanceMessageEvent] = new DanceMessageEvent();
 
     // Doorbell
-    this->createEvent(Incoming::AnswerDoorbellMessageEvent, new AnswerDoorbellMessageEvent());
-    this->createEvent(Incoming::EnterDoorbellMessageEvent, new EnterDoorbellMessageEvent());
+   this->messages[Incoming::AnswerDoorbellMessageEvent] = new AnswerDoorbellMessageEvent();
+   this->messages[Incoming::EnterDoorbellMessageEvent] = new EnterDoorbellMessageEvent();
 
     // Messenger
-    this->createEvent(Incoming::MessengerSearchMessageEvent, new MessengerSearchMessageEvent());
-    this->createEvent(Incoming::MessengerInitMessageEvent, new MessengerInitMessageEvent());
-    this->createEvent(Incoming::MessengerRequestMessageEvent, new MessengerRequestMessageEvent());
-    this->createEvent(Incoming::MessengerAcceptMessageEvent, new MessengerAcceptMessageEvent());
-    this->createEvent(Incoming::MessengerDeclineMessageEvent, new MessengerDeclineMessageEvent());
-    this->createEvent(Incoming::MessengerDeleteFriendMessageEvent, new MessengerDeleteFriendMessageEvent());
-    this->createEvent(Incoming::FollowFriendMessageEvent, new FollowFriendMessageEvent());
-    this->createEvent(Incoming::MessengerTalkMessageEvent, new MessengerTalkMessageEvent());
-    this->createEvent(Incoming::MessengerInviteMessageEvent, new MessengerInviteMessageEvent());
+   this->messages[Incoming::MessengerSearchMessageEvent] = new MessengerSearchMessageEvent();
+   this->messages[Incoming::MessengerInitMessageEvent] = new MessengerInitMessageEvent();
+   this->messages[Incoming::MessengerRequestMessageEvent] = new MessengerRequestMessageEvent();
+   this->messages[Incoming::MessengerAcceptMessageEvent] = new MessengerAcceptMessageEvent();
+   this->messages[Incoming::MessengerDeclineMessageEvent] = new MessengerDeclineMessageEvent();
+   this->messages[Incoming::MessengerDeleteFriendMessageEvent] = new MessengerDeleteFriendMessageEvent();
+   this->messages[Incoming::FollowFriendMessageEvent] = new FollowFriendMessageEvent();
+   this->messages[Incoming::MessengerTalkMessageEvent] = new MessengerTalkMessageEvent();
+   this->messages[Incoming::MessengerInviteMessageEvent] = new MessengerInviteMessageEvent();
 }
 
 /*
@@ -125,26 +124,11 @@ MessageHandler::MessageHandler() :
 */
 MessageEvent *MessageHandler::getMessageEvent(int header) {
 
-    if (this->messages->count(header)) {
-        return this->messages->find(header)->second;
+    if (this->messages.count(header)) {
+        return this->messages.find(header)->second;
     }
 
     return nullptr;
-}
-
-/*
-    Inserts a message handler into the map only if the header doesn't already exist
-
-    @param message header
-    @param message event ptr
-    @return none
-*/
-void MessageHandler::createEvent(int header, MessageEvent *event) {
-
-    if (!this->messages->count(header)) {
-        //std::cout << " [MessageHandler] Event registered: " << header << " for event (" << typeid(*event).name() << ") " << std::endl;
-        this->messages->insert(std::make_pair(header, event));
-    }
 }
 
 /*
@@ -157,7 +141,7 @@ void MessageHandler::createEvent(int header, MessageEvent *event) {
 */
 void MessageHandler::invoke(int header, Request &request, Player *player) {
     
-    if (this->messages->count(header)) {
+    if (this->messages.count(header)) {
 
         if (header != Incoming::VersionCheckMessageEvent &&
             header != Incoming::UniqueIDMessageEvent &&
@@ -169,14 +153,14 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
             }
         }
 
-        this->messages->find(header)->second->handle(player, request);
+        this->messages.find(header)->second->handle(player, request);
 
-        if (Icarus::getConfiguration()->getBool("log.message.handled")) {
-            std::cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages->find(header)->second).name() << ") " << std::endl;
+        if (Icarus::getLogConfiguration()->getBool("log.message.handled")) {
+            std::cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages.find(header)->second).name() << ") " << std::endl;
         }
     } else {
         
-        if (Icarus::getConfiguration()->getBool("log.message.unhandled")) {
+        if (Icarus::getLogConfiguration()->getBool("log.message.unhandled")) {
             std::cout << " [MessageHandler] Unhandled message " << header << std::endl;
         }
     }
@@ -187,8 +171,5 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
     Deletes all message event ptr's and clears the map, then finally deletes the map
 */
 MessageHandler::~MessageHandler() { 
-
-    for (auto pair : *this->messages) delete pair.second;
-
-    delete messages;
+    for (auto pair : this->messages) delete pair.second;
 }
