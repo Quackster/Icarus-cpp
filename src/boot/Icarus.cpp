@@ -79,7 +79,12 @@ void Icarus::boot() {
     Icarus::server_configuration = new Configuration("config/server.ini");
     Icarus::log_configuration = new Configuration("config/log.ini");
 
-    std::cout << " [BOOT] [Configuration] Loaded " << (database_configuration->getValues()->size() + game_configuration->getValues()->size()  + server_configuration->getValues()->size() + log_configuration->getValues()->size()) << " values" << std::endl;
+    std::cout << " [BOOT] [Configuration] Loaded " << (
+        database_configuration->getValues().size() + 
+        game_configuration->getValues().size()  + 
+        server_configuration->getValues().size() + 
+        log_configuration->getValues().size()) << " values" << std::endl;
+
     std::cout << std::endl;
     std::cout << " [BOOT] [DatabaseManager] Testing MySQL connection" << std::endl;
 

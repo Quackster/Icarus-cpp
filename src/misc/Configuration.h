@@ -19,11 +19,11 @@ public:
     std::string getString(std::string key);
     int getInt(std::string key);
     bool getBool (std::string key);
-    std::map<std::string, std::string> *getValues();
+    std::map<std::string, std::string> getValues();
 
 private:
     std::string file;
-    std::map<std::string, std::string> *values;
+    std::map<std::string, std::string> values;
     void parse();
 };
 

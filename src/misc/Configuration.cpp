@@ -21,8 +21,7 @@
     @param file path
 */
 Configuration::Configuration(std::string file) : 
-    file(file), 
-    values(new std::map<std::string, std::string>()) {
+    file(file) {
     this->parse();
 }
 
@@ -119,7 +118,7 @@ void Configuration::parse() {
 
             std::vector<std::string> split = Utilities::split(line, '=');
 
-            this->values->insert(make_pair(split[0], split[1]));
+            this->values.insert(make_pair(split[0], split[1]));
         }
     }
 
@@ -134,8 +133,8 @@ void Configuration::parse() {
 */
 std::string Configuration::getString(std::string key) {
 
-    if (this->values->count(key)) {
-        return this->values->find(key)->second;
+    if (this->values.count(key)) {
+        return this->values.find(key)->second;
     }
 
     return "";
@@ -149,8 +148,8 @@ std::string Configuration::getString(std::string key) {
 */
 bool Configuration::getBool(std::string key) {
 
-    if (this->values->count(key)) {
-        return this->values->find(key)->second == "true";
+    if (this->values.count(key)) {
+        return this->values.find(key)->second == "true";
     }
 
     return nullptr;
@@ -163,14 +162,14 @@ bool Configuration::getBool(std::string key) {
     @return string value
 */
 int Configuration::getInt(std::string key) {
-    if (this->values->count(key)) {
-        return stoi(this->values->find(key)->second);
+    if (this->values.count(key)) {
+        return stoi(this->values.find(key)->second);
     }
 
     return 0;
 }
 
-std::map<std::string, std::string> *Configuration::getValues() {
+std::map<std::string, std::string> Configuration::getValues() {
     return this->values;
 }
 
