@@ -81,6 +81,20 @@ void RoomRunnable::processEntity(Entity *entity) {
 
     RoomUser *room_user = entity->getRoomUser();
 
+    std::cout << "CURRENT TIMESTAMP: " << Icarus::getUnixTimestamp();
+
+    if (Icarus::getUnixTimestamp() > room_user->getSignTime()) {
+
+        std::cout << "CURRENT TIMESTAMP: " << Icarus::getUnixTimestamp();
+
+
+        if (room_user->containsStatus("sign")) {
+            room_user->setStatus("sign", "");
+            room_user->setNeedsUpdate(true);
+        }
+    }
+
+
     if (room_user->isWalking()) {
 
         if (room_user->getPath().size() > 0) {

@@ -50,6 +50,8 @@ private:
     bool needs_update;
     bool is_loading_room;
 
+    int sign_time;
+
     int chat_flood_timer;
     int chat_count;
 
@@ -57,6 +59,7 @@ public:
 
     void reset();
     void stopWalking();
+    bool containsStatus(std::string key);
     void setStatus(std::string key, std::string value, bool update = false);
     void updateStatus();
     void chat(std::string message, int bubble, int count, bool shout = false, bool spam_check = true);
@@ -80,6 +83,9 @@ public:
     void setPath(std::deque<Position> &path) { this->path = path; }
     Entity *getEntity() { return this->entity; }
     Position &getNext() { return next; }
+
+    int const getSignTime() const { return sign_time; }
+    void setSignTime(int sign_time) { this ->sign_time = sign_time; };
 
 
     void setLoadingRoom(bool is_loading_room) { this->is_loading_room = is_loading_room; }

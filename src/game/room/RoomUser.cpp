@@ -34,7 +34,13 @@ RoomUser::RoomUser(Entity *entity) : entity(entity) {
 void RoomUser::setStatus(std::string key, std::string value, bool update) {
 
     if (value.length() > 0) {
-        this->statuses[key] = value;
+
+        if (this->containsStatus(key)) {
+            this->statuses[key] = value;
+        }
+        else {
+            this->statuses.insert(std::make_pair(key, value));
+        }
     }
     else {
         this->statuses.erase(key);
@@ -44,6 +50,16 @@ void RoomUser::setStatus(std::string key, std::string value, bool update) {
         //this->updateStatus();
         this->needs_update = true;
     }
+}
+
+/*
+    Returns true or not if the user currently has a status
+
+    @param status key
+    @return boolean
+*/
+bool RoomUser::containsStatus(std::string key) {
+    return this->statuses.count(key) > 0;
 }
 
 /*
@@ -95,6 +111,7 @@ void RoomUser::reset() {
     this->next = Position();
     this->chat_count = 0;
     this->chat_flood_timer = 0;
+    this->sign_time = 0;
 
 }
 
@@ -125,7 +142,7 @@ void RoomUser::stopWalking() {
 */
 void RoomUser::chat(std::string message, int bubble, int count, bool shout, bool spam_check) {
 
-    int MAX_CHAT_BEFORE_FLOOD = 4;
+    int MAX_CHAT_BEFORE_FLOOD = 5;
     int CHAT_FLOOD_SECONDS = 4;
     int CHAT_FLOOD_WAIT = 20;
 

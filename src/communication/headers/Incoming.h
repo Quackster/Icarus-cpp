@@ -45,4 +45,5 @@ public:
     static const int ShoutMessageEvent = 1508;
     static const int StartTypingMessageEvent = 1752;//168;
     static const int StopTypingMessageEvent = 998;//1409;
+    static const int ShowSignMessageEvent = 2604;
 };

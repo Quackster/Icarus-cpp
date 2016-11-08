@@ -142,9 +142,12 @@ void Icarus::boot() {
 
     @return long
 */
-long Icarus::getUnixTimestamp() {
-    time_t t = std::time(0);
+long const Icarus::getUnixTimestamp() {
+  /* time_t t = std::time(0);
     return static_cast<long> (t);
+*/ time_t t = std::time(0);
+long int now = static_cast<long int> (t);
+return now;
 }
 
 /*

@@ -68,6 +68,8 @@ public:
 
             response.writeString(status + "/");
 
+            std::cout << "status value: " << status << std::endl;
+
             if (room_user->getNeedsUpdate()) {
                 room_user->setNeedsUpdate(false);
             }
