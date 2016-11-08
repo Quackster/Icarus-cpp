@@ -15,3 +15,4 @@ enc_temp_folder/
 configuration.ini
 game.ini
 logs/
+config/
