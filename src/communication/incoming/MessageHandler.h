@@ -20,6 +20,7 @@ private:
 public:
     MessageHandler();
     ~MessageHandler();
+    void createEvent(int header, MessageEvent *event);
     MessageEvent *getMessageEvent(int header);
     void invoke(int header, Request &request, Player *player);
 };
