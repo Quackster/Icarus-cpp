@@ -21,6 +21,7 @@
 #include "communication/outgoing/room/user/UserDisplayMessageComposer.h"
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
 #include "communication/outgoing/room/user/DanceStatusMessageComposer.h"
+#include "communication/outgoing/room/user/IdleStatusMessageComposer.h"
 
 class HeightMapMessageEvent : public MessageEvent {
 
@@ -55,6 +56,10 @@ public:
 
             if (room_user->getDanceId() > 0) {
                 player->send(DanceStatusMessageComposer(room_user->getVirtualId(), room_user->getDanceId()));
+            }
+
+            if (room_user->isAsleep()) {
+                player->send(IdleStatusMessageComposer(room_user->getVirtualId(), true));
             }
         }
     }
