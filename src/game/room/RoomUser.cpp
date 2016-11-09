@@ -206,8 +206,6 @@ void RoomUser::awake() {
         return;
     }
 
-    std::cout << "WAKE UP/n";
-    
     this->room->send(IdleStatusMessageComposer(this->virtual_id, false)); 
     this->is_asleep = false;
 }
