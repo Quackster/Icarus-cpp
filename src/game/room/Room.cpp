@@ -101,6 +101,9 @@ void Room::enter(Player *player) {
     }
 
     if (this->getPlayers().size() == 1) {
+
+        this->load();
+
         if (this->runnable == nullptr) {
             this->runnable = std::make_shared<RoomRunnable>(this);
             this->scheduleRunnable();
@@ -289,7 +292,7 @@ void Room::dispose(const bool force_dispose) {
     }
 
     if (reset) {
-        this->reset();
+        this->unload();
     }
 
     if (remove) {
@@ -298,13 +301,31 @@ void Room::dispose(const bool force_dispose) {
 }
 
 /*
+    Function to load all bots and other pieces of data such as furniture
+
+    @return none
+*/
+void Room::load() {
+
+    if (Icarus::getLogConfiguration()->getBool("log.room.loaded")) {
+        std::cout << " [ROOM] Room ID " << this->room_id << " loaded" << std::endl;
+    }
+
+}
+
+/*
     Function to reset all room states to default
     used when there's no more users in the room or the room is getting deleted from memory
 
     @return none
 */
-void Room::reset() {
+void Room::unload() {
     this->disposed = true;
+
+    if (Icarus::getLogConfiguration()->getBool("log.room.unloaded")) {
+        std::cout << " [ROOM] Room ID " << this->room_id << " unloaded" << std::endl;
+    }
+
 }
 
 /*
@@ -382,12 +403,9 @@ void Room::scheduleRunnable() {
 /*
     Deconstructor for rooms
 */
-Room::~Room()
-{
-    std::cout << " Room ID " << this->room_id << " disposed." << std::endl;
+Room::~Room() {
 
     for (auto kvp : this->entities) {
-
         Entity *entity = kvp.second;
 
         if (entity->getEntityType() != PLAYER) {

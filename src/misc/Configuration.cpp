@@ -68,6 +68,9 @@ void Configuration::parse() {
             output_file << "log.message.handled=false;" << std::endl;
             output_file << "log.message.unhandled=false;" << std::endl;
             output_file << std::endl;
+            output_file << "log.room.loaded=true;" << std::endl;
+            output_file << "log.room.unloaded=true;" << std::endl;
+            output_file << std::endl;
             output_file << "log.network.rawpacket=false;" << std::endl;
         }
 

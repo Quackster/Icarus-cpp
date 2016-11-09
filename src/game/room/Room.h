@@ -64,5 +64,7 @@ private:
     std::map<int, Entity*> entities;
 
     bool disposed;
-    void reset();
+
+    void load();
+    void unload();
 };
