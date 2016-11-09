@@ -140,6 +140,7 @@
     <ClCompile Include="src\dao\MessengerDao.cpp" />
     <ClCompile Include="src\dao\MySQLDao.cpp" />
     <ClCompile Include="src\dao\CatalogueDao.cpp" />
+    <ClCompile Include="src\game\catalogue\CatalogueTab.cpp" />
     <ClCompile Include="src\game\messenger\Messenger.cpp" />
     <ClCompile Include="src\game\messenger\MessengerUser.cpp" />
     <ClCompile Include="src\game\navigator\populators\OfficialRoomPopulator.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="src\communication\outgoing\room\user\TypingStatusMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\user\FloodFilterMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\user\TalkMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\room\user\IdleStatusMessageComposer.h" />
     <ClInclude Include="src\game\catalogue\CatalogueManager.h" />
     <ClInclude Include="src\boot\Icarus.h" />
     <ClInclude Include="src\communication\headers\Incoming.h" />
@@ -221,7 +223,7 @@
     <ClInclude Include="src\communication\incoming\room\HeightMapMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\LeaveRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\RoomInfoMessageEvent.h" />
-    <ClInclude Include="src\communication\incoming\room\WalkMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\user\WalkMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\user\CurrencyBalanceMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\user\InfoRetrieveMessageEvent.h" />
     <ClInclude Include="src\communication\outgoing\DefaultComposer.h" />

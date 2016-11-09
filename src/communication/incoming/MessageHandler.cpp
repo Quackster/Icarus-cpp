@@ -34,10 +34,12 @@
 #include "room/RoomInfoMessageEvent.h"
 #include "room/EnterRoomMessageEvent.h"
 #include "room/HeightMapMessageEvent.h"
-#include "room/WalkMessageEvent.h"
+
 #include "room/RoomEditInfoMessageEvent.h"
 #include "room/DeleteRoomMessageEvent.h"
 #include "room/SaveRoomMessageEvent.h"
+
+#include "room/user/WalkMessageEvent.h"
 #include "room/user/ChatMessageEvent.h"
 #include "room/user/ShoutMessageEvent.h"
 #include "room/user/TypingStatusMessageEvent.h"

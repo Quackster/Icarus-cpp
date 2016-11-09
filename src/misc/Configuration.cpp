@@ -106,6 +106,7 @@ void Configuration::parse() {
             output_file << "chat.flood.seconds=4;" << std::endl;
             output_file << "chat.flood.wait=20;" << std::endl;
             output_file << std::endl;
+            output_file << "room.idle.seconds=300;" << std::endl;
         }
 
         output_file.close();

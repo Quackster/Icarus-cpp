@@ -16,6 +16,7 @@
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
 #include "communication/outgoing/room/user/TalkMessageComposer.h"
 #include "communication/outgoing/room/user/FloodFilterMessageComposer.h"
+#include "communication/outgoing/room/user/IdleStatusMessageComposer.h"
 
 /*
     Constructor for room user
@@ -106,6 +107,8 @@ void RoomUser::reset() {
     this->chat_count = 0;
     this->chat_flood_timer = 0;
     this->sign_time = 0;
+    this->afk_time = 0;
+    this->is_asleep = false;
 
 }
 
@@ -188,6 +191,25 @@ void RoomUser::chat(std::string message, int bubble, int count, bool shout, bool
 
         }
     }
+}
+
+/*
+    Unidle handler called when user does actions inside the room
+
+    @return none
+*/
+void RoomUser::awake() {
+
+    this->afk_time = 0;
+
+    if (!this->is_asleep) {
+        return;
+    }
+
+    std::cout << "WAKE UP/n";
+    
+    this->room->send(IdleStatusMessageComposer(this->virtual_id, false)); 
+    this->is_asleep = false;
 }
 
 /*

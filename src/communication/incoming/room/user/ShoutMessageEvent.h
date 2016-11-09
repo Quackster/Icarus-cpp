@@ -20,6 +20,9 @@ public:
             return;
         }
 
+        RoomUser *room_user = player->getRoomUser();
+        room_user->awake();
+
         std::string message = request.readString();
         int bubble = request.readInt();
         int count = request.readInt();

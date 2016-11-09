@@ -20,8 +20,9 @@ public:
     RoomRunnable(Room *room);
     void run();
     void processEntity(Entity *entity);
+    bool hasTickedSecond() { return tick % 2 == 0; }
     Room *room;
-    bool cancelled = true;
     std::mutex mtx;
+    int tick;
 
 };

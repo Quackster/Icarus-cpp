@@ -25,6 +25,7 @@ public:
         }
 
         RoomUser *room_user = player->getRoomUser();
+        room_user->awake();
 
         int dance_id = request.readInt();
 

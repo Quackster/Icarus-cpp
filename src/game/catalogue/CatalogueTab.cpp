@@ -6,11 +6,20 @@
 * Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
-#pragma once
-class CatalogueTab
-{
-public:
-    CatalogueTab();
-    ~CatalogueTab();
-};
+#include "stdafx.h"
 
+#include "game/catalogue/CatalogueTab.h"
+
+/*
+    Constructor for catalogue manager
+*/
+CatalogueTab::CatalogueTab()
+{
+}
+
+/*
+    Deconstructor for catalogue manager
+*/
+CatalogueTab::~CatalogueTab()
+{
+}

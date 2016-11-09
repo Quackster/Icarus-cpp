@@ -29,6 +29,7 @@ public:
 
 
         RoomUser *room_user = player->getRoomUser();
+        room_user->awake();
 
         room_user->setGoalX(goal_x);
         room_user->setGoalY(goal_y);

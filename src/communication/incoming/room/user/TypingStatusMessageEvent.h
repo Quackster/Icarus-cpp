@@ -28,8 +28,7 @@ public:
             return;
         }
 
-        //std::cout << "Is typing: " << (request.getMessageId() == Incoming::StartTypingMessageEvent ? "true" : "false") << std::endl;
-
+        room_user->awake();
         room_user->getRoom()->send(TypingStatusMessageComposer(room_user->getVirtualId(), request.getMessageId() == Incoming::StartTypingMessageEvent));
     }
 };

@@ -35,6 +35,7 @@ public:
         for (auto entity : entities) {
 
             RoomUser *room_user = entity->getRoomUser();
+            room_user->awake();
 
             response.writeInt(room_user->getVirtualId());
             response.writeInt(room_user->getX());

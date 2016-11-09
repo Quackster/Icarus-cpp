@@ -23,13 +23,14 @@ public:
             return;
         }
 
+        RoomUser *room_user = player->getRoomUser();
+        room_user->awake();
+
         int sign_id = request.readInt();
 
         if (sign_id > 17) {
             return;
         }
-
-        RoomUser *room_user = player->getRoomUser();
 
         room_user->setStatus("sign", std::to_string(sign_id));
         room_user->setSignTime(Icarus::getUnixTimestamp() + 5);

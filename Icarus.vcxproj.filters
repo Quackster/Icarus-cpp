@@ -141,6 +141,9 @@
     <ClCompile Include="src\dao\CatalogueDao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\catalogue\CatalogueTab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\communication\incoming\MessageEvent.h">
@@ -210,9 +213,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\incoming\room\RoomInfoMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\incoming\room\WalkMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\incoming\user\CurrencyBalanceMessageEvent.h">
@@ -570,6 +570,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\headers\Outgoing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\user\IdleStatusMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\user\WalkMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

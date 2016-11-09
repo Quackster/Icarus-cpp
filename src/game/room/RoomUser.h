@@ -51,6 +51,8 @@ private:
     bool is_loading_room;
 
     int sign_time;
+    int afk_time;
+    bool is_asleep;
 
     int chat_flood_timer;
     int chat_count;
@@ -64,6 +66,7 @@ public:
     void updateStatus();
     void chat(std::string message, int bubble, int count, bool shout = false, bool spam_check = true);
     void leaveRoom(bool hotel_view = true);
+    void awake();
 
     bool inRoom() { return room != nullptr; };
     bool &getLoadingRoom() { return is_loading_room; }
@@ -87,6 +90,12 @@ public:
 
     int const &getSignTime() const { return sign_time; }
     void setSignTime(int sign_time) { this ->sign_time = sign_time; };
+
+    bool const &isAsleep() const { return is_asleep; }
+    void setAsleep(bool asleep) { this->is_asleep = asleep; };
+
+    int const &getAfkTime() const { return afk_time; }
+    void setAfkTime(int afk_time) { this->afk_time = afk_time; };
 
     int const &getDanceId() const { return dance_id; }
     void setDanceId(int dance_id) { this->dance_id = dance_id; };

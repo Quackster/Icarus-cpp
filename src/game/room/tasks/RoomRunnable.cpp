@@ -15,6 +15,7 @@
 #include "boot/Icarus.h"
 
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
+#include "communication/outgoing/room/user/IdleStatusMessageComposer.h"
 
 #include "game/room/model/Rotation.h"
 #include "game/room/tasks/RoomRunnable.h"
@@ -23,7 +24,8 @@
     Constructor for room runnable
 */
 RoomRunnable::RoomRunnable(Room *room) : 
-    room(room) { }
+    room(room),
+    tick(0) { }
 
 /*
 Tick handler for room runnable
@@ -62,6 +64,21 @@ void RoomRunnable::run() {
                     if (room_user->getNeedsUpdate()) {
                         update_entities.push_back(entity);
                     }
+
+                    if (this->hasTickedSecond()) {
+                        if (entity->getEntityType() == PLAYER) {
+
+                            int afk_time = room_user->getAfkTime() + 1;
+                            room_user->setAfkTime(afk_time);
+
+                            if (afk_time > Icarus::getGameConfiguration()->getInt("room.idle.seconds")) {
+                                if (!room_user->isAsleep()) {
+                                    this->room->send(IdleStatusMessageComposer(room_user->getVirtualId(), true));
+                                    room_user->setAsleep(true);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -77,6 +94,7 @@ void RoomRunnable::run() {
             this->room->setRunnable(nullptr);
         }
 
+        tick++;
     }
     catch (std::exception& e) {
         std::cout << std::endl << " Error occurred in room runnable: " << e.what() << std::endl;
