@@ -97,10 +97,10 @@ void RoomRunnable::run() {
         tick++;
     }
     catch (std::exception& e) {
-        std::cout << std::endl << " Error occurred in room runnable: " << e.what() << std::endl;
+        cout << endl << " Error occurred in room runnable: " << e.what() << endl;
     }
     catch (...) {
-        std::cout << std::endl << " Error occurred in room runnable... " << std::endl;
+        cout << endl << " Error occurred in room runnable... " << endl;
     }
 }
 

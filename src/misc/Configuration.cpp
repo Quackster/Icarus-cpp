@@ -9,7 +9,6 @@
 #include "stdafx.h"
 
 #include <fstream>
-#include <iostream>
 #include <sstream>
 
 #include "Configuration.h"
@@ -43,70 +42,70 @@ void Configuration::parse() {
         Icarus::log_configuration = new Configuration("logs/log.ini");*/
 
         if (this->file == "config/database.ini") {
-            output_file << std::endl;
-            output_file << "############################" << std::endl;
-            output_file << "##     Database config    ##" << std::endl;
-            output_file << "############################" << std::endl;
-            output_file << std::endl;
-            output_file << "database.hostname=127.0.0.1;" << std::endl;
-            output_file << "database.port=3306;" << std::endl;
-            output_file << "database.username=user;" << std::endl;
-            output_file << "database.password=changeme;" << std::endl;
-            output_file << "database.database=icarus;" << std::endl;
-            output_file << "database.pool.size=5;" << std::endl;
+            output_file << endl;
+            output_file << "############################" << endl;
+            output_file << "##     Database config    ##" << endl;
+            output_file << "############################" << endl;
+            output_file << endl;
+            output_file << "database.hostname=127.0.0.1;" << endl;
+            output_file << "database.port=3306;" << endl;
+            output_file << "database.username=user;" << endl;
+            output_file << "database.password=changeme;" << endl;
+            output_file << "database.database=icarus;" << endl;
+            output_file << "database.pool.size=5;" << endl;
         }
 
         if (this->file == "config/log.ini") {
-            output_file << std::endl;
-            output_file << "##########################" << std::endl;
-            output_file << "##    Logging config    ##" << std::endl;
-            output_file << "##########################" << std::endl;
-            output_file << std::endl;
-            output_file << "log.player.connect=true;" << std::endl;
-            output_file << "log.player.disconnect=true;" << std::endl;
-            output_file << std::endl;
-            output_file << "log.message.handled=false;" << std::endl;
-            output_file << "log.message.unhandled=false;" << std::endl;
-            output_file << std::endl;
-            output_file << "log.room.loaded=true;" << std::endl;
-            output_file << "log.room.unloaded=true;" << std::endl;
-            output_file << std::endl;
-            output_file << "log.network.rawpacket=false;" << std::endl;
+            output_file << endl;
+            output_file << "##########################" << endl;
+            output_file << "##    Logging config    ##" << endl;
+            output_file << "##########################" << endl;
+            output_file << endl;
+            output_file << "log.player.connect=true;" << endl;
+            output_file << "log.player.disconnect=true;" << endl;
+            output_file << endl;
+            output_file << "log.message.handled=false;" << endl;
+            output_file << "log.message.unhandled=false;" << endl;
+            output_file << endl;
+            output_file << "log.room.loaded=true;" << endl;
+            output_file << "log.room.unloaded=true;" << endl;
+            output_file << endl;
+            output_file << "log.network.rawpacket=false;" << endl;
         }
 
         if (this->file == "config/server.ini") {
-            output_file << std::endl;
-            output_file << "#######################" << std::endl;
-            output_file << "##     TCP server    ##" << std::endl;
-            output_file << "#######################" << std::endl;
-            output_file << std::endl;
-            output_file << "tcp.server.host=0.0.0.0;" << std::endl;
-            output_file << "tcp.server.port=30000;" << std::endl;
-            output_file << std::endl;
-            output_file << "########################" << std::endl;
-            output_file << "##     RCON server    ##" << std::endl;
-            output_file << "########################" << std::endl;
-            output_file << std::endl;
-            output_file << "rcon.server.host=0.0.0.0;" << std::endl;
-            output_file << "rcon.server.port=3902;" << std::endl;
-            output_file << "rcon.server.password=alexthebest;" << std::endl;
+            output_file << endl;
+            output_file << "#######################" << endl;
+            output_file << "##     TCP server    ##" << endl;
+            output_file << "#######################" << endl;
+            output_file << endl;
+            output_file << "tcp.server.host=0.0.0.0;" << endl;
+            output_file << "tcp.server.port=30000;" << endl;
+            output_file << endl;
+            output_file << "########################" << endl;
+            output_file << "##     RCON server    ##" << endl;
+            output_file << "########################" << endl;
+            output_file << endl;
+            output_file << "rcon.server.host=0.0.0.0;" << endl;
+            output_file << "rcon.server.port=3902;" << endl;
+            output_file << "rcon.server.password=alexthebest;" << endl;
         }
 
         if (this->file == "config/game.ini") {
-            output_file << std::endl;
-            output_file << "########################" << std::endl;
-            output_file << "##     Game config    ##" << std::endl;
-            output_file << "########################" << std::endl;
-            output_file << std::endl;
-            output_file << "thread.pool.size=4;" << std::endl;
-            output_file << std::endl;
-            output_file << "game.revision=PRODUCTION-201512012203-525044429;" << std::endl;
-            output_file << std::endl;
-            output_file << "chat.flood.max=5;" << std::endl;
-            output_file << "chat.flood.seconds=4;" << std::endl;
-            output_file << "chat.flood.wait=20;" << std::endl;
-            output_file << std::endl;
-            output_file << "room.idle.seconds=300;" << std::endl;
+            output_file << endl;
+            output_file << "########################" << endl;
+            output_file << "##     Game config    ##" << endl;
+            output_file << "########################" << endl;
+            output_file << endl;
+            output_file << "thread.pool.size=4;" << endl;
+            output_file << endl;
+            output_file << "game.revision=PRODUCTION-201512012203-525044429;" << endl;
+            output_file << endl;
+            output_file << "chat.flood.max=5;" << endl;
+            output_file << "chat.flood.seconds=4;" << endl;
+            output_file << "chat.flood.wait=20;" << endl;
+            output_file << endl;
+            output_file << "room.idle.seconds=300;" << endl;
         }
 
         output_file.close();

@@ -6,6 +6,7 @@
 * Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
+
 #include "stdafx.h"
 
 #include <algorithm>
@@ -195,7 +196,7 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
 
     }
     catch (std::exception &e) {
-        std::cout << "Pathfinder exception: " << e.what() << std::endl;
+        cout << "Pathfinder exception: " << e.what() << endl;
         return false;
     }
 

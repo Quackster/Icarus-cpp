@@ -14,6 +14,9 @@
 #include "misc/Configuration.h"
 #include "game/Game.h"
 
+using std::endl;
+using std::cout;
+
 class PlayerManager;
 class NetworkServer;
 class MessageHandler;

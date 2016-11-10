@@ -29,7 +29,7 @@ Player::Player(NetworkConnection *network_connection) :
     disconnected(false) {
     
     if (Icarus::getLogConfiguration()->getBool("log.player.connect")) {
-        std::cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
+        cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << endl;
     }
 }
 
@@ -156,7 +156,7 @@ Player::~Player() {
     this->getNetworkConnection()->setConnectionState(false);
 
     if (Icarus::getLogConfiguration()->getBool("log.player.disconnect")) {
-        std::cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << std::endl;
+        cout << " [SESSION] Client disconnected with ID: " << this->getNetworkConnection()->getConnectionId() << endl;
     }
 
     if (this->logged_in) {

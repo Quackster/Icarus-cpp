@@ -88,10 +88,10 @@ void NetworkConnection::recieveData() {
         });
     }
     catch (std::exception &e) {
-        std::cout << "Player connection error: " << e.what() << std::endl;
+        cout << "Player connection error: " << e.what() << endl;
     }
     catch (...) {
-        std::cout << "Player connection error " << std::endl;
+        cout << "Player connection error " << endl;
     }
 }
 
@@ -118,10 +118,10 @@ void NetworkConnection::writeData(char* data, int length) {
 
     }
     catch (std::exception &e) {
-        std::cout << "Player connection error: " << e.what() << std::endl;
+        cout << "Player connection error: " << e.what() << endl;
     }
     catch (...) {
-        std::cout << "Player connection error " << std::endl;
+        cout << "Player connection error " << endl;
     }
 }
 
@@ -139,7 +139,7 @@ void NetworkConnection::handleData(Request request) {
     }
     
     if (Icarus::getLogConfiguration()->getBool("log.network.rawpacket")) {
-        std::cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << "/ ";
+        cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << "/ ";
 
         for (int i = 0; i < request.getMessageLength(); i++) {
 
@@ -147,14 +147,14 @@ void NetworkConnection::handleData(Request request) {
             int ch_int = (int)ch;
 
             if (ch_int > -1 && ch_int < 14) {
-                std::cout << "[" << ch_int << "]";
+                cout << "[" << ch_int << "]";
             }
             else {
-                std::cout << request.getBuffer()[i];
+                cout << request.getBuffer()[i];
             }
         }
 
-        std::cout << std::endl;
+        cout << endl;
     }
     
     //cout << " [SESSION] [CONNECTION: " << connectionID << "] " << request.getMessageId() << endl;

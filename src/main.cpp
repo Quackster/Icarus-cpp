@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 
         Icarus::boot();
     } catch (std::exception& e) {
-        std::cout << std::endl << " Error occurred: " << e.what() << std::endl;
+        cout << endl << " Error occurred: " << e.what() << endl;
     }
 
     if (argc > 1) {

@@ -10,7 +10,6 @@
 
 #include <memory>
 #include <vector>
-#include <iostream>
 #include <cstring> // Required for G++/GCC compilation with function "strlen"
 
 class Response

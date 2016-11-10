@@ -58,7 +58,7 @@ void RconConnection::recieveData() {
             std::string command = command_parts[1];
             std::string command_data = command_parts[2];
 
-            std::cout << "Command: " << command << ", command data: " << command_data << std::endl;
+            cout << "Command: " << command << ", command data: " << command_data << endl;
 
             /*this->sendResponse(
                 "<title>testing123"

@@ -308,7 +308,7 @@ void Room::dispose(const bool force_dispose) {
 void Room::load() {
 
     if (Icarus::getLogConfiguration()->getBool("log.room.loaded")) {
-        std::cout << " [ROOM] Room ID " << this->room_id << " loaded" << std::endl;
+        cout << " [ROOM] Room ID " << this->room_id << " loaded" << endl;
     }
 
 }
@@ -323,7 +323,7 @@ void Room::unload() {
     this->disposed = true;
 
     if (Icarus::getLogConfiguration()->getBool("log.room.unloaded")) {
-        std::cout << " [ROOM] Room ID " << this->room_id << " unloaded" << std::endl;
+        cout << " [ROOM] Room ID " << this->room_id << " unloaded" << endl;
     }
 
 }

@@ -10,6 +10,9 @@
 #include <thread>
 #include <vector>
 
+using std::endl;
+using std::cout;
+
 #include "BlockingQueue.h"
 #include "Runnable.h"
 
@@ -23,7 +26,7 @@ public:
     static ExecutorService *createSchedulerService(int threads, std::chrono::milliseconds duration);
 
     void schedule(std::shared_ptr<Runnable> runnable);
-    void stop() { std::cout << "called stop func" << std::endl; this->running = false; }
+    void stop() { cout << "called stop func" << endl; this->running = false; }
 
 private:
     bool running;

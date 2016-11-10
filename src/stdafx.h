@@ -5,7 +5,14 @@
 
 #pragma once
 
+#include <iostream>
+
+using std::endl;
+using std::cout;
+
 #include "targetver.h"
+
+
 
 #include <stdio.h>
 #include <tchar.h>

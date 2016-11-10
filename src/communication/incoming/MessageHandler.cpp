@@ -127,7 +127,7 @@ MessageHandler::MessageHandler() {
 void MessageHandler::createEvent(int header, MessageEvent *event) {
 
     if (!this->messages.count(header)) {
-        //std::cout << " [MessageHandler] Event registered: " << header << " for event (" << typeid(*event).name() << ") " << std::endl;
+        //cout << " [MessageHandler] Event registered: " << header << " for event (" << typeid(*event).name() << ") " << endl;
         this->messages.insert(std::make_pair(header, event));
     }
 }
@@ -172,12 +172,12 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
         this->messages.find(header)->second->handle(player, request);
 
         if (Icarus::getLogConfiguration()->getBool("log.message.handled")) {
-            std::cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages.find(header)->second).name() << ") " << std::endl;
+            cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages.find(header)->second).name() << ") " << endl;
         }
     } else {
         
         if (Icarus::getLogConfiguration()->getBool("log.message.unhandled")) {
-            std::cout << " [MessageHandler] Unhandled message " << header << std::endl;
+            cout << " [MessageHandler] Unhandled message " << header << endl;
         }
     }
 }

@@ -87,10 +87,10 @@ std::string Request::readString() {
         }
     }
     catch (std::exception &e) {
-        std::cout << "Error reading packet: " << e.what() << std::endl;
+        cout << "Error reading packet: " << e.what() << endl;
     }
     catch (...) {
-        std::cout << "Error reading packet... " << std::endl;
+        cout << "Error reading packet... " << endl;
     }
 
     return str;

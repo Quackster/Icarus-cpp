@@ -60,11 +60,11 @@ bool DatabaseManager::testConnection() {
     @return none
 */
 void DatabaseManager::printException(sql::SQLException &e, char* file, char* function, int line) {
-    std::cout << std::endl << " [ERROR] SQLException in " << file << "(" << function << ") on line " << line << std::endl;
-    std::cout << " [ERROR] Message: " << e.what() << std::endl;
-    std::cout << " [ERROR] Error code: " << e.getErrorCode() << std::endl;
-    std::cout << " [ERROR] SQLState: " << e.getSQLState() << std::endl;
-    std::cout << std::endl;
+    cout << endl << " [ERROR] SQLException in " << file << "(" << function << ") on line " << line << endl;
+    cout << " [ERROR] Message: " << e.what() << endl;
+    cout << " [ERROR] Error code: " << e.getErrorCode() << endl;
+    cout << " [ERROR] SQLState: " << e.getSQLState() << endl;
+    cout << endl;
 
     std::string message = e.what();
 

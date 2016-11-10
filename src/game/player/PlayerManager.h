@@ -9,7 +9,6 @@
 #pragma once
 #include "game/player/Player.h"
 
-#include <iostream>
 #include <map>
 
 class PlayerManager 
