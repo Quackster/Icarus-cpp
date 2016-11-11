@@ -91,16 +91,14 @@ void RoomUser::setRotation(int rotation, bool set_head_rotation, bool update) {
 void RoomUser::reset() {
     this->last_chat_id = 0;
     this->dance_id = 0;
-    this->x = 0;
-    this->y = 0;
-    this->height = 0;
-    this->goal_x = 0;
-    this->goal_y = 0;
+    this->position = Position();
+    this->goal = Position();
     this->rotation = 0;
     this->head_rotation = 0;
     this->statuses.clear();// = std::map<std::string, std::string>();
     this->path.clear();// = std::queue<Position>();
     this->room = nullptr;
+    this->in_room = false;
     this->is_walking = false;
     this->is_loading_room = false;
     this->next = Position();
@@ -122,7 +120,9 @@ void RoomUser::stopWalking() {
     Room *room = this->room;
     RoomModel *model = this->room->getModel();
 
-    if (this->getPosition().getX() == model->getDoorX() && this->getPosition().getY() == model->getDoorY()) {
+    if (this->position.x == model->getDoorX() && 
+        this->position.y == model->getDoorY()) {
+        
         this->leaveRoom();
     }
 }

@@ -20,7 +20,7 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        if (!player->getRoomUser()->inRoom()) {
+        if (!player->getRoomUser()->in_room) {
             return;
         }
 
@@ -32,7 +32,7 @@ public:
         if (dance_id < 0 || dance_id > 4)
             dance_id = 0;
 
-        room_user->setDanceId(dance_id);
-        room_user->getRoom()->send(DanceStatusMessageComposer(room_user->getVirtualId(), dance_id));
+        room_user->dance_id = dance_id;
+        room_user->room->send(DanceStatusMessageComposer(room_user->virtual_id, dance_id));
     }
 };

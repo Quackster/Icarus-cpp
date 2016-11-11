@@ -17,11 +17,11 @@ public:
     ~Position();
 
     Position addPoint(Position point) {
-        return Position(x + point.getX(), y + point.getY());
+        return Position(x + point.x, y + point.y);
     }
 
     Position subtractPoint(Position point) {
-        return Position(x - point.getX(), y - point.getY());
+        return Position(x - point.x, y - point.y);
     }
 
     int getDistance(Position point) {
@@ -31,7 +31,7 @@ public:
     }
 
     bool sameAs(Position point) {
-        return x == point.getX() && y == point.getY();
+        return x == point.x && y == point.y;
     }
 
     bool isEmpty() {
@@ -42,10 +42,6 @@ public:
         return std::to_string(x) + ", " + std::to_string(y);
     }
 
-    int getX() { return x; }
-    int getY() { return y; }
-
-private:
     int x;
     int y;
 };

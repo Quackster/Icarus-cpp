@@ -36,8 +36,8 @@ std::deque<Position> Pathfinder::makePath(Position start, Position end, Room *ro
 
         if (nodes != nullptr) {
             while (nodes != nullptr) {
-                positions.push_back(nodes->getPosition());
-                nodes = nodes->getNextNode();
+                positions.push_back(nodes->position);
+                nodes = nodes->node;
             }
         }
 
@@ -71,13 +71,13 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
 
     std::shared_ptr<PathfinderNode> node = std::make_shared<PathfinderNode>();
     std::shared_ptr<PathfinderNode> current = std::make_shared<PathfinderNode>(start);
-    current->setCost(0);
+    current->cost = 0;
 
     Position tmp(0, 0);
     int cost = 0;
     int diff = 0;
 
-    map[start.getX()][start.getY()] = current;
+    map[start.x][start.y] = current;
 
     open_list.push_back(current);
 
@@ -85,54 +85,54 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
 
         current = open_list.front();
         open_list.pop_front();
-        current->setInClose(true);
+        current->in_close = true;
 
         for (Position pos : Pathfinder::getPoints()) { // looping through all 8 points
 
-            tmp = current->getPosition().addPoint(pos);
+            tmp = current->position.addPoint(pos);
             bool is_final_move = tmp.sameAs(end);
 
-            if (isValidStep(room, current->getPosition(), tmp, is_final_move)) {
+            if (isValidStep(room, current->position, tmp, is_final_move)) {
 
-                if (map[tmp.getX()][tmp.getY()] == nullptr) {
+                if (map[tmp.x][tmp.y] == nullptr) {
 
                     /*if (!room->getModel()->isValidSquare(tmp.getX(), tmp.getY())) {
                         return nullptr;
                     }*/
 
                     node = std::make_shared<PathfinderNode>(tmp);
-                    map[tmp.getX()][tmp.getY()] = node;
+                    map[tmp.x][tmp.y] = node;
                 }
                 else {
-                    node = map[tmp.getX()][tmp.getY()];
+                    node = map[tmp.x][tmp.y];
                 }
 
-                if (!node->getInClose()) {
+                if (!node->in_close) {
 
                     diff = 0;
 
-                    if (current->getPosition().getX() != node->getPosition().getX()) {
+                    if (current->position.x != node->position.x) {
                         diff += 1;
                     }
 
-                    if (current->getPosition().getY() != node->getPosition().getY()) {
+                    if (current->position.y != node->position.y) {
                         diff += 1;
                     }
 
-                    cost = current->getCost() + diff + node->getPosition().getDistance(end);
+                    cost = current->cost + diff + node->position.getDistance(end);
 
-                    if (cost < node->getCost()) {
-                        node->setCost(cost);
-                        node->setNextNode(current);
+                    if (cost < node->cost) {
+                        node->cost = cost;
+                        node->node = current;
                     }
 
-                    if (!node->getInOpen()) {
-                        if (node->getPosition().sameAs(end)) {
-                            node->setNextNode(current);
+                    if (!node->in_open) {
+                        if (node->position.sameAs(end)) {
+                            node->node = current;
                             return node;
                         }
 
-                        node->setInOpen(true);
+                        node->in_open = true;
                         open_list.push_back(node);
 
                     }
@@ -160,25 +160,25 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
         int map_size_x = room->getModel()->getMapSizeX();
         int map_size_y = room->getModel()->getMapSizeY();
 
-        if (neighbour.getX() >= map_size_x 
-            || neighbour.getY() >= map_size_y) {
+        if (neighbour.x >= map_size_x 
+            || neighbour.y >= map_size_y) {
             return false;
         }
 
-        if (current.getX() >= map_size_x 
-            || current.getY() >= map_size_y) {
+        if (current.x >= map_size_x 
+            || current.y >= map_size_y) {
             return false;
         }
 
-        if (neighbour.getX() < 0 || neighbour.getY() < 0) {
+        if (neighbour.x < 0 || neighbour.y < 0) {
             return false;
         }
         
-        if (current.getX() < 0 || current.getY() < 0) {
+        if (current.x < 0 || current.y < 0) {
             return false;
         }
 
-        if (!room->getModel()->isValidSquare(neighbour.getX(), neighbour.getY())) {
+        if (!room->getModel()->isValidSquare(neighbour.x, neighbour.y)) {
             return false;
         }
 

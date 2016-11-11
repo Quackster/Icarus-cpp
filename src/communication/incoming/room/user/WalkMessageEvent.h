@@ -18,7 +18,7 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        Room *room = player->getRoomUser()->getRoom();
+        Room *room = player->getRoomUser()->room;
 
         if (room == nullptr) {
             return;
@@ -31,20 +31,22 @@ public:
         RoomUser *room_user = player->getRoomUser();
         room_user->awake();
 
-        room_user->setGoalX(goal_x);
-        room_user->setGoalY(goal_y);
+        room_user->goal.x = goal_x;
+        room_user->goal.y = goal_y;
 
-        Position goal = room_user->getGoal();
-        Position current = room_user->getPosition();
+        Position goal = room_user->goal;
+        Position current = room_user->position;
 
         int map_size_x = room->getModel()->getMapSizeX();
         int map_size_y = room->getModel()->getMapSizeY();
 
-        if (goal.getX() >= map_size_x || goal.getY() >= map_size_y) {
+        if (goal.x >= map_size_x || goal.x >= map_size_y) {
+            cout << "return 1" << endl;
             return;
         }
 
-        if (goal.getX() == current.getX() && goal.getY() == current.getY()) {
+        if (goal.x == current.y && goal.x == current.y) {
+            cout << "return 2" << endl;
             return;
         }
 
@@ -52,13 +54,16 @@ public:
             return;
         }
 
-        auto path = Pathfinder::makePath(room_user->getPosition(), room_user->getGoal(), room);
+        auto path = Pathfinder::makePath(room_user->position, room_user->goal, room);
 
         if (path.size() == 0) {
+            cout << "return 3" << endl;
             return; // TODO: Call pathfinder to retry again.
         }
 
-        room_user->setPath(path);
-        room_user->setWalking(true);
+        cout << "path size: " << path.size() << endl;
+
+        room_user->path = path;
+        room_user->is_walking = true;
     }
 };

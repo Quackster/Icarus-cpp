@@ -24,11 +24,11 @@ public:
 
         RoomUser *room_user = player->getRoomUser();
 
-        if (!room_user->inRoom()) {
+        if (!room_user->in_room) {
             return;
         }
 
         room_user->awake();
-        room_user->getRoom()->send(TypingStatusMessageComposer(room_user->getVirtualId(), request.getMessageId() == Incoming::StartTypingMessageEvent));
+        room_user->room->send(TypingStatusMessageComposer(room_user->virtual_id, request.getMessageId() == Incoming::StartTypingMessageEvent));
     }
 };

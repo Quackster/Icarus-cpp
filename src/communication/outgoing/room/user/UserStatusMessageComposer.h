@@ -37,40 +37,39 @@ public:
             RoomUser *room_user = entity->getRoomUser();
             room_user->awake();
 
-            response.writeInt(room_user->getVirtualId());
-            response.writeInt(room_user->getX());
-            response.writeInt(room_user->getY());
-            response.writeString(std::to_string(room_user->getHeight()));
-            response.writeInt(room_user->getHeadRotation());
-            response.writeInt(room_user->getRotation());
+            response.writeInt(room_user->virtual_id);
+            response.writeInt(room_user->position.x);
+            response.writeInt(room_user->position.y);
+            response.writeString(std::to_string(room_user->height));
+            response.writeInt(room_user->head_rotation);
+            response.writeInt(room_user->rotation);
 
-            if (room_user->isWalking()) {
-                if (!room_user->getNext().isEmpty()) {
+            if (room_user->is_walking) {
+                if (!room_user->next.isEmpty()) {
 
-                    Position next = room_user->getNext();
-                    int height = room_user->getRoom()->getModel()->getSquareHeight(next.getX(), next.getY());
+                    Position next = room_user->next;
+                    int height = room_user->room->getModel()->getSquareHeight(next.x, next.y);
 
-                    room_user->setX(next.getX());
-                    room_user->setY(next.getY());
-                    room_user->setHeight(height);
+                    room_user->position = next;
+                    room_user->height = height;
                 }
                 else {
                     room_user->setStatus("mv", "");
-                    room_user->setWalking(false);
+                    room_user->is_walking = false;
                     room_user->stopWalking();
                 }
             }
 
             std::string status = "/";
 
-            for (auto kvp : room_user->getStatuses()) {
+            for (auto kvp : room_user->statuses) {
                 status += kvp.first + " " + kvp.second + "/";
             }
 
             response.writeString(status + "/");
 
-            if (room_user->getNeedsUpdate()) {
-                room_user->setNeedsUpdate(false);
+            if (room_user->needs_update) {
+                room_user->needs_update = false;
             }
         }
 

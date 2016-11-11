@@ -18,11 +18,11 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        if (!player->getRoomUser()->inRoom()) {
+        if (!player->getRoomUser()->in_room) {
             return;
         }
 
-        Room *room = player->getRoomUser()->getRoom();
+        Room *room = player->getRoomUser()->room;
 
         if (!room->hasRights(player->getDetails()->id, true)) {
             return;

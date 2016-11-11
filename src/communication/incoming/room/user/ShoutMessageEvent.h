@@ -16,7 +16,7 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        if (!player->getRoomUser()->inRoom()) {
+        if (!player->getRoomUser()->in_room) {
             return;
         }
 

@@ -61,20 +61,20 @@ void RoomRunnable::run() {
 
                     RoomUser *room_user = entity->getRoomUser();
 
-                    if (room_user->getNeedsUpdate()) {
+                    if (room_user->needs_update) {
                         update_entities.push_back(entity);
                     }
 
                     if (this->hasTickedSecond()) {
                         if (entity->getEntityType() == PLAYER) {
 
-                            int afk_time = room_user->getAfkTime() + 1;
-                            room_user->setAfkTime(afk_time);
+                            int afk_time = room_user->afk_time + 1;
+                            room_user->afk_time = afk_time;
 
                             if (afk_time > Icarus::getGameConfiguration()->getInt("room.idle.seconds")) {
-                                if (!room_user->isAsleep()) {
-                                    this->room->send(IdleStatusMessageComposer(room_user->getVirtualId(), true));
-                                    room_user->setAsleep(true);
+                                if (!room_user->is_asleep) {
+                                    this->room->send(IdleStatusMessageComposer(room_user->virtual_id, true));
+                                    room_user->is_asleep = true;
                                 }
                             }
                         }
@@ -108,42 +108,42 @@ void RoomRunnable::processEntity(Entity *entity) {
 
     RoomUser *room_user = entity->getRoomUser();
 
-    if (Icarus::getUnixTimestamp() > room_user->getSignTime()) {
+    if (Icarus::getUnixTimestamp() > room_user->sign_time) {
         if (room_user->containsStatus("sign")) {
             room_user->setStatus("sign", "");
-            room_user->setNeedsUpdate(true);
+            room_user->needs_update = true;
         }
     }
 
-    if (room_user->isWalking()) {
-        if (room_user->getPath().size() > 0) {
+    if (room_user->is_walking) {
+        if (room_user->path.size() > 0) {
 
-            Position next = room_user->getPath().front();
-
-            room_user->getPath().pop_front();
+            Position next = room_user->path.front();
+            room_user->path.pop_front();
 
             room_user->setStatus("lay", "");
             room_user->setStatus("sit", "");
 
-            int rotation = Rotation::getRotation(room_user->getPosition().getX(), room_user->getPosition().getY(), next.getX(), next.getY());
-            int height = this->room->getModel()->getSquareHeight(next.getX(), next.getY());
+            int rotation = Rotation::getRotation(room_user->position.x, room_user->position.y, next.x, next.y);
+            int height = this->room->getModel()->getSquareHeight(next.x, next.y);
 
             room_user->setRotation(rotation, true, false);
 
             std::stringstream ss;
-            ss << next.getX();
+            ss << next.x;
             ss << ",";
-            ss << next.getY();
+            ss << next.y;
             ss << ",";
             ss << height;
 
             room_user->setStatus("mv", ss.str());
-            room_user->setNext(next);  
-            room_user->setNeedsUpdate(true);
+            room_user->needs_update = true;
+            room_user->next = next;  
+
         }
         else {
-            room_user->setNext(Position());
-            room_user->setNeedsUpdate(true);
+            room_user->next = Position();
+            room_user->needs_update = true;
         }
 
     }

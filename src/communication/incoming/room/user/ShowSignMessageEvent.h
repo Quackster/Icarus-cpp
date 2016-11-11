@@ -19,7 +19,7 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        if (!player->getRoomUser()->inRoom()) {
+        if (!player->getRoomUser()->in_room) {
             return;
         }
 
@@ -33,7 +33,7 @@ public:
         }
 
         room_user->setStatus("sign", std::to_string(sign_id));
-        room_user->setSignTime(Icarus::getUnixTimestamp() + 5);
+        room_user->sign_time = Icarus::getUnixTimestamp() + 5;
         room_user->updateStatus();
     }
 };

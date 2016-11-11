@@ -33,8 +33,8 @@ public:
         MessengerUser *client = player->getMessenger()->getFriend(friend_id);
 
         if (client->isOnline()) {
-            if (client->getPlayer()->getRoomUser()->inRoom()) {
-                player->send(FollowFriendMessageComposer(client->getPlayer()->getRoomUser()->getRoom()->getId()));
+            if (client->getPlayer()->getRoomUser()->in_room) {
+                player->send(FollowFriendMessageComposer(client->getPlayer()->getRoomUser()->room->getId()));
             } 
             else {
                 error_id = 2; // User is not in a room

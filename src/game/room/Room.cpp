@@ -62,9 +62,9 @@ void Room::enter(Player *player) {
     this->updateVirtualId();
 
     // So we don't forget what room we entered 8-)
-    player->getRoomUser()->setRoom(this);
-    player->getRoomUser()->setLoadingRoom(true);
-    player->getRoomUser()->setVirtualId(this->getData()->virtual_id);
+    player->getRoomUser()->room = this;
+    player->getRoomUser()->is_loading_room = true;
+    player->getRoomUser()->virtual_id = this->getData()->virtual_id;
 
     // TODO: Virtual id calculation
 
@@ -97,7 +97,7 @@ void Room::enter(Player *player) {
     }
 
     if (!this->hasEntity(player)) {
-        this->entities.insert(std::make_pair(player->getRoomUser()->getVirtualId(), player));
+        this->entities.insert(std::make_pair(player->getRoomUser()->virtual_id, player));
     }
 
     if (this->getPlayers().size() == 1) {
@@ -113,9 +113,9 @@ void Room::enter(Player *player) {
     RoomModel *model = this->getModel();
     RoomUser *room_user = player->getRoomUser();
 
-    room_user->setX(model->getDoorX());
-    room_user->setY(model->getDoorY());
-    room_user->setHeight(model->getDoorZ());
+    room_user->position.x = model->getDoorX();
+    room_user->position.y = model->getDoorY();
+    room_user->height = model->getDoorZ();
     room_user->setRotation(model->getDoorRotation(), true);
 
     this->send(UserDisplayMessageComposer(player));
@@ -138,10 +138,10 @@ void Room::leave(Entity *entity, const bool hotel_view, const bool dispose) {
     if (this->hasEntity(entity)) {
 
         // Remove entity from vector
-        this->entities.erase(entity->getRoomUser()->getVirtualId());
+        this->entities.erase(entity->getRoomUser()->virtual_id);
 
         // Remove entity from room
-        this->send(RemoveUserMessageComposer(entity->getRoomUser()->getVirtualId()));
+        this->send(RemoveUserMessageComposer(entity->getRoomUser()->virtual_id));
 
 
         if (entity->getEntityType() == PLAYER) {
@@ -172,8 +172,8 @@ void Room::kickPlayers() {
 
     for (auto player : this->getPlayers()) {
 
-        if (player->getRoomUser()->inRoom()) {
-            player->getRoomUser()->getRoom()->leave(player, true);
+        if (player->getRoomUser()->in_room) {
+            player->getRoomUser()->room->leave(player, true);
         }
     }
 }
@@ -237,7 +237,7 @@ void Room::serialise(Response &response, const bool enter_room) {
     @return boolean
 */
 bool Room::hasEntity(Entity *entity) {
-    return this->entities.count(entity->getRoomUser()->getVirtualId()) > 0;
+    return this->entities.count(entity->getRoomUser()->virtual_id) > 0;
 }
 
 /*

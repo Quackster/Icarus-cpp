@@ -69,7 +69,7 @@ void MessengerUser::serialiseSearch(Response &response) {
 bool MessengerUser::inRoom() {
 
     if (this->isOnline()) {
-        return this->session->getRoomUser()->inRoom();
+        return this->session->getRoomUser()->in_room;
     }
 
     return false;

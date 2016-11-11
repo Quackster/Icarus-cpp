@@ -38,10 +38,10 @@ public:
             response.writeString(entity->getDetails()->username);
             response.writeString(entity->getDetails()->motto);
             response.writeString(entity->getDetails()->figure);
-            response.writeInt(entity->getRoomUser()->getVirtualId());
-            response.writeInt(entity->getRoomUser()->getX());
-            response.writeInt(entity->getRoomUser()->getY());
-            response.writeString(std::to_string(entity->getRoomUser()->getHeight()));
+            response.writeInt(entity->getRoomUser()->virtual_id);
+            response.writeInt(entity->getRoomUser()->position.x);
+            response.writeInt(entity->getRoomUser()->position.y);
+            response.writeString(std::to_string(entity->getRoomUser()->height));
             response.writeInt(0);
             response.writeInt(1);
             response.writeString("m");

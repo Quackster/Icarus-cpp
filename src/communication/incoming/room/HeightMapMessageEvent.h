@@ -30,11 +30,14 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        Room *room = player->getRoomUser()->getRoom();
+        Room *room = player->getRoomUser()->room;
 
         if (room == nullptr) {
             return;
-        }
+        }       
+       
+        player->getRoomUser()->in_room = true;
+        player->getRoomUser()->is_loading_room = false;
 
         player->send(HeightMapMessageComposer(room));
         player->send(FloorMapMessageComposer(room));
@@ -46,7 +49,8 @@ public:
 
         // Tell friends we're in a room! :)
         player->getMessenger()->sendStatus(false);
-        player->getRoomUser()->setLoadingRoom(false);
+
+
 
         // Show anyone dancing
         for (auto kvp : room->getEntities()) {
@@ -54,12 +58,12 @@ public:
             Entity *entity = kvp.second;
             RoomUser *room_user = entity->getRoomUser();
 
-            if (room_user->getDanceId() > 0) {
-                player->send(DanceStatusMessageComposer(room_user->getVirtualId(), room_user->getDanceId()));
+            if (room_user->dance_id > 0) {
+                player->send(DanceStatusMessageComposer(room_user->virtual_id, room_user->dance_id));
             }
 
-            if (room_user->isAsleep()) {
-                player->send(IdleStatusMessageComposer(room_user->getVirtualId(), true));
+            if (room_user->is_asleep) {
+                player->send(IdleStatusMessageComposer(room_user->virtual_id, true));
             }
         }
     }
