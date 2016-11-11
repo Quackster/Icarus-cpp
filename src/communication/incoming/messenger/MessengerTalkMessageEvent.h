@@ -30,8 +30,7 @@ public:
 
         MessengerUser *user = player->getMessenger()->getFriend(friend_id);
         
-        std::string message = request.readString();
-        message = Utilities::escape(message, true, false);
+        std::string message = Utilities::escape(request.readString(), true, false);
 
 
         if (message.length() < 1) {
