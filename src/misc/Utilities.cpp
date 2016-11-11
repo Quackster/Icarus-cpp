@@ -75,7 +75,7 @@ bool Utilities::isNumber(const std::string& s)
     @param remove everything except letters and numbers
     @return escaped string
 */
-std::string Utilities::escape(std::string str, bool allow_breaks, bool strip_non_alphanumeric, bool replace_spaces) {
+std::string Utilities::escape(std::string &str, bool allow_breaks, bool strip_non_alphanumeric, bool replace_spaces) {
 
     if (str.length() > 0) {
 
