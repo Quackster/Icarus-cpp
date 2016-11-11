@@ -113,7 +113,6 @@ void Icarus::boot() {
     cout << " [BOOT] [MessageHandler] Creating message handler " << endl << endl;
     Icarus::message_handler = new MessageHandler();
     cout << " [BOOT] [Game] Creating game instance" << endl;
-
     Icarus::game = new Game();
     game->createGame();
 
@@ -234,9 +233,10 @@ Icarus::~Icarus() {
     delete Icarus::network_server;
     delete Icarus::message_handler;
     delete Icarus::database_manager;
+    delete Icarus::game;
+
     delete Icarus::game_configuration;
     delete Icarus::database_configuration;
     delete Icarus::server_configuration;
     delete Icarus::log_configuration;
-    delete Icarus::game;
 }
