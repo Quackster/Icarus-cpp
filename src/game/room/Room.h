@@ -42,18 +42,13 @@ public:
     void setRunnable(std::shared_ptr<RoomRunnable> runnable) { this->runnable = runnable; }
     bool hasEntity(Entity *entity);
     
-    int id;
+    const int id;
     bool disposed;
 
 private:
-
-    
-
     RoomData *room_data;
     std::shared_ptr<RoomRunnable> runnable;
     std::map<int, Entity*> entities;
-
-    
 
     void load();
     void unload();

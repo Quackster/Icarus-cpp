@@ -59,12 +59,13 @@ Enter room handler
 void Room::enter(Player *player) {
 
     this->disposed = false;
-    this->updateVirtualId();
 
     // So we don't forget what room we entered 8-)
     player->getRoomUser()->setRoom(this);
     player->getRoomUser()->is_loading_room = true;
+
     player->getRoomUser()->virtual_id = this->getData()->virtual_id;
+    this->updateVirtualId();
 
     // TODO: Virtual id calculation
 
