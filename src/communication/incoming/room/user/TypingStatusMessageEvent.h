@@ -29,6 +29,6 @@ public:
         }
 
         room_user->awake();
-        room_user->room->send(TypingStatusMessageComposer(room_user->virtual_id, request.getMessageId() == Incoming::StartTypingMessageEvent));
+        room_user->getRoom()->send(TypingStatusMessageComposer(room_user->virtual_id, request.getMessageId() == Incoming::StartTypingMessageEvent));
     }
 };

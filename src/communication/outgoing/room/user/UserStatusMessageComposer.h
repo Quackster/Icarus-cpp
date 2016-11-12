@@ -48,7 +48,7 @@ public:
                 if (!room_user->next.isEmpty()) {
 
                     Position next = room_user->next;
-                    int height = room_user->room->getModel()->getSquareHeight(next.x, next.y);
+                    int height = room_user->getRoom()->getModel()->getSquareHeight(next.x, next.y);
 
                     room_user->position = next;
                     room_user->height = height;
@@ -62,7 +62,7 @@ public:
 
             std::string status = "/";
 
-            for (auto kvp : room_user->statuses) {
+            for (auto kvp : room_user->getStatuses()) {
                 status += kvp.first + " " + kvp.second + "/";
             }
 

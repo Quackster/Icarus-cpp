@@ -23,7 +23,7 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        Room *room = player->getRoomUser()->room;
+        Room *room = player->getRoomUser()->getRoom();
 
         if (room == nullptr) {
             return;

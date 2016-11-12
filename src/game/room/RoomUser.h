@@ -33,11 +33,9 @@ public:
     void awake();
     void setRotation(int rotation, bool set_head_rotation = false, bool update = false);
 
-public:
     int virtual_id;
     int last_chat_id;
     int dance_id;
-
     int rotation;
     int head_rotation;
     int sign_time;
@@ -46,15 +44,9 @@ public:
     int chat_count;
 
     double height;
-
-    std::map<std::string, std::string> statuses;
-    std::deque<Position> path;
-
-    Room *room;
     Entity *entity;
 
     Position next;
-
     Position position;
     Position goal;
 
@@ -63,4 +55,30 @@ public:
     bool is_loading_room;
     bool is_asleep;
     bool in_room;
+
+    std::map<std::string, std::string> &getStatuses() {
+        return this->statuses;
+    }
+
+    std::deque<Position> &getPath() {
+        return this->path;
+    }
+
+    void setPath(std::deque<Position> path) {
+        this->path = path;
+    }
+
+    Room *getRoom() {
+        return this->room;
+    }
+
+    void setRoom(Room *room) {
+        this->room = room;
+    }
+
+private:
+    std::map<std::string, std::string> statuses;
+    std::deque<Position> path;
+    Room *room;
+
 };

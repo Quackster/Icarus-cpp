@@ -33,6 +33,6 @@ public:
             dance_id = 0;
 
         room_user->dance_id = dance_id;
-        room_user->room->send(DanceStatusMessageComposer(room_user->virtual_id, dance_id));
+        room_user->getRoom()->send(DanceStatusMessageComposer(room_user->virtual_id, dance_id));
     }
 };

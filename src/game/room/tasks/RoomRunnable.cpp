@@ -36,7 +36,7 @@ void RoomRunnable::run() {
 
     try {
         if (this->room == nullptr ||
-            this->room->isDisposed() ||
+            this->room->disposed ||
             this->room->getEntities().size() == 0) {
             this->room->setRunnable(nullptr);
             return;
@@ -116,10 +116,10 @@ void RoomRunnable::processEntity(Entity *entity) {
     }
 
     if (room_user->is_walking) {
-        if (room_user->path.size() > 0) {
+        if (room_user->getPath().size() > 0) {
 
-            Position next = room_user->path.front();
-            room_user->path.pop_front();
+            Position next = room_user->getPath().front();
+            room_user->getPath().pop_front();
 
             room_user->setStatus("lay", "");
             room_user->setStatus("sit", "");

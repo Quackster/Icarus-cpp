@@ -115,7 +115,7 @@ Room *RoomManager::getRoom(int room_id) {
 void RoomManager::addRoom(Room *room) {
 
     if (!this->hasRoom(room->getData()->id)) {
-        this->rooms.insert(std::make_pair(room->getId(), room));
+        this->rooms.insert(std::make_pair(room->id, room));
     }
 }
 

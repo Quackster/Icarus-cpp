@@ -30,7 +30,7 @@
     Constructor for rooms
 */
 Room::Room(int room_id) :
-    room_id(room_id),
+    id(room_id),
     disposed(false),
     //entities(new std::map<int, Entity*>()),
     runnable(nullptr) { } //std::make_shared<RoomRunnable>(this)) { }
@@ -62,13 +62,13 @@ void Room::enter(Player *player) {
     this->updateVirtualId();
 
     // So we don't forget what room we entered 8-)
-    player->getRoomUser()->room = this;
+    player->getRoomUser()->setRoom(this);
     player->getRoomUser()->is_loading_room = true;
     player->getRoomUser()->virtual_id = this->getData()->virtual_id;
 
     // TODO: Virtual id calculation
 
-    player->send(RoomModelMessageComposer(this->getModel()->getName(), this->room_id));
+    player->send(RoomModelMessageComposer(this->getModel()->getName(), this->id));
     player->send(RoomRatingMessageComposer(room_data->score));
 
     int floor = stoi(room_data->floor);
@@ -121,7 +121,7 @@ void Room::enter(Player *player) {
     this->send(UserDisplayMessageComposer(player));
     this->send(UserStatusMessageComposer(player));
 
-    player->send(PrepareRoomMessageComposer(this->room_id));
+    player->send(PrepareRoomMessageComposer(this->id));
 }
 
 
@@ -173,7 +173,7 @@ void Room::kickPlayers() {
     for (auto player : this->getPlayers()) {
 
         if (player->getRoomUser()->in_room) {
-            player->getRoomUser()->room->leave(player, true);
+            player->getRoomUser()->getRoom()->leave(player, true);
         }
     }
 }
@@ -187,7 +187,7 @@ void Room::kickPlayers() {
 */
 void Room::serialise(Response &response, const bool enter_room) {
 
-    response.writeInt(this->room_id);
+    response.writeInt(this->id);
     response.writeString(this->room_data->name);
     response.writeInt(this->room_data->owner);
     response.writeString(this->room_data->owner_name); // Owner name
@@ -296,7 +296,7 @@ void Room::dispose(const bool force_dispose) {
     }
 
     if (remove) {
-        Icarus::getGame()->getRoomManager()->deleteRoom(this->room_id);
+        Icarus::getGame()->getRoomManager()->deleteRoom(this->id);
     }
 }
 
@@ -308,7 +308,7 @@ void Room::dispose(const bool force_dispose) {
 void Room::load() {
 
     if (Icarus::getLogConfiguration()->getBool("log.room.loaded")) {
-        cout << " [ROOM] Room ID " << this->room_id << " loaded" << endl;
+        cout << " [ROOM] Room ID " << this->id << " loaded" << endl;
     }
 
 }
@@ -323,7 +323,7 @@ void Room::unload() {
     this->disposed = true;
 
     if (Icarus::getLogConfiguration()->getBool("log.room.unloaded")) {
-        cout << " [ROOM] Room ID " << this->room_id << " unloaded" << endl;
+        cout << " [ROOM] Room ID " << this->id << " unloaded" << endl;
     }
 
 }
@@ -383,7 +383,7 @@ void Room::updateVirtualId() {
     @return none
 */
 void Room::save() {
-    RoomDao::updateRoom(this->room_id, this);
+    RoomDao::updateRoom(this->id, this);
 }
 
 /*

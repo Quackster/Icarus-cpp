@@ -33,37 +33,27 @@ public:
     void updateVirtualId();
     void save();
     void scheduleRunnable();
-
-
-
-    ////
-    //  Getters and setters
-    ////
-    int getId() { return this->room_data->id; }
-  
     RoomData *getData() { return room_data; }
     RoomModel *getModel() { return this->room_data->model; }  
-    
     std::map<int, Entity*> getEntities() { return entities; }
     std::shared_ptr<RoomRunnable> getRunnable() { return this->runnable; }
-    
     const std::vector<Player*> getPlayers();
-    
     void setRoomData(RoomData *room_data) { this->room_data = room_data; };
     void setRunnable(std::shared_ptr<RoomRunnable> runnable) { this->runnable = runnable; }
-
     bool hasEntity(Entity *entity);
-    bool isDisposed() { return disposed; }
+    
+    int id;
+    bool disposed;
 
 private:
 
-    int room_id;
+    
 
     RoomData *room_data;
     std::shared_ptr<RoomRunnable> runnable;
     std::map<int, Entity*> entities;
 
-    bool disposed;
+    
 
     void load();
     void unload();

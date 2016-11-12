@@ -34,7 +34,7 @@ public:
 
         if (client->isOnline()) {
             if (client->getPlayer()->getRoomUser()->in_room) {
-                player->send(FollowFriendMessageComposer(client->getPlayer()->getRoomUser()->room->getId()));
+                player->send(FollowFriendMessageComposer(client->getPlayer()->getRoomUser()->getRoom()->id));
             } 
             else {
                 error_id = 2; // User is not in a room

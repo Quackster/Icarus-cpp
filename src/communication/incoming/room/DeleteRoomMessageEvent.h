@@ -22,7 +22,7 @@ public:
             return;
         }
 
-        Room *room = player->getRoomUser()->room;
+        Room *room = player->getRoomUser()->getRoom();
 
         if (!room->hasRights(player->getDetails()->id, true)) {
             return;
@@ -33,7 +33,7 @@ public:
         // TODO: Put furniture back into peoples inventories
 
         // Delete room from database
-        RoomDao::deleteRoom(room->getId());
+        RoomDao::deleteRoom(room->id);
 
         // Delete room information
         room->dispose(true);
