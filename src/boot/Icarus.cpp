@@ -11,6 +11,7 @@
 #include <ctime>
 #include <string>
 
+
 #include <boost/filesystem.hpp>
 #include <boost/thread.hpp>
 
@@ -19,8 +20,8 @@
 
 #include "network/rcon/RconServer.h"
 
-//#include "thread/ExampleRunnable.h"
-
+static std::random_device rd;
+static std::mt19937 rng(rd());
 
 /*
 Define static variables
@@ -142,6 +143,18 @@ void Icarus::boot() {
 long const Icarus::getUnixTimestamp() {
     time_t t = std::time(0);
     return static_cast<long> (t);
+}
+
+/*
+    Get random number between two points
+
+    @param lower number
+    @param higher number
+    @return random selected number
+*/
+const int Icarus::getRandomNumber(int a, int b) {
+    std::uniform_int_distribution<int> gen(a, b); // uniform, unbiased
+    return gen(rng);
 }
 
 /*

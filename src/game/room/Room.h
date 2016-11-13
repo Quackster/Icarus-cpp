@@ -19,7 +19,7 @@
 class Room
 {
 public:
-    Room(int room_id);
+    Room(int room_id, RoomData *room_data);
     ~Room();
 
     bool hasRights(const int user_id, const bool owner_check_only = false);
@@ -28,7 +28,7 @@ public:
     void leave(Entity *entity, const bool hotel_view, const bool dispose = true);
     void kickPlayers();
     void dispose(const bool force_disposal = false);
-    void send(const MessageComposer &composer, bool users_with_rights = false);
+    void send(const MessageComposer &composer, const bool users_with_rights = false);
     bool isOwnerOnline();
     void updateVirtualId();
     void save();

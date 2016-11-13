@@ -168,11 +168,8 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
                 // The user disconnects and there's no one else in the room so they get deleted
                 //
                 // 'delete' called from the .deleteRoom function from RoomManager
-                Room *room = new Room(room_id);
 
                 RoomData *room_data = new RoomData();
-                room->setRoomData(room_data);
-
                 room_data->id = room_id;
                 room_data->name = result_set->getString("name");
                 room_data->room_type = (char)result_set->getInt("room_type");
@@ -226,6 +223,8 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
 
                 room_data->user_rights.push_back(room_data->owner_id);
 
+
+                Room *room = new Room(room_id, room_data);
                 rooms.push_back(room);
             }
         }

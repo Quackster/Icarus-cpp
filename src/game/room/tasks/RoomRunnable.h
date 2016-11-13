@@ -20,9 +20,10 @@ public:
     RoomRunnable(Room *room);
     void run();
     void processEntity(Entity *entity);
-    bool hasTickedSecond() { return tick % 2 == 0; }
+    bool hasTicked(int seconds) { return tick % (seconds * 2) == 0; }
     Room *room;
     std::mutex mtx;
+    std::vector<std::string> chat_messages;
     int tick;
 
 };

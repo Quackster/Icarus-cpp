@@ -17,6 +17,7 @@
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
 #include "communication/outgoing/room/user/IdleStatusMessageComposer.h"
 
+#include "game/pathfinder/Pathfinder.h"
 #include "game/room/model/Rotation.h"
 #include "game/room/tasks/RoomRunnable.h"
 
@@ -25,7 +26,14 @@
 */
 RoomRunnable::RoomRunnable(Room *room) : 
     room(room),
-    tick(0) { }
+    tick(0) {
+
+    chat_messages.push_back("I'm the best bot!");
+    chat_messages.push_back("My creator is Alex :)))");
+    chat_messages.push_back("I'm teh baws");
+    chat_messages.push_back("LOL 4CHAN RAID, JUST KIDDING");
+    chat_messages.push_back("When on the internet, nobody knows you're a bot ;)");
+}
 
 /*
 Tick handler for room runnable
@@ -65,7 +73,7 @@ void RoomRunnable::run() {
                         update_entities.push_back(entity);
                     }
 
-                    if (this->hasTickedSecond()) {
+                    if (this->hasTicked(1)) {
                         if (entity->getEntityType() == PLAYER) {
 
                             int afk_time = room_user->afk_time + 1;
@@ -78,6 +86,30 @@ void RoomRunnable::run() {
                                 }
                             }
                         }
+                    }
+
+
+                    if (this->hasTicked(5)) {
+                        if (entity->getEntityType() == BOT) {
+                            room_user->goal.x = room_model->getRandomX();
+                            room_user->goal.y = room_model->getRandomY();
+
+                            auto path = Pathfinder::makePath(room_user->position, room_user->goal, room);
+
+                            if (path.size() > 0) {
+                                room_user->setPath(path);
+                                room_user->is_walking = true;
+                            }
+                        }
+                    }
+
+                   if (this->hasTicked(10)) {
+                       if (entity->getEntityType() == BOT) {
+
+                           if (chat_messages.size() > 0) {
+                               room_user->chat(chat_messages[Icarus::getRandomNumber(0, chat_messages.size() - 1)], 0, 0, false);
+                           }
+                       }
                     }
                 }
             }

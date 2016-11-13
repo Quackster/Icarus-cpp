@@ -7,6 +7,9 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+
+#include <random>
+
 #include "game/player/PlayerManager.h"
 #include "database/DatabaseManager.h"
 #include "network/NetworkServer.h"
@@ -31,6 +34,7 @@ public:
     ~Icarus();
     static void boot();
     static const long getUnixTimestamp();
+    static const int getRandomNumber(int a, int b);
     static PlayerManager *getPlayerManager();// { return sessionManager; }
     static NetworkServer *getNetworkServer();
     static MessageHandler *getMessageHandler();// { return networkServer; }
@@ -44,6 +48,7 @@ public:
     static Game *getGame();
 
 private:
+
     static PlayerManager *player_manager;
     static NetworkServer *network_server;
     static MessageHandler *message_handler;
@@ -53,7 +58,6 @@ private:
     static Configuration *game_configuration;
     static Configuration *log_configuration;
     static Configuration *database_configuration;
-
     static Game *game;
 
 

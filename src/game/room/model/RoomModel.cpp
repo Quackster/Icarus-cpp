@@ -12,6 +12,7 @@
 
 #include <sstream>
 
+#include "boot/Icarus.h"
 #include "misc/Utilities.h"
 #include "game/room/model/RoomModel.h"
 
@@ -89,6 +90,14 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
 
 
     this->floor_map = ss.str();
+}
+
+const int RoomModel::getRandomX() {
+    return Icarus::getRandomNumber(0, this->map_size_x);
+}
+
+const int RoomModel::getRandomY() {
+    return Icarus::getRandomNumber(0, this->map_size_y);
 }
 
 /*

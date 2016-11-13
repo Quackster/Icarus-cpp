@@ -63,8 +63,7 @@ bool RoomUser::containsStatus(std::string key) {
 
     @return none
 */
-void RoomUser::updateStatus() {    
-    //this->room->send(UserStatusMessageComposer(this->entity));
+void RoomUser::updateStatus() {
     this->needs_update = true;
 }
 /*
@@ -108,6 +107,30 @@ void RoomUser::reset() {
     this->afk_time = 0;
     this->is_asleep = false;
 
+}
+
+/*
+    Walking handler
+
+    @return none
+*/
+void RoomUser::walk() {
+
+    if (this->is_walking) {
+        if (!this->next.isEmpty()) {
+
+            Position next = this->next;
+            int height = this->getRoom()->getModel()->getSquareHeight(next.x, next.y);
+
+            this->position = next;
+            this->height = height;
+        }
+        else {
+            this->setStatus("mv", "");
+            this->is_walking = false;
+            this->stopWalking();
+        }
+    }
 }
 
 /*
@@ -168,8 +191,15 @@ void RoomUser::chat(std::string message, int bubble, int count, bool shout, bool
 
     // TODO: Check if not bot
     // The below function validates the chat bubbles
-    if (bubble == 2 || (bubble == 23 && !player->hasFuse("moderator")) || bubble < 0 || bubble > 29 || bubble == 1) {
-        bubble = 0;// 0;// this.lastChatId;
+
+    if (entity->getEntityType() == PLAYER) {
+        if (bubble == 2 || (bubble == 23 && !player->hasFuse("moderator")) || bubble < 0 || bubble > 29 || bubble == 1) {
+            bubble = 0;// 0;// this.lastChatId;
+        }
+    }
+
+    if (entity->getEntityType() == BOT) {
+        bubble = 2;
     }
 
     this->room->send(TalkMessageComposer(this->virtual_id, shout, message, count, bubble));

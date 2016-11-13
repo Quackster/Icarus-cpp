@@ -24,6 +24,7 @@ public:
 public:
 
     void reset();
+    void walk();
     void stopWalking();
     bool containsStatus(std::string key);
     void setStatus(std::string key, std::string value, bool update = false);
@@ -31,6 +32,7 @@ public:
     void chat(std::string message, int bubble, int count, bool shout = false, bool spam_check = true);
     void leaveRoom(bool hotel_view = true);
     void awake();
+
     void setRotation(int rotation, bool set_head_rotation = false, bool update = false);
 
     int virtual_id;

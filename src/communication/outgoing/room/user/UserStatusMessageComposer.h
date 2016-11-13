@@ -44,21 +44,7 @@ public:
             response.writeInt(room_user->head_rotation);
             response.writeInt(room_user->rotation);
 
-            if (room_user->is_walking) {
-                if (!room_user->next.isEmpty()) {
-
-                    Position next = room_user->next;
-                    int height = room_user->getRoom()->getModel()->getSquareHeight(next.x, next.y);
-
-                    room_user->position = next;
-                    room_user->height = height;
-                }
-                else {
-                    room_user->setStatus("mv", "");
-                    room_user->is_walking = false;
-                    room_user->stopWalking();
-                }
-            }
+            room_user->walk();
 
             std::string status = "/";
 

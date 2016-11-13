@@ -16,11 +16,11 @@
 class UserDisplayMessageComposer : public MessageComposer {
 
 public:
-    UserDisplayMessageComposer(Entity *entity) { 
+    UserDisplayMessageComposer(Entity *entity) {
         this->entities = { entity };
     }
 
-    UserDisplayMessageComposer(std::map<int, Entity*> entities) {  
+    UserDisplayMessageComposer(std::map<int, Entity*> entities) {
         for (auto kvp : entities) {
             this->entities.push_back(kvp.second);
         }
@@ -43,13 +43,37 @@ public:
             response.writeInt(entity->getRoomUser()->position.y);
             response.writeString(std::to_string(entity->getRoomUser()->height));
             response.writeInt(0);
-            response.writeInt(1);
+
+            if (entity->getEntityType() == PLAYER) {
+                response.writeInt(1);
+            }
+
+            if (entity->getEntityType() == BOT) {
+                response.writeInt(4);
+            }
+
             response.writeString("m");
-            response.writeInt(-1);
-            response.writeInt(-1);
-            response.writeInt(0);
-            response.writeInt(1337);
-            response.writeBool(false);
+
+            if (entity->getEntityType() == PLAYER) {
+                response.writeInt(-1);
+                response.writeInt(-1);
+                response.writeInt(0);
+                response.writeInt(1337);
+                response.writeBool(false);
+            }
+
+            if (entity->getEntityType() == BOT) {
+
+                response.writeInt(1);
+                response.writeString("Alex");
+
+                response.writeInt(5);
+                response.writeShort(1);
+                response.writeShort(2);
+                response.writeShort(3);
+                response.writeShort(4);
+                response.writeShort(5);
+            }
         }
 
         return response;

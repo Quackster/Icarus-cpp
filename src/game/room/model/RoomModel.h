@@ -36,6 +36,9 @@ public:
     const int &getDoorZ() const { return this->door_z; }
     const int &getDoorRotation() const { return this->door_rotation; }
 
+    const int getRandomX();
+    const int getRandomY();
+
     ~RoomModel();
 
 private:

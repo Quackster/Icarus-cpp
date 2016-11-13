@@ -143,6 +143,7 @@
     <ClCompile Include="src\game\catalogue\CatalogueTab.cpp" />
     <ClCompile Include="src\game\messenger\Messenger.cpp" />
     <ClCompile Include="src\game\messenger\MessengerUser.cpp" />
+    <ClCompile Include="src\game\bot\Bot.cpp" />
     <ClCompile Include="src\game\navigator\populators\OfficialRoomPopulator.cpp" />
     <ClCompile Include="src\game\navigator\populators\PopularPopulator.cpp" />
     <ClCompile Include="src\game\pathfinder\Pathfinder.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="src\communication\outgoing\room\user\FloodFilterMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\user\TalkMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\user\IdleStatusMessageComposer.h" />
+    <ClInclude Include="src\game\bot\Bot.h" />
     <ClInclude Include="src\game\catalogue\CatalogueManager.h" />
     <ClInclude Include="src\boot\Icarus.h" />
     <ClInclude Include="src\communication\headers\Incoming.h" />

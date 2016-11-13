@@ -41,12 +41,10 @@ public:
         int map_size_y = room->getModel()->getMapSizeY();
 
         if (goal.x >= map_size_x || goal.x >= map_size_y) {
-            cout << "return 1" << endl;
             return;
         }
 
         if (goal.x == current.y && goal.x == current.y) {
-            cout << "return 2" << endl;
             return;
         }
 

@@ -14,6 +14,8 @@
 
 #include "dao/RoomDao.h"
 
+#include "game/bot/Bot.h"
+
 #include "communication/outgoing/user/HotelViewMessageComposer.h"
 #include "communication/outgoing/room/entry/RoomRatingMessageComposer.h"
 #include "communication/outgoing/room/entry/RoomModelMessageComposer.h"
@@ -29,11 +31,43 @@
 /*
     Constructor for rooms
 */
-Room::Room(int room_id) :
+Room::Room(int room_id, RoomData *room_data) :
     id(room_id),
     disposed(false),
     //entities(new std::map<int, Entity*>()),
-    runnable(nullptr) { } //std::make_shared<RoomRunnable>(this)) { }
+    runnable(nullptr),
+    room_data(room_data) { 
+
+
+    if (this->id == 5) {
+        
+        for (int i = 0; i < 100; i++) {
+
+            EntityDetails *details = new EntityDetails();
+            details->username = "TheBestBot-" + std::to_string(Icarus::getRandomNumber(0, 200));
+            details->figure = "hr-893-54.hd-185-26.ch-265-91.lg-280-76.sh-300-83.ha-1013-100.he-1603-71.ea-1406-.fa-1205-75.ca-1809-";
+            details->motto = "i love u";
+            details->id = Icarus::getRandomNumber(0, 200);
+
+            Bot *bot = new Bot(details);
+            RoomModel *model = this->getModel();
+            RoomUser *room_user = bot->getRoomUser();
+
+            room_user->setRoom(this);
+            room_user->position.x = model->getDoorX();
+            room_user->position.y = model->getDoorY();
+            room_user->height = model->getDoorZ();
+            room_user->setRotation(model->getDoorRotation(), true);
+            room_user->virtual_id = this->getData()->virtual_id;
+
+            this->updateVirtualId();
+            this->entities[room_user->virtual_id] = bot;
+        }
+
+    }
+
+
+} //std::make_shared<RoomRunnable>(this)) { }
 
 /*
     Whether or not the user has room rights, has optional option for
@@ -46,8 +80,15 @@ bool Room::hasRights(const int user_id, const bool owner_check_only) {
     }
     else {
 
-        // Check to see if user id is located in room_data->user_rights vector
-        return std::find(this->room_data->user_rights.begin(), this->room_data->user_rights.end(), user_id) != this->room_data->user_rights.end();
+        if (this->room_data->owner_id != user_id) {
+
+            // Check to see if user id is located in room_data->user_rights vector
+            return std::find(this->room_data->user_rights.begin(), this->room_data->user_rights.end(), user_id) != this->room_data->user_rights.end();
+
+        }
+        else {
+            return true;
+        }
     }
 }
 
@@ -335,7 +376,7 @@ void Room::unload() {
     @param MessageComposer class
     @return none
 */
-void Room::send(const MessageComposer &composer, bool users_with_rights) {
+void Room::send(const MessageComposer &composer, const bool users_with_rights) {
 
     Response response = composer.compose();
 
