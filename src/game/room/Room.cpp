@@ -88,7 +88,7 @@ void Room::enter(Entity *entity) {
         this->entities.insert(std::make_pair(room_user->virtual_id, entity));
     }
 
-    if (entity->getEntityType() != PLAYER) {
+    if (entity->getEntityType() != PLAYER) { // From this code onwards is executed for players only
         return;
     }
 
@@ -114,14 +114,14 @@ void Room::enter(Entity *entity) {
     player->send(RoomSpacesMessageComposer("landscape", room_data->outside));
 
     if (this->hasRights(player->getDetails()->id, true)) {
-        player->getRoomUser()->setStatus("flatctrl", "useradmin");
 
+        room_user->setStatus("flatctrl", "useradmin");
         player->send(RightsLevelMessageComposer(4));
         player->send(HasOwnerRightsMessageComposer());
     }
     else if (this->hasRights(player->getDetails()->id, false)) {
-        player->getRoomUser()->setStatus("flatctrl", "1");
 
+        room_user->setStatus("flatctrl", "1");
         player->send(RightsLevelMessageComposer(1));
     }
 
@@ -328,7 +328,7 @@ void Room::load() {
         cout << " [ROOM] Room ID " << this->id << " loaded" << endl;
     }
 
-    if (this->id == 5) {
+    /*if (this->id == 5) {
 
         for (int i = 0; i < 20; i++) {
             EntityDetails *details = new EntityDetails();
@@ -340,9 +340,7 @@ void Room::load() {
             Bot *bot = new Bot(details);
             this->enter(bot);
         }
-
-    }
-
+    }*/
 }
 
 /*
