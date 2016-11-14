@@ -89,10 +89,33 @@ void RoomRunnable::run() {
                     }
 
 
-                    if (this->hasTicked(5)) {
+                   if (this->hasTicked(5)) {
                         if (entity->getEntityType() == BOT) {
+
+                            if (room_user->is_walking) {
+                                continue;
+                            }
+
+                            Position goal = room_user->goal;
+                            Position current = room_user->position;
+
                             room_user->goal.x = room_model->getRandomX();
                             room_user->goal.y = room_model->getRandomY();
+
+                            int map_size_x = room->getModel()->getMapSizeX();
+                            int map_size_y = room->getModel()->getMapSizeY();
+
+                            if (goal.x >= map_size_x || goal.x >= map_size_y) {
+                                continue;
+                            }
+
+                            if (goal.x == current.y && goal.x == current.y) {
+                                continue;
+                            }
+
+                            if (!Pathfinder::isValidStep(room, current, goal, false)) {
+                                continue;
+                            }
 
                             auto path = Pathfinder::makePath(room_user->position, room_user->goal, room);
 
@@ -103,14 +126,14 @@ void RoomRunnable::run() {
                         }
                     }
 
-                   if (this->hasTicked(10)) {
+                   /*if (this->hasTicked(10)) {
                        if (entity->getEntityType() == BOT) {
 
                            if (chat_messages.size() > 0) {
                                room_user->chat(chat_messages[Icarus::getRandomNumber(0, chat_messages.size() - 1)], 0, 0, false);
                            }
                        }
-                    }
+                    }*/
                 }
             }
         }

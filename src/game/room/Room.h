@@ -24,7 +24,7 @@ public:
 
     bool hasRights(const int user_id, const bool owner_check_only = false);
     void serialise(Response &response, const bool enter_room = false);
-    void enter(Player *player);
+    void enter(Entity *entity);
     void leave(Entity *entity, const bool hotel_view, const bool dispose = true);
     void kickPlayers();
     void dispose(const bool force_disposal = false);

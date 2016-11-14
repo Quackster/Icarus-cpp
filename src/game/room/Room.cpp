@@ -39,33 +39,6 @@ Room::Room(int room_id, RoomData *room_data) :
     room_data(room_data) { 
 
 
-    if (this->id == 5) {
-        
-        for (int i = 0; i < 100; i++) {
-
-            EntityDetails *details = new EntityDetails();
-            details->username = "TheBestBot-" + std::to_string(Icarus::getRandomNumber(0, 200));
-            details->figure = "hr-893-54.hd-185-26.ch-265-91.lg-280-76.sh-300-83.ha-1013-100.he-1603-71.ea-1406-.fa-1205-75.ca-1809-";
-            details->motto = "i love u";
-            details->id = Icarus::getRandomNumber(0, 200);
-
-            Bot *bot = new Bot(details);
-            RoomModel *model = this->getModel();
-            RoomUser *room_user = bot->getRoomUser();
-
-            room_user->setRoom(this);
-            room_user->position.x = model->getDoorX();
-            room_user->position.y = model->getDoorY();
-            room_user->height = model->getDoorZ();
-            room_user->setRotation(model->getDoorRotation(), true);
-            room_user->virtual_id = this->getData()->virtual_id;
-
-            this->updateVirtualId();
-            this->entities[room_user->virtual_id] = bot;
-        }
-
-    }
-
 
 } //std::make_shared<RoomRunnable>(this)) { }
 
@@ -97,18 +70,32 @@ Enter room handler
 
 @return none
 */
-void Room::enter(Player *player) {
+void Room::enter(Entity *entity) {
 
-    this->disposed = false;
+    RoomModel *model = this->getModel();
+    RoomUser *room_user = entity->getRoomUser();
 
-    // So we don't forget what room we entered 8-)
-    player->getRoomUser()->setRoom(this);
-    player->getRoomUser()->is_loading_room = true;
+    room_user->position.x = model->getDoorX();
+    room_user->position.y = model->getDoorY();
+    room_user->height = model->getDoorZ();
+    room_user->setRotation(model->getDoorRotation(), true);
+    room_user->setRoom(this);
 
-    player->getRoomUser()->virtual_id = this->getData()->virtual_id;
+    room_user->virtual_id = this->getData()->virtual_id;
     this->updateVirtualId();
 
-    // TODO: Virtual id calculation
+    if (!this->hasEntity(entity)) {
+        this->entities.insert(std::make_pair(room_user->virtual_id, entity));
+    }
+
+    if (entity->getEntityType() != PLAYER) {
+        return;
+    }
+
+    Player *player = dynamic_cast<Player*>(entity);
+
+    this->disposed = false;
+    room_user->is_loading_room = true;
 
     player->send(RoomModelMessageComposer(this->getModel()->getName(), this->id));
     player->send(RoomRatingMessageComposer(room_data->score));
@@ -138,10 +125,6 @@ void Room::enter(Player *player) {
         player->send(RightsLevelMessageComposer(1));
     }
 
-    if (!this->hasEntity(player)) {
-        this->entities.insert(std::make_pair(player->getRoomUser()->virtual_id, player));
-    }
-
     if (this->getPlayers().size() == 1) {
 
         this->load();
@@ -151,14 +134,6 @@ void Room::enter(Player *player) {
             this->scheduleRunnable();
         }
     }
-
-    RoomModel *model = this->getModel();
-    RoomUser *room_user = player->getRoomUser();
-
-    room_user->position.x = model->getDoorX();
-    room_user->position.y = model->getDoorY();
-    room_user->height = model->getDoorZ();
-    room_user->setRotation(model->getDoorRotation(), true);
 
     this->send(UserDisplayMessageComposer(player));
     this->send(UserStatusMessageComposer(player));
@@ -353,6 +328,21 @@ void Room::load() {
         cout << " [ROOM] Room ID " << this->id << " loaded" << endl;
     }
 
+    if (this->id == 5) {
+
+        for (int i = 0; i < 20; i++) {
+            EntityDetails *details = new EntityDetails();
+            details->username = "TheBestBot-" + std::to_string(Icarus::getRandomNumber(0, 200));
+            details->figure = "hr-893-54.hd-185-26.ch-265-91.lg-280-76.sh-300-83.ha-1013-100.he-1603-71.ea-1406-.fa-1205-75.ca-1809-";
+            details->motto = "i love u";
+            details->id = Icarus::getRandomNumber(0, 200);
+
+            Bot *bot = new Bot(details);
+            this->enter(bot);
+        }
+
+    }
+
 }
 
 /*
@@ -367,6 +357,16 @@ void Room::unload() {
     if (Icarus::getLogConfiguration()->getBool("log.room.unloaded")) {
         cout << " [ROOM] Room ID " << this->id << " unloaded" << endl;
     }
+
+    for (auto kvp : this->entities) {
+        Entity *entity = kvp.second;
+
+        if (entity->getEntityType() == BOT) {
+            delete entity; // Only delete non-playable entities
+        }
+    }
+
+    this->entities.clear();
 
 }
 
@@ -446,14 +446,6 @@ void Room::scheduleRunnable() {
     Deconstructor for rooms
 */
 Room::~Room() {
-
-    for (auto kvp : this->entities) {
-        Entity *entity = kvp.second;
-
-        if (entity->getEntityType() != PLAYER) {
-            delete entity; // Only delete non-playable entities
-        }
-    }
 
     delete room_data;
     this->room_data = nullptr;

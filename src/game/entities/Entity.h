@@ -17,7 +17,7 @@ class Entity
 {
 
 public:
-    ~Entity() { }
+    virtual ~Entity() { }
 
     virtual EntityDetails *getDetails() = 0;
     virtual void setDetails(EntityDetails *details) = 0;

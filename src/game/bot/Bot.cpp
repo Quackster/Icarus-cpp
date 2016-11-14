@@ -26,5 +26,6 @@ Bot::Bot(EntityDetails *details) :
 
 
 Bot::~Bot() {
-
+    delete details;
+    delete room_user;
 }
