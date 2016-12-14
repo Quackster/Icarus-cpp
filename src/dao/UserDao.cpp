@@ -16,7 +16,7 @@ bool UserDao::exists(std::string sso_ticket) {
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
     try {
-        std::shared_ptr<sql::Connection> sqlConnection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sqlConnection->prepareStatement("SELECT id FROM users WHERE sso_ticket = ?")); {
             statement->setString(1, sso_ticket);
         }
@@ -55,7 +55,7 @@ std::string UserDao::getName(int user_id) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT username FROM users WHERE id = ? LIMIT 1")); {
             statement->setInt(1, user_id);
         }
@@ -83,7 +83,7 @@ int UserDao::getIdByUsername(std::string username) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id FROM users WHERE username = ? LIMIT 1")); {
             statement->setString(1, username);
         }
@@ -120,7 +120,7 @@ EntityDetails *UserDao::findUserByTicket(Player *player, std::string sso_ticket)
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT * FROM users WHERE sso_ticket = ? LIMIT 1")); {
             statement->setString(1, sso_ticket);
         }
@@ -174,7 +174,7 @@ std::shared_ptr<EntityDetails> UserDao::getDetails(int user_id) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, username, rank, mission, figure, credits FROM users WHERE id = ? LIMIT 1")); {
             statement->setInt(1, user_id);
         }
@@ -214,7 +214,7 @@ void UserDao::updateUser(int user_id, EntityDetails *details) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE users SET last_online = ? WHERE id = ?")); {
             statement->setInt64(1, Icarus::getUnixTimestamp());
             statement->setInt(2, user_id);

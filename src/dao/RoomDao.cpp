@@ -26,7 +26,7 @@ std::map<std::string, RoomModel*> RoomDao::getModels() {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, heightmap, door_x, door_y, door_z, door_dir FROM room_models "));
 
         std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
@@ -64,7 +64,7 @@ void RoomDao::addPublicRooms() {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id FROM rooms WHERE room_type = 1 "));
 
         std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
@@ -100,7 +100,7 @@ std::vector<int> RoomDao::getPlayerRooms(int user_id) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id FROM rooms WHERE owner_id = ? "));
         statement->setInt(1, user_id);
 
@@ -150,7 +150,7 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
 
         for (int room_id : room_ids) {
 
@@ -253,7 +253,7 @@ std::vector<int> RoomDao::getRights(int room_id) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT user_id FROM room_rights WHERE room_id = ? "));
         statement->setInt(1, room_id);
 
@@ -285,7 +285,7 @@ void RoomDao::deleteRoom(int room_id) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("DELETE FROM rooms WHERE id = ? "));
         statement->setInt(1, room_id);
         statement->execute();
@@ -309,7 +309,7 @@ void RoomDao::updateRoom(int room_id, Room *room) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE rooms SET name = ?, description = ?, state = ?, users_max = ?, category = ?, tags = ?, trade_state = ?, allow_pets = ?, allow_pets_eat = ?, allow_walkthrough = ?, hidewall = ?, wall_thickness = ?, floor_thickness = ?, who_can_mute = ?, who_can_ban = ?, who_can_kick = ?, chat_mode = ?, chat_size = ?, chat_speed = ?, chat_distance = ?, chat_flood = ?, password = ?  WHERE id = ?")); {
 
             RoomData *room_data = room->getData();

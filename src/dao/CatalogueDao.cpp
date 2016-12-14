@@ -29,7 +29,7 @@ std::vector<CatalogueTab*> CatalogueDao::getTabs(int child_id) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sqlConnection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
         std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
         std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, child_id, tab_name, title, button_type, closed, thumbnail, room_populator FROM navigator_tabs WHERE child_id = " + std::to_string(child_id)));
 

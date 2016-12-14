@@ -16,7 +16,7 @@ bool MySQLDao::exists(std::string query) {
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
     try {
-        std::shared_ptr<sql::Connection> sqlConnection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
         std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
         std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery(query));
         output = resultSet->next();

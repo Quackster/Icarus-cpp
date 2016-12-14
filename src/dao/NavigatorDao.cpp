@@ -20,7 +20,7 @@ int NavigatorDao::createRoom(std::string room_name, std::string description, std
     try {
 
         // Insert room data
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("INSERT INTO rooms (name, description, owner_id, model, category, users_max, trade_state) VALUES (?, ?, ?, ?, ?, ?, ?);")); {
             statement->setString(1, room_name);
             statement->setString(2, description);
@@ -63,7 +63,7 @@ std::vector<NavigatorTab*> NavigatorDao::getTabsByChildId(int child_id) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sqlConnection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
         std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
         std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, child_id, tab_name, title, button_type, closed, thumbnail, room_populator FROM navigator_tabs WHERE child_id = " + std::to_string(child_id)));
 
@@ -110,7 +110,7 @@ std::vector<NavigatorCategory*> NavigatorDao::getCategories() {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sql_connection->createStatement());
         std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, title, min_rank FROM navigator_categories"));
 

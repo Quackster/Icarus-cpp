@@ -28,7 +28,7 @@ std::map<int, MessengerUser*> MessengerDao::getFriends(int user_id) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sqlConnection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
         std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
         std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT * FROM messenger_friendships WHERE (sender = " + std::to_string(user_id) + ") OR (receiver = " + std::to_string(user_id) + ")"));
 
@@ -70,7 +70,7 @@ std::map<int, MessengerUser*> MessengerDao::getRequests(int user_id) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sql_connection->createStatement());
         std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT * FROM messenger_requests WHERE to_id = " + std::to_string(user_id)));
 
@@ -105,7 +105,7 @@ std::vector<int> MessengerDao::search(std::string query) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id FROM users WHERE username LIKE ? LIMIT 30")); {
             statement->setString(1, "%" + query + "%");
         }
@@ -146,7 +146,7 @@ bool MessengerDao::newRequest(int fromId, int toId) {
 
         try {
 
-            std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+            std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
             std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("INSERT INTO messenger_requests (to_id, from_id) VALUES (?, ?)")); {
                 statement->setInt(1, toId);
                 statement->setInt(2, fromId);
@@ -180,7 +180,7 @@ bool MessengerDao::removeRequest(int fromId, int toId) {
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
     try {
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sql_connection->createStatement());
         statement->execute("DELETE FROM messenger_requests WHERE from_id = " + std::to_string(fromId) + " AND to_id = " + std::to_string(toId));
     }
@@ -206,7 +206,7 @@ bool MessengerDao::removeFriend(int friendId, int userId) {
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
     try {
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sql_connection->createStatement());
         statement->execute("DELETE FROM messenger_friendships WHERE(sender = " + std::to_string(userId) + " AND receiver = " + std::to_string(friendId) + ") OR (receiver = " + std::to_string(userId) + " AND sender = " + std::to_string(friendId) + ")");
     }
@@ -233,7 +233,7 @@ bool MessengerDao::newFriend(int sender, int receiver) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("INSERT INTO messenger_friendships (sender, receiver) VALUES (?, ?)")); {
             statement->setInt(1, sender);
             statement->setInt(2, receiver);
@@ -267,7 +267,7 @@ void MessengerDao::offlineMessage(int to, int from, std::string message, bool un
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("INSERT INTO messenger_messages (to_id, from_id, unread, message) VALUES (?, ?, ?, ?)")); {
             statement->setInt(1, to);
             statement->setInt(2, from);
@@ -300,7 +300,7 @@ std::map<std::string, int> MessengerDao::getOfflineMessages(int user_id) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sql_connection = connection->sqlConnection;
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT to_id, from_id, unread, message FROM messenger_messages WHERE unread = 1 AND to_id = ?")); {
             statement->setInt(1, user_id);
         }
