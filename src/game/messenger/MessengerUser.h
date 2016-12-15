@@ -21,8 +21,10 @@ private:
 public:
     MessengerUser(int user_id);
     ~MessengerUser();
+
     void update();
     void serialise(Response &response, const bool force_offline);
+	void serialiseUpdate(Response &response, const bool force_offline);
     void serialiseSearch(Response &response);
     bool inRoom();
 
@@ -32,4 +34,6 @@ public:
 
     std::shared_ptr<EntityDetails> getDetails() { return details; };
     bool isOnline() { this->update(); return session != nullptr; }
+
+	bool visible_status;
 };

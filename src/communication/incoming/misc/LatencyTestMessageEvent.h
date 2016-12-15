@@ -18,7 +18,7 @@ public:
 
     void handle(Player *player, Request &request) {
 
-        if (player->getMessenger() != nullptr) {
+        /*if (player->getMessenger() != nullptr) {
 
             if (!player->getMessenger()->isInitialised()) {
                 player->getMessenger()->setInitialised(true);
@@ -27,6 +27,6 @@ public:
             for (auto kvp : player->getMessenger()->getFriends()) {
                 player->send(MessengerUpdateMessageComposer(kvp.second, false));
             }
-        }
+        }*/
     }
 };

@@ -45,7 +45,7 @@ void Player::login() {
     */
     if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(this->session_details->id) == 1) {
         //this->getNetworkConnection()->getSocket().close();
-        return;
+		return;
     }
 
     this->logged_in = true;    
@@ -66,10 +66,11 @@ void Player::login() {
         MessengerDao::getFriends(this->session_details->id), 
         MessengerDao::getRequests(this->session_details->id));
 
-    /*
+
+    
+	/*
         Cache room data
     */
-
     Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->id);
 }
 

@@ -133,19 +133,23 @@ void Messenger::removeRequest(int user_id) {
     @bool force offline mode for friend (used when disconnecting)
     @return none
 */
-void Messenger::sendStatus(bool force_offline, bool login_status) {
+void Messenger::sendStatus(bool force_offline) {
 
     const Response response = MessengerUpdateMessageComposer(std::make_unique<MessengerUser>(this->user_id).get(), force_offline).compose();
 
     for (auto kvp : this->friends) {
 
         MessengerUser *friend_ = kvp.second;
+		MessengerUser *self = friend_->getPlayer()->getMessenger()->getFriend(this->user_id);
 
         if (friend_->isOnline()) {
-            if (friend_->getPlayer()->getMessenger()->isInitialised()) {
+            if (friend_->getPlayer()->getMessenger()->initialised) {
                 friend_->getPlayer()->getNetworkConnection()->send(response);
+
             }
         }
+
+		self->visible_status = force_offline ? false : self->isOnline();
     }
 }
 

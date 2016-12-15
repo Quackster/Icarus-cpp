@@ -38,6 +38,7 @@ public:
                 player->send(MessengerMessageComposer(kvp.second, kvp.first));
             }
         }
-       
+
+		player->getMessenger()->initialised = true;
     }
 };

@@ -31,7 +31,7 @@ public:
             return;
         }
 
-        if (!messenger->isInitialised()) {
+        if (!messenger->initialised) {
             return;
         }
 

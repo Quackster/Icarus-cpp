@@ -14,7 +14,7 @@ class Entity;
 class Messenger {
 
 private:
-    bool initialised;
+
     int user_id;
     const Entity *player;
 
@@ -30,7 +30,7 @@ public:
     bool isFriend(int id);
     void removeRequest(int user_id);
     void removeFriend(int user_id);
-    void sendStatus(bool force_offline, bool login_status = false);
+    void sendStatus(bool force_offline);
     void send(const MessageComposer &composer);
 
     std::map<int, MessengerUser*> getFriends() {
@@ -42,8 +42,6 @@ public:
     }
 
     void clearFriends();
-    void clearRequests();
-
-    bool isInitialised() { return this->initialised; }
-    void setInitialised(bool flag) { this->initialised = flag; }
+	void clearRequests();
+	bool initialised;
 };
