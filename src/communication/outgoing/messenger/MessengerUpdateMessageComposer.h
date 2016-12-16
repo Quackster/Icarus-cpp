@@ -24,7 +24,7 @@ public:
         response.writeInt(0);
         response.writeInt(1);
         response.writeInt(0);
-        messenger_user->serialiseUpdate(response, force_offline);
+        messenger_user->serialise(response, force_offline);
         response.writeInt(0);
         return response;
     }

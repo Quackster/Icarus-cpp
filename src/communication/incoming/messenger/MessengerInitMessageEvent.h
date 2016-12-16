@@ -40,5 +40,6 @@ public:
         }
 
 		player->getMessenger()->initialised = true;
+		player->getMessenger()->sendStatus(false);
     }
 };

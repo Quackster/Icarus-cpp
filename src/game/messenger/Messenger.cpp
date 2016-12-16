@@ -16,6 +16,9 @@
 #include "communication/outgoing/messenger/MessengerUpdateMessageComposer.h"
 #include "communication/outgoing/messenger/FriendsListMessageComposer.h"
 
+#include "communication/outgoing/messenger/RemoveFriendMessageComposer.h"
+
+
 /*
     Constructor for Messenger
 
@@ -135,21 +138,21 @@ void Messenger::removeRequest(int user_id) {
 */
 void Messenger::sendStatus(bool force_offline) {
 
-    const Response response = MessengerUpdateMessageComposer(std::make_unique<MessengerUser>(this->user_id).get(), force_offline).compose();
+	std::shared_ptr<MessengerUser> self = std::make_shared<MessengerUser>(this->user_id);
 
     for (auto kvp : this->friends) {
 
         MessengerUser *friend_ = kvp.second;
-		MessengerUser *self = friend_->getPlayer()->getMessenger()->getFriend(this->user_id);
 
         if (friend_->isOnline()) {
             if (friend_->getPlayer()->getMessenger()->initialised) {
-                friend_->getPlayer()->getNetworkConnection()->send(response);
+                friend_->getPlayer()->getNetworkConnection()->send(RemoveFriendMessageComposer(this->user_id));
+				friend_->getPlayer()->getNetworkConnection()->send(MessengerUpdateMessageComposer(self.get(), force_offline));
 
             }
         }
 
-		self->visible_status = force_offline ? false : self->isOnline();
+		//self->visible_status = force_offline ? false : self->isOnline();
     }
 }
 
