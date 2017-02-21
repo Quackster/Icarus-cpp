@@ -34,16 +34,16 @@ std::map<int, MessengerUser*> MessengerDao::getFriends(int user_id) {
 
         while (resultSet->next()) {
 
-            MessengerUser *friend_;
+            MessengerUser *buddy;
 
             if (resultSet->getInt("sender") != user_id) {
-                friend_ = new MessengerUser(resultSet->getInt("sender"));
+                buddy = new MessengerUser(resultSet->getInt("sender"));
             }
             else {
-                friend_ = new MessengerUser(resultSet->getInt("receiver"));
+                buddy = new MessengerUser(resultSet->getInt("receiver"));
             }
 
-            friends.insert(std::make_pair(friend_->getDetails()->id, friend_));
+            friends.insert(std::make_pair(buddy->getDetails()->id, buddy));
         }
 
     }
@@ -76,8 +76,8 @@ std::map<int, MessengerUser*> MessengerDao::getRequests(int user_id) {
 
         while (result_set->next()) {
 
-            MessengerUser *friend_ = new MessengerUser(result_set->getInt("from_id"));
-            friends.insert(std::make_pair(friend_->getDetails()->id, friend_));
+            MessengerUser *buddy = new MessengerUser(result_set->getInt("from_id"));
+            friends.insert(std::make_pair(buddy->getDetails()->id, buddy));
         }
 
     }

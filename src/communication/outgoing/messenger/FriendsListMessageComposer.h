@@ -25,8 +25,8 @@ public:
         response.writeInt(0);
         response.writeInt(this->friends.size());
 
-        for (auto friend_ : this->friends) {
-            friend_.second->serialise(response, false);
+        for (auto buddy : this->friends) {
+            buddy.second->serialise(response, false);
         }
         
         return response;

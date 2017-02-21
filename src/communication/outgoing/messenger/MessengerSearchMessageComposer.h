@@ -39,8 +39,8 @@ public:
 
         response.writeInt(friends.size());
 
-        for (MessengerUser friend_ : friends) {
-            friend_.serialiseSearch(response);
+        for (MessengerUser buddy : friends) {
+            buddy.serialiseSearch(response);
         }
 
         response.writeInt(strangers.size());

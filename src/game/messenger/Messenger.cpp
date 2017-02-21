@@ -48,7 +48,7 @@ Messenger::~Messenger() {
 */
 void Messenger::clearFriends() {
 
-    for (auto friend_ : this->friends) delete friend_.second;
+    for (auto buddy : this->friends) delete buddy.second;
     this->friends.clear();
 }
 
@@ -141,13 +141,13 @@ void Messenger::sendStatus(bool force_offline) {
 
     for (auto kvp : this->friends) {
 
-        MessengerUser *friend_ = kvp.second;
+        MessengerUser *buddy = kvp.second;
 
-        if (friend_->isOnline()) {
-            if (friend_->getPlayer()->getMessenger()->initialised) {
-				friend_->getPlayer()->send(response);
-                /*friend_->getPlayer()->getNetworkConnection()->send(RemoveFriendMessageComposer(this->user_id));
-				friend_->getPlayer()->getNetworkConnection()->send(MessengerUpdateMessageComposer(self.get(), force_offline));*/
+        if (buddy->isOnline()) {
+            if (buddy->getPlayer()->getMessenger()->initialised) {
+				buddy->getPlayer()->send(response);
+                /*buddy->getPlayer()->getNetworkConnection()->send(RemoveFriendMessageComposer(this->user_id));
+				buddy->getPlayer()->getNetworkConnection()->send(MessengerUpdateMessageComposer(self.get(), force_offline));*/
 				
 
             }
