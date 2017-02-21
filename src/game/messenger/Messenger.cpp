@@ -23,7 +23,7 @@
     @param map of user ids and messenger user ptrs of which are friends
     @param map of user ids and messenger user ptrs of which are requests
 */
-Messenger::Messenger(Entity *player, int user_id, std::map<int, MessengerUser*> friends, std::map<int, MessengerUser*> requests) :
+Messenger::Messenger(Player *player, int user_id, std::map<int, MessengerUser*> friends, std::map<int, MessengerUser*> requests) :
     player(player),
     user_id(user_id),
     friends(friends),

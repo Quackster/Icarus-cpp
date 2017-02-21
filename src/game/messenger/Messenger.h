@@ -10,19 +10,19 @@
 #include <map>
 
 class MessengerUser;
-class Entity;
+class Player;
 class Messenger {
 
 private:
 
     int user_id;
-    const Entity *player;
+    Player *player;
 
     std::map<int, MessengerUser*> friends;
     std::map<int, MessengerUser*> requests;
 
 public:
-    Messenger(Entity *player, int user_id, std::map<int, MessengerUser*> friends, std::map<int, MessengerUser*> requests);
+    Messenger(Player *player, int user_id, std::map<int, MessengerUser*> friends, std::map<int, MessengerUser*> requests);
     ~Messenger();
     MessengerUser *getRequest(int user_id);
     MessengerUser *getFriend(int user_id);
