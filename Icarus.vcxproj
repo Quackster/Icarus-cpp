@@ -140,7 +140,6 @@
     <ClCompile Include="src\dao\MessengerDao.cpp" />
     <ClCompile Include="src\dao\MySQLDao.cpp" />
     <ClCompile Include="src\dao\CatalogueDao.cpp" />
-    <ClCompile Include="src\game\catalogue\CatalogueTab.cpp" />
     <ClCompile Include="src\game\messenger\Messenger.cpp" />
     <ClCompile Include="src\game\messenger\MessengerUser.cpp" />
     <ClCompile Include="src\game\bot\Bot.cpp" />
@@ -180,11 +179,14 @@
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\communication\incoming\catalogue\CatalogueMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\messenger\MessengerUpdateMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\user\ChatMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\user\DanceMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\user\ShowSignMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\user\ShoutMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\user\TypingStatusMessageEvent.h" />
+    <ClInclude Include="src\communication\outgoing\catalogue\CatalogueTabMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\user\DanceStatusMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\user\TypingStatusMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\user\FloodFilterMessageComposer.h" />

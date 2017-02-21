@@ -58,8 +58,12 @@
 #include "messenger/MessengerDeclineMessageEvent.h"
 #include "messenger/MessengerDeleteFriendMessageEvent.h"
 #include "messenger/MessengerTalkMessageEvent.h"
+#include "messenger/MessengerUpdateMessageEvent.h"
 #include "messenger/FollowFriendMessageEvent.h"
 #include "messenger/MessengerInviteMessageEvent.h"
+
+// Catalogue
+#include "catalogue/CatalogueMessageEvent.h"
 
 /*
     MessageHandler constructor
@@ -109,6 +113,7 @@ MessageHandler::MessageHandler() {
     // Messenger
    this->createEvent(Incoming::MessengerSearchMessageEvent, new MessengerSearchMessageEvent());
    this->createEvent(Incoming::MessengerInitMessageEvent, new MessengerInitMessageEvent());
+   this->createEvent(Incoming::MessengerUpdateMessageEvent, new MessengerUpdateMessageEvent());
    this->createEvent(Incoming::MessengerRequestMessageEvent, new MessengerRequestMessageEvent());
    this->createEvent(Incoming::MessengerAcceptMessageEvent, new MessengerAcceptMessageEvent());
    this->createEvent(Incoming::MessengerDeclineMessageEvent, new MessengerDeclineMessageEvent());
@@ -116,6 +121,9 @@ MessageHandler::MessageHandler() {
    this->createEvent(Incoming::FollowFriendMessageEvent, new FollowFriendMessageEvent());
    this->createEvent(Incoming::MessengerTalkMessageEvent, new MessengerTalkMessageEvent());
    this->createEvent(Incoming::MessengerInviteMessageEvent, new MessengerInviteMessageEvent());
+   
+   // Catalogue
+   this->createEvent(Incoming::CatalogueMessageEvent, new CatalogueMessageEvent());
 }
 
 /*

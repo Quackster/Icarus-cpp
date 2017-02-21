@@ -7,10 +7,14 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-class CatalogueTab
+struct CatalogueTab
 {
-public:
-    CatalogueTab();
-    ~CatalogueTab();
+	int id;
+	int parent_id;
+	std::string caption;
+	int icon_colour;
+	int icon_image;
+	bool enabled;
+	int min_rank;
 };
 

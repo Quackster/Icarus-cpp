@@ -65,4 +65,5 @@ public:
     static const int FloodFilterMessageComposer = 626;
     static const int DanceStatusMessageComposer = 1005;
     static const int IdleStatusMessageComposer = 2932;
+	static const int CatalogueTabMessageComposer = 3579;
 };

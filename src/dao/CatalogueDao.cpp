@@ -20,23 +20,28 @@
     @param child id
     @return list of tabs
 */
-std::vector<CatalogueTab*> CatalogueDao::getTabs(int child_id) {
+std::vector<CatalogueTab> CatalogueDao::getTabs(int id) {
 
-    std::vector<CatalogueTab*> tabs;// = new std::vector<NavigatorTab*>();
-    
+    std::vector<CatalogueTab> tabs;// = new std::vector<NavigatorTab*>();
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
-    bool has_user = false;
 
     try {
 
         std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
         std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
-        std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, child_id, tab_name, title, button_type, closed, thumbnail, room_populator FROM navigator_tabs WHERE child_id = " + std::to_string(child_id)));
+        std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, parent_id, caption, icon_color, icon_image, min_rank FROM catalogue_pages WHERE parent_id = " + std::to_string(id)));
 
-        while (resultSet->next()) {
+		while (resultSet->next()) {
 
-        }
-
+			CatalogueTab tab;
+			tab.id = resultSet->getInt("id");
+			tab.parent_id = resultSet->getInt("parent_id");
+			tab.caption = resultSet->getString("caption");
+			tab.icon_colour = resultSet->getInt("icon_color");
+			tab.icon_image = resultSet->getInt("icon_image");
+			tab.min_rank = resultSet->getInt("min_rank");
+			tabs.push_back(tab);
+		}
     }
     catch (sql::SQLException &e) {
         Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);

@@ -21,6 +21,6 @@ private:
     CatalogueDao() { };
 
 public:
-    std::vector<CatalogueTab*> getTabs(int child_id);
+    static std::vector<CatalogueTab> getTabs(int child_id);
 };
 

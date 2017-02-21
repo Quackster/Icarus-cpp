@@ -24,7 +24,8 @@ public:
     static const int HeightMapMessageEvent = 815;
     static const int EventLogMessageEvent = 1787;
     static const int RoomInfoMessageEvent = 3494;
-    static const int MessengerInitMessageEvent = 733;
+	static const int MessengerInitMessageEvent = 733;
+	static const int MessengerUpdateMessageEvent = 3412;//191;
     static const int MessengerSearchMessageEvent = 2760;
     static const int MessengerRequestMessageEvent = 2826;
     static const int MessengerAcceptMessageEvent = 3310;
@@ -46,4 +47,5 @@ public:
     static const int StartTypingMessageEvent = 1752;
     static const int StopTypingMessageEvent = 998;
     static const int ShowSignMessageEvent = 2604;
+	static const int CatalogueMessageEvent = 3871;
 };

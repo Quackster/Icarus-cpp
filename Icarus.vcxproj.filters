@@ -141,9 +141,6 @@
     <ClCompile Include="src\dao\CatalogueDao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\catalogue\CatalogueTab.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\game\bot\Bot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -582,6 +579,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\bot\Bot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\messenger\MessengerUpdateMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\catalogue\CatalogueMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\catalogue\CatalogueTabMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

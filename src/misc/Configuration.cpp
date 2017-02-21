@@ -97,7 +97,7 @@ void Configuration::parse() {
             output_file << "##     Game config    ##" << endl;
             output_file << "########################" << endl;
             output_file << endl;
-            output_file << "thread.pool.size=4;" << endl;
+            output_file << "thread.pool.size=8;" << endl;
             output_file << endl;
             output_file << "game.revision=PRODUCTION-201512012203-525044429;" << endl;
             output_file << endl;

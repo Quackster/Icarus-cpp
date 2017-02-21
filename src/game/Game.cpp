@@ -16,7 +16,8 @@
 Game::Game() :
     navigator_manager(new NavigatorManager()),
     room_manager(new RoomManager()),
-    executor_service(ExecutorService::createSchedulerService(Icarus::getGameConfiguration()->getInt("thread.pool.size"), std::chrono::milliseconds(500))) {
+    executor_service(ExecutorService::createSchedulerService(Icarus::getGameConfiguration()->getInt("thread.pool.size"), std::chrono::milliseconds(500))),
+	catalogue_manager(new CatalogueManager()) {
 }
 
 /*
