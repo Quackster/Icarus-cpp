@@ -15,6 +15,7 @@
 #include "game/entities/Entity.h"
 #include "game/messenger/Messenger.h"
 
+class MessengerUser;
 class Player : public Entity {
 
 public:
@@ -41,6 +42,7 @@ public:
     std::vector<Room*> getRooms();
     
     Messenger *getMessenger() { return this->messenger; }
+	MessengerUser *getMessengerUser() { return this->messenger_user; }
     bool authenticated() { return logged_in; }
     bool disposed() { return disconnected; }
 
@@ -54,6 +56,7 @@ private:
     EntityDetails *session_details = nullptr;
     RoomUser *room_user = nullptr;
     Messenger *messenger = nullptr;
+	MessengerUser *messenger_user = nullptr;
     std::string unique_id;
     bool logged_in;
     bool disconnected;

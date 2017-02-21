@@ -137,7 +137,7 @@ void Messenger::sendStatus(bool force_offline) {
 
 	/*std::shared_ptr<MessengerUser> self = std::make_shared<MessengerUser>(this->user_id);*/
 
-	const MessengerUpdateMessageComposer response = MessengerUpdateMessageComposer(std::make_unique<MessengerUser>(this->user_id).get(), force_offline);
+	const MessengerUpdateMessageComposer response = MessengerUpdateMessageComposer(this->player->getMessengerUser(), force_offline);
 
     for (auto kvp : this->friends) {
 

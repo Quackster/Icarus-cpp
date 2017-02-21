@@ -9,6 +9,7 @@
 #include "stdafx.h"
 
 #include "game/player/Player.h"
+#include "game/messenger/MessengerUser.h"
 
 #include "dao/UserDao.h"
 #include "dao/MessengerDao.h"
@@ -65,6 +66,8 @@ void Player::login() {
         this->session_details->id, 
         MessengerDao::getFriends(this->session_details->id), 
         MessengerDao::getRequests(this->session_details->id));
+
+	this->messenger_user = new MessengerUser(this->session_details->id);
 
 
     
@@ -165,6 +168,7 @@ Player::~Player() {
     }
 
     delete messenger;
+	delete messenger_user;
     delete session_details;
     delete room_user;
 }
