@@ -52,24 +52,6 @@ void MessengerUser::serialise(Response &response, const bool force_offline) {
     response.writeShort(0);
 }
 
-void MessengerUser::serialiseUpdate(Response &response, const bool force_offline) {
-
-	response.writeInt(this->details->id);
-	response.writeString(this->details->username);
-	response.writeInt(1); // gender
-	response.writeBool(force_offline ? false : this->isOnline());
-	response.writeBool(force_offline ? false : this->inRoom());
-	response.writeString("");// Look : "");
-	response.writeInt(0); // categoryid
-	response.writeString(this->details->motto);
-	response.writeString(""); // Facebook username
-	response.writeString("");
-	response.writeBool(true); // Allows offline messaging
-	response.writeBool(false); // ?
-	response.writeBool(false); // Uses phone
-	response.writeShort(0);
-}
-
 void MessengerUser::serialiseSearch(Response &response) {
 
     response.writeInt(this->getDetails()->id);

@@ -24,7 +24,6 @@ public:
 
     void update();
     void serialise(Response &response, const bool force_offline);
-	void serialiseUpdate(Response &response, const bool force_offline);
     void serialiseSearch(Response &response);
     bool inRoom();
 
