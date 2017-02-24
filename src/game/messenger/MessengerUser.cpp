@@ -16,7 +16,6 @@
 MessengerUser::MessengerUser(int user_id) :
     user_id(user_id), details(UserDao::getDetails(user_id)) {
     this->update();
-	visible_status = this->session == nullptr ? false : true;
 }
 
 MessengerUser::~MessengerUser() { }
@@ -25,7 +24,7 @@ void MessengerUser::update() {
     this->session = Icarus::getPlayerManager()->getPlayerById(this->user_id);
 }
 
-void MessengerUser::serialise(Response &response, const bool force_offline) { 
+void MessengerUser::serialise(Response &response, const bool force_offline, bool is_update) { 
 
     response.writeInt(this->details->id);
     response.writeString(this->details->username);

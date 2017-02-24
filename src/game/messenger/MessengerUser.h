@@ -23,7 +23,7 @@ public:
     ~MessengerUser();
 
     void update();
-    void serialise(Response &response, const bool force_offline);
+	void serialise(Response &response, const bool force_offline, bool is_update = true);
     void serialiseSearch(Response &response);
     bool inRoom();
 
