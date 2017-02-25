@@ -28,6 +28,10 @@ Player::Player(NetworkConnection *network_connection) :
     room_user(nullptr),
     logged_in(false),
     disconnected(false) {
+
+	if (network_connection == nullptr) {
+		return;
+	}
     
     if (Icarus::getLogConfiguration()->getBool("log.player.connect")) {
         cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << endl;
@@ -156,6 +160,10 @@ void Player::close() {
     so there won't be any more packet receiving
 */
 Player::~Player() {
+
+	if (network_connection == nullptr) {
+		return;
+	}
 
     this->getNetworkConnection()->setConnectionState(false);
 

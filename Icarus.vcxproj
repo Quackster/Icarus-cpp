@@ -135,6 +135,7 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\plugin\PluginMessageEvent.cpp" />
     <ClCompile Include="src\plugin\PluginManager.cpp" />
     <ClCompile Include="src\game\catalogue\CatalogueManager.cpp" />
     <ClCompile Include="src\communication\incoming\MessageHandler.cpp" />
@@ -324,6 +325,7 @@
     <ClInclude Include="src\network\NetworkServer.h" />
     <ClInclude Include="src\network\rcon\RconConnection.h" />
     <ClInclude Include="src\network\rcon\RconServer.h" />
+    <ClInclude Include="src\plugin\PluginMessageEvent.h" />
     <ClInclude Include="src\stdafx.h" />
     <ClInclude Include="src\targetver.h" />
     <ClInclude Include="src\thread\BlockingQueue.h" />

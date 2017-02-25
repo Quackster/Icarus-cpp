@@ -19,7 +19,9 @@ Request::Request(int length, char *full_message) :
     full_message(full_message), 
     index(0) {
 
-    this->header = this->readShort();
+	if (length > 0) {
+		this->header = this->readShort();
+	}
 }
 
 Request::~Request() { }
