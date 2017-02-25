@@ -1,5 +1,0 @@
-plugin_manager.add_callback("test", fun(PluginMessageEvent o) {  
-	plugin_manager.log_info(player);
-});
-
-plugin_manager.do_callbacks("test123");
