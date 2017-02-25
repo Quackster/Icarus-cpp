@@ -39,7 +39,7 @@ void MessengerUser::serialise(Response &response, const bool force_offline, bool
     }
     else {
         response.writeString(this->isOnline() ? this->details->figure : "");
-        response.writeInt(0);
+        response.writeInt(this->isOnline() ? 0 : 1);
         response.writeString(this->isOnline() ? this->details->motto : "");
     }
 

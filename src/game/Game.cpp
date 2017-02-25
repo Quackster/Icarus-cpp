@@ -17,7 +17,8 @@ Game::Game() :
     navigator_manager(new NavigatorManager()),
     room_manager(new RoomManager()),
     executor_service(ExecutorService::createSchedulerService(Icarus::getGameConfiguration()->getInt("thread.pool.size"), std::chrono::milliseconds(500))),
-	catalogue_manager(new CatalogueManager()) {
+	catalogue_manager(new CatalogueManager()),
+	plugin_manager(PluginManager()) {
 }
 
 /*
@@ -26,7 +27,10 @@ Game::Game() :
     @return none
 */
 void Game::createGame() {
+	
+	this->plugin_manager.loadPlugins();
     RoomDao::addPublicRooms();
+
 }
 
 Game::~Game() {
