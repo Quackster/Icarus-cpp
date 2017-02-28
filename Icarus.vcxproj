@@ -122,13 +122,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\include;D:\Program Files\MySQL\MySQL Connector C 6.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\include;D:\Program Files\MySQL\MySQL Connector C 6.1\include;C:\Users\Alex\Documents\GitHub\Icarus\include\lua\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>CPPCONN_PUBLIC_FUNC=</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\lib\opt;D:\Program Files\MySQL\MySQL Connector C 6.1\lib;D:\lib\boost_1_62_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>mysqlcppconn.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\lib\opt;D:\Program Files\MySQL\MySQL Connector C 6.1\lib;D:\lib\boost_1_62_0\stage\x64\lib;C:\Users\Alex\Documents\GitHub\Icarus\include\lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lua53.lib;mysqlcppconn.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -25,5 +25,6 @@ public:
     static std::string replaceChar(std::string &str, char ch1, char ch2);
     static std::string removeChar(std::string &s, char ch1);
     static std::string join(std::vector<std::string> strings, std::string delim);
+	static std::vector<std::string> Utilities::readLines(std::string file_path);
 };
 

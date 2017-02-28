@@ -5,17 +5,31 @@
 #include "PluginManager.h"
 #include "PluginMessageEvent.h"
 
+#include "lua.hpp"
 
-PluginManager::PluginManager()
-{
+#include <boost/filesystem.hpp> 
+
+PluginManager::PluginManager() {
+
+	std::string directory = "plugins";
+
+   boost::filesystem::path dir(directory);
+
+   if (!boost::filesystem::exists(directory)) {
+	   if (!boost::filesystem::create_directory(dir)) {
+		   cout << "FAILED: Could not create " << directory << " directory!" << endl;
+	   }
+   }
 }
 
 
-PluginManager::~PluginManager()
-{
+PluginManager::~PluginManager() {
 }
 
 void PluginManager::loadPlugins() {
+
+	lua_State *L = luaL_newstate();
+
 
 
 }
