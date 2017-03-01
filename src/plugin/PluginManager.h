@@ -15,8 +15,8 @@ public:
 	void getPluginDetails(std::string path);
 
 private:
-	std::vector<Plugin> *plugins;
-	std::map<std::string, std::vector<Plugin>> *registered_events;
+	std::vector<Plugin*> *plugins;
+	std::map<std::string, std::vector<Plugin*>> *registered_events;
 	std::vector<std::string> *plugin_paths;
 
 };

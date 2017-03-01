@@ -136,6 +136,8 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\plugin\Plugin.cpp" />
+    <ClCompile Include="src\plugin\events\EventFactory.cpp" />
     <ClCompile Include="src\plugin\PluginMessageEvent.cpp" />
     <ClCompile Include="src\plugin\PluginManager.cpp" />
     <ClCompile Include="src\game\catalogue\CatalogueManager.cpp" />
@@ -182,6 +184,9 @@
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\plugin\events\EventFactory.h" />
+    <ClInclude Include="src\plugin\events\Event.h" />
+    <ClInclude Include="src\plugin\events\player\PlayerLoginEvent.h" />
     <ClInclude Include="src\plugin\Plugin.h" />
     <ClInclude Include="src\plugin\PluginManager.h" />
     <ClInclude Include="src\communication\incoming\catalogue\CatalogueMessageEvent.h" />

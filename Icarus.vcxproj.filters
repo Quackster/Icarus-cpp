@@ -150,6 +150,12 @@
     <ClCompile Include="src\plugin\PluginMessageEvent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\plugin\events\EventFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\plugin\Plugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\communication\incoming\MessageEvent.h">
@@ -603,6 +609,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\plugin\Plugin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\plugin\events\player\PlayerLoginEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\plugin\events\Event.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\plugin\events\EventFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
