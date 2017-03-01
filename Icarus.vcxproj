@@ -182,6 +182,7 @@
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\plugin\Plugin.h" />
     <ClInclude Include="src\plugin\PluginManager.h" />
     <ClInclude Include="src\communication\incoming\catalogue\CatalogueMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\messenger\MessengerUpdateMessageEvent.h" />

@@ -602,5 +602,8 @@
     <ClInclude Include="src\plugin\PluginMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\plugin\Plugin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

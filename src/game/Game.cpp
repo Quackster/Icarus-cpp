@@ -29,6 +29,8 @@ Game::Game() :
 void Game::createGame() {
 	
 	this->plugin_manager.loadPlugins();
+	this->plugin_manager.enablePlugins();
+
     RoomDao::addPublicRooms();
 
 }
