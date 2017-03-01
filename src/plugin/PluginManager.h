@@ -11,8 +11,10 @@ public:
 	PluginManager();
 	~PluginManager();
 	void loadPlugins();
+	void getPluginDetails(std::string path);
 
 private:
+	std::vector<std::string> plugin_paths;
 
 };
 
