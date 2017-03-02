@@ -15,6 +15,7 @@
 #include <cctype>
 #include <functional>
 #include <numeric>
+#include <fstream>
 
 #include "Utilities.h"
 
@@ -179,4 +180,25 @@ std::string Utilities::join(std::vector<std::string> strings, std::string delim)
     else {
         return "";
     }
+}
+
+/*
+	Reads a file line by line
+
+	@param file path
+	@return vector of lines
+*/
+std::vector<std::string> Utilities::readLines(std::string file_path) {
+
+	std::vector<std::string> lines;
+
+	std::ifstream infile(file_path);
+
+	for (std::string line; getline(infile, line); ) {
+		lines.push_back(line);
+	}
+
+	infile.close();
+
+	return lines;
 }

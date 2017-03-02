@@ -10,6 +10,9 @@
 
 #include "boot/Icarus.h"
 
+#include "plugin/events/player/PlayerLoginEvent.h"
+#include "plugin/events/Event.h"
+
 #include "communication/incoming/MessageEvent.h"
 #include "communication/outgoing/login/AuthenticateMessageComposer.h"
 #include "communication/outgoing/login/UniqueMachineIDMessageComposer.h"
@@ -43,6 +46,12 @@ public:
 
             session->setDetails(details);
         }
+
+		Event *event = Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerLoginEvent>(*session, sso_ticket));
+
+		if (event->isCancelled()) {
+			return;
+		}
 
         session->send(AuthenticateMessageComposer());
         session->send(UniqueMachineIDMessageComposer(""));// session->getUniqueId()));
