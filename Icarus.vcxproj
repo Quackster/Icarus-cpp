@@ -173,7 +173,7 @@
     <ClCompile Include="src\communication\streams\Request.cpp" />
     <ClCompile Include="src\communication\streams\Response.cpp" />
     <ClCompile Include="src\dao\UserDao.cpp" />
-    <ClCompile Include="src\database\DatabaseManager.cpp" />
+    <ClCompile Include="src\game\DatabaseManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\game\player\Player.cpp" />
     <ClCompile Include="src\game\player\PlayerManager.cpp" />
@@ -182,6 +182,7 @@
     <ClCompile Include="src\network\NetworkConnection.cpp" />
     <ClCompile Include="src\network\NetworkServer.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
+    <ClCompile Include="src\TestingClass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\plugin\events\EventFactory.h" />
@@ -338,6 +339,7 @@
     <ClInclude Include="src\thread\BlockingQueue.h" />
     <ClInclude Include="src\thread\ExecutorService.h" />
     <ClInclude Include="src\thread\Runnable.h" />
+    <ClInclude Include="src\TestingClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

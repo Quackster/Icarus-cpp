@@ -5,14 +5,15 @@
 
 #include "Plugin.h"
 #include "PluginManager.h"
-#include "PluginMessageEvent.h"
+#include "plugin/events/Event.h"
+#include "plugin/events/EventFactory.h"
 
 #include "lua.hpp"
 #include "LuaBridge.h"
 
 #include <boost/filesystem.hpp> 
 
-using namespace luabridge;
+#include "plugin/events/player/PlayerLoginEvent.h"
 
 PluginManager::PluginManager() {
 
@@ -30,9 +31,9 @@ PluginManager::PluginManager() {
 		}
 	}
 
-	std::cout << std::endl;
-	std::cout << " [BOOT] [PluginManager] Loading plugin system..." << std::endl;
-	std::cout << std::endl;
+	cout << endl;
+	cout << " [BOOT] [PluginManager] Loading plugin system..." << endl;
+	cout << endl;
 }
 
 PluginManager::~PluginManager() {
@@ -54,7 +55,7 @@ void PluginManager::loadPlugins() {
 		return;
 	}
 	
-	LuaRef plugins_ref = getGlobal(L, "plugins");
+	luabridge::LuaRef plugins_ref = luabridge::getGlobal(L, "plugins");
 	
 	for (int i = 1; i < plugins_ref.length() + 1; i++) {
 		plugin_paths->push_back(plugins_ref[i].cast<std::string>());
@@ -67,17 +68,6 @@ void PluginManager::loadPlugins() {
 	lua_close(L);
 }
 
-void PluginManager::enablePlugins() {
-
-	for (auto plugin : *this->plugins) {
-
-		plugin->setup();
-
-		LuaRef enable_callback = getGlobal(plugin->getLuaState(), "onEnable");
-		enable_callback();
-	}
-}
-
 /*
 	Gets all plugin details for each plugin, which is the name, author
 	and what events it's registered
@@ -87,63 +77,105 @@ void PluginManager::enablePlugins() {
 */
 void PluginManager::getPluginDetails(std::string path) {
 
-	try {
-		lua_State *L = luaL_newstate();
-		luaL_openlibs(L);
+	lua_State *L = luaL_newstate();
+	luaL_openlibs(L);
 
-		if (luaL_dofile(L, path.c_str()) != LUA_OK) {
-			return;
+	if (luaL_dofile(L, path.c_str()) != LUA_OK) {
+		return;
+	}
+
+	luabridge::LuaRef plugins_ref = luabridge::getGlobal(L, "plugin_details");
+	luabridge::LuaRef plugin_events = luabridge::getGlobal(L, "events");
+
+	Plugin *plugin = new Plugin(
+		path,
+		plugins_ref["name"].cast<std::string>(),
+		plugins_ref["author"].cast<std::string>());
+
+	std::vector<std::string> events;
+
+	for (int i = 1; i < plugin_events.length() + 1; i++) {
+
+		std::string event = plugin_events[i].cast<std::string>();
+		events.push_back(event);
+	}
+
+	for (auto event : events) {
+
+		/*
+		Create a look up table to see what plugins are registered to watch event.
+
+		If the event entry doesn't exist, we'll add it along with the plugin instance for that event.
+		If the event entry already exists, we'll just add the plugin instance associated with that event
+		*/
+
+		plugin->getEvents().push_back(event);
+
+		if (this->registered_events->count(event) > 0) {
+			std::vector<Plugin*> &plugin_list = this->registered_events->find(event)->second;
+			plugin_list.push_back(plugin);
+		}
+		else {
+			this->registered_events->insert(std::make_pair(event, std::vector<Plugin*>()));
+			this->registered_events->find(event)->second.push_back(plugin);
+
+		}
+	}
+
+	lua_close(L);
+
+	cout << " [Plugin] Loaded plugin '"
+		<< plugin->getName() << "' by "
+		<< plugin->getAuthor()
+		<< " with (" << plugin->getEvents().size() << ") events" << endl;
+
+	this->plugins->push_back(plugin);
+}
+
+/*
+	Sets up each plugin so they can be invoked with events, and 
+	gives each plugin access to classes throughout the source-code
+
+	@param none
+	@return none
+*/
+void PluginManager::enablePlugins() {
+
+	std::cout << std::endl;
+
+	for (auto plugin : *this->plugins) {
+
+		plugin->setup();
+
+		luabridge::LuaRef enable_method = luabridge::getGlobal(plugin->getLuaState(), "onEnable");
+		enable_method();
+	}
+}
+
+/*
+	Calls the events and invokes the registered plugins
+
+	@param smart ptr Event
+	@return modified Event
+*/
+Event* PluginManager::callEvent(std::shared_ptr<Event> event) {
+
+	std::string event_name = event->getEventName();
+	std::string class_name = event->getClassName();
+
+	for (auto kvp : *this->registered_events) {
+		if (kvp.first != class_name) {
+			continue;
 		}
 
-		LuaRef plugins_ref = getGlobal(L, "plugin_details");
-		LuaRef plugin_events = getGlobal(L, "events");
+		for (Plugin *plugin : kvp.second) {
 
-		std::vector<std::string> events;
+			luabridge::LuaRef ref = luabridge::getGlobal(plugin->getLuaState(), event->getEventName().c_str());
+			Event *retrived = EventFactory::cast(event, ref);
+			return retrived;
 
-		for (int i = 1; i < plugin_events.length() + 1; i++) {
-
-			std::string event = plugin_events[i].cast<std::string>();
-			events.push_back(event);
 		}
-
-		Plugin *plugin = new Plugin(
-			path, 
-			plugins_ref["name"].cast<std::string>(), 
-			plugins_ref["author"].cast<std::string>());
-
-		for (auto event : events) {
-
-			/*
-			Create a look up table to see what plugins are registered to watch event.
-
-			If the event entry doesn't exist, we'll add it along with the plugin instance for that event.
-			If the event entry already exists, we'll just add the plugin instance associated with that event
-			*/
-			if (this->registered_events->count(event) > 0) {
-				std::vector<Plugin*> &plugin_list = this->registered_events->find(event)->second;
-				plugin_list.push_back(plugin);
-			}
-			else {
-				this->registered_events->insert(std::make_pair(event, std::vector<Plugin*>()));
-				this->registered_events->find(event)->second.push_back(plugin);
-
-			}
-		}
-
-		lua_close(L);
-
-		std::cout << " [Plugin] Loading plugin '"
-			<< plugin->getName() << "' by "
-			<< plugin->getAuthor()
-			<< " with (" << plugin->getEvents().size() << ") events" << endl;
-
-		this->plugins->push_back(plugin);
-
 	}
-	catch (std::exception& e) {
-		cout << endl << " Error occurred: " << e.what() << endl;
-	}
-	catch (...) {
-		cout << endl << " Error occurred, but we couldn't grab the message" << endl;
-	}
+
+	return nullptr;
 }

@@ -4,7 +4,8 @@
 #include <map>
 
 class Plugin;
-class PluginMessageEvent;
+class Event;
+
 class PluginManager
 {
 public:
@@ -13,6 +14,7 @@ public:
 	void loadPlugins();
 	void enablePlugins();
 	void getPluginDetails(std::string path);
+	Event *callEvent(std::shared_ptr<Event> event);
 
 private:
 	std::vector<Plugin*> *plugins;

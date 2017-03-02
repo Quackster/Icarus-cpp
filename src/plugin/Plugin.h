@@ -17,6 +17,7 @@ public:
 	std::string &getAuthor() { return this->author; }
 	std::vector<std::string> &getEvents() { return this->events; }
 	lua_State *getLuaState() { return L; }
+
 private:
 	std::string path;
 	std::string name;

@@ -30,9 +30,6 @@
     <ClCompile Include="src\dao\UserDao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\database\DatabaseManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -154,6 +151,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\plugin\Plugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\DatabaseManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TestingClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -618,6 +621,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\plugin\events\EventFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TestingClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -27,14 +27,14 @@ public:
     ExecutorService *getGameScheduler() { return executor_service; }
     RoomManager *getRoomManager() { return room_manager; }
     CatalogueManager *getCatalogueManager() { return catalogue_manager; }
-	PluginManager getPluginManager() { return plugin_manager; }
+	PluginManager *getPluginManager() { return plugin_manager; }
 
 private:
     NavigatorManager *navigator_manager;
     ExecutorService *executor_service;
     RoomManager *room_manager;
     CatalogueManager *catalogue_manager;
-	PluginManager plugin_manager;
+	PluginManager *plugin_manager;
 };
 
 
