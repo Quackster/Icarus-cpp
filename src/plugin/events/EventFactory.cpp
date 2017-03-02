@@ -9,12 +9,52 @@
 #include "lua.hpp"
 #include "LuaBridge.h"
 
+#include "game/player/Player.h"
+#include "game/entities/Entity.h"
+
+
 EventFactory::EventFactory() {
 
 }
 
 EventFactory::~EventFactory() {
 
+}
+
+void EventFactory::addObjects(Plugin *plugin) {
+
+	luabridge::getGlobalNamespace(plugin->getLuaState())
+		.beginClass <Entity>("Entity")
+		.addFunction("getDetails", &Entity::getDetails)
+		.endClass()
+		.deriveClass <Player, Entity>("Entity")
+		.endClass();
+
+	luabridge::getGlobalNamespace(plugin->getLuaState())
+		.beginClass <EntityDetails>("EntityDetails")
+		.addData("username", &EntityDetails::username)
+		.addData("id", &EntityDetails::id)
+		.addData("credits", &EntityDetails::credits)
+		.addData("motto", &EntityDetails::motto)
+		.addData("rank", &EntityDetails::rank)
+		.addData("authenticated", &EntityDetails::authenticated)
+		.endClass();
+
+	luabridge::getGlobalNamespace(plugin->getLuaState())
+		.beginClass <Event>("Event")
+		.addFunction("isCancelled", &Event::isCancelled)
+		.addFunction("setCancelled", &Event::setCancelled)
+		.endClass()
+		.deriveClass <PlayerLoginEvent, Event>("PlayerLoginEvent")
+		.addFunction("getPlayer", &PlayerLoginEvent::getPlayer)
+		.addFunction("getTicket", &PlayerLoginEvent::getTicket)
+		.addFunction("getTestingClass", &PlayerLoginEvent::getTestingClass)
+		.endClass();
+
+	luabridge::getGlobalNamespace(plugin->getLuaState())
+		.beginClass <TestingClass>("TestingClass")
+		.addFunction("getTest", &TestingClass::getTest)
+		.endClass();
 }
 
 /*

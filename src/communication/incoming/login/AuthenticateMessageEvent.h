@@ -47,7 +47,7 @@ public:
             session->setDetails(details);
         }
 
-		Event *event = Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerLoginEvent>(*session, sso_ticket));
+		PlayerLoginEvent *event = static_cast<PlayerLoginEvent*>(Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerLoginEvent>(*session, sso_ticket)));
 
 		if (event->isCancelled()) {
 			return;

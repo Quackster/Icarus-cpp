@@ -1,15 +1,9 @@
 #include "stdafx.h"
 
 #include "plugin/Plugin.h"
+#include "plugin/events/EventFactory.h"
 
 #include "lua.hpp"
-#include "LuaBridge.h"
-
-#include "plugin/events/Event.h"
-#include "plugin/events/player/PlayerLoginEvent.h"
-
-#include "game/player/Player.h"
-#include "game/entities/Entity.h"
 
 
 Plugin::Plugin(std::string path, std::string name, std::string author) :
@@ -28,38 +22,8 @@ void Plugin::setup() {
 		return;
 	}
 
-	luabridge::getGlobalNamespace(L)
-		.beginClass <Entity>("Entity")
-		.addFunction("getDetails", &Entity::getDetails)
-		.endClass()
-		.deriveClass <Player, Entity>("Entity")
-		.endClass();
+	EventFactory::addObjects(this);
 
-	luabridge::getGlobalNamespace(L)
-		.beginClass <EntityDetails>("EntityDetails")
-		.addData("username", &EntityDetails::username)
-		.addData("id", &EntityDetails::id)
-		.addData("credits", &EntityDetails::credits)
-		.addData("motto", &EntityDetails::motto)
-		.addData("rank", &EntityDetails::rank)
-		.addData("authenticated", &EntityDetails::authenticated)
-		.endClass();
-
-	luabridge::getGlobalNamespace(L)
-		.beginClass <Event>("Event")
-		.addFunction("isCancelled", &Event::isCancelled)
-		.addFunction("setCancelled", &Event::setCancelled)
-		.endClass()
-		.deriveClass <PlayerLoginEvent, Event>("PlayerLoginEvent")
-		.addFunction("getPlayer", &PlayerLoginEvent::getPlayer)
-		.addFunction("getTicket", &PlayerLoginEvent::getTicket)
-		.addFunction("getTestingClass", &PlayerLoginEvent::getTestingClass)
-		.endClass();
-
-	luabridge::getGlobalNamespace(L)
-		.beginClass <TestingClass>("TestingClass")
-		.addFunction("getTest", &TestingClass::getTest)
-		.endClass();
 }
 
 /*template <class T>
