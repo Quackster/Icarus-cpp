@@ -1,5 +1,5 @@
 plugin_details = {
-	name = "login_test",
+	name = "HotelAlert",
 	author = "Quackster"
 }
 

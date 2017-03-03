@@ -34,29 +34,29 @@ public:
             session->getNetworkConnection()->getSocket().close();
             return;
         }
-        else {   
-            
-            EntityDetails *details = UserDao::findUserByTicket(session, sso_ticket);
+		else {
 
-            if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(details->id) > 0) {
-                session->getNetworkConnection()->getSocket().close();
-                delete details;
-                return;
-            }
+			EntityDetails *details = UserDao::findUserByTicket(session, sso_ticket);
 
-            session->setDetails(details);
-        }
+			if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(details->id) > 0) {
+				session->getNetworkConnection()->getSocket().close();
+				delete details;
+				return;
+			}
 
-		PlayerLoginEvent *event = static_cast<PlayerLoginEvent*>(Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerLoginEvent>(*session, sso_ticket)));
-
-		if (event->isCancelled()) {
-			return;
+			session->setDetails(details);
 		}
 
         session->send(AuthenticateMessageComposer());
         session->send(UniqueMachineIDMessageComposer(""));// session->getUniqueId()));
         session->send(HomeRoomMessageComposer(0, false));
         session->send(LandingWidgetMessageComposer());
+
+		PlayerLoginEvent *event = static_cast<PlayerLoginEvent*>(Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerLoginEvent>(*session, sso_ticket)));
+
+		if (event->isCancelled()) {
+			return;
+		}
 
         session->login();
 

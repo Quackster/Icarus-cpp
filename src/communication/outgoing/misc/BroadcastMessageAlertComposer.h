@@ -9,17 +9,25 @@
 #pragma once
 #include "communication/outgoing/MessageComposer.h"
 
-class DefaultComposer : public MessageComposer {
+class BroadcastMessageAlertComposer : public MessageComposer {
 
 public:
-	DefaultComposer() { }
+	BroadcastMessageAlertComposer(std::string message, std::string url = "") :
+		message(message),
+		url(url) { }
 
 	const Response compose() const {
 		Response response = this->createResponse();
+		response.writeString(message);
+		response.writeString(url);
 		return response;
 	}
 
 	const int getHeader() const {
-		return Outgoing::AuthenticationOKMessageComposer;
+		return Outgoing::BroadcastMessageAlertComposer;
 	}
+
+private:
+	std::string message;
+	std::string url;
 };

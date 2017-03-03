@@ -29,6 +29,7 @@ public:
     void clear();
     void close();
     void send(const MessageComposer &composer);
+	void sendAlert(const std::string alert_message, const std::string url = "");
 
     NetworkConnection *getNetworkConnection() { return this->network_connection; }
     std::string getUniqueId() { return this->unique_id; }
@@ -39,7 +40,9 @@ public:
         return this->room_user; 
     }
 
-    std::vector<Room*> getRooms();
+	
+
+	std::vector<Room*> getRooms();
     
     Messenger *getMessenger() { return this->messenger; }
 	MessengerUser *getMessengerUser() { return this->messenger_user; }

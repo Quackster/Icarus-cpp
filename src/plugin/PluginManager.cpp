@@ -109,6 +109,12 @@ void PluginManager::getPluginDetails(std::string path) {
 		If the event entry already exists, we'll just add the plugin instance associated with that event
 		*/
 
+		// pfefijewfew
+
+		/*
+			dwdqdwqdwqd
+		*/
+
 		plugin->getEvents().push_back(event);
 
 		if (this->registered_events->count(event) > 0) {
@@ -141,14 +147,10 @@ void PluginManager::getPluginDetails(std::string path) {
 */
 void PluginManager::enablePlugins() {
 
-	std::cout << std::endl;
-
-	for (auto plugin : *this->plugins) {
-
+	for (Plugin *plugin : *this->plugins) {
 		plugin->setup();
-
 		luabridge::LuaRef enable_method = luabridge::getGlobal(plugin->getLuaState(), "onEnable");
-		enable_method();
+		enable_method(plugin);
 	}
 }
 

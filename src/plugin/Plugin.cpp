@@ -1,7 +1,9 @@
 #include "stdafx.h"
 
 #include "plugin/Plugin.h"
+
 #include "plugin/events/EventFactory.h"
+#include "communication/incoming/MessageHandler.h"
 
 #include "lua.hpp"
 
@@ -23,7 +25,7 @@ void Plugin::setup() {
 	}
 
 	EventFactory::addObjects(this);
-
+	MessageHandler::addObjects(this);
 }
 
 /*template <class T>

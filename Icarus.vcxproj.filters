@@ -626,5 +626,8 @@
     <ClInclude Include="src\TestingClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\communication\outgoing\misc\BroadcastMessageAlertComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

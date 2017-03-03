@@ -24,10 +24,17 @@ EventFactory::~EventFactory() {
 void EventFactory::addObjects(Plugin *plugin) {
 
 	luabridge::getGlobalNamespace(plugin->getLuaState())
+		.beginClass <Plugin>("Plugin")
+		.addFunction("getName", &Plugin::getName)
+		.addFunction("getAuthor", &Plugin::getAuthor)
+		.endClass();
+
+	luabridge::getGlobalNamespace(plugin->getLuaState())
 		.beginClass <Entity>("Entity")
 		.addFunction("getDetails", &Entity::getDetails)
 		.endClass()
 		.deriveClass <Player, Entity>("Entity")
+		.addFunction("sendAlert", &Player::sendAlert)
 		.endClass();
 
 	luabridge::getGlobalNamespace(plugin->getLuaState())
@@ -49,11 +56,6 @@ void EventFactory::addObjects(Plugin *plugin) {
 		.addFunction("getPlayer", &PlayerLoginEvent::getPlayer)
 		.addFunction("getTicket", &PlayerLoginEvent::getTicket)
 		.addFunction("getTestingClass", &PlayerLoginEvent::getTestingClass)
-		.endClass();
-
-	luabridge::getGlobalNamespace(plugin->getLuaState())
-		.beginClass <TestingClass>("TestingClass")
-		.addFunction("getTest", &TestingClass::getTest)
 		.endClass();
 }
 

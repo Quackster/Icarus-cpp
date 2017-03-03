@@ -11,6 +11,8 @@
 #include "game/player/Player.h"
 #include "game/messenger/MessengerUser.h"
 
+#include "communication/outgoing/misc/BroadcastMessageAlertComposer.h"
+
 #include "dao/UserDao.h"
 #include "dao/MessengerDao.h"
 
@@ -102,11 +104,22 @@ void Player::save() {
 /*
     Send message composer to the session's socket
 
-    @param MessageComposer ptr
+    @param MessageComposer reference
     @return none
 */
 void Player::send(const MessageComposer &composer) {
     this->network_connection->send(composer);
+}
+
+/*
+	Send alert message to session's socket
+
+	@param alert message
+	@param url (optional: don't add )
+	@return none
+*/
+void Player::sendAlert(const std::string alert_message, const std::string url) {
+	this->network_connection->send(BroadcastMessageAlertComposer(alert_message, url));
 }
 
 /*

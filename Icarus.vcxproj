@@ -185,6 +185,7 @@
     <ClCompile Include="src\TestingClass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\communication\outgoing\misc\BroadcastMessageAlertComposer.h" />
     <ClInclude Include="src\plugin\events\EventFactory.h" />
     <ClInclude Include="src\plugin\events\Event.h" />
     <ClInclude Include="src\plugin\events\player\PlayerLoginEvent.h" />

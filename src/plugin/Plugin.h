@@ -12,9 +12,9 @@ public:
 
 	void setup();
 
-	std::string &getPath() { return this->path; }
-	std::string &getName() { return this->name; }
-	std::string &getAuthor() { return this->author; }
+	std::string getPath() { return this->path; }
+	std::string getName() { return this->name; }
+	std::string getAuthor() { return this->author; }
 	std::vector<std::string> &getEvents() { return this->events; }
 	lua_State *getLuaState() { return L; }
 

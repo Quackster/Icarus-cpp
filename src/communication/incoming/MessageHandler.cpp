@@ -10,6 +10,9 @@
 
 #include "communication/headers/Incoming.h"
 #include "MessageHandler.h"
+#include "plugin/Plugin.h"
+#include "lua.hpp"
+#include "LuaBridge.h"
 
 // Login
 #include "login/AuthenticateMessageEvent.h"
@@ -64,6 +67,9 @@
 
 // Catalogue
 #include "catalogue/CatalogueMessageEvent.h"
+
+// Outgoing
+#include "communication/outgoing/misc/BroadcastMessageAlertComposer.h"
 
 /*
     MessageHandler constructor
@@ -189,6 +195,18 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
         }
     }
 }
+
+/*
+	Add all outgoing events to script for Lua
+
+	@parma plugin ptr
+	@return none
+*/
+void MessageHandler::addObjects(Plugin *plugin) {
+
+
+}
+
 /* 
     MessageHandler deconstructor
 
