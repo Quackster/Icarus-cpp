@@ -34,7 +34,7 @@ function onTryLoginEvent(event)
 	print (string.format(' [ALERT!!!] Login attempt from: %s', ip_address))
 	
 	-- Only allow local connections (just a test)
-	if ip_address != "127.0.0.1" then 
+	if ip_address ~= "127.0.0.1" then 
 		event:setCancelled(true)
 	end
 
