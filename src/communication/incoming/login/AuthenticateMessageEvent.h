@@ -10,8 +10,9 @@
 
 #include "boot/Icarus.h"
 
-#include "plugin/events/player/PlayerLoginEvent.h"
 #include "plugin/events/Event.h"
+#include "plugin/events/player/PlayerTryLoginEvent.h"
+#include "plugin/events/player/PlayerLoginEvent.h"
 
 #include "communication/incoming/MessageEvent.h"
 #include "communication/outgoing/login/AuthenticateMessageComposer.h"
@@ -47,16 +48,24 @@ public:
 			session->setDetails(details);
 		}
 
+		PlayerTryLoginEvent *player_try_login_event = static_cast<PlayerTryLoginEvent*>(Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerTryLoginEvent>(
+			session->getNetworkConnection()->getSocket().local_endpoint().address().to_string(), 
+			sso_ticket)));
+
+		if (player_try_login_event->isCancelled()) {
+			return;
+		}
+
         session->send(AuthenticateMessageComposer());
         session->send(UniqueMachineIDMessageComposer(""));// session->getUniqueId()));
         session->send(HomeRoomMessageComposer(0, false));
         session->send(LandingWidgetMessageComposer());
 
-		PlayerLoginEvent *event = static_cast<PlayerLoginEvent*>(Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerLoginEvent>(*session, sso_ticket)));
+		PlayerLoginEvent *player_login_event = static_cast<PlayerLoginEvent*>(Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerLoginEvent>(*session, sso_ticket)));
 
-		if (event->isCancelled()) {
+		/*if (event->isCancelled()) {
 			return;
-		}
+		}*/
 
         session->login();
 

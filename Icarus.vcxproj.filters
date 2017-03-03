@@ -629,5 +629,8 @@
     <ClInclude Include="src\communication\outgoing\misc\BroadcastMessageAlertComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\plugin\events\player\PlayerTryLoginEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

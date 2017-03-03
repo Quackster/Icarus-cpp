@@ -179,5 +179,5 @@ Event* PluginManager::callEvent(std::shared_ptr<Event> event) {
 		}
 	}
 
-	return nullptr;
+	return event.get();
 }

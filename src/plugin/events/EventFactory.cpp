@@ -4,7 +4,9 @@
 
 #include "plugin/events/Event.h"
 #include "plugin/events/EventFactory.h"
+
 #include "plugin/events/player/PlayerLoginEvent.h"
+#include "plugin/events/player/PlayerTryLoginEvent.h"
 
 #include "lua.hpp"
 #include "LuaBridge.h"
@@ -52,10 +54,13 @@ void EventFactory::addObjects(Plugin *plugin) {
 		.addFunction("isCancelled", &Event::isCancelled)
 		.addFunction("setCancelled", &Event::setCancelled)
 		.endClass()
+		.deriveClass <PlayerTryLoginEvent, Event>("PlayerTryLoginEvent")
+		.addFunction("getIpAddress", &PlayerTryLoginEvent::getIpAddress)
+		.addFunction("getTicket", &PlayerTryLoginEvent::getTicket)
+		.endClass()
 		.deriveClass <PlayerLoginEvent, Event>("PlayerLoginEvent")
 		.addFunction("getPlayer", &PlayerLoginEvent::getPlayer)
 		.addFunction("getTicket", &PlayerLoginEvent::getTicket)
-		.addFunction("getTestingClass", &PlayerLoginEvent::getTestingClass)
 		.endClass();
 }
 
@@ -71,6 +76,10 @@ Event *EventFactory::cast(std::shared_ptr<Event> event, luabridge::LuaRef ref) {
 
 	if (event->getClassName() == "PlayerLoginEvent") {
 		return ref(dynamic_cast<PlayerLoginEvent*>(event.get()));
+	}
+
+	if (event->getClassName() == "PlayerTryLoginEvent") {
+		return ref(dynamic_cast<PlayerTryLoginEvent*>(event.get()));
 	}
 
 	return event.get();

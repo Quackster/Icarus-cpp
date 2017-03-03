@@ -4,6 +4,7 @@ plugin_details = {
 }
 
 events = {
+	"PlayerTryLoginEvent",
 	"PlayerLoginEvent"
 }
 
@@ -12,18 +13,22 @@ function onEnable()
 	print (" [Plugin][Lua] Initialising Testing Plugin 1")
 end
 
+function onTryLoginEvent(event)
+
+	local ip_address = event:getIpAddress()
+
+	print (string.format('[ALERT!!!] Login attempt from: %s', ip_address))
+
+	return event
+end
+
+
 
 function onLoginEvent(event)
 
 	local username = event:getPlayer():getDetails().username
 
-	print (string.format('[ALERT!!!] Login attempt from: %s', username))
-	
-	if username == "TheTesting123" then
-		print (string.format('[ALERT!!!] %s was blocked from logging in', username))
-		event:setCancelled(true)
-	end
-	
+	event:getPlayer():sendAlert(string.format('Hello %s!\n\nWelcome to Icarus Hotel!', username), '')
 	return event
 end
 

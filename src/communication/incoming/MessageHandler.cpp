@@ -179,6 +179,7 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
 
             if (!player->authenticated()) {
                 printf("Player tried to send packet while not logged in, scripting maybe?\n");
+				player->close();
                 return;
             }
         }
