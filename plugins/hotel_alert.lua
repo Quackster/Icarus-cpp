@@ -8,16 +8,16 @@ events = {
 	"PlayerLoginEvent"
 }
 
-function onEnable()
+function onEnable(plugin)
 	-- If you want, use print() to show everyone this method being called
-	print (" [Plugin][Lua] Initialising Testing Plugin 1")
+	print (string.format(' [Plugin] [Lua] Initialising plugin %s by %s', plugin:getName(), plugin:getAuthor()))
 end
 
 function onTryLoginEvent(event)
 
 	local ip_address = event:getIpAddress()
 
-	print (string.format('[ALERT!!!] Login attempt from: %s', ip_address))
+	print (string.format(' [ALERT!!!] Login attempt from: %s', ip_address))
 
 	return event
 end
