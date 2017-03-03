@@ -53,6 +53,7 @@ public:
 			sso_ticket)));
 
 		if (player_try_login_event->isCancelled()) {
+			session->close();
 			return;
 		}
 
