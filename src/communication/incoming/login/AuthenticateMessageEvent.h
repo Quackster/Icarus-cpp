@@ -62,7 +62,7 @@ public:
         session->send(HomeRoomMessageComposer(0, false));
         session->send(LandingWidgetMessageComposer());
 
-		PlayerLoginEvent *player_login_event = static_cast<PlayerLoginEvent*>(Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerLoginEvent>(*session, sso_ticket)));
+		PlayerLoginEvent *player_login_event = static_cast<PlayerLoginEvent*>(Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerLoginEvent>(session, sso_ticket)));
 
 		/*if (event->isCancelled()) {
 			return;

@@ -190,6 +190,7 @@
     <ClInclude Include="src\plugin\events\Event.h" />
     <ClInclude Include="src\plugin\events\player\PlayerLoginEvent.h" />
     <ClInclude Include="src\plugin\events\player\PlayerTryLoginEvent.h" />
+    <ClInclude Include="src\plugin\events\player\PlayerMoveEvent.h" />
     <ClInclude Include="src\plugin\Plugin.h" />
     <ClInclude Include="src\plugin\PluginManager.h" />
     <ClInclude Include="src\communication\incoming\catalogue\CatalogueMessageEvent.h" />

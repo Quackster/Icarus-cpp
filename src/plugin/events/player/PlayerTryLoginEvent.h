@@ -21,7 +21,7 @@ public:
 	}
 	
 	std::string getEventName() {
-		return "onTryLoginEvent";
+		return "onPlayerTryLoginEvent";
 	}
 
 private:

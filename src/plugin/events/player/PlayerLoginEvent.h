@@ -9,17 +9,13 @@ class Plugin;
 class PlayerLoginEvent : public Event {
 
 public:
-	PlayerLoginEvent() : 
-		player(Player(nullptr)),
-		ticket("test") { }
-
-	PlayerLoginEvent(Player &player, std::string ticket) : 
+	PlayerLoginEvent(Player *player, std::string ticket) : 
 		player(player),
 		ticket(ticket) { }
 	
 	~PlayerLoginEvent() { }
 
-	Player &getPlayer() { return player; }
+	Player *getPlayer() { return player; }
 	std::string getTicket() { return ticket; }
 	TestingClass *getTestingClass() { return testingclass; }
 
@@ -28,11 +24,11 @@ public:
 	}
 	
 	std::string getEventName() {
-		return "onLoginEvent";
+		return "onPlayerLoginEvent";
 	}
 
 private:
-	Player &player;
+	Player *player;
 	std::string ticket;
 	TestingClass *testingclass = new TestingClass();
 
