@@ -25,11 +25,11 @@ public:
 	Position *getGoal() { return &player->getRoomUser()->goal; }
 
 	std::string getClassName() {
-		return "PlayerMoveEvent";
+		return "PlayerWalkEvent";
 	}
 	
 	std::string getEventName() {
-		return "onPlayerMoveEvent";
+		return "onPlayerWalkEvent";
 	}
 
 private:
