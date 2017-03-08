@@ -1,3 +1,3 @@
 plugins = {
-	"plugins/hotel_alert.lua",
+	"plugins/PluginTest/plugin_test.lua",
 }

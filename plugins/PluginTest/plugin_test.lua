@@ -1,11 +1,12 @@
 plugin_details = {
-	name = "HotelAlert",
+	name = "PluginTest",
 	author = "Quackster"
 }
 
 events = {
 	"PlayerTryLoginEvent",
-	"PlayerLoginEvent"
+	"PlayerLoginEvent",
+	"onPlayerWalkEvent"
 }
 
 --[[
@@ -27,7 +28,7 @@ end
 	param: PlayerTryLoginEvent instance
 	return: PlayerTryLoginEvent so the app can see if anything has been modified
 --]]
-function onTryLoginEvent(event)
+function onPlayerTryLoginEvent(event)
 
 	local ip_address = event:getIpAddress()
 
@@ -49,7 +50,7 @@ end
 	param: PlayerLoginEvent instance
 	return: PlayerLoginEvent so the app can see if anything has been modified
 --]]
-function onLoginEvent(event)
+function onPlayerLoginEvent(event)
 
 	local username = event:getPlayer():getDetails().username
 
@@ -57,5 +58,38 @@ function onLoginEvent(event)
 	return event
 end
 
+--[[
+	Walk packet called when a player has selected to walk where you can 
+	manipulate the goal and current position coordinates
+	
+	param: onPlayerWalkEvent instance
+	return: onPlayerWalkEvent so the app can see if anything has been modified
+--]]
+function onPlayerWalkEvent(event)
 
+	local username = event:getPlayer():getDetails().username
+	
+	if event:getPosition().x % 2 == 0 then
+		event:getPlayer():getRoomUser():chat("EVEN NUMBER!", 1, 0, false, true)
+	end
+	
+	return event
+end
 
+--[[
+	Walk packet called when a player has selected to walk where you can 
+	manipulate the goal and current position coordinates
+	
+	param: onPlayerWalkEvent instance
+	return: onPlayerWalkEvent so the app can see if anything has been modified
+--]]
+function onPlayerWalkEvent(event)
+
+	local username = event:getPlayer():getDetails().username
+	
+	if event:getPosition().x % 2 == 0 then
+		event:getPlayer():getRoomUser():chat("EVEN NUMBER!", 1, 0, false, true)
+	end
+	
+	return event
+end
