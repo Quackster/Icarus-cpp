@@ -635,5 +635,8 @@
     <ClInclude Include="src\plugin\events\player\PlayerMoveEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\plugin\events\player\PlayerWalkEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

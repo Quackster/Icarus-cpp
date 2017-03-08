@@ -11,7 +11,7 @@
 #include "communication/incoming/MessageEvent.h"
 #include "game/pathfinder/Pathfinder.h"
 
-#include "plugin/events/player/PlayerMoveEvent.h"
+#include "plugin/events/player/PlayerWalkEvent.h"
 
 class WalkMessageEvent : public MessageEvent {
 
@@ -42,9 +42,9 @@ public:
         int map_size_x = room->getModel()->getMapSizeX();
         int map_size_y = room->getModel()->getMapSizeY();
 
-		PlayerMoveEvent *player_move_event = static_cast<PlayerMoveEvent*>(Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerMoveEvent>(player)));
+		PlayerWalkEvent *player_walk_event = static_cast<PlayerWalkEvent*>(Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerWalkEvent>(player)));
 
-		if (player_move_event->isCancelled()) {
+		if (player_walk_event->isCancelled()) {
 			return;
 		}
 
@@ -63,11 +63,8 @@ public:
         auto path = Pathfinder::makePath(room_user->position, room_user->goal, room);
 
         if (path.size() == 0) {
-            cout << "return 3" << endl;
-            return; // TODO: Call pathfinder to retry again.
+            return;
         }
-
-        cout << "path size: " << path.size() << endl;
 
         room_user->setPath(path);
         room_user->is_walking = true;
