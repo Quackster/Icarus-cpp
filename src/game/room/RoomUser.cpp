@@ -1,4 +1,4 @@
-/**
+﻿/**
 * Icarus - A multi-platform C++ server
 *
 * Copyright 2016 Alex "Quackster" Miller
@@ -247,7 +247,18 @@ void RoomUser::awake() {
     @return none
 */
 void RoomUser::leaveRoom(bool hotel_view) {
+
+	/*LEAVE ROOM ALERT!
+ [ROOM] Room ID 18 unloaded
+ [ROOM] Room ID 18 loaded
+ [SESSION] [CONNECTION: 2] 1787/ [6]√[0][10]Navigation[0][0][0][11]go.official[0][2]18[0][0][0][0]
+ [SESSION] [CONNECTION: 2] 2258/ [8]╥[0][0][0][0][0]    
+LEAVE ROOM ALERT!
+ [ROOM] Room ID 18 unloaded
+ [ROOM] Room ID 18 loaded*/
+
     if (this->room != nullptr) {
+		cout << "LEAVE ROOM ALERT!" << endl;
         this->room->leave(this->entity, hotel_view);
     }
 

@@ -15,6 +15,8 @@
 
 #include "plugin/events/player/PlayerLoginEvent.h"
 
+#include <fstream>
+
 PluginManager::PluginManager() {
 
 	this->plugins = new std::vector<Plugin*>();
@@ -48,10 +50,23 @@ PluginManager::~PluginManager() {
 */
 void PluginManager::loadPlugins() {
 
+	std::string plugin_register = "plugins/plugin_register.lua";
+
+	if (!std::ifstream(plugin_register)) {
+		std::ofstream output_file;
+		output_file.open(plugin_register);
+
+		output_file << "plugins = {" << endl;
+		output_file << "    ";
+		output_file << "}";
+
+		output_file.close();
+	}
+
 	lua_State *L = luaL_newstate();
 	luaL_openlibs(L);
 
-	if (luaL_dofile(L, "plugins/plugin_register.lua") != LUA_OK) {
+	if (luaL_dofile(L, plugin_register.c_str()) != LUA_OK) {
 		return;
 	}
 	
