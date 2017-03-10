@@ -6,26 +6,28 @@
 * Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
+#include <map>
+
 #include "stdafx.h"
 
-#include "CatalogueManager.h"
 #include "CatalogueTab.h"
 #include "CataloguePage.h"
 
+#include "CatalogueManager.h"
 #include "dao/CatalogueDao.h"
 
 /*
-    Constructor for catalogue manager
+Constructor for catalogue manager
 */
 CatalogueManager::CatalogueManager() {
 	this->loadCatalogueTabs();
 }
 
 /*
-	Loads all catalogue tabs and sorts them into parent
-	and child tab lists
+Loads all catalogue tabs and sorts them into parent
+and child tab lists
 
-	@return none
+@return none
 */
 void CatalogueManager::loadCatalogueTabs() {
 
@@ -33,15 +35,15 @@ void CatalogueManager::loadCatalogueTabs() {
 
 	for (auto parent_tab : parent_tabs) {
 		std::vector<CatalogueTab> child = CatalogueDao::getTabs(parent_tab.id);
-		this->child_tabs.insert(std::make_pair(parent_tab.id, child));	
+		this->child_tabs.insert(std::make_pair(parent_tab.id, child));
 	}
 }
 
 /*
-	Gets all parent tabs with the right rank supplied
+Gets all parent tabs with the right rank supplied
 
-	@rank user rank
-	@return list of parent tabs
+@rank user rank
+@return list of parent tabs
 */
 std::vector<CatalogueTab> CatalogueManager::getParentTabs(int rank) {
 	std::vector<CatalogueTab> tabs;
@@ -56,10 +58,10 @@ std::vector<CatalogueTab> CatalogueManager::getParentTabs(int rank) {
 }
 
 /*
-	Gets all parent tabs with the right rank and parent tab id supplied
+Gets all parent tabs with the right rank and parent tab id supplied
 
-	@rank user rank
-	@return list of child tabs
+@rank user rank
+@return list of child tabs
 */
 std::vector<CatalogueTab> CatalogueManager::getChildTabs(int parent_id, int rank) {
 
@@ -77,7 +79,22 @@ std::vector<CatalogueTab> CatalogueManager::getChildTabs(int parent_id, int rank
 }
 
 /*
-    Deconstructor for catalogue manager
+Gets CataloguePage instance by page id
+
+@param page id
+@return catalogue page instance, or blank if nothing
+*/
+CataloguePage CatalogueManager::getPage(int page_id) {
+
+	if (pages.count(page_id) > 0) {
+		//return this->pages.find(page_id)->second;
+	}
+
+	return CataloguePage();
+}
+
+/*
+Deconstructor for catalogue manager
 */
 CatalogueManager::~CatalogueManager()
 {

@@ -599,9 +599,6 @@
     <ClInclude Include="src\communication\incoming\messenger\MessengerUpdateMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\incoming\catalogue\CatalogueMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\communication\outgoing\catalogue\CatalogueTabMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -642,6 +639,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\catalogue\CataloguePage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\catalogue\CataloguePageMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\catalogue\CataloguePageMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\catalogue\CatalogueTabMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

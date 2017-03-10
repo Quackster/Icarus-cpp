@@ -67,4 +67,5 @@ public:
     static const int IdleStatusMessageComposer = 2932;
 	static const int CatalogueTabMessageComposer = 3579;
 	static const int BroadcastMessageAlertComposer = 1092;
+	static const int CataloguePageMessageComposer = 2025;
 };

@@ -66,7 +66,8 @@
 #include "messenger/MessengerInviteMessageEvent.h"
 
 // Catalogue
-#include "catalogue/CatalogueMessageEvent.h"
+#include "catalogue/CatalogueTabMessageEvent.h"
+#include "catalogue/CataloguePageMessageEvent.h"
 
 // Outgoing
 #include "communication/outgoing/misc/BroadcastMessageAlertComposer.h"
@@ -129,7 +130,8 @@ MessageHandler::MessageHandler() {
    this->createEvent(Incoming::MessengerInviteMessageEvent, new MessengerInviteMessageEvent());
    
    // Catalogue
-   this->createEvent(Incoming::CatalogueMessageEvent, new CatalogueMessageEvent());
+   this->createEvent(Incoming::CatalogueMessageEvent, new CatalogueTabMessageEvent());
+   this->createEvent(Incoming::CataloguePageMessageEvent, new CataloguePageMessageEvent());
 }
 
 /*

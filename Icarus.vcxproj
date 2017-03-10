@@ -186,6 +186,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
+    <ClInclude Include="src\communication\incoming\catalogue\CataloguePageMessageEvent.h" />
+    <ClInclude Include="src\communication\outgoing\catalogue\CataloguePageMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\misc\BroadcastMessageAlertComposer.h" />
     <ClInclude Include="src\game\catalogue\CataloguePage.h" />
     <ClInclude Include="src\plugin\events\EventFactory.h" />
@@ -196,7 +198,7 @@
     <ClInclude Include="src\plugin\events\player\PlayerWalkEvent.h" />
     <ClInclude Include="src\plugin\Plugin.h" />
     <ClInclude Include="src\plugin\PluginManager.h" />
-    <ClInclude Include="src\communication\incoming\catalogue\CatalogueMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\catalogue\CatalogueTabMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\messenger\MessengerUpdateMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\user\ChatMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\user\DanceMessageEvent.h" />

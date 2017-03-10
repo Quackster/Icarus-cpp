@@ -13,10 +13,10 @@
 #include "communication/incoming/MessageEvent.h"
 #include "communication/outgoing/catalogue/CatalogueTabMessageComposer.h"
 
-class CatalogueMessageEvent : public MessageEvent {
+class CatalogueTabMessageEvent : public MessageEvent {
 
 public:
-	CatalogueMessageEvent() { }
+	CatalogueTabMessageEvent() { }
 
     void handle(Player *player, Request &request) {
 
