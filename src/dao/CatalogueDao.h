@@ -8,12 +8,12 @@
 */
 #pragma once
 #include <vector>
+#include <map>
+
 #include <string>
 
-#include "mysql_connection.h"
-#include "mysql.h"
-
 class CatalogueTab;
+class CataloguePage;
 class CatalogueDao
 {
 
@@ -22,5 +22,6 @@ private:
 
 public:
     static std::vector<CatalogueTab> getTabs(int child_id);
+	static std::map<int, CataloguePage> getPages();
 };
 

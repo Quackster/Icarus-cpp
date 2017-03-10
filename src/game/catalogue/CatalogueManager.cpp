@@ -10,6 +10,7 @@
 
 #include "CatalogueManager.h"
 #include "CatalogueTab.h"
+#include "CataloguePage.h"
 
 #include "dao/CatalogueDao.h"
 

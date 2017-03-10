@@ -638,5 +638,11 @@
     <ClInclude Include="src\plugin\events\player\PlayerWalkEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\catalogue\CataloguePage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
