@@ -79,15 +79,15 @@ std::vector<CatalogueTab> CatalogueManager::getChildTabs(int parent_id, int rank
 }
 
 /*
-Gets CataloguePage instance by page id
+	Gets CataloguePage instance by page id
 
-@param page id
-@return catalogue page instance, or blank if nothing
+	@param page id
+	@return catalogue page instance, or blank if nothing
 */
 CataloguePage CatalogueManager::getPage(int page_id) {
 
 	if (pages.count(page_id) > 0) {
-		//return this->pages.find(page_id)->second;
+		return this->pages.find(page_id)->second;
 	}
 
 	return CataloguePage();

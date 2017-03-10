@@ -25,7 +25,6 @@ public:
 		std::vector<CatalogueTab> parent_tabs = Icarus::getGame()->getCatalogueManager()->getParentTabs(player->getDetails()->rank);
 
 		if (parent_tabs.size() == 0) {
-			cout << "oh noes its retarded" << endl;
 			return;
 		}
 
