@@ -32,10 +32,6 @@ PluginManager::PluginManager() {
 			cout << "FAILED: Could not create " << directory << " directory!" << endl;
 		}
 	}
-
-	cout << endl;
-	cout << " [BOOT] [PluginManager] Loading plugin system..." << endl;
-	cout << endl;
 }
 
 PluginManager::~PluginManager() {
@@ -76,8 +72,15 @@ void PluginManager::loadPlugins() {
 		plugin_paths->push_back(plugins_ref[i].cast<std::string>());
 	}
 
-	for (std::string plugin_path : *this->plugin_paths) {
-		this->getPluginDetails(plugin_path);
+	if (this->plugin_paths->size() > 0) {
+		cout << endl;
+		cout << " [BOOT] [PluginManager] Loading plugin system..." << endl;
+		cout << endl;
+
+		for (std::string plugin_path : *this->plugin_paths) {
+			this->getPluginDetails(plugin_path);
+		}
+
 	}
 	
 	lua_close(L);

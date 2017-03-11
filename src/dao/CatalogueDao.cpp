@@ -33,7 +33,7 @@ std::vector<CatalogueTab> CatalogueDao::getTabs(int id) {
 
         std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
         std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
-        std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, parent_id, caption, icon_color, icon_image, min_rank FROM catalogue_pages WHERE parent_id = " + std::to_string(id)));
+        std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, parent_id, caption, icon_color, icon_image, min_rank FROM catalog_pages WHERE parent_id = " + std::to_string(id)));
 
 		while (resultSet->next()) {
 
@@ -58,12 +58,13 @@ std::vector<CatalogueTab> CatalogueDao::getTabs(int id) {
 
 /*
 	Returns a list of catalogue page instances inside a vector
+
 	@return list of catalogue pages
 */
 std::map<int, CataloguePage> CatalogueDao::getPages() {
 
 	std::map<int, CataloguePage> pages;// = new std::vector<NavigatorTab*>();
-	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+	/*std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
 	try {
 
@@ -74,14 +75,6 @@ std::map<int, CataloguePage> CatalogueDao::getPages() {
 		while (resultSet->next()) {
 
 			CataloguePage page;
-			/*tab.id = resultSet->getInt("id");
-			tab.parent_id = resultSet->getInt("parent_id");
-			tab.caption = resultSet->getString("caption");
-			tab.icon_colour = resultSet->getInt("icon_color");
-			tab.icon_image = resultSet->getInt("icon_image");
-			tab.min_rank = resultSet->getInt("min_rank");
-			tabs.push_back(tab);*/
-
 			page.id = resultSet->getInt("id");
 			page.layout = resultSet->getString("page_layout");
 			page.headline = resultSet->getString("page_headline");
@@ -91,6 +84,31 @@ std::map<int, CataloguePage> CatalogueDao::getPages() {
 			page.text2 = resultSet->getString("page_text2");
 			page.text_details = resultSet->getString("page_text_details");
 			page.text_teaser = resultSet->getString("page_text_teaser");
+
+			if (page.headline.length() > 0) {
+				page.headers.push_back(page.headline);
+			}
+
+			if (page.teaser.length() > 0) {
+				page.headers.push_back(page.teaser);
+			}
+
+			if (page.special.length() > 0) {
+				page.headers.push_back(page.special);
+			}
+
+			if (page.text1.length() > 0) {
+				page.texts.push_back(page.text1);
+			}
+
+			if (page.text1.length() > 0) {
+				page.texts.push_back(page.text_details);
+			}
+
+			if (page.text1.length() > 0) {
+				page.texts.push_back(page.text_teaser);
+			}
+
 			pages.insert(std::make_pair(page.id, page));
 		}
 	}
@@ -99,6 +117,6 @@ std::map<int, CataloguePage> CatalogueDao::getPages() {
 	}
 
 	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
-
+	*/
 	return pages;
 }

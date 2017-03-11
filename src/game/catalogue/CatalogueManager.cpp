@@ -17,33 +17,41 @@
 #include "dao/CatalogueDao.h"
 
 /*
-Constructor for catalogue manager
+	Constructor for catalogue manager
 */
 CatalogueManager::CatalogueManager() {
-	this->loadCatalogueTabs();
-}
-
-/*
-Loads all catalogue tabs and sorts them into parent
-and child tab lists
-
-@return none
-*/
-void CatalogueManager::loadCatalogueTabs() {
-
 	this->parent_tabs = CatalogueDao::getTabs(-1);
+	this->pages = CatalogueDao::getPages();
 
-	for (auto parent_tab : parent_tabs) {
-		std::vector<CatalogueTab> child = CatalogueDao::getTabs(parent_tab.id);
-		this->child_tabs.insert(std::make_pair(parent_tab.id, child));
+	for (CatalogueTab parent_tab : parent_tabs) {
+		this->loadCatalogueTabs(parent_tab, parent_tab.id);
 	}
 }
 
 /*
-Gets all parent tabs with the right rank supplied
+	Recursively loads all catalogue tabs
+	
+	@param the parent tab
+	@param the parent tab id
+*/
+void CatalogueManager::loadCatalogueTabs(CatalogueTab tab, int parent_id) {
 
-@rank user rank
-@return list of parent tabs
+	std::vector<CatalogueTab> child = CatalogueDao::getTabs(tab.id);
+
+	if (child.size() > 0) { 
+
+		for (CatalogueTab parent_tab : child) {
+			tab.child_tabs->push_back(parent_tab);
+			this->loadCatalogueTabs(parent_tab, parent_tab.id);
+		}
+	}
+}
+
+/*
+	Gets all parent tabs with the right rank supplied
+
+	@rank user rank
+	@return list of parent tabs
 */
 std::vector<CatalogueTab> CatalogueManager::getParentTabs(int rank) {
 	std::vector<CatalogueTab> tabs;
@@ -58,12 +66,12 @@ std::vector<CatalogueTab> CatalogueManager::getParentTabs(int rank) {
 }
 
 /*
-Gets all parent tabs with the right rank and parent tab id supplied
+	Gets all parent tabs with the right rank and parent tab id supplied
 
-@rank user rank
-@return list of child tabs
+	@rank user rank
+	@return list of child tabs
 */
-std::vector<CatalogueTab> CatalogueManager::getChildTabs(int parent_id, int rank) {
+/*std::vector<CatalogueTab> CatalogueManager::getChildTabs(int parent_id, int rank) {
 
 	std::vector<CatalogueTab> tabs;
 
@@ -88,6 +96,9 @@ CataloguePage CatalogueManager::getPage(int page_id) {
 
 	if (pages.count(page_id) > 0) {
 		return this->pages.find(page_id)->second;
+	}
+	else if (pages.count(page_id) > 0) {
+		return this->pages.find(0)->second;
 	}
 
 	return CataloguePage();

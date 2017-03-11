@@ -34,37 +34,9 @@ public:
 		response.writeInt(0);
 		response.writeInt(parent_tabs.size());
 
-		for (CatalogueTab parentTab : parent_tabs) {
-
-			response.writeBool(parentTab.enabled);
-			response.writeInt(parentTab.icon_image);
-			response.writeInt(parentTab.id);
-
-			std::string lower_parent_caption = parentTab.caption;
-			boost::algorithm::to_lower(lower_parent_caption);
-			response.writeString(lower_parent_caption);
-
-			response.writeString(parentTab.caption);
-			response.writeInt(0); // TODO: flat offers
-
-			std::vector<CatalogueTab> child_tabs = Icarus::getGame()->getCatalogueManager()->getChildTabs(parentTab.id, rank);
-
-			response.writeInt(child_tabs.size());
-
-			for (CatalogueTab child_tab : child_tabs) {
-
-				response.writeBool(child_tab.enabled);
-				response.writeInt(child_tab.icon_image);
-				response.writeInt(child_tab.id);
-
-				std::string lower_child_caption = child_tab.caption;
-				boost::algorithm::to_lower(lower_child_caption);
-				response.writeString(lower_child_caption);
-
-				response.writeString(child_tab.caption);
-				response.writeInt(0);
-				response.writeInt(0);
-			}
+		for (CatalogueTab parent_tab : parent_tabs) {
+			this->appendCatalogueIndexData(parent_tab, response);
+			this->recursiveCatalogueIndex(parent_tab, response);
 		}
 
 		response.writeBool(false);
@@ -72,6 +44,31 @@ public:
 
         return response;
     }
+
+	const void appendCatalogueIndexData(CatalogueTab tab, Response &response) const {
+
+		response.writeBool(tab.enabled ? tab.id : -1);
+		response.writeInt(tab.icon_image);
+		response.writeInt(tab.id);
+
+		std::string lower_child_caption = tab.caption;
+		boost::algorithm::to_lower(lower_child_caption);
+		response.writeString(lower_child_caption);
+
+		response.writeString(tab.caption);
+		response.writeInt(0); // TODO: flat offers
+	}
+
+	const void recursiveCatalogueIndex(CatalogueTab tab, Response &response) const {
+
+		std::vector<CatalogueTab> *child_tabs = tab.child_tabs;
+		response.writeInt(child_tabs->size());
+
+		for (CatalogueTab child_tab : *child_tabs) {
+			this->appendCatalogueIndexData(child_tab, response);
+			this->recursiveCatalogueIndex(child_tab, response);
+		}
+	}
 
     const int getHeader() const {
         return Outgoing::CatalogueTabMessageComposer;

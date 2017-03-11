@@ -7,6 +7,8 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+#include <vector>
+
 struct CatalogueTab
 {
 	int id;
@@ -16,5 +18,6 @@ struct CatalogueTab
 	int icon_image;
 	bool enabled;
 	int min_rank;
+	std::vector<CatalogueTab> *child_tabs = new std::vector<CatalogueTab>();
 };
 

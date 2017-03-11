@@ -28,6 +28,6 @@ public:
 			return;
 		}
 
-		player->send(CataloguePageMessageComposer(catalogue_page));
+		player->send(CataloguePageMessageComposer(catalogue_page, "NORMAL"));
     }
 };

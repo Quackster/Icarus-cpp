@@ -7,6 +7,8 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+#include <vector>
+
 struct CataloguePage {
 	int id = -1;
 	std::string layout;
@@ -20,4 +22,7 @@ struct CataloguePage {
 	bool vip;
 	bool loaded;
 	int minimum_rank;
+
+	std::vector<std::string> headers;
+	std::vector<std::string> texts;
 };
