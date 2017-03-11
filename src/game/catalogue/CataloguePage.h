@@ -16,6 +16,6 @@ struct CataloguePage {
 	std::string layout;
 	int minimum_rank;
 
-	std::vector<std::string> *images = new std::vector<std::string>();
-	std::vector<std::string> *texts = new std::vector<std::string>();
+	std::vector<std::string> images;
+	std::vector<std::string> texts;
 };

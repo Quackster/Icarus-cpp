@@ -22,22 +22,18 @@ public:
 		response.writeString("NORMAL");
 		response.writeString(catalogue_page.layout);
 
-		response.writeInt(this->catalogue_page.images->size());
-		for (auto image : *this->catalogue_page.images) {
+		response.writeInt(this->catalogue_page.images.size());
+		for (auto image : this->catalogue_page.images) {
 			response.writeString(image);
 		}
 
-		response.writeInt(this->catalogue_page.texts->size());
-		for (auto text : *this->catalogue_page.texts) {
+		response.writeInt(this->catalogue_page.texts.size());
+		for (auto text : this->catalogue_page.texts) {
 			response.writeString(text);
 		}
 
 		response.writeInt(0);
 		response.writeInt(0);
-/*
-		cout << " Image size: " << catalogue_page.images->size() << endl;
-		cout << " Text size: " << catalogue_page.texts->size() << endl;*/
-
 		response.writeBool(false);
 
 		return response;

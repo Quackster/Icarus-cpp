@@ -10,9 +10,9 @@
 #include <vector>
 #include <boost/algorithm/string.hpp>    
 
+#include "game/catalogue/CatalogueTab.h"
 #include "communication/outgoing/MessageComposer.h"
 
-class CatalogueTab;
 class CatalogueTabMessageComposer : public MessageComposer {
 
 public:
@@ -48,7 +48,7 @@ public:
 
 		response.writeBool(tab.enabled ? tab.id : -1);
 		response.writeInt(tab.icon_image);
-		response.writeInt(tab.id);
+		response.writeInt(tab.id == -1 ? -1 : tab.id);
 
 		std::string lower_child_caption = tab.caption;
 		boost::algorithm::to_lower(lower_child_caption);

@@ -99,15 +99,22 @@ std::map<int, CataloguePage> CatalogueDao::getPages() {
 			}
 
 			if (tmp_texts.size() >= 2) {
+
 				tmp_texts = tmp_texts.substr(1, tmp_texts.size() - 2);
 			}
 
 			for (auto str : Utilities::split(tmp_images, '|')) {
-				page.images->push_back(str);
+				page.images.push_back(str);
 			}
 
 			for (auto str : Utilities::split(tmp_texts, '|')) {
-				page.texts->push_back(str);
+
+				if (str.back() == '=') {
+					str = Utilities::base64_decode(str);
+					cout << str << endl;
+				}
+
+				page.texts.push_back(str);
 			}
 
 			pages.insert(std::make_pair(page.id, page));
