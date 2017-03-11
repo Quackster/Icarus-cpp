@@ -130,7 +130,7 @@ MessageHandler::MessageHandler() {
    this->createEvent(Incoming::MessengerInviteMessageEvent, new MessengerInviteMessageEvent());
    
    // Catalogue
-   this->createEvent(Incoming::CatalogueMessageEvent, new CatalogueTabMessageEvent());
+   this->createEvent(Incoming::CatalogueTabMessageEvent, new CatalogueTabMessageEvent());
    this->createEvent(Incoming::CataloguePageMessageEvent, new CataloguePageMessageEvent());
 }
 

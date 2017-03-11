@@ -18,6 +18,10 @@
 #include "game/catalogue/CatalogueTab.h"
 #include "game/catalogue/CataloguePage.h"
 
+#include "misc/Utilities.h"
+
+#include <boost/algorithm/string.hpp> 
+
 /*
     Finds tabs by child id, if id is -1 it will return parent tabs
 
@@ -64,49 +68,46 @@ std::vector<CatalogueTab> CatalogueDao::getTabs(int id) {
 std::map<int, CataloguePage> CatalogueDao::getPages() {
 
 	std::map<int, CataloguePage> pages;// = new std::vector<NavigatorTab*>();
-	/*std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
 	try {
 
 		std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
 		std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
-		std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT * FROM catalogue_pages"));
+		std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT * FROM catalog_pages"));
 
 		while (resultSet->next()) {
 
 			CataloguePage page;
 			page.id = resultSet->getInt("id");
+			page.type = resultSet->getString("type");
 			page.layout = resultSet->getString("page_layout");
-			page.headline = resultSet->getString("page_headline");
-			page.teaser = resultSet->getString("page_teaser");
-			page.special = resultSet->getString("page_special");
-			page.text1 = resultSet->getString("page_text1");
-			page.text2 = resultSet->getString("page_text2");
-			page.text_details = resultSet->getString("page_text_details");
-			page.text_teaser = resultSet->getString("page_text_teaser");
+			page.minimum_rank = resultSet->getInt("min_rank");
 
-			if (page.headline.length() > 0) {
-				page.headers.push_back(page.headline);
+			std::string tmp_images = resultSet->getString("page_images");
+			tmp_images = Utilities::removeChar(tmp_images, ']');
+			tmp_images = Utilities::removeChar(tmp_images, '[');
+			boost::replace_all(tmp_images, "\",\"", "|");
+
+			std::string tmp_texts = resultSet->getString("page_texts");
+			tmp_texts = Utilities::removeChar(tmp_texts, ']');
+			tmp_texts = Utilities::removeChar(tmp_texts, '[');
+			boost::replace_all(tmp_texts, "\",\"", "|");
+
+			if (tmp_images.size() >= 2) {
+				tmp_images = tmp_images.substr(1, tmp_images.size() - 2);
 			}
 
-			if (page.teaser.length() > 0) {
-				page.headers.push_back(page.teaser);
+			if (tmp_texts.size() >= 2) {
+				tmp_texts = tmp_texts.substr(1, tmp_texts.size() - 2);
 			}
 
-			if (page.special.length() > 0) {
-				page.headers.push_back(page.special);
+			for (auto str : Utilities::split(tmp_images, '|')) {
+				page.images->push_back(str);
 			}
 
-			if (page.text1.length() > 0) {
-				page.texts.push_back(page.text1);
-			}
-
-			if (page.text1.length() > 0) {
-				page.texts.push_back(page.text_details);
-			}
-
-			if (page.text1.length() > 0) {
-				page.texts.push_back(page.text_teaser);
+			for (auto str : Utilities::split(tmp_texts, '|')) {
+				page.texts->push_back(str);
 			}
 
 			pages.insert(std::make_pair(page.id, page));
@@ -117,6 +118,6 @@ std::map<int, CataloguePage> CatalogueDao::getPages() {
 	}
 
 	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
-	*/
+	
 	return pages;
 }

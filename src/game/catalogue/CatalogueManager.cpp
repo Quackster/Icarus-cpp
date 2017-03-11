@@ -65,26 +65,6 @@ std::vector<CatalogueTab> CatalogueManager::getParentTabs(int rank) {
 	return tabs;
 }
 
-/*
-	Gets all parent tabs with the right rank and parent tab id supplied
-
-	@rank user rank
-	@return list of child tabs
-*/
-/*std::vector<CatalogueTab> CatalogueManager::getChildTabs(int parent_id, int rank) {
-
-	std::vector<CatalogueTab> tabs;
-
-	if (child_tabs.count(parent_id) > 0) {
-		for (auto child_tab : child_tabs.find(parent_id)->second) {
-			if (child_tab.min_rank <= rank) {
-				tabs.push_back(child_tab);
-			}
-		}
-	}
-
-	return tabs;
-}
 
 /*
 	Gets CataloguePage instance by page id
@@ -96,9 +76,6 @@ CataloguePage CatalogueManager::getPage(int page_id) {
 
 	if (pages.count(page_id) > 0) {
 		return this->pages.find(page_id)->second;
-	}
-	else if (pages.count(page_id) > 0) {
-		return this->pages.find(0)->second;
 	}
 
 	return CataloguePage();

@@ -12,38 +12,33 @@
 class CataloguePageMessageComposer : public MessageComposer {
 
 public:
-	CataloguePageMessageComposer(CataloguePage catalogue_page, std::string type) :
-		catalogue_page(catalogue_page),
-		type(type) { }
+	CataloguePageMessageComposer(CataloguePage catalogue_page) :
+		catalogue_page(catalogue_page) { }
 
 	const Response compose() const {
 		Response response = this->createResponse();
 
 		response.writeInt(catalogue_page.id);
-		response.writeString(type);
+		response.writeString("NORMAL");
 		response.writeString(catalogue_page.layout);
-		response.writeInt(catalogue_page.headers.size());
 
-		for (std::string header : catalogue_page.headers) {
-			response.writeString(header);
+		response.writeInt(this->catalogue_page.images->size());
+		for (auto image : *this->catalogue_page.images) {
+			response.writeString(image);
 		}
 
-		response.writeInt(catalogue_page.texts.size());
-
-		for (std::string text : catalogue_page.texts) {
+		response.writeInt(this->catalogue_page.texts->size());
+		for (auto text : *this->catalogue_page.texts) {
 			response.writeString(text);
 		}
 
-		if (catalogue_page.layout == "frontpage4" || catalogue_page.layout == "club_buy" || catalogue_page.layout == "guilds") {
-			response.writeInt(0);
-		}
-		else {
-			response.writeInt(0);
-		}
-
 		response.writeInt(0);
-		response.writeBool(false);
+		response.writeInt(0);
+/*
+		cout << " Image size: " << catalogue_page.images->size() << endl;
+		cout << " Text size: " << catalogue_page.texts->size() << endl;*/
 
+		response.writeBool(false);
 
 		return response;
 	}
@@ -53,6 +48,5 @@ public:
 	}
 
 private:
-	std::string type;
 	CataloguePage catalogue_page;
 };

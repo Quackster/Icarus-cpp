@@ -20,8 +20,7 @@ public:
 		type(type), 
 		parent_tabs(parent_tabs), 
 		parent_id(parent_id), 
-		rank(rank) 
-	{ }
+		rank(rank) { }
 
     const Response compose() const {
         Response response = this->createResponse();

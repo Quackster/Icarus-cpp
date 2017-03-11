@@ -47,6 +47,6 @@ public:
     static const int StartTypingMessageEvent = 1752;
     static const int StopTypingMessageEvent = 998;
     static const int ShowSignMessageEvent = 2604;
-	static const int CatalogueMessageEvent = 3871;
+	static const int CatalogueTabMessageEvent = 3871;
 	static const int CataloguePageMessageEvent = 530;
 };
