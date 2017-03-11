@@ -156,9 +156,6 @@
     <ClCompile Include="src\game\DatabaseManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\TestingClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\communication\incoming\MessageEvent.h">
@@ -618,9 +615,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\plugin\events\EventFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TestingClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\outgoing\misc\BroadcastMessageAlertComposer.h">

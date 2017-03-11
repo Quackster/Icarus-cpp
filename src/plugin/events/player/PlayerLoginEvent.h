@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 
-#include "TestingClass.h"
 #include "game/player/Player.h"
 #include "plugin/events/Event.h"
 
@@ -17,7 +16,6 @@ public:
 
 	Player *getPlayer() { return player; }
 	std::string getTicket() { return ticket; }
-	TestingClass *getTestingClass() { return testingclass; }
 
 	std::string getClassName() {
 		return "PlayerLoginEvent";
@@ -30,6 +28,5 @@ public:
 private:
 	Player *player;
 	std::string ticket;
-	TestingClass *testingclass = new TestingClass();
 
 };
