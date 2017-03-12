@@ -137,7 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\game\item\ItemManager.cpp" />
-    <ClCompile Include="src\dao\FurnitureDao.cpp" />
+    <ClCompile Include="src\dao\ItemDao.cpp" />
     <ClCompile Include="src\plugin\Plugin.cpp" />
     <ClCompile Include="src\plugin\events\EventFactory.cpp" />
     <ClCompile Include="src\plugin\PluginMessageEvent.cpp" />
@@ -192,7 +192,7 @@
     <ClInclude Include="src\communication\incoming\catalogue\CataloguePageMessageEvent.h" />
     <ClInclude Include="src\communication\outgoing\catalogue\CataloguePageMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\misc\BroadcastMessageAlertComposer.h" />
-    <ClInclude Include="src\dao\FurnitureDao.h" />
+    <ClInclude Include="src\dao\ItemDao.h" />
     <ClInclude Include="src\game\catalogue\CatalogueItem.h" />
     <ClInclude Include="src\game\catalogue\CataloguePage.h" />
     <ClInclude Include="src\plugin\events\EventFactory.h" />

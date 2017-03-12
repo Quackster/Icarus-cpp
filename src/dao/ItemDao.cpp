@@ -12,7 +12,7 @@
 #include "mysql.h"
 
 #include "boot/Icarus.h"
-#include "FurnitureDao.h"
+#include "ItemDao.h"
 
 std::map<int, ItemDefinition*> ItemDao::getItemDefinitions() {
 

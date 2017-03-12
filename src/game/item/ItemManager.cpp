@@ -9,7 +9,7 @@
 
 #include "stdafx.h"
 
-#include "dao/FurnitureDao.h"
+#include "dao/ItemDao.h"
 
 #include "ItemDefinition.h"
 #include "ItemManager.h"
@@ -26,10 +26,10 @@ ItemManager::ItemManager() :
 }
 
 /*
-	Get Furniture instance by sprite id
+	Get item definitiion instance by item id
 
-	@param sprite id
-	@return furniture
+	@param item id
+	@return item definition
 */
 ItemDefinition *ItemManager::getDefinitionByID(int item_id) {
 
@@ -40,6 +40,12 @@ ItemDefinition *ItemManager::getDefinitionByID(int item_id) {
 	return nullptr;
 }
 
+/*
+	Get item definitiion instance by sprite id
+
+	@param sprite id
+	@return item definition
+*/
 ItemDefinition *ItemManager::getDefinitionBySpriteID(int item_id) {
 
 	if (this->sprite_lookup.count(item_id) > 0) {
@@ -50,6 +56,9 @@ ItemDefinition *ItemManager::getDefinitionBySpriteID(int item_id) {
 	return nullptr;
 }
 
+/*
+	Item manager deconstructor
+*/
 ItemManager::~ItemManager()
 {
 }

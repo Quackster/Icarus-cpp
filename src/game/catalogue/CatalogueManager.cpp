@@ -17,7 +17,7 @@
 
 #include "CatalogueManager.h"
 
-#include "dao/FurnitureDao.h"
+#include "dao/ItemDao.h"
 #include "dao/CatalogueDao.h"
 
 /*

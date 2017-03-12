@@ -153,13 +153,13 @@
     <ClCompile Include="src\plugin\Plugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\dao\FurnitureDao.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\database\DatabaseManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\game\item\ItemManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dao\ItemDao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -653,13 +653,13 @@
     <ClInclude Include="src\game\catalogue\CatalogueItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\dao\FurnitureDao.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\game\item\ItemDefinition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\item\ItemManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\dao\ItemDao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
