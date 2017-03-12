@@ -209,6 +209,18 @@ std::vector<std::string> Utilities::readLines(std::string file_path) {
 	return lines;
 }
 
+/*
+	See whether a sequence letters exists in the string
+
+	@param the full string
+	@param the string to locate
+	@return whether or not the haystack contains the needle
+*/
+bool Utilities::contains(std::string haystack, std::string needle) {
+	std::size_t found = haystack.find(needle);
+	return found != std::string::npos;
+}
+
 std::string Utilities::base64_encode(const std::string &val) {
 	using namespace boost::archive::iterators;
 	using It = base64_from_binary<transform_width<std::string::const_iterator, 6, 8>>;
@@ -223,3 +235,4 @@ std::string Utilities::base64_decode(const std::string &val) {
 		return c == '\0';
 	});
 }
+

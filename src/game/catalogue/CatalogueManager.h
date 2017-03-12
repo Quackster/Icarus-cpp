@@ -4,6 +4,7 @@
 
 #include "CatalogueTab.h"
 #include "CataloguePage.h"
+#include "CatalogueItem.h"
 
 class CatalogueManager
 {
@@ -11,12 +12,20 @@ public:
     CatalogueManager();
     ~CatalogueManager();
 	
+	void assignFurnitureData();
 	void loadCatalogueTabs(CatalogueTab tab, int parent_id);
+
 	std::vector<CatalogueTab> getParentTabs(int rank);
-	CataloguePage getPage(int page_id);
-	std::map<int, CataloguePage> getPages() { return pages; }
+
+	CataloguePage *getPage(int page_id);
+	std::vector<CatalogueItem> getItemsByPage(int page_id) { return this->getPage(page_id)->items; }
+
+	std::map<int, CataloguePage*> getPages() { return pages; }
+	std::vector<CatalogueItem> getItems() { return items; }
+
 private:
 	std::vector<CatalogueTab> parent_tabs;
-	std::map<int, CataloguePage> pages;
+	std::vector<CatalogueItem> items;
+	std::map<int, CataloguePage*> pages;
 };
 

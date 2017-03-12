@@ -136,6 +136,8 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\furniture\FurnitureManager.cpp" />
+    <ClCompile Include="src\dao\FurnitureDao.cpp" />
     <ClCompile Include="src\plugin\Plugin.cpp" />
     <ClCompile Include="src\plugin\events\EventFactory.cpp" />
     <ClCompile Include="src\plugin\PluginMessageEvent.cpp" />
@@ -173,7 +175,7 @@
     <ClCompile Include="src\communication\streams\Request.cpp" />
     <ClCompile Include="src\communication\streams\Response.cpp" />
     <ClCompile Include="src\dao\UserDao.cpp" />
-    <ClCompile Include="src\game\DatabaseManager.cpp" />
+    <ClCompile Include="src\database\DatabaseManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\game\player\Player.cpp" />
     <ClCompile Include="src\game\player\PlayerManager.cpp" />
@@ -185,9 +187,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
+    <ClInclude Include="src\game\furniture\Furniture.h" />
+    <ClInclude Include="src\game\furniture\FurnitureManager.h" />
     <ClInclude Include="src\communication\incoming\catalogue\CataloguePageMessageEvent.h" />
     <ClInclude Include="src\communication\outgoing\catalogue\CataloguePageMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\misc\BroadcastMessageAlertComposer.h" />
+    <ClInclude Include="src\dao\FurnitureDao.h" />
+    <ClInclude Include="src\game\catalogue\CatalogueItem.h" />
     <ClInclude Include="src\game\catalogue\CataloguePage.h" />
     <ClInclude Include="src\plugin\events\EventFactory.h" />
     <ClInclude Include="src\plugin\events\Event.h" />

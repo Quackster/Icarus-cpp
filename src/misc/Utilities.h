@@ -28,6 +28,7 @@ public:
 	static std::vector<std::string> Utilities::readLines(std::string file_path);
 	static std::string base64_encode(const std::string &in);
 	static std::string base64_decode(const std::string &in);
+	static bool contains(std::string haystack, std::string needle);
 
 };
 

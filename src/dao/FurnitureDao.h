@@ -11,19 +11,15 @@
 #include <map>
 
 #include <string>
+#include "game/furniture/Furniture.h"
 
-class CatalogueTab;
-class CataloguePage;
-class CatalogueItem;
-class CatalogueDao
+class FurnitureDao
 {
 
 private:
-    CatalogueDao() { };
+	FurnitureDao() { };
 
 public:
-    static std::vector<CatalogueTab> getTabs(int child_id);
-	static std::map<int, CataloguePage*> getPages();
-	static std::vector<CatalogueItem> getItems();
+    static std::map<int, Furniture> getFurniture();
 };
 

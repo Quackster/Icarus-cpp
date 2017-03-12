@@ -8,22 +8,19 @@
 */
 #pragma once
 #include <vector>
-#include <map>
+#include "game/furniture/Furniture.h"
 
-#include <string>
-
-class CatalogueTab;
-class CataloguePage;
-class CatalogueItem;
-class CatalogueDao
+class FurnitureManager
 {
+public:
+	FurnitureManager();
+	~FurnitureManager();
+
+	Furniture getFurnitureByID(int item_id);
+	Furniture getFurnitureBySpriteID(int item_id);
 
 private:
-    CatalogueDao() { };
-
-public:
-    static std::vector<CatalogueTab> getTabs(int child_id);
-	static std::map<int, CataloguePage*> getPages();
-	static std::vector<CatalogueItem> getItems();
+	std::map<int, Furniture> id_lookup;
+	std::map<int, Furniture> sprite_lookup;
 };
 

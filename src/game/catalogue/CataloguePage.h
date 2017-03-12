@@ -7,10 +7,14 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+
+#include "game/catalogue/CatalogueItem.h"
+
 #include <vector>
 
 struct CataloguePage {
 	int id = -1;
+	std::string caption;
 	int parent_id = -1;
 	std::string type;
 	std::string layout;
@@ -18,4 +22,5 @@ struct CataloguePage {
 
 	std::vector<std::string> images;
 	std::vector<std::string> texts;
+	std::vector<CatalogueItem> items;
 };

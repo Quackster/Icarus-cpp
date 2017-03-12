@@ -22,9 +22,9 @@ public:
 
 		int page_id = request.readInt();
 
-		CataloguePage catalogue_page = Icarus::getGame()->getCatalogueManager()->getPage(page_id);
+		CataloguePage *catalogue_page = Icarus::getGame()->getCatalogueManager()->getPage(page_id);
 
-		if (catalogue_page.id == -1) {
+		if (catalogue_page == nullptr) {
 			return;
 		}
 

@@ -10,10 +10,14 @@
 
 #include "stdafx.h"
 
+#include "boot/Icarus.h"
+
 #include "CatalogueTab.h"
 #include "CataloguePage.h"
 
 #include "CatalogueManager.h"
+
+#include "dao/FurnitureDao.h"
 #include "dao/CatalogueDao.h"
 
 /*
@@ -22,9 +26,30 @@
 CatalogueManager::CatalogueManager() {
 	this->parent_tabs = CatalogueDao::getTabs(-1);
 	this->pages = CatalogueDao::getPages();
+	this->items = CatalogueDao::getItems();
 
 	for (CatalogueTab parent_tab : parent_tabs) {
 		this->loadCatalogueTabs(parent_tab, parent_tab.id);
+	}
+
+	for (CatalogueItem item : this->items) {
+		CataloguePage *page = this->getPage(item.page_id);
+
+		if (page != nullptr) {
+			page->items.push_back(item);
+		}
+	}
+}
+
+void CatalogueManager::assignFurnitureData() {
+
+	for (CatalogueItem item : this->items) {
+		item.data = Icarus::getGame()->getFurnitureManager()->getFurnitureByID(item.item_id);
+	}
+
+	for (auto page : this->pages) {
+
+		cout << page.second->caption << page.second->items.size() << endl;
 	}
 }
 
@@ -72,13 +97,13 @@ std::vector<CatalogueTab> CatalogueManager::getParentTabs(int rank) {
 	@param page id
 	@return catalogue page instance, or blank if nothing
 */
-CataloguePage CatalogueManager::getPage(int page_id) {
+CataloguePage *CatalogueManager::getPage(int page_id) {
 
 	if (pages.count(page_id) > 0) {
 		return this->pages.find(page_id)->second;
 	}
 
-	return CataloguePage();
+	return nullptr;
 }
 
 /*

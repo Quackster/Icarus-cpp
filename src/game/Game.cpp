@@ -14,11 +14,12 @@
 #include "dao/RoomDao.h"
 
 Game::Game() :
-    navigator_manager(new NavigatorManager()),
-    room_manager(new RoomManager()),
-    executor_service(ExecutorService::createSchedulerService(Icarus::getGameConfiguration()->getInt("thread.pool.size"), std::chrono::milliseconds(500))),
-	catalogue_manager(new CatalogueManager()),
-	plugin_manager(new PluginManager()) {
+	navigator_manager(new NavigatorManager()),
+	room_manager(new RoomManager()),
+	executor_service(ExecutorService::createSchedulerService(Icarus::getGameConfiguration()->getInt("thread.pool.size"), std::chrono::milliseconds(500))),
+	plugin_manager(new PluginManager()),
+	furniture_manager(new FurnitureManager()),
+	catalogue_manager(new CatalogueManager()) {
 }
 
 /*
@@ -28,10 +29,13 @@ Game::Game() :
 */
 void Game::createGame() {
 	
+	this->catalogue_manager->assignFurnitureData();
+
 	this->plugin_manager->loadPlugins();
 	this->plugin_manager->enablePlugins();
 
     RoomDao::addPublicRooms();
+
 
 }
 
