@@ -43,6 +43,37 @@ public:
 			for (CatalogueItem *item : catalogue_page->items) {
 
 				response.writeInt(item->id);
+
+				if (item->id == 1166) {
+
+					/* (char)number & 0xff;
+    output[2] = (char)(number >> 8) & 0xff;
+    output[1] = (char)(number >> 16) & 0xff;
+    output[0] = (char)(number >> 24) & 0xff*/
+
+					int number = item->id;
+
+
+					char output[4];
+
+					output[3] = (char)number & 0xff;
+					output[2] = (char)(number >> 8) & 0xff;
+					output[1] = (char)(number >> 16) & 0xff;
+					output[0] = (char)(number >> 24) & 0xff;
+
+					std::cout << (int)output[0] << "/";
+					std::cout << (int)output[1] << "/";
+					std::cout << (int)output[2] << "/";
+					std::cout << (int)output[3] << "/";
+					std::cout << endl;
+				}
+
+
+				//std::cout << item->catalogue_name << " // " << item->id << endl;
+
+				//gothic_sofa*3 // 1166
+				//cout << item->id << endl;
+
 				response.writeString(item->catalogue_name);
 				response.writeBool(false);
 
@@ -56,9 +87,7 @@ public:
 					response.writeInt(item->cost_snow);
 				}
 
-				response.writeInt(item->achievement);
-
-				std::cout << item->item_definition->type << endl;
+				response.writeInt(0); // Quest type
 
 				if (item->limited_stack > 0 || item->item_definition->type == "r") {
 					response.writeBool(false);
@@ -67,15 +96,12 @@ public:
 					response.writeBool(item->item_definition->allow_gift);
 				}
 
-				response.writeInt(1); // is deal
+				response.writeInt(1);
 				response.writeString(item->item_definition->type);
-
 				response.writeInt(item->item_definition->sprite_id);
 
-				//cout << item->catalogue_name << endl;
-
-				if (Utilities::contains(item->item_definition->item_name, "_single_")) {
-					response.writeString(Utilities::split(item->item_definition->item_name, '_').at(2));
+				if (Utilities::contains(item->catalogue_name, "_single_")) {
+					response.writeString(Utilities::split(item->catalogue_name, '_').at(2));
 				}
 				else {
 					response.writeString(item->extra_data);
@@ -97,8 +123,6 @@ public:
 				else {
 					response.writeBool(false);
 				}
-				//}
-
 			}
 		}
 

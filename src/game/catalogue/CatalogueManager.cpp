@@ -101,6 +101,17 @@ CataloguePage *CatalogueManager::getPage(int page_id) {
 	return nullptr;
 }
 
+CatalogueItem *CatalogueManager::getItem(int item_id) {
+
+	for (auto item : items) {
+		if (item->id == item_id) {
+			return item;
+		}
+	}
+
+	return nullptr;
+}
+
 /*
 	Deconstructor for catalogue manager
 */

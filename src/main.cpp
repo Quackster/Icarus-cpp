@@ -6,11 +6,20 @@
 * Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
-
 #include "stdafx.h"
 #include "boot/Icarus.h"
 
 int main(int argc, char* argv[]) {
+
+
+	// 4, -114
+
+	int number = (0 << 24)
+		| (0 << 16)
+		| (4 << 8)
+		| -114;
+
+	cout << MAKEWORD(4, -114) << endl;
 
 	bool close_when_crash = false;   
 	

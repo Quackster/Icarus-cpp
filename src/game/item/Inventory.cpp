@@ -6,13 +6,23 @@
 * Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
-#pragma once
-#include "communication/incoming/MessageEvent.h"
+#include "stdafx.h"
 
-class DefaultMessageEvent : public MessageEvent {
+#include "Item.h"
+#include "Inventory.h"
 
-public:
-	DefaultMessageEvent() { }
+/*
+    Constructor for Inventory
 
-    void handle(Player *player, Request &request) { }
-};
+    @param list of inventory items
+*/
+Inventory::Inventory(std::vector<Item*> items) :
+    items(items) { }
+
+/*
+    Deconstructor for invenotyr
+*/
+Inventory::~Inventory() {
+
+
+}

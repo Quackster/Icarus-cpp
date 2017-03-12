@@ -132,7 +132,7 @@ EntityDetails *UserDao::findUserByTicket(Player *player, std::string sso_ticket)
             /*
                 This pointer gets deleted in the 'Session' deconstructor
             */
-            details = new EntityDetails();
+            details = new EntityDetails(player);
 
             details->id = result_set->getInt("id");
             details->username = result_set->getString("username");
@@ -183,7 +183,7 @@ std::shared_ptr<EntityDetails> UserDao::getDetails(int user_id) {
 
         while (result_set->next()) {
 
-            details = std::make_shared<EntityDetails>();
+            details = std::make_shared<EntityDetails>(nullptr);
             details->id = result_set->getInt("id");
             details->username = result_set->getString("username");
             details->motto = result_set->getString("mission");

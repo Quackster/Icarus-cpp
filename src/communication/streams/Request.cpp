@@ -67,6 +67,12 @@ int Request::readInt() {
         | (this->full_message[this->index + 2] << 8)
         | (this->full_message[this->index + 3]);
 
+	cout << "READ INT: " << (this->full_message[this->index] << 24)
+		<< "/" << (this->full_message[this->index + 1] << 16)
+		<< "/" << (this->full_message[this->index + 2] << 8)
+		<< "/" << (this->full_message[this->index + 3])
+		<< endl;
+
     index = index + 4;
     return number;
 

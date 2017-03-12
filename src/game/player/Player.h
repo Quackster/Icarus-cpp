@@ -10,10 +10,9 @@
 
 #include "network/NetworkConnection.h"
 
-
-
 #include "game/entities/Entity.h"
 #include "game/messenger/Messenger.h"
+#include "game/item/Inventory.h"
 
 class MessengerUser;
 class Player : public Entity {
@@ -40,12 +39,11 @@ public:
         return this->room_user; 
     }
 
-	
-
 	std::vector<Room*> getRooms();
     
     Messenger *getMessenger() { return this->messenger; }
 	MessengerUser *getMessengerUser() { return this->messenger_user; }
+	Inventory *getInventory() { return this->inventory; }
     bool authenticated() { return logged_in; }
     bool disposed() { return disconnected; }
 
@@ -60,6 +58,7 @@ private:
     RoomUser *room_user = nullptr;
     Messenger *messenger = nullptr;
 	MessengerUser *messenger_user = nullptr;
+	Inventory *inventory = nullptr;
     std::string unique_id;
     bool logged_in;
     bool disconnected;

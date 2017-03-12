@@ -139,7 +139,7 @@ void NetworkConnection::handleData(Request request) {
     }
     
     if (Icarus::getLogConfiguration()->getBool("log.network.rawpacket")) {
-        cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << "/ ";
+        cout << " [SESSION] [CONNECTION: " << this->connection_id << "] " << request.getMessageId() << " / ";
 
         for (int i = 0; i < request.getMessageLength(); i++) {
 

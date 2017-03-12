@@ -47,7 +47,6 @@ void Response::writeInt(int number) {
     }
 
     this->index = this->index + 4;
-    //delete[] bytes;
 }
 
 /*

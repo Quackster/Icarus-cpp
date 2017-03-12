@@ -7,25 +7,18 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+#include <vector>
 
-class Entity;
-class EntityDetails
-{
+class Item;
+class Inventory {
 
 public:
-	EntityDetails(Entity *entity);
-	~EntityDetails();
+    Inventory(std::vector<Item*> items);
+    ~Inventory();
 
-	void setCredits(int new_amount);
+	std::vector<Item*> getItems() { return this->items; }
 
-	Entity *entity;
+private:
+    std::vector<Item*> items;
 
-    int id;
-    std::string username;
-    std::string motto;
-    std::string figure;
-    int rank;
-    int credits;
-    std::string machine_id;
-    bool authenticated;
 };

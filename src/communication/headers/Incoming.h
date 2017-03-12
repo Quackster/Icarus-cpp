@@ -49,4 +49,6 @@ public:
     static const int ShowSignMessageEvent = 2604;
 	static const int CatalogueTabMessageEvent = 3871;
 	static const int CataloguePageMessageEvent = 530;
+	static const int PurchaseObjectMessageEvent = 2893;
+	static const int InventoryMessageEvent = 3991;
 };

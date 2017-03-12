@@ -19,6 +19,7 @@ public:
 
 	CataloguePage *getPage(int page_id);
 	std::vector<CatalogueItem*> getItemsByPage(int page_id) { return this->getPage(page_id)->items; }
+	CatalogueItem *getItem(int item_id);
 
 	std::map<int, CataloguePage*> getPages() { return pages; }
 	std::vector<CatalogueItem*> getItems() { return items; }

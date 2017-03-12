@@ -165,6 +165,12 @@
     <ClCompile Include="src\game\item\Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\item\Inventory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\entities\EntityDetails.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\communication\incoming\MessageEvent.h">
@@ -174,15 +180,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\headers\Incoming.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\incoming\login\AuthenticateMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\incoming\login\UniqueIDMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\incoming\login\VersionCheckMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\incoming\messenger\FollowFriendMessageEvent.h">
@@ -666,6 +663,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\item\Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\item\Inventory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\catalogue\PurchaseObjectMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\login\AuthenticateMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\login\UniqueIDMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\login\VersionCheckMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -136,9 +136,11 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\entities\EntityDetails.cpp" />
     <ClCompile Include="src\game\item\Item.cpp" />
     <ClCompile Include="src\game\item\ItemManager.cpp" />
     <ClCompile Include="src\dao\ItemDao.cpp" />
+    <ClCompile Include="src\game\item\Inventory.cpp" />
     <ClCompile Include="src\plugin\Plugin.cpp" />
     <ClCompile Include="src\plugin\events\EventFactory.cpp" />
     <ClCompile Include="src\plugin\PluginMessageEvent.cpp" />
@@ -188,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
+    <ClInclude Include="src\communication\incoming\catalogue\PurchaseObjectMessageEvent.h" />
     <ClInclude Include="src\game\item\Item.h" />
     <ClInclude Include="src\game\item\ItemDefinition.h" />
     <ClInclude Include="src\game\item\ItemManager.h" />
@@ -197,6 +200,7 @@
     <ClInclude Include="src\dao\ItemDao.h" />
     <ClInclude Include="src\game\catalogue\CatalogueItem.h" />
     <ClInclude Include="src\game\catalogue\CataloguePage.h" />
+    <ClInclude Include="src\game\item\Inventory.h" />
     <ClInclude Include="src\plugin\events\EventFactory.h" />
     <ClInclude Include="src\plugin\events\Event.h" />
     <ClInclude Include="src\plugin\events\player\PlayerLoginEvent.h" />
