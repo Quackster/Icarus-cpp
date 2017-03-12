@@ -9,8 +9,9 @@
 #pragma once
 #include <vector>
 #include <map>
-
 #include <string>
+
+#include "game/item/Item.h"
 #include "game/item/ItemDefinition.h"
 
 class ItemDao
@@ -21,5 +22,7 @@ private:
 
 public:
     static std::map<int, ItemDefinition*> getItemDefinitions();
+	static std::vector<Item*> getInventoryItems(int user_id);
+	static Item *newItem(int item_id, int owner_id, std::string extra_data);
 };
 

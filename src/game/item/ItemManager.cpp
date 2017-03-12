@@ -52,7 +52,6 @@ ItemDefinition *ItemManager::getDefinitionBySpriteID(int item_id) {
 		return this->sprite_lookup.find(item_id)->second;
 	}
 
-
 	return nullptr;
 }
 

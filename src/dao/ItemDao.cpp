@@ -69,3 +69,84 @@ std::map<int, ItemDefinition*> ItemDao::getItemDefinitions() {
 
     return furnitures;
 }
+
+std::vector<Item*> ItemDao::getInventoryItems(int user_id) {
+
+	std::vector<Item*> items;
+
+	std::map<int, ItemDefinition*> furnitures;
+	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+	try {
+
+		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT * FROM items WHERE user_id = ?")); {
+			statement->setInt(1, user_id);
+		}
+
+		std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+
+		while (result_set->next()) {
+
+			Item *item = new Item(
+				result_set->getInt("id"),
+				result_set->getInt("user_id"),
+				result_set->getInt("item_id"),
+				result_set->getInt("room_id"),
+				result_set->getInt("x"),
+				result_set->getInt("y"),
+				result_set->getInt("z"),
+				result_set->getString("extra_data")
+			);
+
+			items.push_back(item);
+
+		}
+
+	}
+	catch (sql::SQLException &e) {
+		Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+	}
+
+	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+	return items;
+}
+
+Item *ItemDao::newItem(int item_id, int owner_id, std::string extra_data) {
+
+	int id = -1;
+	Item *item = nullptr;
+
+	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+	try {
+
+		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("INSERT INTO items (user_id, item_id, extra_data) VALUES(?, ?, ?)")); {
+			statement->setInt(1, owner_id);
+			statement->setInt(2, item_id);
+			statement->setString(3, extra_data);
+			statement->executeUpdate();
+		}
+
+		statement->execute();
+
+		// Last inserted id
+		std::shared_ptr<sql::Statement> stmnt = std::shared_ptr<sql::Statement>(sql_connection->createStatement()); {
+			auto result_set = stmnt->executeQuery("SELECT LAST_INSERT_ID() as id;");
+			result_set->next();
+			id = result_set->getInt("id");
+		}
+
+		item = new Item(id, owner_id, item_id, -1, -1, -1, -1, "");
+
+	}
+	catch (sql::SQLException &e) {
+		Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+	}
+
+	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+	return item;
+}

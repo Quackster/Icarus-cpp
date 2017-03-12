@@ -136,6 +136,7 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\item\Item.cpp" />
     <ClCompile Include="src\game\item\ItemManager.cpp" />
     <ClCompile Include="src\dao\ItemDao.cpp" />
     <ClCompile Include="src\plugin\Plugin.cpp" />
@@ -187,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
+    <ClInclude Include="src\game\item\Item.h" />
     <ClInclude Include="src\game\item\ItemDefinition.h" />
     <ClInclude Include="src\game\item\ItemManager.h" />
     <ClInclude Include="src\communication\incoming\catalogue\CataloguePageMessageEvent.h" />
