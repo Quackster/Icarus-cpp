@@ -62,6 +62,9 @@ Read an integer represented as 32 bits
 */
 long Request::readInt() {
 
+	result |= ((int)bytes[offset + 2] & 0xff) << 8;
+	result |= ((int)bytes[offset + 1] & 0xff) << 16;
+	result |= ((int)bytes[offset] & 0xff) << 24;
 
     offset = offset + 4;
     return result & 0xFFFFFFFFL;
