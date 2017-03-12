@@ -38,7 +38,8 @@ T Plugin::testEvent() {
 
 			luabridge::LuaRef enable_callback = luabridge::getGlobal(this->L, "onLoginEvent");
 			Event *pevent = enable_callback(event);
-			std::cout << pevent->isCancelled() << std::endl;
+			std::
+			<< pevent->isCancelled() << std::endl;
 
 			delete pevent;
 

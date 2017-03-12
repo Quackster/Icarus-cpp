@@ -46,11 +46,6 @@ void CatalogueManager::assignFurnitureData() {
 	for (CatalogueItem item : this->items) {
 		item.data = Icarus::getGame()->getFurnitureManager()->getFurnitureByID(item.item_id);
 	}
-
-	for (auto page : this->pages) {
-
-		cout << page.second->caption << page.second->items.size() << endl;
-	}
 }
 
 /*
@@ -107,7 +102,7 @@ CataloguePage *CatalogueManager::getPage(int page_id) {
 }
 
 /*
-Deconstructor for catalogue manager
+	Deconstructor for catalogue manager
 */
 CatalogueManager::~CatalogueManager()
 {
