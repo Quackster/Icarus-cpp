@@ -13,19 +13,19 @@ public:
     ~CatalogueManager();
 	
 	void assignFurnitureData();
-	void loadCatalogueTabs(CatalogueTab tab, int parent_id);
+	void loadCatalogueTabs(CatalogueTab *tab, int parent_id);
 
-	std::vector<CatalogueTab> getParentTabs(int rank);
+	std::vector<CatalogueTab*> getParentTabs(int rank);
 
 	CataloguePage *getPage(int page_id);
-	std::vector<CatalogueItem> getItemsByPage(int page_id) { return this->getPage(page_id)->items; }
+	std::vector<CatalogueItem*> getItemsByPage(int page_id) { return this->getPage(page_id)->items; }
 
 	std::map<int, CataloguePage*> getPages() { return pages; }
-	std::vector<CatalogueItem> getItems() { return items; }
+	std::vector<CatalogueItem*> getItems() { return items; }
 
 private:
-	std::vector<CatalogueTab> parent_tabs;
-	std::vector<CatalogueItem> items;
+	std::vector<CatalogueTab*> parent_tabs;
+	std::vector<CatalogueItem*> items;
 	std::map<int, CataloguePage*> pages;
 };
 

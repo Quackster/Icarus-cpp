@@ -28,12 +28,12 @@ CatalogueManager::CatalogueManager() {
 	this->pages = CatalogueDao::getPages();
 	this->items = CatalogueDao::getItems();
 
-	for (CatalogueTab parent_tab : parent_tabs) {
-		this->loadCatalogueTabs(parent_tab, parent_tab.id);
+	for (CatalogueTab *parent_tab : parent_tabs) {
+		this->loadCatalogueTabs(parent_tab, parent_tab->id);
 	}
 
-	for (CatalogueItem item : this->items) {
-		CataloguePage *page = this->getPage(item.page_id);
+	for (CatalogueItem *item : this->items) {
+		CataloguePage *page = this->getPage(item->page_id);
 
 		if (page != nullptr) {
 			page->items.push_back(item);
@@ -43,8 +43,8 @@ CatalogueManager::CatalogueManager() {
 
 void CatalogueManager::assignFurnitureData() {
 
-	for (CatalogueItem item : this->items) {
-		item.data = Icarus::getGame()->getFurnitureManager()->getFurnitureByID(item.item_id);
+	for (CatalogueItem *item : this->items) {
+		item->data = Icarus::getGame()->getFurnitureManager()->getFurnitureByID(item->item_id);
 	}
 }
 
@@ -54,15 +54,15 @@ void CatalogueManager::assignFurnitureData() {
 	@param the parent tab
 	@param the parent tab id
 */
-void CatalogueManager::loadCatalogueTabs(CatalogueTab tab, int parent_id) {
+void CatalogueManager::loadCatalogueTabs(CatalogueTab *tab, int parent_id) {
 
-	std::vector<CatalogueTab> child = CatalogueDao::getTabs(tab.id);
+	std::vector<CatalogueTab*> child = CatalogueDao::getTabs(tab->id);
 
 	if (child.size() > 0) { 
 
-		for (CatalogueTab parent_tab : child) {
-			tab.child_tabs->push_back(parent_tab);
-			this->loadCatalogueTabs(parent_tab, parent_tab.id);
+		for (CatalogueTab *parent_tab : child) {
+			tab->child_tabs->push_back(parent_tab);
+			this->loadCatalogueTabs(parent_tab, parent_tab->id);
 		}
 	}
 }
@@ -73,11 +73,11 @@ void CatalogueManager::loadCatalogueTabs(CatalogueTab tab, int parent_id) {
 	@rank user rank
 	@return list of parent tabs
 */
-std::vector<CatalogueTab> CatalogueManager::getParentTabs(int rank) {
-	std::vector<CatalogueTab> tabs;
+std::vector<CatalogueTab*> CatalogueManager::getParentTabs(int rank) {
+	std::vector<CatalogueTab*> tabs;
 
 	for (auto parent_tab : parent_tabs) {
-		if (parent_tab.parent_id <= rank) {
+		if (parent_tab->parent_id <= rank) {
 			tabs.push_back(parent_tab);
 		}
 	}

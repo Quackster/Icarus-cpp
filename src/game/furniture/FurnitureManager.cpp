@@ -31,23 +31,23 @@ FurnitureManager::FurnitureManager() :
 	@param sprite id
 	@return furniture
 */
-Furniture FurnitureManager::getFurnitureByID(int item_id) {
+Furniture *FurnitureManager::getFurnitureByID(int item_id) {
 
 	if (this->id_lookup.count(item_id) > 0) {
 		return this->id_lookup.find(item_id)->second;
 	}
 
-	return Furniture();
+	return nullptr;
 }
 
-Furniture FurnitureManager::getFurnitureBySpriteID(int item_id) {
+Furniture *FurnitureManager::getFurnitureBySpriteID(int item_id) {
 
 	if (this->sprite_lookup.count(item_id) > 0) {
 		return this->sprite_lookup.find(item_id)->second;
 	}
 
 
-	return Furniture();
+	return nullptr;
 }
 
 FurnitureManager::~FurnitureManager()

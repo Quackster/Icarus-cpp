@@ -22,5 +22,5 @@ struct CataloguePage {
 
 	std::vector<std::string> images;
 	std::vector<std::string> texts;
-	std::vector<CatalogueItem> items;
+	std::vector<CatalogueItem*> items;
 };

@@ -29,5 +29,5 @@ struct CatalogueItem {
 	std::string extra_data;
 	std::string badge_id;
 	int flat_id;
-	Furniture data;
+	Furniture *data = nullptr;
 };

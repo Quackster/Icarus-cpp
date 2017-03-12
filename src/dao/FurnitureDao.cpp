@@ -14,47 +14,50 @@
 #include "boot/Icarus.h"
 #include "FurnitureDao.h"
 
-std::map<int, Furniture> FurnitureDao::getFurniture() {
+std::map<int, Furniture*> FurnitureDao::getFurniture() {
 
-	std::map<int, Furniture> furnitures;
+	std::map<int, Furniture*> furnitures;
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
     try {
 
-        std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
-        std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
-        std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT * FROM furniture"));
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+        std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sql_connection->createStatement());
+        std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT * FROM furniture"));
 
-		while (resultSet->next()) {
+		while (result_set->next()) {
 			
-			Furniture furni;
-			furni.id = resultSet->getInt("id");
-			furni.public_name = resultSet->getString("public_name");
-			furni.item_name = resultSet->getString("item_name");
-			furni.width = resultSet->getInt("width");
-			furni.length = resultSet->getInt("length");
+			Furniture *furni = new Furniture();
+			furni->id = result_set->getInt("id");
+			furni->public_name = result_set->getString("public_name");
+			furni->item_name = result_set->getString("item_name");
+			furni->width = result_set->getInt("width");
+			furni->length = result_set->getInt("length");
 
 			std::string::size_type sz;
-			furni.stack_height = std::stod(resultSet->getString("stack_height"), &sz);
+			furni->stack_height = std::stod(result_set->getString("stack_height"), &sz);
 
-			furni.can_stack = resultSet->getInt("can_stack") == 1;
-			/**/furni.can_sit = resultSet->getInt("can_sit") == 1;
-			furni.sprite_id = resultSet->getInt("sprite_id");
-			furni.is_walkable = resultSet->getInt("is_walkable") == 1;
-			furni.allow_gift = resultSet->getInt("allow_gift") == 1;
-			furni.allow_trade = resultSet->getInt("allow_trade") == 1;
-			furni.allow_inventory_stack = resultSet->getInt("allow_inventory_stack") == 1;
-			furni.allow_marketplace_sell = resultSet->getInt("allow_marketplace_sell") == 1;
-			furni.allow_recycle = resultSet->getInt("allow_recycle") == 1;
-			furni.interaction_type = resultSet->getString("interaction_type");
-			furni.vending_id = std::stoi(resultSet->getString("vending_ids"));
-		    furni.effect_id = resultSet->getInt("effectid");
-			//furni.height_adjustible = resultSet->getInt("height_adjustible");
-			furni.flat_id = resultSet->getInt("flat_id");
-			furni.song_id = resultSet->getInt("song_id");
-			furni.requires_rights = resultSet->getInt("requires_rights") == 1;
-			furni.is_arrow = resultSet->getInt("is_arrow");
-			furnitures.insert(std::make_pair(furni.id, furni));
+			furni->type = result_set->getString("type");
+
+			furni->can_stack = result_set->getInt("can_stack") == 1;
+			/**/furni->can_sit = result_set->getInt("can_sit") == 1;
+			furni->sprite_id = result_set->getInt("sprite_id");
+
+			furni->is_walkable = result_set->getInt("is_walkable") == 1;
+			furni->allow_gift = result_set->getInt("allow_gift") == 1;
+			furni->allow_trade = result_set->getInt("allow_trade") == 1;
+			furni->allow_inventory_stack = result_set->getInt("allow_inventory_stack") == 1;
+			furni->allow_marketplace_sell = result_set->getInt("allow_marketplace_sell") == 1;
+			furni->allow_recycle = result_set->getInt("allow_recycle") == 1;
+			furni->interaction_type = result_set->getString("interaction_type");
+			furni->vending_id = std::stoi(result_set->getString("vending_ids"));
+		    furni->effect_id = result_set->getInt("effectid");
+			//furni->height_adjustible = resultSet->getInt("height_adjustible");
+			furni->flat_id = result_set->getInt("flat_id");
+			furni->song_id = result_set->getInt("song_id");
+			furni->requires_rights = result_set->getInt("requires_rights") == 1;
+			furni->is_arrow = result_set->getInt("is_arrow");
+			furnitures.insert(std::make_pair(furni->id, furni));
 
 		}
     }

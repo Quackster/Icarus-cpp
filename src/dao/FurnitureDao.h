@@ -20,6 +20,6 @@ private:
 	FurnitureDao() { };
 
 public:
-    static std::map<int, Furniture> getFurniture();
+    static std::map<int, Furniture*> getFurniture();
 };
 

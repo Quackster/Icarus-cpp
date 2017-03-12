@@ -29,26 +29,26 @@
     @param child id
     @return list of tabs
 */
-std::vector<CatalogueTab> CatalogueDao::getTabs(int id) {
+std::vector<CatalogueTab*> CatalogueDao::getTabs(int id) {
 
-    std::vector<CatalogueTab> tabs;// = new std::vector<NavigatorTab*>();
+    std::vector<CatalogueTab*> tabs;// = new std::vector<NavigatorTab*>();
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
     try {
 
-        std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
-        std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
-        std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, parent_id, caption, icon_color, icon_image, min_rank FROM catalog_pages WHERE parent_id = " + std::to_string(id)));
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+        std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sql_connection->createStatement());
+        std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, parent_id, caption, icon_color, icon_image, min_rank FROM catalog_pages WHERE parent_id = " + std::to_string(id)));
 
-		while (resultSet->next()) {
+		while (result_set->next()) {
 
-			CatalogueTab tab;
-			tab.id = resultSet->getInt("id");
-			tab.parent_id = resultSet->getInt("parent_id");
-			tab.caption = resultSet->getString("caption");
-			tab.icon_colour = resultSet->getInt("icon_color");
-			tab.icon_image = resultSet->getInt("icon_image");
-			tab.min_rank = resultSet->getInt("min_rank");
+			CatalogueTab *tab = new CatalogueTab;
+			tab->id = result_set->getInt("id");
+			tab->parent_id = result_set->getInt("parent_id");
+			tab->caption = result_set->getString("caption");
+			tab->icon_colour = result_set->getInt("icon_color");
+			tab->icon_image = result_set->getInt("icon_image");
+			tab->min_rank = result_set->getInt("min_rank");
 			tabs.push_back(tab);
 		}
     }
@@ -68,30 +68,30 @@ std::vector<CatalogueTab> CatalogueDao::getTabs(int id) {
 */
 std::map<int, CataloguePage*> CatalogueDao::getPages() {
 
-	std::map<int, CataloguePage*> pages;// = new std::vector<NavigatorTab*>();
+	std::map<int, CataloguePage*> pages;
 	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
 	try {
 
-		std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
-		std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
-		std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT * FROM catalog_pages"));
+		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+		std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sql_connection->createStatement());
+		std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT * FROM catalog_pages"));
 
-		while (resultSet->next()) {
+		while (result_set->next()) {
 
 			CataloguePage *page = new CataloguePage;
-			page->id = resultSet->getInt("id");
-			page->caption = resultSet->getString("caption");
-			page->type = resultSet->getString("type");
-			page->layout = resultSet->getString("page_layout");
-			page->minimum_rank = resultSet->getInt("min_rank");
+			page->id = result_set->getInt("id");
+			page->caption = result_set->getString("caption");
+			page->type = result_set->getString("type");
+			page->layout = result_set->getString("page_layout");
+			page->minimum_rank = result_set->getInt("min_rank");
 
-			std::string tmp_images = resultSet->getString("page_images");
+			std::string tmp_images = result_set->getString("page_images");
 			tmp_images = Utilities::removeChar(tmp_images, ']');
 			tmp_images = Utilities::removeChar(tmp_images, '[');
 			boost::replace_all(tmp_images, "\",\"", "|");
 
-			std::string tmp_texts = resultSet->getString("page_texts");
+			std::string tmp_texts = result_set->getString("page_texts");
 			tmp_texts = Utilities::removeChar(tmp_texts, ']');
 			tmp_texts = Utilities::removeChar(tmp_texts, '[');
 			boost::replace_all(tmp_texts, "\",\"", "|");
@@ -135,38 +135,38 @@ Returns a list of catalogue items inside a vector
 
 @return list of catalogue item
 */
-std::vector<CatalogueItem> CatalogueDao::getItems() {
+std::vector<CatalogueItem*> CatalogueDao::getItems() {
 
-	std::vector<CatalogueItem> items;// = new std::vector<NavigatorTab*>();
+	std::vector<CatalogueItem*> items;// = new std::vector<NavigatorTab*>();
 	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
 	try {
 
-		std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
-		std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
-		std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT * FROM catalog_items"));
+		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+		std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sql_connection->createStatement());
+		std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT * FROM catalog_items"));
 
-		while (resultSet->next()) {
+		while (result_set->next()) {
 
-			CatalogueItem item;
-			item.id = resultSet->getInt("id");
-			item.page_id = resultSet->getInt("page_id");
-			item.item_id = std::stoi(resultSet->getString("item_ids"));
-			item.catalogue_name = resultSet->getString("catalog_name");
-			item.cost_credits = resultSet->getInt("cost_credits");
-			item.cost_pixels = resultSet->getInt("cost_pixels");
-			item.cost_snow = resultSet->getInt("cost_snow");
-			item.amount = resultSet->getInt("amount");
-			item.vip = resultSet->getInt("vip");
-			item.achievement = resultSet->getInt("achievement");
-			item.song_id = resultSet->getInt("song_id");
-			item.limited_sells = resultSet->getInt("limited_sells");
-			item.limited_stack = resultSet->getInt("limited_stack");
-			item.achievement = resultSet->getInt("achievement");
-			item.offer_active = resultSet->getInt("offer_active") == 1;
-			item.extra_data = resultSet->getInt("extradata");
-			item.badge_id = resultSet->getString("badge_id");
-			item.flat_id = resultSet->getInt("flat_id");
+			CatalogueItem *item = new CatalogueItem();
+			item->id = result_set->getInt("id");
+			item->page_id = result_set->getInt("page_id");
+			item->item_id = std::stoi(result_set->getString("item_ids"));
+			item->catalogue_name = result_set->getString("catalog_name");
+			item->cost_credits = result_set->getInt("cost_credits");
+			item->cost_pixels = result_set->getInt("cost_pixels");
+			item->cost_snow = result_set->getInt("cost_snow");
+			item->amount = result_set->getInt("amount");
+			item->vip = result_set->getInt("vip");
+			item->achievement = result_set->getInt("achievement");
+			item->song_id = result_set->getInt("song_id");
+			item->limited_sells = result_set->getInt("limited_sells");
+			item->limited_stack = result_set->getInt("limited_stack");
+			item->achievement = result_set->getInt("achievement");
+			item->offer_active = result_set->getInt("offer_active") == 1;
+			item->extra_data = result_set->getInt("extradata");
+			item->badge_id = result_set->getString("badge_id");
+			item->flat_id = result_set->getInt("flat_id");
 			items.push_back(item);
 		}
 	}

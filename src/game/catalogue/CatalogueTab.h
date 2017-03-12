@@ -18,6 +18,6 @@ struct CatalogueTab
 	int icon_image;
 	bool enabled;
 	int min_rank;
-	std::vector<CatalogueTab> *child_tabs = new std::vector<CatalogueTab>();
+	std::vector<CatalogueTab*> *child_tabs = new std::vector<CatalogueTab*>();
 };
 

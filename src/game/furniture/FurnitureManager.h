@@ -16,11 +16,11 @@ public:
 	FurnitureManager();
 	~FurnitureManager();
 
-	Furniture getFurnitureByID(int item_id);
-	Furniture getFurnitureBySpriteID(int item_id);
+	Furniture *getFurnitureByID(int item_id);
+	Furniture *getFurnitureBySpriteID(int item_id);
 
 private:
-	std::map<int, Furniture> id_lookup;
-	std::map<int, Furniture> sprite_lookup;
+	std::map<int, Furniture*> id_lookup;
+	std::map<int, Furniture*> sprite_lookup;
 };
 

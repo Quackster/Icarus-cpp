@@ -22,7 +22,7 @@ public:
 
 		std::string type = request.readString();
 
-		std::vector<CatalogueTab> parent_tabs = Icarus::getGame()->getCatalogueManager()->getParentTabs(player->getDetails()->rank);
+		std::vector<CatalogueTab*> parent_tabs = Icarus::getGame()->getCatalogueManager()->getParentTabs(player->getDetails()->rank);
 
 		if (parent_tabs.size() == 0) {
 			return;
