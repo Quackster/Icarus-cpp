@@ -11,14 +11,14 @@
 
 #include "dao/FurnitureDao.h"
 
-#include "Furniture.h"
-#include "FurnitureManager.h"
+#include "ItemDefinition.h"
+#include "ItemManager.h"
 
 /*
 	Constructor for Furniture
 */
-FurnitureManager::FurnitureManager() :
-	id_lookup(FurnitureDao::getFurniture()) { 
+ItemManager::ItemManager() :
+	id_lookup(ItemDao::getItemDefinitions()) { 
 
 	for (auto furniture : this->id_lookup) {
 		this->sprite_lookup[furniture.first] = furniture.second;
@@ -31,7 +31,7 @@ FurnitureManager::FurnitureManager() :
 	@param sprite id
 	@return furniture
 */
-Furniture *FurnitureManager::getFurnitureByID(int item_id) {
+ItemDefinition *ItemManager::getDefinitionByID(int item_id) {
 
 	if (this->id_lookup.count(item_id) > 0) {
 		return this->id_lookup.find(item_id)->second;
@@ -40,7 +40,7 @@ Furniture *FurnitureManager::getFurnitureByID(int item_id) {
 	return nullptr;
 }
 
-Furniture *FurnitureManager::getFurnitureBySpriteID(int item_id) {
+ItemDefinition *ItemManager::getDefinitionBySpriteID(int item_id) {
 
 	if (this->sprite_lookup.count(item_id) > 0) {
 		return this->sprite_lookup.find(item_id)->second;
@@ -50,6 +50,6 @@ Furniture *FurnitureManager::getFurnitureBySpriteID(int item_id) {
 	return nullptr;
 }
 
-FurnitureManager::~FurnitureManager()
+ItemManager::~ItemManager()
 {
 }

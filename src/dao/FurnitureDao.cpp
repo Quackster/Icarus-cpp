@@ -14,9 +14,9 @@
 #include "boot/Icarus.h"
 #include "FurnitureDao.h"
 
-std::map<int, Furniture*> FurnitureDao::getFurniture() {
+std::map<int, ItemDefinition*> ItemDao::getItemDefinitions() {
 
-	std::map<int, Furniture*> furnitures;
+	std::map<int, ItemDefinition*> furnitures;
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
     try {
@@ -27,7 +27,7 @@ std::map<int, Furniture*> FurnitureDao::getFurniture() {
 
 		while (result_set->next()) {
 			
-			Furniture *furni = new Furniture();
+			ItemDefinition *furni = new ItemDefinition();
 			furni->id = result_set->getInt("id");
 			furni->public_name = result_set->getString("public_name");
 			furni->item_name = result_set->getString("item_name");

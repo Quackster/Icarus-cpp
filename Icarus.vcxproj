@@ -136,7 +136,7 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\game\furniture\FurnitureManager.cpp" />
+    <ClCompile Include="src\game\item\ItemManager.cpp" />
     <ClCompile Include="src\dao\FurnitureDao.cpp" />
     <ClCompile Include="src\plugin\Plugin.cpp" />
     <ClCompile Include="src\plugin\events\EventFactory.cpp" />
@@ -187,8 +187,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
-    <ClInclude Include="src\game\furniture\Furniture.h" />
-    <ClInclude Include="src\game\furniture\FurnitureManager.h" />
+    <ClInclude Include="src\game\item\ItemDefinition.h" />
+    <ClInclude Include="src\game\item\ItemManager.h" />
     <ClInclude Include="src\communication\incoming\catalogue\CataloguePageMessageEvent.h" />
     <ClInclude Include="src\communication\outgoing\catalogue\CataloguePageMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\misc\BroadcastMessageAlertComposer.h" />

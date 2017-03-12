@@ -9,7 +9,7 @@
 #pragma once
 #include <string>
 
-struct Furniture {
+struct ItemDefinition {
 	int id;
 	std::string public_name;
 	std::string item_name;

@@ -58,24 +58,24 @@ public:
 
 				response.writeInt(item->achievement);
 
-				std::cout << item->data->type << endl;
+				std::cout << item->item_definition->type << endl;
 
-				if (item->limited_stack > 0 || item->data->type == "r") {
+				if (item->limited_stack > 0 || item->item_definition->type == "r") {
 					response.writeBool(false);
 				}
 				else {
-					response.writeBool(item->data->allow_gift);
+					response.writeBool(item->item_definition->allow_gift);
 				}
 
 				response.writeInt(1); // is deal
-				response.writeString(item->data->type);
+				response.writeString(item->item_definition->type);
 
-				response.writeInt(item->data->sprite_id);
+				response.writeInt(item->item_definition->sprite_id);
 
 				//cout << item->catalogue_name << endl;
 
-				if (Utilities::contains(item->data->item_name, "_single_")) {
-					response.writeString(Utilities::split(item->data->item_name, '_').at(2));
+				if (Utilities::contains(item->item_definition->item_name, "_single_")) {
+					response.writeString(Utilities::split(item->item_definition->item_name, '_').at(2));
 				}
 				else {
 					response.writeString(item->extra_data);

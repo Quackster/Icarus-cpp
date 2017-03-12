@@ -156,10 +156,10 @@
     <ClCompile Include="src\dao\FurnitureDao.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\furniture\FurnitureManager.cpp">
+    <ClCompile Include="src\database\DatabaseManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\database\DatabaseManager.cpp">
+    <ClCompile Include="src\game\item\ItemManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -656,10 +656,10 @@
     <ClInclude Include="src\dao\FurnitureDao.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\furniture\FurnitureManager.h">
+    <ClInclude Include="src\game\item\ItemDefinition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\furniture\Furniture.h">
+    <ClInclude Include="src\game\item\ItemManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

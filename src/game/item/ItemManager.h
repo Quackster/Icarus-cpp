@@ -8,19 +8,19 @@
 */
 #pragma once
 #include <vector>
-#include "game/furniture/Furniture.h"
+#include "game/item/ItemDefinition.h"
 
-class FurnitureManager
+class ItemManager
 {
 public:
-	FurnitureManager();
-	~FurnitureManager();
+	ItemManager();
+	~ItemManager();
 
-	Furniture *getFurnitureByID(int item_id);
-	Furniture *getFurnitureBySpriteID(int item_id);
+	ItemDefinition *getDefinitionByID(int item_id);
+	ItemDefinition *getDefinitionBySpriteID(int item_id);
 
 private:
-	std::map<int, Furniture*> id_lookup;
-	std::map<int, Furniture*> sprite_lookup;
+	std::map<int, ItemDefinition*> id_lookup;
+	std::map<int, ItemDefinition*> sprite_lookup;
 };
 

@@ -9,7 +9,7 @@
 #pragma once
 #include <string>
 
-#include "game/furniture/Furniture.h"
+#include "game/item/ItemDefinition.h"
 
 struct CatalogueItem {
 	int id = -1;
@@ -29,5 +29,5 @@ struct CatalogueItem {
 	std::string extra_data;
 	std::string badge_id;
 	int flat_id;
-	Furniture *data = nullptr;
+	ItemDefinition *item_definition = nullptr;
 };

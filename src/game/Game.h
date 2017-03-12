@@ -11,7 +11,7 @@
 #include "game/room/RoomManager.h"
 #include "game/catalogue/CatalogueManager.h"
 #include "plugin/PluginManager.h"
-#include "game/furniture/FurnitureManager.h"
+#include "game/item/ItemManager.h"
 
 #include "thread/ExecutorService.h"
 
@@ -29,7 +29,7 @@ public:
     RoomManager *getRoomManager() { return room_manager; }
     CatalogueManager *getCatalogueManager() { return catalogue_manager; }
 	PluginManager *getPluginManager() { return plugin_manager; }
-	FurnitureManager *getFurnitureManager() { return furniture_manager; }
+	ItemManager *getItemManager() { return furniture_manager; }
 
 private:
     NavigatorManager *navigator_manager;
@@ -37,7 +37,7 @@ private:
     RoomManager *room_manager;
     CatalogueManager *catalogue_manager;
 	PluginManager *plugin_manager;
-	FurnitureManager *furniture_manager;
+	ItemManager *furniture_manager;
 };
 
 

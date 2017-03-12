@@ -11,15 +11,15 @@
 #include <map>
 
 #include <string>
-#include "game/furniture/Furniture.h"
+#include "game/item/ItemDefinition.h"
 
-class FurnitureDao
+class ItemDao
 {
 
 private:
-	FurnitureDao() { };
+	ItemDao() { };
 
 public:
-    static std::map<int, Furniture*> getFurniture();
+    static std::map<int, ItemDefinition*> getItemDefinitions();
 };
 
