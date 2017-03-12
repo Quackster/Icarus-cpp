@@ -25,12 +25,6 @@ public:
 	void handle(Player *player, Request &request) {
 
 		int page_id = request.readInt();
-		std::cout << "---------" << endl;
-		int item_id = request.readInt();
-
-		std::cout << "itemid: " << item_id << endl;
-
-		/*int page_id = request.readInt();
 		int item_id = request.readInt();
 		std::string extra_data = request.readString();
 		int price_amount = request.readInt();
@@ -41,13 +35,14 @@ public:
 			return;
 		}
 
-		std::cout << "itemid: " << item_id << endl;
-
 		CatalogueItem *item = Icarus::getGame()->getCatalogueManager()->getItem(item_id);
 
 		if (item == nullptr) {
 			return;
 		}
+
+
+		std::cout << "itemid: " << item_id << " / " << item->catalogue_name << endl;
 
 		int final_amount = price_amount;
 

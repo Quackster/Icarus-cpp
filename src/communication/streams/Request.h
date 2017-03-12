@@ -16,18 +16,18 @@ public:
     ~Request();
 
     short readShort();
-    int readInt();
+    long readInt();
     bool readBool();
     std::string readString();
 
     int getMessageLength() { return length; }
     short getMessageId() { return header;  }
-    char* getBuffer() { return full_message;  }
+    char* getBuffer() { return bytes;  }
 
 private:
     short header;
     int length;
-    int index;
+    int offset;
 
-    char *full_message;
+    char *bytes;
 };

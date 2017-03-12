@@ -16,8 +16,8 @@ Request constructor
 */
 Request::Request(int length, char *full_message) : 
     length(length),
-    full_message(full_message), 
-    index(0) {
+    bytes(full_message), 
+    offset(0) {
 
 	if (length > 0) {
 		this->header = this->readShort();
@@ -33,9 +33,9 @@ Read an boolean represented as 1 byte
 */
 bool Request::readBool() {
 
-    char number = ((int)full_message[index]) == 1;
+    char number = ((int)bytes[offset]) == 1;
 
-    index = index + 1;
+    offset = offset + 1;
     return number;
 }
 
@@ -47,10 +47,10 @@ Read an integer represented as 16 bits
 short Request::readShort() {
 
     short number = (short)(
-        (0xff & full_message[index]) << 8 |
-        (0xff & full_message[index + 1]) << 0);
+        (0xff & bytes[offset]) << 8 |
+        (0xff & bytes[offset + 1]) << 0);
 
-    index = index + 2;
+    offset = offset + 2;
     return number;
 }
 
@@ -60,21 +60,11 @@ Read an integer represented as 32 bits
 
 @return integer
 */
-int Request::readInt() {
+long Request::readInt() {
 
-    int number = (this->full_message[this->index] << 24)
-        | (this->full_message[this->index + 1] << 16)
-        | (this->full_message[this->index + 2] << 8)
-        | (this->full_message[this->index + 3]);
 
-	cout << "READ INT: " << (this->full_message[this->index] << 24)
-		<< "/" << (this->full_message[this->index + 1] << 16)
-		<< "/" << (this->full_message[this->index + 2] << 8)
-		<< "/" << (this->full_message[this->index + 3])
-		<< endl;
-
-    index = index + 4;
-    return number;
+    offset = offset + 4;
+    return result & 0xFFFFFFFFL;
 
 }
 
@@ -91,7 +81,7 @@ std::string Request::readString() {
         int length = readShort();
 
         for (int i = 0; i < length; i++) {
-            str += this->full_message[index++];
+            str += this->bytes[offset++];
         }
     }
     catch (std::exception &e) {
