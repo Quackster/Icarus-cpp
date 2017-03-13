@@ -82,8 +82,6 @@ public:
 		// TODO: Item badges
 		// TODO: Limited sales update
 
-		cout << "ITEM AMOUNT: " << item->amount << endl;
-
 		std::vector<Item*> bought;
 
 		for (int i = 0; i < final_amount; i++) {
