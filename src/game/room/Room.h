@@ -22,7 +22,7 @@ public:
     Room(int room_id, RoomData *room_data);
     ~Room();
 
-    bool hasRights(const int user_id, const bool owner_check_only = false);
+    bool hasRights(Player *player, const bool owner_check_only = false);
     void serialise(Response &response, const bool enter_room = false);
     void enter(Entity *entity);
     void leave(Entity *entity, const bool hotel_view, const bool dispose = true);

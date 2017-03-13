@@ -46,7 +46,9 @@ Room::Room(int room_id, RoomData *room_data) :
     Whether or not the user has room rights, has optional option for
     owner/staff check only
 */
-bool Room::hasRights(const int user_id, const bool owner_check_only) {
+bool Room::hasRights(Player *player, const bool owner_check_only) {
+
+	const int user_id = player->getDetails()->id;
 
     if (owner_check_only) {
         return this->room_data->owner_id == user_id;
@@ -54,6 +56,10 @@ bool Room::hasRights(const int user_id, const bool owner_check_only) {
     else {
 
         if (this->room_data->owner_id != user_id) {
+
+			if (player->hasFuse("room_any_owner")) {
+				return true;
+			}
 
             // Check to see if user id is located in room_data->user_rights vector
             return std::find(this->room_data->user_rights.begin(), this->room_data->user_rights.end(), user_id) != this->room_data->user_rights.end();
@@ -108,18 +114,18 @@ void Room::enter(Entity *entity) {
     }
 
     if (wall > 0) {
-        player->send(RoomSpacesMessageComposer("wall", std::to_string(wall)));
+        player->send(RoomSpacesMessageComposer("wallpaper", std::to_string(wall)));
     }
 
     player->send(RoomSpacesMessageComposer("landscape", room_data->outside));
 
-    if (this->hasRights(player->getDetails()->id, true)) {
+    if (this->hasRights(player, true)) {
 
         room_user->setStatus("flatctrl", "useradmin");
         player->send(RightsLevelMessageComposer(4));
         player->send(HasOwnerRightsMessageComposer());
     }
-    else if (this->hasRights(player->getDetails()->id, false)) {
+    else if (this->hasRights(player, false)) {
 
         room_user->setStatus("flatctrl", "1");
         player->send(RightsLevelMessageComposer(1));

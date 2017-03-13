@@ -29,7 +29,7 @@ public:
             return;
         }
 
-        if (!room->hasRights(player->getDetails()->id, true)) {
+        if (!room->hasRights(player, true)) {
             return;
         }
 

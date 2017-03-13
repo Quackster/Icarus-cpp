@@ -192,6 +192,7 @@
   <ItemGroup>
     <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
     <ClInclude Include="src\communication\incoming\catalogue\PurchaseObjectMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\item\ApplyRoomDecoration.h" />
     <ClInclude Include="src\communication\incoming\item\InventoryMessageEvent.h" />
     <ClInclude Include="src\communication\outgoing\catalogue\PurchaseNotificationMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\catalogue\PurchaseErrorMessageComposer.h" />

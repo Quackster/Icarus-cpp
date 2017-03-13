@@ -58,6 +58,17 @@ void Inventory::addItem(Item *item) {
 	player->send(FurniListNotificationComposer(item->id, 1));
 }
 
+Item *Inventory::getItem(int item_id) {
+
+	for (Item *item : this->items) {
+		if (item->id == item_id) {
+			return item;
+		}
+	}
+
+	return nullptr;
+}
+
 void Inventory::update() {
 
 	player->send(UpdateInventoryMessageComposer());

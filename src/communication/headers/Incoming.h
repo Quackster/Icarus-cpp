@@ -51,4 +51,5 @@ public:
 	static const int CataloguePageMessageEvent = 530;
 	static const int PurchaseObjectMessageEvent = 2893;
 	static const int InventoryMessageEvent = 3991;
+	static const int ApplyRoomDecoration = 1421;
 };

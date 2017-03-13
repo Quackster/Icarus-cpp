@@ -704,5 +704,8 @@
     <ClInclude Include="src\communication\outgoing\item\FurniListNotificationComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\item\ApplyRoomDecoration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

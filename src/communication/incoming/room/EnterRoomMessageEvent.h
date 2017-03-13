@@ -50,7 +50,7 @@ public:
             }
         }
 
-        if (room->getData()->state > 0 && !room->hasRights(player->getDetails()->id, false)) {
+        if (room->getData()->state > 0 && !room->hasRights(player, false)) {
             if (room->getData()->room_state == ROOM_STATE_DOORBELL) {
 
                 if (room->getPlayers().size() > 0) {

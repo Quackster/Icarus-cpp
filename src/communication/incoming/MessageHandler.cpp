@@ -49,6 +49,9 @@
 #include "room/user/ShowSignMessageEvent.h"
 #include "room/user/DanceMessageEvent.h"
 
+// Room Items
+#include "room/item/ApplyRoomDecoration.h"
+
 // Doorbell
 #include "room/doorbell/AnswerDoorbellMessageEvent.h"
 #include "room/doorbell/EnterDoorbellMessageEvent.h"
@@ -116,6 +119,9 @@ MessageHandler::MessageHandler() {
    this->createEvent(Incoming::StopTypingMessageEvent, new TypingStatusMessageEvent());
    this->createEvent(Incoming::ShowSignMessageEvent, new ShowSignMessageEvent());
    this->createEvent(Incoming::DanceMessageEvent, new DanceMessageEvent());
+
+   // Room Items
+   this->createEvent(Incoming::ApplyRoomDecoration, new ApplyRoomDecoration());
 
     // Doorbell
    this->createEvent(Incoming::AnswerDoorbellMessageEvent, new AnswerDoorbellMessageEvent());

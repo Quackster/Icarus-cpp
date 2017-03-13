@@ -138,7 +138,7 @@ Item *ItemDao::newItem(int item_id, int owner_id, std::string extra_data) {
 			id = result_set->getInt("id");
 		}
 
-		item = new Item(id, owner_id, item_id, -1, -1, -1, -1, "");
+		item = new Item(id, owner_id, item_id, -1, -1, -1, -1, extra_data);
 
 		std::cout << item->id << std::endl;
 
