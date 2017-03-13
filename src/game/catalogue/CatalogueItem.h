@@ -8,10 +8,16 @@
 */
 #pragma once
 #include <string>
-
 #include "game/item/ItemDefinition.h"
 
-struct CatalogueItem {
+class Response;
+class CatalogueItem {
+
+public:
+    CatalogueItem();
+    ~CatalogueItem();
+	void serialise(Response &response);
+
 	int id = -1;
 	int page_id = -1;
 	int item_id;
@@ -30,4 +36,5 @@ struct CatalogueItem {
 	std::string badge_id;
 	int flat_id;
 	ItemDefinition *item_definition = nullptr;
+
 };

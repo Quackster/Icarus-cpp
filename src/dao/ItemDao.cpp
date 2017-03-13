@@ -127,7 +127,6 @@ Item *ItemDao::newItem(int item_id, int owner_id, std::string extra_data) {
 			statement->setInt(1, owner_id);
 			statement->setInt(2, item_id);
 			statement->setString(3, extra_data);
-			statement->executeUpdate();
 		}
 
 		statement->execute();

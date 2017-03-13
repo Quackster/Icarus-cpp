@@ -136,6 +136,7 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\catalogue\CatalogueItem.cpp" />
     <ClCompile Include="src\game\entities\EntityDetails.cpp" />
     <ClCompile Include="src\game\item\Item.cpp" />
     <ClCompile Include="src\game\item\ItemManager.cpp" />
@@ -191,6 +192,11 @@
   <ItemGroup>
     <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
     <ClInclude Include="src\communication\incoming\catalogue\PurchaseObjectMessageEvent.h" />
+    <ClInclude Include="src\communication\outgoing\catalogue\PurchaseNotificationMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\catalogue\PurchaseErrorMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\item\NewInventoryItemsMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\item\UpdateInventoryMessageComposer.h" />
+    <ClInclude Include="src\game\catalogue\CatalogueItem.h" />
     <ClInclude Include="src\game\item\Item.h" />
     <ClInclude Include="src\game\item\ItemDefinition.h" />
     <ClInclude Include="src\game\item\ItemManager.h" />
@@ -198,7 +204,6 @@
     <ClInclude Include="src\communication\outgoing\catalogue\CataloguePageMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\misc\BroadcastMessageAlertComposer.h" />
     <ClInclude Include="src\dao\ItemDao.h" />
-    <ClInclude Include="src\game\catalogue\CatalogueItem.h" />
     <ClInclude Include="src\game\catalogue\CataloguePage.h" />
     <ClInclude Include="src\game\item\Inventory.h" />
     <ClInclude Include="src\plugin\events\EventFactory.h" />

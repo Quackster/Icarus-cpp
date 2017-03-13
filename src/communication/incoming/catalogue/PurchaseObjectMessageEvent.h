@@ -17,6 +17,12 @@
 
 #include "dao/ItemDao.h"
 
+#include "communication/outgoing/catalogue/PurchaseErrorMessageComposer.h"
+#include "communication/outgoing/catalogue/PurchaseNotificationMessageComposer.h"
+
+#include "communication/outgoing/item/NewInventoryItemsMessageComposer.h"
+#include "communication/outgoing/item/UpdateInventoryMessageComposer.h"
+
 class PurchaseObjectMessageEvent : public MessageEvent {
 
 public:
@@ -41,32 +47,10 @@ public:
 			return;
 		}
 
-
-		std::cout << "itemid: " << item_id << " / " << item->catalogue_name << endl;
-
-		int final_amount = price_amount;
-
-		if (price_amount > 5) {
-
-			int discount = (final_amount / 6);
-
-			int free_items = (discount - 3) / 3;
-
-			if (price_amount >= 42) {
-				free_items++; // add another free item if more than 42 items 8)
-			}
-
-			if (price_amount >= 99) { // not divisible by 3
-				free_items = 33;
-			}
-
-			final_amount = price_amount - free_items;
-		}
-
-		int amount_purchased = item->amount;
+		int final_amount = item->amount;
 
 		if (item->item_definition->interaction_type == "teleport") {
-			amount_purchased = 2;
+			final_amount = 2;
 		}
 
 		//TODO: Check for club membership
@@ -85,32 +69,34 @@ public:
 
 		// TODO: Pixel error
 		if (player->getDetails()->credits < (item->cost_credits * final_amount)) {
-			//session.send(new PurchaseErrorMessageComposer(creditsError, false));
-			//std::cout << "PURCHASE BLOCKED REASON: 3" << std::endl;
+			player->send(PurchaseErrorMessageComposer(credits_error, false));
 			return;
 		}
 
 		// TODO: Seasonal currency error?
 
 		if (item->cost_credits > 0) {
-			player->getDetails()->setCredits(player->getDetails()->credits - item->cost_credits);
+			player->getDetails()->setCredits(player->getDetails()->credits - (item->cost_credits * final_amount));
 		}
 
 		// TODO: Item badges
 		// TODO: Limited sales update
 
+		cout << "ITEM AMOUNT: " << item->amount << endl;
+
 		std::vector<Item*> bought;
 
-		for (int i = 0; i < amount_purchased; i++) {
-			//session.send(new PurchaseNotificationMessageComposer(item, finalAmount));
+		for (int i = 0; i < final_amount; i++) {
 
 			Item *inventory_item = ItemDao::newItem(item->item_id, player->getDetails()->id, extra_data);
 			bought.push_back(inventory_item);
 
+			player->send(NewInventoryItemsMessageComposer(inventory_item, 1));
+
 			player->getInventory()->getItems().push_back(inventory_item);
 		}
 
-		/*session.send(new NewInventoryItemsMessageComposer(bought));
-		session.send(new UpdateInventoryMessageComposer());*/
+		player->send(PurchaseNotificationMessageComposer(item, final_amount));
+		player->send(UpdateInventoryMessageComposer());
 	}
 };

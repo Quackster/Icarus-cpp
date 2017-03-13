@@ -11,16 +11,6 @@
 
 int main(int argc, char* argv[]) {
 
-
-	// 4, -114
-
-	int number = (0 << 24)
-		| (0 << 16)
-		| (4 << 8)
-		| -114;
-
-	cout << MAKEWORD(4, -114) << endl;
-
 	bool close_when_crash = false;   
 	
 	if (argc > 1) {

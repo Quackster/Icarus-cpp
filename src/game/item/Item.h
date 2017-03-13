@@ -12,7 +12,6 @@ public:
 	std::string extra_data);
 	~Item();
 
-private:
 	int id = -1;
 	int user_id = -1;
 	int item_id = -1;
