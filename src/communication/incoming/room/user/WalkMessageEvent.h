@@ -52,7 +52,7 @@ public:
             return;
         }
 
-        if (goal.x == current.y && goal.x == current.y) {
+        if (goal.x == current.x && goal.x == current.y) {
             return;
         }
 
