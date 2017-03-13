@@ -29,6 +29,7 @@ public:
 	static std::string base64_encode(const std::string &in);
 	static std::string base64_decode(const std::string &in);
 	static bool contains(std::string haystack, std::string needle);
+	static std::string uppercase(std::string str);
 
 };
 

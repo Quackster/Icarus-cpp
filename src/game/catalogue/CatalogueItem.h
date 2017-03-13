@@ -8,7 +8,7 @@
 */
 #pragma once
 #include <string>
-#include "game/item/ItemDefinition.h"
+#include "game/item/definitions/ItemDefinition.h"
 
 class Response;
 class CatalogueItem {
@@ -17,6 +17,8 @@ public:
     CatalogueItem();
     ~CatalogueItem();
 	void serialise(Response &response);
+	ItemDefinition *getDefinition() { return this->item_definition; }
+	void setDefinition(ItemDefinition *definition) { this->item_definition = definition; }
 
 	int id = -1;
 	int page_id = -1;
@@ -35,6 +37,8 @@ public:
 	std::string extra_data;
 	std::string badge_id;
 	int flat_id;
+
+private:
 	ItemDefinition *item_definition = nullptr;
 
 };

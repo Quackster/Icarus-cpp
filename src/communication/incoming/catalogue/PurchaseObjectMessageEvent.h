@@ -20,9 +20,6 @@
 #include "communication/outgoing/catalogue/PurchaseErrorMessageComposer.h"
 #include "communication/outgoing/catalogue/PurchaseNotificationMessageComposer.h"
 
-#include "communication/outgoing/item/NewInventoryItemsMessageComposer.h"
-#include "communication/outgoing/item/UpdateInventoryMessageComposer.h"
-
 class PurchaseObjectMessageEvent : public MessageEvent {
 
 public:
@@ -49,7 +46,7 @@ public:
 
 		int final_amount = item->amount;
 
-		if (item->item_definition->interaction_type == "teleport") {
+		if (item->getDefinition()->interaction_type == "teleport") {
 			final_amount = 2;
 		}
 
@@ -81,20 +78,13 @@ public:
 
 		// TODO: Item badges
 		// TODO: Limited sales update
-
-		std::vector<Item*> bought;
-
 		for (int i = 0; i < final_amount; i++) {
 
 			Item *inventory_item = ItemDao::newItem(item->item_id, player->getDetails()->id, extra_data);
-			bought.push_back(inventory_item);
-
-			player->send(NewInventoryItemsMessageComposer(inventory_item, 1));
-
-			player->getInventory()->getItems().push_back(inventory_item);
+			player->getInventory()->addItem(inventory_item);
 		}
 
 		player->send(PurchaseNotificationMessageComposer(item, final_amount));
-		player->send(UpdateInventoryMessageComposer());
+		player->getInventory()->update();
 	}
 };

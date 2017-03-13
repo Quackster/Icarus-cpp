@@ -8,7 +8,7 @@
 */
 #pragma once
 #include <vector>
-#include "game/item/ItemDefinition.h"
+#include "game/item/definitions/ItemDefinition.h"
 
 class ItemManager
 {

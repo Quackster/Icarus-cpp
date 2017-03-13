@@ -221,6 +221,18 @@ bool Utilities::contains(std::string haystack, std::string needle) {
 	return found != std::string::npos;
 }
 
+std::string Utilities::uppercase(std::string str) {
+
+	std::stringstream ss;
+	std::locale loc;
+	 
+	for (std::string::size_type i = 0; i < str.length(); ++i) {
+		ss << std::toupper(str[i], loc);
+	}
+
+	return ss.str();
+}
+
 std::string Utilities::base64_encode(const std::string &val) {
 	using namespace boost::archive::iterators;
 	using It = base64_from_binary<transform_width<std::string::const_iterator, 6, 8>>;

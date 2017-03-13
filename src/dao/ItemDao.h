@@ -12,7 +12,7 @@
 #include <string>
 
 #include "game/item/Item.h"
-#include "game/item/ItemDefinition.h"
+#include "game/item/definitions/ItemDefinition.h"
 
 class ItemDao
 {

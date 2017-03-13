@@ -44,7 +44,7 @@ CatalogueManager::CatalogueManager() {
 void CatalogueManager::assignFurnitureData() {
 
 	for (CatalogueItem *item : this->items) {
-		item->item_definition = Icarus::getGame()->getItemManager()->getDefinitionByID(item->item_id);
+		item->setDefinition(Icarus::getGame()->getItemManager()->getDefinitionByID(item->item_id));
 	}
 }
 

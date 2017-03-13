@@ -70,6 +70,9 @@
 #include "catalogue/CataloguePageMessageEvent.h"
 #include "catalogue/PurchaseObjectMessageEvent.h"
 
+// Item
+#include "item/InventoryMessageEvent.h"
+
 // Outgoing
 #include "communication/outgoing/misc/BroadcastMessageAlertComposer.h"
 
@@ -134,6 +137,9 @@ MessageHandler::MessageHandler() {
    this->createEvent(Incoming::CatalogueTabMessageEvent, new CatalogueTabMessageEvent());
    this->createEvent(Incoming::CataloguePageMessageEvent, new CataloguePageMessageEvent());
    this->createEvent(Incoming::PurchaseObjectMessageEvent, new PurchaseObjectMessageEvent());
+
+   // Item
+   this->createEvent(Incoming::InventoryMessageEvent, new InventoryMessageEvent());
 }
 
 /*

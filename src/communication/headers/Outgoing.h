@@ -70,6 +70,7 @@ public:
 	static const int CataloguePageMessageComposer = 2025;
 	static const int PurchaseErrorMessageComposer = 519;
 	static const int PurchaseNotificationMessageComposer = 1937;
-	static const int NewInventoryItemsMessageComposer = 0x0F00;
-	static const int UpdateInventoryMessageComposer = 3200;
+	static const int FurniListNotificationComposer = 0x0F00;
+	static const int UpdateInventoryMessageComposer = 3029;
+	static const int InventoryMessageComposer = 3203;
 };

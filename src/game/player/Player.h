@@ -12,7 +12,7 @@
 
 #include "game/entities/Entity.h"
 #include "game/messenger/Messenger.h"
-#include "game/item/Inventory.h"
+#include "game/item/inventory/Inventory.h"
 
 class MessengerUser;
 class Player : public Entity {

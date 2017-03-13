@@ -10,7 +10,7 @@
 
 #include "game/player/Player.h"
 #include "game/messenger/MessengerUser.h"
-#include "game/item/Inventory.h"
+#include "game/item/inventory/Inventory.h"
 
 #include "communication/outgoing/misc/BroadcastMessageAlertComposer.h"
 
@@ -76,7 +76,7 @@ void Player::login() {
         MessengerDao::getRequests(this->session_details->id));
 
 	this->inventory = new Inventory(
-		ItemDao::getInventoryItems(this->session_details->id));
+		this, ItemDao::getInventoryItems(this->session_details->id));
 
 	this->messenger_user = new MessengerUser(
 		this->session_details->id);

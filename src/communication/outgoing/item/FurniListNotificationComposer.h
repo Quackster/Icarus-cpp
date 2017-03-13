@@ -12,11 +12,11 @@
 
 #include "communication/outgoing/MessageComposer.h"
 
-class NewInventoryItemsMessageComposer : public MessageComposer {
+class FurniListNotificationComposer : public MessageComposer {
 
 public:
-	NewInventoryItemsMessageComposer(Item* item, int type) :
-		item(item),
+	FurniListNotificationComposer(int item_id, int type) :
+		item_id(item_id),
 		type(type){ }
 
 	const Response compose() const {
@@ -24,15 +24,15 @@ public:
 		response.writeInt(1);
 		response.writeInt(type);
 		response.writeInt(1);
-		response.writeInt(item->id);
+		response.writeInt(item_id);
 		return response;
 	}
 
 	const int getHeader() const {
-		return Outgoing::NewInventoryItemsMessageComposer;
+		return Outgoing::FurniListNotificationComposer;
 	}
 
 private:
-	Item* item;
+	int item_id;
 	int type;
 };

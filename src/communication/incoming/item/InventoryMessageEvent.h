@@ -7,18 +7,15 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-#include <vector>
+#include "communication/incoming/MessageEvent.h"
+#include "communication/outgoing/item/InventoryMessageComposer.h"
 
-class Item;
-class Inventory {
+class InventoryMessageEvent : public MessageEvent {
 
 public:
-    Inventory(std::vector<Item*> items);
-    ~Inventory();
+	InventoryMessageEvent() { }
 
-	std::vector<Item*> getItems() { return this->items; }
-
-private:
-    std::vector<Item*> items;
-
+	void handle(Player *player, Request &request) {
+		player->getInventory()->update();
+	}
 };

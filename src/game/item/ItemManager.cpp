@@ -11,7 +11,7 @@
 
 #include "dao/ItemDao.h"
 
-#include "ItemDefinition.h"
+#include "definitions/ItemDefinition.h"
 #include "ItemManager.h"
 
 /*

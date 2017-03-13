@@ -165,13 +165,13 @@
     <ClCompile Include="src\game\item\Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\item\Inventory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\game\entities\EntityDetails.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\game\catalogue\CatalogueItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\item\inventory\Inventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -653,9 +653,6 @@
     <ClInclude Include="src\communication\incoming\catalogue\CatalogueTabMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\game\item\ItemDefinition.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\game\item\ItemManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -663,9 +660,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\item\Item.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\game\item\Inventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\incoming\catalogue\PurchaseObjectMessageEvent.h">
@@ -686,13 +680,28 @@
     <ClInclude Include="src\communication\outgoing\catalogue\PurchaseNotificationMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\outgoing\item\NewInventoryItemsMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\communication\outgoing\item\UpdateInventoryMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\catalogue\CatalogueItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\item\definitions\ItemDefinition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\item\inventory\Inventory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\item\definitions\ItemType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\item\InventoryMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\item\InventoryMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\item\FurniListNotificationComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
