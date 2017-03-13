@@ -41,6 +41,11 @@ CatalogueManager::CatalogueManager() {
 	}
 }
 
+/*
+	Assign the Item Definition to each catalogue item
+
+	@return none
+*/
 void CatalogueManager::assignFurnitureData() {
 
 	for (CatalogueItem *item : this->items) {

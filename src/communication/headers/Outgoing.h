@@ -73,4 +73,5 @@ public:
 	static const int FurniListNotificationComposer = 0x0F00;
 	static const int UpdateInventoryMessageComposer = 3029;
 	static const int InventoryMessageComposer = 3203;
+	static const int RemoveInventoryItemComposer = 639;
 };

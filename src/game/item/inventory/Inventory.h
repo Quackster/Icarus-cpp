@@ -21,6 +21,8 @@ public:
 
 	void update();
 	void addItem(Item *item);
+	void removeItem(Item *item);
+
 	Item *getItem(int item_id);
 	std::vector<Item*> getItems(ItemType type);
 	std::vector<Item*> getItems() { return this->items; }

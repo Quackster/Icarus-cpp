@@ -35,7 +35,6 @@ Item::Item(int id,int user_id, int item_id, int room_id, int x, int y, int z, st
 	this->item_definition = Icarus::getGame()->getItemManager()->getDefinitionByID(this->item_id);
 }
 
-
 /*
 	Returns true if it's a wall item, false if it isn't
 

@@ -61,6 +61,8 @@ public:
 
 		}
 
+		player->getInventory()->removeItem(item);
+
 		room->save();
 	}
 };

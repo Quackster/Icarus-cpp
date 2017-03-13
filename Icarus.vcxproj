@@ -196,6 +196,7 @@
     <ClInclude Include="src\communication\incoming\item\InventoryMessageEvent.h" />
     <ClInclude Include="src\communication\outgoing\catalogue\PurchaseNotificationMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\catalogue\PurchaseErrorMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\item\RemoveInventoryItemComposer.h" />
     <ClInclude Include="src\communication\outgoing\item\InventoryMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\item\FurniListNotificationComposer.h" />
     <ClInclude Include="src\communication\outgoing\item\UpdateInventoryMessageComposer.h" />

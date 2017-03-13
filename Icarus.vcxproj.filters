@@ -707,5 +707,8 @@
     <ClInclude Include="src\communication\incoming\room\item\ApplyRoomDecoration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\communication\outgoing\item\RemoveInventoryItemComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
