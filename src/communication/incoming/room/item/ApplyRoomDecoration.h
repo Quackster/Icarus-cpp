@@ -39,14 +39,15 @@ public:
 		}
 
 		if (Utilities::contains(item->getDefinition()->item_name, "a2")) {
+
 			if (item->extra_data.length() > 0) {
 				room->send(RoomSpacesMessageComposer("floor", item->extra_data));
-
 				room->getData()->floor = item->extra_data;
 			}
 		}
 
 		if (Utilities::contains(item->getDefinition()->item_name, "wallpaper")) {
+
 			if (item->extra_data.length() > 0) {
 				room->send(RoomSpacesMessageComposer("wallpaper", item->extra_data));
 				room->getData()->wallpaper = item->extra_data;
