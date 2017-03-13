@@ -20,6 +20,8 @@
 ItemManager::ItemManager() :
 	id_lookup(ItemDao::getItemDefinitions()) { 
 
+	std::map<std::string, std::string> interaction_types;
+
 	for (auto furniture : this->id_lookup) {
 		this->sprite_lookup[furniture.first] = furniture.second;
 	}

@@ -84,7 +84,13 @@ public:
 			player->getInventory()->addItem(inventory_item);
 		}
 
-		player->send(PurchaseNotificationMessageComposer(item, final_amount));
-		player->getInventory()->update();
+		if (item->getDefinition()->type == "e") {
+
+
+		} else {
+
+			player->send(PurchaseNotificationMessageComposer(item, final_amount));
+			player->getInventory()->update();
+		}
 	}
 };

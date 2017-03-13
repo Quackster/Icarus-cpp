@@ -42,7 +42,27 @@ Item::Item(int id,int user_id, int item_id, int room_id, int x, int y, int z, st
 	@return boolean value
 */
 bool Item::isWallItem() {
+
+	if (this->getDefinition()->type == "e") {
+		false;
+	}
+
 	return this->item_definition->type == "i";
+}
+
+
+/*
+Returns true if it's a floor item, false if it isn't
+
+@return boolean value
+*/
+bool Item::isFloorItem() {
+
+	if (this->getDefinition()->type == "e") {
+		false;
+	}
+
+	return this->item_definition->type == "s";
 }
 
 /*

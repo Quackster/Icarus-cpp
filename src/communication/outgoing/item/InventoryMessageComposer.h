@@ -24,7 +24,7 @@ public:
 		response.writeInt(1);
 		response.writeInt(0);
 
-		response.writeInt(this->wall_items.size());
+		response.writeInt(this->wall_items.size() + this->floor_items.size());
 
 		for (Item *item : this->wall_items) {
 
@@ -51,6 +51,37 @@ public:
 			response.writeInt(-1);
 			response.writeBool(false);
 			response.writeInt(-1);
+		}
+
+		for (Item *item : this->floor_items) {
+			response.writeInt(item->id);
+			response.writeString(Utilities::uppercase(item->getDefinition()->type));
+			response.writeInt(item->id);
+			response.writeInt(item->getDefinition()->sprite_id);
+
+			std::string interaction = item->getDefinition()->interaction_type;
+
+			if (interaction == "group_item" ||
+				interaction == "group_gate") {
+				response.writeInt(17);
+			} else if (interaction == "music_") {
+				response.writeInt(8);
+			}
+			else {
+				response.writeInt(1);
+			}
+
+			response.writeInt(0);
+			response.writeString(item->extra_data);
+			response.writeBool(item->getDefinition()->allow_recycle);
+			response.writeBool(item->getDefinition()->allow_trade);
+			response.writeBool(item->getDefinition()->allow_inventory_stack);
+			response.writeBool(item->getDefinition()->allow_marketplace_sell);
+			response.writeInt(-1);
+			response.writeBool(false);
+			response.writeInt(-1);
+			response.writeString("");
+			response.writeInt(0);
 		}
 
 		return response;

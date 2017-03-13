@@ -42,7 +42,7 @@ std::vector<Item*> Inventory::getItems(ItemType item_type) {
 			return_items.push_back(item);
 		}
 
-		if (item_type == FLOOR_ITEM && !item->isWallItem()) {
+		if (item_type == FLOOR_ITEM && item->isFloorItem()) {
 			return_items.push_back(item);
 		}
 

@@ -16,6 +16,7 @@ public:
 	~Item();
 
 	bool isWallItem();
+	bool isFloorItem();
 
 	ItemDefinition *getDefinition() { return this->item_definition; }
 
