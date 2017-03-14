@@ -16,6 +16,7 @@
 #include "game/room/RoomData.h"
 #include "game/room/tasks/RoomRunnable.h"
 
+class Item;
 class Room
 {
 public:
@@ -33,6 +34,8 @@ public:
     void updateVirtualId();
     void save();
     void scheduleRunnable();
+	std::vector<Item*> getItems(ItemType item_type);
+
     RoomData *getData() { return room_data; }
     RoomModel *getModel() { return this->room_data->model; }  
     std::map<int, Entity*> getEntities() { return entities; }
@@ -49,6 +52,7 @@ private:
     RoomData *room_data;
     std::shared_ptr<RoomRunnable> runnable;
     std::map<int, Entity*> entities;
+	std::vector<Item*> items;
 
     void load();
     void unload();

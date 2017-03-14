@@ -13,7 +13,9 @@
 #include "boot/Icarus.h"
 
 #include "dao/RoomDao.h"
+#include "dao/ItemDao.h"
 
+#include "game/item/Item.h"
 #include "game/bot/Bot.h"
 
 #include "communication/outgoing/user/HotelViewMessageComposer.h"
@@ -334,6 +336,8 @@ void Room::load() {
         cout << " [ROOM] Room ID " << this->id << " loaded" << endl;
     }
 
+	this->items = ItemDao::getRoomItems(this->id);
+
     /*if (this->id == 5) {
 
         for (int i = 0; i < 20; i++) {
@@ -347,6 +351,7 @@ void Room::load() {
             this->enter(bot);
         }
     }*/
+
 }
 
 /*
@@ -370,6 +375,11 @@ void Room::unload() {
         }
     }
 
+	for (Item *item : this->items) {
+		delete item;
+	}
+
+	this->items.clear();
     this->entities.clear();
 
 }
@@ -444,6 +454,31 @@ void Room::scheduleRunnable() {
     }
 
     Icarus::getGame()->getGameScheduler()->schedule(this->runnable);
+}
+
+/*
+Returns a list of items, by defined item type (such as only selecting wall or floor items)
+
+@param ItemType value
+@return list of items
+*/
+std::vector<Item*> Room::getItems(ItemType item_type) {
+
+	std::vector<Item*> return_items;
+
+	for (Item *item : this->items) {
+
+		if (item_type == WALL_ITEM && item->isWallItem()) {
+			return_items.push_back(item);
+		}
+
+		if (item_type == FLOOR_ITEM && item->isFloorItem()) {
+			return_items.push_back(item);
+		}
+
+	}
+
+	return return_items;
 }
 
 /*

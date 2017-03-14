@@ -100,6 +100,51 @@ std::vector<Item*> ItemDao::getInventoryItems(int user_id) {
 				result_set->getString("x"),
 				result_set->getString("y"),
 				result_set->getDouble("z"),
+				result_set->getInt("rotation"),
+				result_set->getString("extra_data")
+			);
+
+			items.push_back(item);
+
+		}
+
+	}
+	catch (sql::SQLException &e) {
+		Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+	}
+
+	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+	return items;
+}
+
+std::vector<Item*> ItemDao::getRoomItems(int room_id) {
+
+	std::vector<Item*> items;
+
+	std::map<int, ItemDefinition*> furnitures;
+	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+	try {
+
+		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT * FROM items WHERE room_id = ?")); {
+			statement->setInt(1, room_id);
+		}
+
+		std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+
+		while (result_set->next()) {
+
+			Item *item = new Item(
+				result_set->getInt("id"),
+				result_set->getInt("user_id"),
+				result_set->getInt("item_id"),
+				result_set->getInt("room_id"),
+				result_set->getString("x"),
+				result_set->getString("y"),
+				result_set->getDouble("z"),
+				result_set->getInt("rotation"),
 				result_set->getString("extra_data")
 			);
 
@@ -142,7 +187,7 @@ Item *ItemDao::newItem(int item_id, int owner_id, std::string extra_data) {
 			id = result_set->getInt("id");
 		}
 
-		item = new Item(id, owner_id, item_id, -1, "", "", -1, extra_data);
+		item = new Item(id, owner_id, item_id, -1, "", "", -1, 0, extra_data);
 
 		std::cout << item->id << std::endl;
 

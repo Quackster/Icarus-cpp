@@ -76,4 +76,6 @@ public:
 	static const int RemoveInventoryItemComposer = 639;
 	static const int PlaceFloorItemMessageComposer = 718;
 	static const int PlaceWallItemMessageComposer = 1366;
+	static const int FloorItemsMessageComposer = 3063;
+	static const int WallItemsMessageComposer = 351;
 };

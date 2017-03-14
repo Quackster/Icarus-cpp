@@ -23,6 +23,9 @@
 #include "communication/outgoing/room/user/DanceStatusMessageComposer.h"
 #include "communication/outgoing/room/user/IdleStatusMessageComposer.h"
 
+#include "communication/outgoing/room/item/FloorItemsMessageComposer.h"
+#include "communication/outgoing/room/item/WallItemsMessageComposer.h"
+
 class HeightMapMessageEvent : public MessageEvent {
 
 public:
@@ -42,6 +45,9 @@ public:
         player->send(HeightMapMessageComposer(room));
         player->send(FloorMapMessageComposer(room));
 
+		player->send(WallItemsMessageComposer(room->getItems(WALL_ITEM)));
+		player->send(FloorItemsMessageComposer(room->getItems(FLOOR_ITEM)));
+
         player->send(UserDisplayMessageComposer(room->getEntities()));
         player->send(UserStatusMessageComposer(room->getEntities()));
         player->send(RoomDataMessageComposer(room, player, true, true));
@@ -50,9 +56,6 @@ public:
         // Tell friends we're in a room! :)
         player->getMessenger()->sendStatus(false);
 
-
-
-        // Show anyone dancing
         for (auto kvp : room->getEntities()) {
 
             Entity *entity = kvp.second;
@@ -66,5 +69,11 @@ public:
                 player->send(IdleStatusMessageComposer(room_user->virtual_id, true));
             }
         }
+
+
+		/*
+		player.send(new ChatOptionsMessageComposer(room));
+		player.send(new WallOptionsMessageComposer(room.getData().isHideWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
+*/
     }
 };

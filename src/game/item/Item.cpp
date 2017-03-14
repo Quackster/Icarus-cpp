@@ -32,7 +32,7 @@
 	@parm extradata
 */
 
-Item::Item(int id,int user_id, int item_id, int room_id, std::string x, std::string y, double z, std::string extra_data) :
+Item::Item(int id,int user_id, int item_id, int room_id, std::string x, std::string y, double z, int rotation, std::string extra_data) :
 	id(id),
 	user_id(user_id),
 	item_id(item_id),
@@ -45,7 +45,10 @@ Item::Item(int id,int user_id, int item_id, int room_id, std::string x, std::str
 	if (x.length() > 0 && y.length() > 0) {
 		if (this->isFloorItem()) {
 			this->x = stoi(x);
-			this->z = stoi(y);
+			this->y = stoi(y);
+			this->rotation = rotation;
+
+			//cout << "coordinates: " << this->x << ", " << this->y;
 		}
 		else {
 			std::vector<std::string> x_data = Utilities::split(x, ',');
@@ -56,8 +59,8 @@ Item::Item(int id,int user_id, int item_id, int room_id, std::string x, std::str
 
 			std::vector<std::string> y_data = Utilities::split(y, ',');
 
-			this->length_x = stoi(y_data[1]);
-			this->length_y = stoi(y_data[2]);
+			this->length_x = stoi(y_data[0]);
+			this->length_y = stoi(y_data[1]);
 
 		}
 	}

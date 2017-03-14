@@ -14,7 +14,7 @@ class Response;
 class Item
 {
 public:
-	Item(int id, int user_id, int item_id, int room_id, std::string x, std::string y, double z, std::string extra_data);
+	Item(int id, int user_id, int item_id, int room_id, std::string x, std::string y, double z, int rotation, std::string extra_data);
 	~Item();
 	
 	std::string getWallPosition();

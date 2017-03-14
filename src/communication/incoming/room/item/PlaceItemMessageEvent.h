@@ -97,6 +97,6 @@ public:
 		item->save();
 
 		player->getInventory()->removeItem(item, false);
-		player->send(PlaceItemMessageComposer(item));
+		room->send(PlaceItemMessageComposer(item));
 	}
 };
