@@ -728,5 +728,11 @@
     <ClInclude Include="src\communication\outgoing\room\item\MoveItemMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\item\RemoveItemMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\item\PickupItemMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

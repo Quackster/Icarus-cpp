@@ -32,14 +32,15 @@
 	@parm extradata
 */
 
-Item::Item(int id,int user_id, int item_id, int room_id, std::string x, std::string y, double z, int rotation, std::string extra_data) :
+Item::Item(int id, int user_id, int owner_id, int item_id, int room_id, std::string x, std::string y, double z, int rotation, std::string extra_data) :
 	id(id),
 	user_id(user_id),
+	owner_id(owner_id),
 	item_id(item_id),
 	room_id(room_id), 
 	extra_data(extra_data) {
 
-	this->owner_name = UserDao::getDetails(this->user_id)->username;
+	this->owner_name = UserDao::getDetails(this->owner_id)->username;
 	this->item_definition = Icarus::getGame()->getItemManager()->getDefinitionByID(this->item_id);
 
 	if (x.length() > 0 && y.length() > 0) {
@@ -164,7 +165,7 @@ void Item::serialise(Response &response) {
 	}
 		response.writeInt(-1); // secondsToExpiration
 		response.writeInt((this->item_definition->interaction_modes_count > 0) ? 1 : 0);
-		response.writeInt(this->user_id); // owner id!
+		response.writeInt(this->owner_id); // owner id!
 	}
 
 /*

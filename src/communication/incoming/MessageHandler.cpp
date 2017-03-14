@@ -53,6 +53,7 @@
 #include "room/item/PlaceItemMessageEvent.h"
 #include "room/item/ApplyDecorationMessageEvent.h"
 #include "room/item/MoveItemMessageEvent.h"
+#include "room/item/PickupItemMessageEvent.h"
 
 // Doorbell
 #include "room/doorbell/AnswerDoorbellMessageEvent.h"
@@ -128,6 +129,8 @@ MessageHandler::MessageHandler() {
    this->createEvent(Incoming::ApplyDecorationMessageEvent, new ApplyDecorationMessageEvent());
    this->createEvent(Incoming::PlaceItemMessageEvent, new PlaceItemMessageEvent());
    this->createEvent(Incoming::MoveItemMessageEvent, new MoveItemMessageEvent());
+   this->createEvent(Incoming::MoveWallItemMessageEvent, new MoveItemMessageEvent());
+   this->createEvent(Incoming::PickupItemMessageEvent, new PickupItemMessageEvent());
 
     // Doorbell
    this->createEvent(Incoming::AnswerDoorbellMessageEvent, new AnswerDoorbellMessageEvent());

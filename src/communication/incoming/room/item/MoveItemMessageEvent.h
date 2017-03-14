@@ -39,16 +39,46 @@ public:
 			return;
 		}
 
-		int x = request.readInt();
-		int y = request.readInt();
-		int rotation = request.readInt();
+		if (item->isFloorItem()) {
 
-		item->x = x;
-		item->y = y;
-		item->rotation = rotation;
-		item->z = room->getModel()->getSquareHeight(item->x, item->y);
+			int x = request.readInt();
+			int y = request.readInt();
+			int rotation = request.readInt();
+
+			item->x = x;
+			item->y = y;
+			item->rotation = rotation;
+			item->z = room->getModel()->getSquareHeight(item->x, item->y);
+		} 
+		
+		if (item->isWallItem()) {
+
+			std::string input = request.readString();
+
+			std::vector<std::string> pos = Utilities::split(Utilities::split(input, ':')[1], ' ');
+
+			char side;
+
+			if (pos[2] == "l")
+				side = 'l';
+			else
+				side = 'r';
+
+			std::vector<std::string> x_data = Utilities::split(pos[0].substr(2), ',');
+
+			item->width_x = stoi(x_data[0]);
+			item->width_y = stoi(x_data[1]);
+
+			std::vector<std::string> y_data = Utilities::split(pos[1].substr(2), ',');
+
+			item->length_x = stoi(y_data[0]);
+			item->length_y = stoi(y_data[1]);
+
+			item->side = side;
+
+		}
+		
 		item->save();
-
 		room->send(MoveItemMessageComposer(item));
 	}
 };

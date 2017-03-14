@@ -95,7 +95,7 @@ void Player::login() {
     @return bool
 */
 bool Player::hasFuse(std::string fuse_right) {
-    return false;
+    return true;
 }
 
 /*

@@ -1,3 +1,4 @@
+
 /**
 * Icarus - A multi-platform C++ server
 *
@@ -7,30 +8,31 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-#include "communication/outgoing/MessageComposer.h"
 #include "game/item/Item.h"
+#include "communication/outgoing/MessageComposer.h"
 
-class MoveItemMessageComposer : public MessageComposer {
+class RemoveItemMessageComposer : public MessageComposer {
 
 public:
-	MoveItemMessageComposer(Item *item) :
+	RemoveItemMessageComposer(Item *item) :
 		item(item) { }
 
 	const Response compose() const {
 		Response response = this->createResponse();
-		item->serialise(response);
+
+		response.writeString(item->id);
+		response.writeBool(false);
+		response.writeInt(item->user_id);
+
+		if (item->isFloorItem()) {
+			response.writeInt(0);
+		}
+
 		return response;
 	}
 
 	const int getHeader() const {
-
-		if (item->isWallItem()) {
-			return Outgoing::MoveWallItemMessageComposer;
-		}
-
-		if (item->isFloorItem()) {
-			return Outgoing::MoveFloorItemMessageComposer;
-		}
+		return Outgoing::RemoveItemMessageComposer;
 	}
 
 private:

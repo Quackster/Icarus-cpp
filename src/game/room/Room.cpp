@@ -26,9 +26,13 @@
 #include "communication/outgoing/room/entry/RightsLevelMessageComposer.h"
 #include "communication/outgoing/room/entry/NoRightsMessageComposer.h"
 #include "communication/outgoing/room/entry/PrepareRoomMessageComposer.h"
+
 #include "communication/outgoing/room/user/RemoveUserMessageComposer.h"
 #include "communication/outgoing/room/user/UserDisplayMessageComposer.h"
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
+
+#include "communication/outgoing/room/item/RemoveItemMessageComposer.h"
+
 
 /*
     Constructor for rooms
@@ -49,6 +53,10 @@ Room::Room(int room_id, RoomData *room_data) :
     owner/staff check only
 */
 bool Room::hasRights(Player *player, const bool owner_check_only) {
+
+	if (player->hasFuse("admin")) {
+		return true;
+	}
 
 	const int user_id = player->getDetails()->id;
 
@@ -498,6 +506,23 @@ Item *Room::getItem(int item_id) {
 
 	return nullptr;
 }
+
+
+/*
+Remove the item from the player's inventory
+
+@param Item ptr
+@return none
+*/
+void Room::removeItem(Item *item) {
+
+	// Remove from vector
+	this->items.erase(std::remove(this->items.begin(), this->items.end(), item), this->items.end());
+
+	// Alert item removed
+	this->send(RemoveItemMessageComposer(item));
+}
+
 
 /*
     Deconstructor for rooms

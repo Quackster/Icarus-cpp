@@ -96,6 +96,7 @@ std::vector<Item*> ItemDao::getInventoryItems(int user_id) {
 			Item *item = new Item(
 				result_set->getInt("id"),
 				result_set->getInt("user_id"),
+				result_set->getInt("owner_id"),
 				result_set->getInt("item_id"),
 				result_set->getInt("room_id"),
 				result_set->getString("x"),
@@ -140,6 +141,7 @@ std::vector<Item*> ItemDao::getRoomItems(int room_id) {
 			Item *item = new Item(
 				result_set->getInt("id"),
 				result_set->getInt("user_id"),
+				result_set->getInt("owner_id"),
 				result_set->getInt("item_id"),
 				result_set->getInt("room_id"),
 				result_set->getString("x"),
@@ -173,10 +175,11 @@ Item *ItemDao::newItem(int item_id, int owner_id, std::string extra_data) {
 	try {
 
 		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
-		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("INSERT INTO items (user_id, item_id, extra_data) VALUES(?, ?, ?)")); {
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("INSERT INTO items (user_id, owner_id, item_id, extra_data) VALUES(?, ?, ?, ?)")); {
 			statement->setInt(1, owner_id);
-			statement->setInt(2, item_id);
-			statement->setString(3, extra_data);
+			statement->setInt(2, owner_id);
+			statement->setInt(3, item_id);
+			statement->setString(4, extra_data);
 		}
 
 		statement->execute();
@@ -188,7 +191,7 @@ Item *ItemDao::newItem(int item_id, int owner_id, std::string extra_data) {
 			id = result_set->getInt("id");
 		}
 
-		item = new Item(id, owner_id, item_id, -1, "", "", -1, 0, extra_data);
+		item = new Item(id, owner_id, owner_id, item_id, -1, "", "", -1, 0, extra_data);
 
 		std::cout << item->id << std::endl;
 
@@ -224,14 +227,15 @@ void ItemDao::save(Item *item) {
 	try {
 
 		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
-		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE items SET room_id = ?, x = ?, y = ?, z = ?, rotation = ?, extra_data = ? WHERE id = ?")); {
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE items SET room_id = ?, x = ?, y = ?, z = ?, rotation = ?, extra_data = ?, user_id = ? WHERE id = ?")); {
 			statement->setInt(1, item->room_id);
 			statement->setString(2, x);
 			statement->setString(3, y);
 			statement->setDouble(4, item->z);
 			statement->setDouble(5, item->rotation);
 			statement->setString(6, item->extra_data);
-			statement->setInt(7, item->id);
+			statement->setInt(7, item->user_id);
+			statement->setInt(8, item->id);
 		}
 
 		statement->execute();

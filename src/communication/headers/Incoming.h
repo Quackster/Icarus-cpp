@@ -54,4 +54,6 @@ public:
 	static const int ApplyDecorationMessageEvent = 1421;
 	static const int PlaceItemMessageEvent = 1414;
 	static const int MoveItemMessageEvent = 888;
+	static const int MoveWallItemMessageEvent = 3589;
+	static const int PickupItemMessageEvent = 103;
 };
