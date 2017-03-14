@@ -14,9 +14,11 @@ class Response;
 class Item
 {
 public:
-	Item(int id, int user_id, int item_id, int room_id, int x, int y, double z, std::string extra_data);
+	Item(int id, int user_id, int item_id, int room_id, std::string x, std::string y, double z, std::string extra_data);
 	~Item();
 	
+	std::string getWallPosition();
+
 	void save();
 	void remove();
 
@@ -37,6 +39,12 @@ public:
 	double z = -1;
 	int rotation = -1;
 	std::string extra_data = "";
+
+	char side;
+	int width_x;
+	int width_y;
+	int length_x;
+	int length_y;
 
 private:
 	ItemDefinition *item_definition = nullptr;

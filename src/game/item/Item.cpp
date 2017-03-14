@@ -7,6 +7,8 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 
+#include <sstream>
+
 #include "stdafx.h"
 
 #include "Item.h"
@@ -30,16 +32,46 @@
 	@parm extradata
 */
 
-Item::Item(int id,int user_id, int item_id, int room_id, int x, int y, double z, std::string extra_data) :
+Item::Item(int id,int user_id, int item_id, int room_id, std::string x, std::string y, double z, std::string extra_data) :
 	id(id),
 	user_id(user_id),
 	item_id(item_id),
 	room_id(room_id), 
-	x(x), y(y), z(z),
 	extra_data(extra_data) {
 
 	this->owner_name = UserDao::getDetails(this->user_id)->username;
 	this->item_definition = Icarus::getGame()->getItemManager()->getDefinitionByID(this->item_id);
+
+	if (x.length() > 0 && y.length() > 0) {
+		if (this->isFloorItem()) {
+			this->x = stoi(x);
+			this->z = stoi(y);
+		}
+		else {
+			std::vector<std::string> x_data = Utilities::split(x, ',');
+
+			this->side = x_data[0].c_str()[0];
+			this->width_x = stoi(x_data[1]);
+			this->width_y = stoi(x_data[2]);
+
+			std::vector<std::string> y_data = Utilities::split(y, ',');
+
+			this->length_x = stoi(y_data[1]);
+			this->length_y = stoi(y_data[2]);
+
+		}
+	}
+}
+
+std::string Item::getWallPosition() {
+
+	if (!this->isWallItem()) {
+		return std::string();
+	}
+
+	std::stringstream ss;
+	ss << ":w=" << this->width_x << "," << this->width_y << " " << "l=" << this->length_x << "," << this->length_y << " " << this->side;
+	return ss.str();
 }
 
 /*
@@ -86,16 +118,16 @@ void Item::save() {
 	@return none
 */
 void Item::remove() {
-	throw new std::exception("Not implemneted");
+
 }
 
 void Item::serialise(Response &response) {
 
 	if (this->isWallItem()) {
 
-		response.writeString(this->id + "");
+		response.writeString(this->id);
 		response.writeInt(this->item_definition->sprite_id);
-		response.writeString("");//this.getWallPosition());
+		response.writeString(this->getWallPosition());
 
 		if (this->item_definition->interaction_type == "postit") {
 			response.writeString(Utilities::split(this->extra_data, ' ')[0]);

@@ -97,8 +97,8 @@ std::vector<Item*> ItemDao::getInventoryItems(int user_id) {
 				result_set->getInt("user_id"),
 				result_set->getInt("item_id"),
 				result_set->getInt("room_id"),
-				result_set->getInt("x"),
-				result_set->getInt("y"),
+				result_set->getString("x"),
+				result_set->getString("y"),
 				result_set->getDouble("z"),
 				result_set->getString("extra_data")
 			);
@@ -142,7 +142,7 @@ Item *ItemDao::newItem(int item_id, int owner_id, std::string extra_data) {
 			id = result_set->getInt("id");
 		}
 
-		item = new Item(id, owner_id, item_id, -1, -1, -1, -1, extra_data);
+		item = new Item(id, owner_id, item_id, -1, "", "", -1, extra_data);
 
 		std::cout << item->id << std::endl;
 
@@ -160,16 +160,32 @@ void ItemDao::save(Item *item) {
 
 	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
+	std::string x = std::to_string(item->x);
+	std::string y = std::to_string(item->y);
+
+	if (item->isWallItem()) {
+
+		std::stringstream stream_x;
+		stream_x << item->side << "," << item->width_x << "," << item->width_y;
+		x = stream_x.str();
+		
+		std::stringstream stream_y;
+		stream_y << item->length_x << "," << item->length_y;
+		y = stream_y.str();
+
+	}
+
 	try {
 
 		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
-		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE rooms SET room_id = ?, x = ?, y = ?, z = ?, rotation = ?, extra_data = ? WHERE id = ?")); {
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE items SET room_id = ?, x = ?, y = ?, z = ?, rotation = ?, extra_data = ? WHERE id = ?")); {
 			statement->setInt(1, item->room_id);
-			statement->setInt(2, item->x);
-			statement->setInt(3, item->y);
+			statement->setString(2, x);
+			statement->setString(3, y);
 			statement->setDouble(4, item->z);
 			statement->setDouble(5, item->rotation);
 			statement->setString(6, item->extra_data);
+			statement->setInt(7, item->id);
 		}
 
 		statement->execute();
