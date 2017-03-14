@@ -140,10 +140,6 @@ void Item::serialise(Response &response) {
 			response.writeString(this->extra_data);
 		}
 
-		response.writeInt(-1);
-		response.writeInt(this->item_definition->interaction_type == "default" ? 0 : 1);
-		response.writeInt(this->user_id);
-
 	}
 
 	if (this->isFloorItem()) {
@@ -162,14 +158,14 @@ void Item::serialise(Response &response) {
 		else {
 			response.writeInt(1);
 			response.writeInt(0);
-			response.writeString(this->item_definition->interaction_type != "fbgate" ?  this->extra_data : "");
+			response.writeString(this->item_definition->interaction_type != "fbgate" ? this->extra_data : "");
 		}
 
+	}
 		response.writeInt(-1); // secondsToExpiration
 		response.writeInt((this->item_definition->interaction_modes_count > 0) ? 1 : 0);
 		response.writeInt(this->user_id); // owner id!
 	}
-}
 
 /*
 	Deconstructor for Item
