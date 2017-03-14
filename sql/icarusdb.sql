@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 11, 2017 at 06:39 AM
+-- Generation Time: Mar 14, 2017 at 05:59 AM
 -- Server version: 5.6.35
 -- PHP Version: 5.6.30
 
@@ -12589,6 +12589,32 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `items`
+--
+
+CREATE TABLE `items` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `room_id` int(11) NOT NULL DEFAULT '-1',
+  `x` varchar(50) DEFAULT NULL,
+  `y` varchar(50) DEFAULT NULL,
+  `z` float NOT NULL DEFAULT '-1',
+  `rotation` int(11) NOT NULL DEFAULT '0',
+  `extra_data` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `items`
+--
+
+INSERT INTO `items` (`id`, `user_id`, `item_id`, `room_id`, `x`, `y`, `z`, `rotation`, `extra_data`) VALUES
+(149, 5, 1597, 24, '5', '4', 0, 0, ''),
+(150, 5, 477, 24, '8', '8', 0, 0, '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `messenger_friendships`
 --
 
@@ -12603,9 +12629,7 @@ CREATE TABLE `messenger_friendships` (
 --
 
 INSERT INTO `messenger_friendships` (`id`, `sender`, `receiver`) VALUES
-(1, 2, 1),
-(2, 1, 3),
-(3, 2, 3);
+(1, 5, 6);
 
 -- --------------------------------------------------------
 
@@ -12632,7 +12656,11 @@ INSERT INTO `messenger_messages` (`id`, `to_id`, `from_id`, `time_sent`, `unread
 (3, 2, 1, '2016-11-04 05:17:01', 0, '$##@$#@$#@,,,'),
 (4, 2, 1, '2016-11-04 14:26:34', 0, 'xddd'),
 (5, 2, 1, '2016-11-04 14:27:15', 0, 'hi brooo'),
-(6, 2, 3, '2017-03-10 09:39:44', 0, 'hello');
+(6, 2, 3, '2017-03-10 09:39:44', 0, 'hello'),
+(7, 6, 5, '2017-03-13 06:12:49', 0, 'eff'),
+(8, 6, 5, '2017-03-13 06:21:55', 0, 'fefe'),
+(9, 6, 5, '2017-03-13 06:24:03', 0, 'dwdwd'),
+(10, 5, 6, '2017-03-14 12:58:43', 0, 'hi');
 
 -- --------------------------------------------------------
 
@@ -12759,15 +12787,11 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `name`, `room_type`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
-(1, 'Awesome Room', 0, 1, 0, '', 'dwq1233', '', 0, 25, 'model_q', '1006', '301', '0.0', 'feweefwefew', 1, 3, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1),
-(3, 'Room 3', 0, 1, 0, '', '', '', 0, 45, 'model_d', '407', '610', '0.0', 't54tert,retretert', 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1),
-(4, 'Alex\'s Cool Room', 0, 1, 0, '', '', '', 0, 25, 'model_a', '506', '601', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 100, 0, 0, 0),
 (5, 'Hotel Lobby', 1, -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 100, 0, 0, 0),
-(13, 'changeroomtest1223', 0, 2, 0, '', '', '', 0, 10, 'model_b', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0),
-(14, 'My test room', 0, 2, 0, '', 'This is a little description :)', '', 0, 10, 'model_c', '0', '0', '0', '', 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0),
-(15, 'Icarus HQ', 0, 2, 0, '', 'The official heardquarters of the Icarus Hotel, topkek amirite?', '', 0, 10, 'model_a', '0', '0', '0', '', 2, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 1),
-(21, 'wfewfewfewfwfwfewfwfw', 0, 3, 0, NULL, '', '', 0, 10, 'model_a', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0),
-(22, 'NOOB', 0, 3, 0, NULL, '', '', 0, 10, 'model_b', '0', '0', '0', '', 2, 0, 0, 10, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0);
+(24, 'Another test :)', 0, 5, 0, NULL, '', '', 0, 40, 'model_b', '706', '207', '0', '', 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0),
+(25, 'hiii', 0, 5, 0, NULL, '', '', 0, 10, 'model_e', '104', '207', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0),
+(26, 'TESTING ROOM123', 0, 5, 0, NULL, '', '', 0, 10, 'model_b', '3104', '608', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0),
+(27, 'Test\'s Room', 0, 6, 0, NULL, 'Hey there m888', '', 0, 50, 'model_f', '217', '608', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -12906,7 +12930,8 @@ CREATE TABLE `site_housekeeping_notes` (
 --
 
 INSERT INTO `site_housekeeping_notes` (`id`, `user_id`, `note`) VALUES
-(1, 1, 'Put something herwdwdqe that you think you might forget, I\'ll be here forever!');
+(1, 1, 'Put something herwdwdqe that you think you might forget, I\'ll be here forever!'),
+(2, 4, 'Put something here that you think you might forget, I\'ll be here forever!');
 
 -- --------------------------------------------------------
 
@@ -12945,9 +12970,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `figure`, `credits`) VALUES
-(1, 'Alex', 'ed5ab160907a5f0cd750bcf5421b2478d0ebf55a', 7, 0, 1478187504, 'ssoticket', 'we2@2.com', 'I like cake, I like cake, I like cake, I like cake', 'hd-180-1.ch-255-66.lg-280-110.sh-305-62.ha-1012-110.hr-828-61', 100),
-(2, 'TheTesting123', 'ed5ab160907a5f0cd750bcf5421b2478d0ebf55a', 1, 0, 1478185280, '123', '', 'I like cake, I like cake, I like cake, I like cake', 'hd-3096-1.hr-3012-45.ch-883-109.lg-280-110.sh-305-62', 0),
-(3, 'John', 'ed5ab160907a5f0cd750bcf5421b2478d0ebf55a', 1, 0, 0, 'john', '', 'topkek', 'hr-893-54.hd-185-26.ch-265-91.lg-280-76.sh-300-83.ha-1013-100.he-1603-71.ea-1406-.fa-1205-75.ca-1809-', 0);
+(5, 'Alex', 'bf070b42503c652ba6f0494adf55c57951c9cd5a', 1, 1489384512, 1489384512, '123', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'hr-155-42.hd-190-1.ch-255-82.lg-275-85.sh-290-80.ea-1401-62', 5000),
+(6, 'Test', 'bf070b42503c652ba6f0494adf55c57951c9cd5a', 1, 1489385140, 1489385140, 'test', 'dww@dcc.com', 'Icarus alpha tester', 'hr-155-42.hd-190-1.ch-255-82.lg-275-85.sh-290-80.ea-1401-62', 55000);
 
 --
 -- Indexes for dumped tables
@@ -12975,6 +12999,12 @@ ALTER TABLE `catalog_pages`
 -- Indexes for table `furniture`
 --
 ALTER TABLE `furniture`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `items`
+--
+ALTER TABLE `items`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -13076,15 +13106,20 @@ ALTER TABLE `catalog_pages`
 ALTER TABLE `furniture`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=757369158;
 --
+-- AUTO_INCREMENT for table `items`
+--
+ALTER TABLE `items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+--
 -- AUTO_INCREMENT for table `messenger_friendships`
 --
 ALTER TABLE `messenger_friendships`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `messenger_messages`
 --
 ALTER TABLE `messenger_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `messenger_requests`
 --
@@ -13104,7 +13139,7 @@ ALTER TABLE `navigator_tabs`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `room_rights`
 --
@@ -13124,7 +13159,7 @@ ALTER TABLE `site_config`
 -- AUTO_INCREMENT for table `site_housekeeping_notes`
 --
 ALTER TABLE `site_housekeeping_notes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `site_refs`
 --
@@ -13134,7 +13169,7 @@ ALTER TABLE `site_refs`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
