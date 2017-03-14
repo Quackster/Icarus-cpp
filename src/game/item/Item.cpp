@@ -94,7 +94,7 @@ void Item::serialise(Response &response) {
 	if (this->isWallItem()) {
 
 		response.writeString(this->id + "");
-		response.writeString(this->item_definition->sprite_id);
+		response.writeInt(this->item_definition->sprite_id);
 		response.writeString("");//this.getWallPosition());
 
 		if (this->item_definition->interaction_type == "postit") {
@@ -104,35 +104,35 @@ void Item::serialise(Response &response) {
 			response.writeString(this->extra_data);
 		}
 
-		response.writeString(-1);
-		response.writeString(this->item_definition->interaction_type == "default" ? 0 : 1);
-		response.writeString(this->user_id);
+		response.writeInt(-1);
+		response.writeInt(this->item_definition->interaction_type == "default" ? 0 : 1);
+		response.writeInt(this->user_id);
 
 	}
 
 	if (this->isFloorItem()) {
 
-		response.writeString(this->id);
-		response.writeString(this->item_definition->sprite_id);
-		response.writeString(this->x);
-		response.writeString(this->y);
-		response.writeString(this->rotation);
+		response.writeInt(this->id);
+		response.writeInt(this->item_definition->sprite_id);
+		response.writeInt(this->x);
+		response.writeInt(this->y);
+		response.writeInt(this->rotation);
 		response.writeString(this->z);
 		response.writeString(this->z);
 
 		if (this->item_definition->interaction_type == "youtubetv") {
 
-			response.writeString(0);
-			response.writeString(1);
-			response.writeString(1);
+			response.writeInt(0);
+			response.writeInt(1);
+			response.writeInt(1);
 			response.writeString("THUMBNAIL_URL");
 			response.writeString("/deliver/"/* + url*/);
 		}
 		else if (this->item_definition->interaction_type == "badgedisplay") {
 
-			response.writeString(0);
-			response.writeString(2);
-			response.writeString(4);
+			response.writeInt(0);
+			response.writeInt(2);
+			response.writeInt(4);
 
 			if (this->extra_data.length() > 0) {
 
@@ -142,20 +142,20 @@ void Item::serialise(Response &response) {
 					response.writeString(Utilities::split(this->extra_data, (char)9)[i]);
 			}
 			else {
-				response.writeString(0);
+				response.writeInt(0);
 			}
 
 		}
 		else if (this->item_definition->interaction_type == "bg") {
 
-			response.writeString(1); // is ads
-			response.writeString(5); //type
-			response.writeString(4);
+			response.writeInt(1); // is ads
+			response.writeInt(5); //type
+			response.writeInt(4);
 
-			response.writeString(0); // online?
-			response.writeString(0);
-			response.writeString(0);
-			response.writeString(0);
+			response.writeInt(0); // online?
+			response.writeInt(0);
+			response.writeInt(0);
+			response.writeInt(0);
 		}
 		else if (this->item_definition->interaction_type == "mannequin") {
 
@@ -163,9 +163,9 @@ void Item::serialise(Response &response) {
 
 			if (Utilities::contains(this->extra_data, ";") && extra_datas.size() >= 3)
 			{
-				response.writeString(1);
-				response.writeString(1);
-				response.writeString(3);
+				response.writeInt(1);
+				response.writeInt(1);
+				response.writeInt(3);
 
 				response.writeString("GENDER");
 				response.writeString(extra_datas[0]);
@@ -189,14 +189,14 @@ void Item::serialise(Response &response) {
 			}
 		}
 		else {
-			response.writeString((this->item_definition->interaction_type == "default") ? 0 : 1);
-			response.writeString(0);
+			response.writeInt((this->item_definition->interaction_type == "default") ? 0 : 1);
+			response.writeInt(0);
 			response.writeString(this->extra_data);
 		}
 
-		response.writeString(-1); // secondsToExpiration
-		response.writeString(this->item_definition->interaction_type == "default" ? 1 : 0);
-		response.writeString(this->user_id); // owner id!
+		response.writeInt(-1); // secondsToExpiration
+		response.writeInt(this->item_definition->interaction_type == "default" ? 1 : 0);
+		response.writeInt(this->user_id); // owner id!
 	}
 }
 
