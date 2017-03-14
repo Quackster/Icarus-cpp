@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 14, 2017 at 05:59 AM
+-- Generation Time: Mar 14, 2017 at 11:18 AM
 -- Server version: 5.6.35
 -- PHP Version: 5.6.30
 
@@ -12595,6 +12595,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 CREATE TABLE `items` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `owner_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL DEFAULT '-1',
   `x` varchar(50) DEFAULT NULL,
@@ -12608,9 +12609,22 @@ CREATE TABLE `items` (
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`id`, `user_id`, `item_id`, `room_id`, `x`, `y`, `z`, `rotation`, `extra_data`) VALUES
-(149, 5, 1597, 24, '5', '4', 0, 0, ''),
-(150, 5, 477, 24, '8', '8', 0, 0, '');
+INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`, `z`, `rotation`, `extra_data`) VALUES
+(164, 5, 5, 829, 24, '3', '9', 0, 0, ''),
+(165, 6, 5, 1303, -1, '3', '7', 0, 0, ''),
+(166, 6, 6, 13, 27, '7', '2', 0, 2, ''),
+(167, 6, 6, 13, 27, '8', '1', 0, 4, ''),
+(168, 6, 6, 220, 27, '3', '6', 0, 0, ''),
+(169, 6, 6, 3, 27, '1', '7', 0, 0, ''),
+(170, 6, 6, 645, 27, '3', '3', 0, 0, ''),
+(171, 6, 6, 663, 27, '5', '3', 0, 4, ''),
+(172, 6, 6, 31, 27, '7', '1', 0, 0, ''),
+(173, 6, 6, 1653, 27, 'l,0,8', '0,35', -1, -1, ''),
+(174, 6, 6, 1654, 27, 'r,4,2', '15,34', -1, -1, ''),
+(175, 6, 6, 30, 27, '1', '9', 0, 2, ''),
+(176, 6, 6, 174, 27, '10', '1', 0, 4, ''),
+(177, 6, 6, 220, 27, '5', '6', 0, 0, ''),
+(178, 6, 6, 218, -1, '6', '3', 0, 4, '');
 
 -- --------------------------------------------------------
 
@@ -12788,7 +12802,7 @@ CREATE TABLE `rooms` (
 
 INSERT INTO `rooms` (`id`, `name`, `room_type`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
 (5, 'Hotel Lobby', 1, -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 100, 0, 0, 0),
-(24, 'Another test :)', 0, 5, 0, NULL, '', '', 0, 40, 'model_b', '706', '207', '0', '', 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0),
+(24, 'Another test :)', 0, 5, 0, NULL, '', '', 0, 40, 'model_b', '601', '207', '2.4', '', 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0),
 (25, 'hiii', 0, 5, 0, NULL, '', '', 0, 10, 'model_e', '104', '207', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0),
 (26, 'TESTING ROOM123', 0, 5, 0, NULL, '', '', 0, 10, 'model_b', '3104', '608', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0),
 (27, 'Test\'s Room', 0, 6, 0, NULL, 'Hey there m888', '', 0, 50, 'model_f', '217', '608', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0);
@@ -13109,7 +13123,7 @@ ALTER TABLE `furniture`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=153;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=179;
 --
 -- AUTO_INCREMENT for table `messenger_friendships`
 --
