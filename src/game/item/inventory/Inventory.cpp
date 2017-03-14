@@ -8,6 +8,8 @@
 */
 #include "stdafx.h"
 
+#include "dao/ItemDao.h"
+
 #include "game/item/Item.h"
 #include "game/player/Player.h"
 
@@ -71,13 +73,17 @@ void Inventory::addItem(Item *item) {
 	@param Item ptr
 	@return none
 */
-void Inventory::removeItem(Item *item) {
+void Inventory::removeItem(Item *item, bool delete_from_database) {
 
 	// Remove from vector
 	this->items.erase(std::remove(this->items.begin(), this->items.end(), item), this->items.end());
 
 	// Show client that the item is gone
 	this->player->send(RemoveInventoryItemComposer(item->id));
+
+	if (delete_from_database) {
+		ItemDao::remove(item);
+	}
 	
 }
 

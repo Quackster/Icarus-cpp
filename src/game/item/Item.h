@@ -7,26 +7,35 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-#include "game/item/definitions/ItemDefinition.h"
 
+
+class ItemDefinition;
+class Response;
 class Item
 {
 public:
-	Item(int id, int user_id, int item_id, int room_id, int x, int y, int z, std::string extra_data);
+	Item(int id, int user_id, int item_id, int room_id, int x, int y, double z, std::string extra_data);
 	~Item();
+	
+	void save();
+	void remove();
 
 	bool isWallItem();
 	bool isFloorItem();
+
+	void serialise(Response &response);
 
 	ItemDefinition *getDefinition() { return this->item_definition; }
 
 	int id = -1;
 	int user_id = -1;
+	std::string owner_name = "";
 	int item_id = -1;
 	int room_id = -1;
 	int x = -1;
 	int y = -1;
-	int z = -1; 
+	double z = -1;
+	int rotation = -1;
 	std::string extra_data = "";
 
 private:

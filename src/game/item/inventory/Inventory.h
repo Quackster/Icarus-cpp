@@ -21,7 +21,7 @@ public:
 
 	void update();
 	void addItem(Item *item);
-	void removeItem(Item *item);
+	void removeItem(Item *item, bool delete_from_database = true);
 
 	Item *getItem(int item_id);
 	std::vector<Item*> getItems(ItemType type);

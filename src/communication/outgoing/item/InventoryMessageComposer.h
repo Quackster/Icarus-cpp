@@ -7,7 +7,10 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+
+#include "game/item/definitions/ItemDefinition.h"
 #include "game/item/Item.h"
+
 #include "misc/Utilities.h"
 
 #include "communication/outgoing/MessageComposer.h"

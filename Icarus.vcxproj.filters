@@ -704,10 +704,16 @@
     <ClInclude Include="src\communication\outgoing\item\FurniListNotificationComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\incoming\room\item\ApplyRoomDecoration.h">
+    <ClInclude Include="src\communication\outgoing\item\RemoveInventoryItemComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\outgoing\item\RemoveInventoryItemComposer.h">
+    <ClInclude Include="src\communication\incoming\room\item\PlaceItemMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\item\ApplyDecorationMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\room\item\PlaceItemMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

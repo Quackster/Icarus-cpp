@@ -49,9 +49,6 @@
 #include "room/user/ShowSignMessageEvent.h"
 #include "room/user/DanceMessageEvent.h"
 
-// Room Items
-#include "room/item/ApplyRoomDecoration.h"
-
 // Doorbell
 #include "room/doorbell/AnswerDoorbellMessageEvent.h"
 #include "room/doorbell/EnterDoorbellMessageEvent.h"
@@ -75,6 +72,10 @@
 
 // Item
 #include "item/InventoryMessageEvent.h"
+
+// Room Item
+#include "room/item/PlaceItemMessageEvent.h"
+#include "room/item/ApplyDecorationMessageEvent.h"
 
 // Outgoing
 #include "communication/outgoing/misc/BroadcastMessageAlertComposer.h"
@@ -121,7 +122,8 @@ MessageHandler::MessageHandler() {
    this->createEvent(Incoming::DanceMessageEvent, new DanceMessageEvent());
 
    // Room Items
-   this->createEvent(Incoming::ApplyRoomDecoration, new ApplyRoomDecoration());
+   this->createEvent(Incoming::ApplyDecorationMessageEvent, new ApplyDecorationMessageEvent());
+   this->createEvent(Incoming::PlaceItemMessageEvent, new PlaceItemMessageEvent());
 
     // Doorbell
    this->createEvent(Incoming::AnswerDoorbellMessageEvent, new AnswerDoorbellMessageEvent());
@@ -146,6 +148,7 @@ MessageHandler::MessageHandler() {
 
    // Item
    this->createEvent(Incoming::InventoryMessageEvent, new InventoryMessageEvent());
+
 }
 
 /*

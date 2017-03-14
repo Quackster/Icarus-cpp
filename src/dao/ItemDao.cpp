@@ -12,7 +12,11 @@
 #include "mysql.h"
 
 #include "boot/Icarus.h"
+
 #include "ItemDao.h"
+
+#include "game/item/definitions/ItemDefinition.h"
+#include "game/item/Item.h"
 
 std::map<int, ItemDefinition*> ItemDao::getItemDefinitions() {
 
@@ -80,7 +84,7 @@ std::vector<Item*> ItemDao::getInventoryItems(int user_id) {
 	try {
 
 		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
-		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT * FROM items WHERE user_id = ?")); {
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT * FROM items WHERE user_id = ? AND room_id = -1")); {
 			statement->setInt(1, user_id);
 		}
 
@@ -95,7 +99,7 @@ std::vector<Item*> ItemDao::getInventoryItems(int user_id) {
 				result_set->getInt("room_id"),
 				result_set->getInt("x"),
 				result_set->getInt("y"),
-				result_set->getInt("z"),
+				result_set->getDouble("z"),
 				result_set->getString("extra_data")
 			);
 
@@ -150,4 +154,55 @@ Item *ItemDao::newItem(int item_id, int owner_id, std::string extra_data) {
 	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
 
 	return item;
+}
+
+void ItemDao::save(Item *item) {
+
+	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+	try {
+
+		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE rooms SET room_id = ?, x = ?, y = ?, z = ?, rotation = ?, extra_data = ? WHERE id = ?")); {
+			statement->setInt(1, item->room_id);
+			statement->setInt(2, item->x);
+			statement->setInt(3, item->y);
+			statement->setDouble(4, item->z);
+			statement->setDouble(5, item->rotation);
+			statement->setString(6, item->extra_data);
+		}
+
+		statement->execute();
+
+	}
+	catch (sql::SQLException &e) {
+		Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+	}
+
+	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+
+}
+
+void ItemDao::remove(Item *item) {
+
+	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+	try {
+
+		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("DELETE FROM items WHERE id = ?")); {
+			statement->setInt(1, item->id);
+		}
+
+		statement->execute();
+
+	}
+	catch (sql::SQLException &e) {
+		Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+	}
+
+	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+
 }

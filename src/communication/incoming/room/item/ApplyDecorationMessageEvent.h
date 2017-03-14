@@ -15,10 +15,10 @@
 
 #include "misc/Utilities.h"
 
-class ApplyRoomDecoration : public MessageEvent {
+class ApplyDecorationMessageEvent : public MessageEvent {
 
 public:
-	ApplyRoomDecoration() { }
+	ApplyDecorationMessageEvent() { }
 
     void handle(Player *player, Request &request) { 
 	
