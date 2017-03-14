@@ -35,12 +35,12 @@ public:
     void save();
     void scheduleRunnable();
 	std::vector<Item*> getItems(ItemType item_type);
-	std::vector<Item*> getItems() { return this->items; }
+	std::vector<Item*> &getItems() { return this->items; }
 	Item *getItem(int item_id);
 
     RoomData *getData() { return room_data; }
     RoomModel *getModel() { return this->room_data->model; }  
-    std::map<int, Entity*> getEntities() { return entities; }
+    std::map<int, Entity*> &getEntities() { return entities; }
     std::shared_ptr<RoomRunnable> getRunnable() { return this->runnable; }
     const std::vector<Player*> getPlayers();
     void setRoomData(RoomData *room_data) { this->room_data = room_data; };
