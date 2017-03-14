@@ -32,7 +32,9 @@ CatalogueManager::CatalogueManager() {
 		this->loadCatalogueTabs(parent_tab, parent_tab->id);
 	}
 
-	for (CatalogueItem *item : this->items) {
+	for (auto kvp : this->items) {
+
+		CatalogueItem *item = kvp.second;
 		CataloguePage *page = this->getPage(item->page_id);
 
 		if (page != nullptr) {
@@ -48,7 +50,8 @@ CatalogueManager::CatalogueManager() {
 */
 void CatalogueManager::assignFurnitureData() {
 
-	for (CatalogueItem *item : this->items) {
+	for (auto kvp: this->items) {
+		CatalogueItem *item = kvp.second;
 		item->setDefinition(Icarus::getGame()->getItemManager()->getDefinitionByID(item->item_id));
 	}
 }
@@ -95,7 +98,7 @@ std::vector<CatalogueTab*> CatalogueManager::getParentTabs(int rank) {
 	Gets CataloguePage instance by page id
 
 	@param page id
-	@return catalogue page instance, or blank if nothing
+	@return catalogue page instance, or nullptr if nothing was found
 */
 CataloguePage *CatalogueManager::getPage(int page_id) {
 
@@ -106,13 +109,18 @@ CataloguePage *CatalogueManager::getPage(int page_id) {
 	return nullptr;
 }
 
+/*
+	Get CatalogueItem instance by item id
+
+	@param item id
+	@return catalogue item instance, or nullptr if nothing was found
+*/
 CatalogueItem *CatalogueManager::getItem(int item_id) {
 
-	for (auto item : items) {
-		if (item->id == item_id) {
-			return item;
-		}
+	if (items.count(item_id) > 0) {
+		return this->items.find(item_id)->second;
 	}
+
 
 	return nullptr;
 }

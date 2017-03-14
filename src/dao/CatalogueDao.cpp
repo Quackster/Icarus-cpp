@@ -135,9 +135,9 @@ Returns a list of catalogue items inside a vector
 
 @return list of catalogue item
 */
-std::vector<CatalogueItem*> CatalogueDao::getItems() {
+std::map<int, CatalogueItem*> CatalogueDao::getItems() {
 
-	std::vector<CatalogueItem*> items;// = new std::vector<NavigatorTab*>();
+	std::map<int, CatalogueItem*> items;// = new std::vector<NavigatorTab*>();
 	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
 	try {
@@ -167,7 +167,7 @@ std::vector<CatalogueItem*> CatalogueDao::getItems() {
 			item->extra_data = result_set->getInt("extradata");
 			item->badge_id = result_set->getString("badge_id");
 			item->flat_id = result_set->getInt("flat_id");
-			items.push_back(item);
+			items[item->id] = item;
 		}
 	}
 	catch (sql::SQLException &e) {

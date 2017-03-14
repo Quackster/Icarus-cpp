@@ -22,11 +22,11 @@ public:
 	CatalogueItem *getItem(int item_id);
 
 	std::map<int, CataloguePage*> getPages() { return pages; }
-	std::vector<CatalogueItem*> getItems() { return items; }
+	std::map<int, CatalogueItem*> getItems() { return items; }
 
 private:
 	std::vector<CatalogueTab*> parent_tabs;
-	std::vector<CatalogueItem*> items;
+	std::map<int, CatalogueItem*> items;
 	std::map<int, CataloguePage*> pages;
 };
 

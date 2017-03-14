@@ -24,6 +24,6 @@ private:
 public:
     static std::vector<CatalogueTab*> getTabs(int child_id);
 	static std::map<int, CataloguePage*> getPages();
-	static std::vector<CatalogueItem*> getItems();
+	static std::map<int, CatalogueItem*> getItems();
 };
 
