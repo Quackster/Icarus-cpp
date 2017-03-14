@@ -376,6 +376,7 @@ void Room::unload() {
     }
 
 	for (Item *item : this->items) {
+		cout << "delet dis!" << endl;
 		delete item;
 	}
 
@@ -479,6 +480,23 @@ std::vector<Item*> Room::getItems(ItemType item_type) {
 	}
 
 	return return_items;
+}
+
+/*
+Get Item by item id
+
+@param item id
+@return Item ptr instance
+*/
+Item *Room::getItem(int item_id) {
+
+	for (Item *item : this->items) {
+		if (item->id == item_id) {
+			return item;
+		}
+	}
+
+	return nullptr;
 }
 
 /*

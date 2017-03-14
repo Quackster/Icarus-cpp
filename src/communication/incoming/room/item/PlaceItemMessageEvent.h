@@ -42,7 +42,6 @@ public:
 		Item *item = player->getInventory()->getItem(item_id);
 
 		if (item == nullptr) {
-			std::cout << "DEBUG1" << endl;
 			return;
 		}
 

@@ -54,6 +54,7 @@ std::map<int, ItemDefinition*> ItemDao::getItemDefinitions() {
 			furni->allow_marketplace_sell = result_set->getInt("allow_marketplace_sell") == 1;
 			furni->allow_recycle = result_set->getInt("allow_recycle") == 1;
 			furni->interaction_type = result_set->getString("interaction_type");
+			furni->interaction_modes_count = result_set->getInt("interaction_modes_count");
 			furni->vending_id = std::stoi(result_set->getString("vending_ids"));
 		    furni->effect_id = result_set->getInt("effectid");
 			//furni->height_adjustible = resultSet->getInt("height_adjustible");

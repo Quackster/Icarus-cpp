@@ -27,7 +27,7 @@ struct ItemDefinition {
 	bool allow_gift;
 	bool allow_inventory_stack;
 	std::string interaction_type;
-	bool interaction_modes_count;
+	int interaction_modes_count;
 	int vending_id;
 	int effect_id;
 	int height_adjustible;

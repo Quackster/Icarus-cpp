@@ -35,6 +35,7 @@ public:
     void save();
     void scheduleRunnable();
 	std::vector<Item*> getItems(ItemType item_type);
+	Item *getItem(int item_id);
 
     RoomData *getData() { return room_data; }
     RoomModel *getModel() { return this->room_data->model; }  

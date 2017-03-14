@@ -194,9 +194,11 @@
     <ClInclude Include="src\communication\incoming\catalogue\PurchaseObjectMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\item\ApplyDecorationMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\item\InventoryMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\item\MoveItemMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\item\PlaceItemMessageEvent.h" />
     <ClInclude Include="src\communication\outgoing\catalogue\PurchaseNotificationMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\catalogue\PurchaseErrorMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\room\item\MoveItemMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\item\WallItemsMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\item\FloorItemsMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\item\PlaceItemMessageComposer.h" />

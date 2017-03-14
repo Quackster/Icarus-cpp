@@ -46,6 +46,7 @@ Item::Item(int id,int user_id, int item_id, int room_id, std::string x, std::str
 		if (this->isFloorItem()) {
 			this->x = stoi(x);
 			this->y = stoi(y);
+			this->z = z;
 			this->rotation = rotation;
 
 			//cout << "coordinates: " << this->x << ", " << this->y;
@@ -153,84 +154,19 @@ void Item::serialise(Response &response) {
 		response.writeInt(this->y);
 		response.writeInt(this->rotation);
 		response.writeString(this->z);
-		response.writeString(this->z);
+		response.writeString("");
 
 		if (this->item_definition->interaction_type == "youtubetv") {
 
-			response.writeInt(0);
-			response.writeInt(1);
-			response.writeInt(1);
-			response.writeString("THUMBNAIL_URL");
-			response.writeString("/deliver/"/* + url*/);
-		}
-		else if (this->item_definition->interaction_type == "badgedisplay") {
-
-			response.writeInt(0);
-			response.writeInt(2);
-			response.writeInt(4);
-
-			if (this->extra_data.length() > 0) {
-
-				response.writeString("0"); // extradata check
-
-				for (int i = 0; i <= Utilities::split(this->extra_data, (char)9).size() - 1; i++)
-					response.writeString(Utilities::split(this->extra_data, (char)9)[i]);
-			}
-			else {
-				response.writeInt(0);
-			}
-
-		}
-		else if (this->item_definition->interaction_type == "bg") {
-
-			response.writeInt(1); // is ads
-			response.writeInt(5); //type
-			response.writeInt(4);
-
-			response.writeInt(0); // online?
-			response.writeInt(0);
-			response.writeInt(0);
-			response.writeInt(0);
-		}
-		else if (this->item_definition->interaction_type == "mannequin") {
-
-			std::vector<std::string> extra_datas = Utilities::split(this->extra_data, ';');
-
-			if (Utilities::contains(this->extra_data, ";") && extra_datas.size() >= 3)
-			{
-				response.writeInt(1);
-				response.writeInt(1);
-				response.writeInt(3);
-
-				response.writeString("GENDER");
-				response.writeString(extra_datas[0]);
-				response.writeString("FIGURE");
-				response.writeString(extra_datas[1]);
-				response.writeString("OUTFIT_NAME");
-				response.writeString(extra_datas[2]);
-			}
-			else
-			{
-				response.writeString(1);
-				response.writeString(1);
-				response.writeString(3);
-
-				response.writeString("GENDER");
-				response.writeString("m");
-				response.writeString("FIGURE");
-				response.writeString("");
-				response.writeString("OUTFIT_NAME");
-				response.writeString("");
-			}
 		}
 		else {
-			response.writeInt((this->item_definition->interaction_type == "default") ? 0 : 1);
+			response.writeInt(1);
 			response.writeInt(0);
-			response.writeString(this->extra_data);
+			response.writeString(this->item_definition->interaction_type != "fbgate" ?  this->extra_data : "");
 		}
 
 		response.writeInt(-1); // secondsToExpiration
-		response.writeInt(this->item_definition->interaction_type == "default" ? 1 : 0);
+		response.writeInt((this->item_definition->interaction_modes_count > 0) ? 1 : 0);
 		response.writeInt(this->user_id); // owner id!
 	}
 }
