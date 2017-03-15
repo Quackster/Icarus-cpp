@@ -32,7 +32,14 @@ public:
 	}
 
 	const int getHeader() const {
-		return Outgoing::RemoveItemMessageComposer;
+
+
+		if (item->isFloorItem()) {
+			return Outgoing::RemoveItemMessageComposer;
+		}
+		else {
+			return Outgoing::RemoveWallItemMessageComposer;;
+		}
 	}
 
 private:

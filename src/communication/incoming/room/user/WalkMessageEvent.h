@@ -56,7 +56,7 @@ public:
             return;
         }
 
-        if (!Pathfinder::isValidStep(room, current, goal, false)) {
+		if (!room->getDynamicModel()->isValidTile(room_user->goal.x, room_user->goal.y)) {
             return;
         }
 
