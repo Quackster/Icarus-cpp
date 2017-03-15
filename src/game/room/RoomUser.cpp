@@ -159,14 +159,14 @@ void RoomUser::stopWalking() {
 	if (item != nullptr) {
 		if (item->getDefinition()->can_sit || item->getDefinition()->interaction_type == "bed") {
 
-			int item_height = item->z + item->getDefinition()->stack_height + 0.2;
+			int item_height = item->z + item->getDefinition()->stack_height;
 			this->setRotation(item->rotation, true, false);
 
 			if (item->getDefinition()->can_sit) {
-				this->setStatus("sit", std::to_string(item_height));
+				this->setStatus("sit", std::to_string(item_height + 0.05));
 			}
 			else {
-				this->setStatus("lay", std::to_string(item_height));
+				this->setStatus("lay", std::to_string(item_height + 0.45));
 			}
 
 			this->updateStatus();
