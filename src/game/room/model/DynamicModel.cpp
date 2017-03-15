@@ -31,10 +31,6 @@ DynamicModel::DynamicModel(Room *room) :
 	@return none
 */
 void DynamicModel::load() {
-	this->items = new Item*[map_size_x * map_size_y];
-	this->tile_flags = new int[map_size_x * map_size_y];
-	this->tile_height = new double[map_size_x * map_size_y];
-
 	this->regenerateCollisionMaps();
 }
 
@@ -59,6 +55,10 @@ Item *DynamicModel::getItemAtPosition(int x, int y) {
 void DynamicModel::regenerateCollisionMaps() {
 
 	this->unload();
+
+	this->items = new Item*[map_size_x * map_size_y];
+	this->tile_flags = new int[map_size_x * map_size_y];
+	this->tile_height = new double[map_size_x * map_size_y];
 
 	for (int y = 0; y < map_size_y; y++) {
 		for (int x = 0; x < map_size_x; x++) {
