@@ -43,10 +43,10 @@ public:
 
 private:
 	Room *room;
-	Item **items;
-	
-	int *tile_flags;
-	double *tile_height;
+
+	Item **items = nullptr;	
+	int *tile_flags = nullptr;
+	double *tile_height = nullptr;
 
 	int map_size_x;
 	int map_size_y;

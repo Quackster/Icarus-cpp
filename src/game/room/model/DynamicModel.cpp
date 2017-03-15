@@ -147,6 +147,9 @@ void DynamicModel::unload() {
 		delete this->tile_height;
 	}
 
+	this->tile_flags = nullptr;
+	this->tile_height = nullptr;
+	this->items = nullptr;
 }
 
 /*
