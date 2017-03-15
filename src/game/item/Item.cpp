@@ -126,7 +126,12 @@ void Item::remove() {
 
 }
 
+/*
+	Returns all tiles that are affected by the item (like beds, fences, etc)
 
+	@param none
+	@return map with counter as key, and affected tile position as value
+*/
 std::map<int, Position> Item::getAffectedTiles()
 {
 	int x = 0;
@@ -179,6 +184,13 @@ std::map<int, Position> Item::getAffectedTiles()
 	return point_list;
 }
 
+/*
+	Serialise item for packet appending, this is used in almost everything when it comes to 
+	handling items
+
+	@param response reference
+	@return nothing
+*/
 void Item::serialise(Response &response) {
 
 	if (this->isWallItem()) {

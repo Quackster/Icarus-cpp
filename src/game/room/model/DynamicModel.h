@@ -20,6 +20,7 @@ public:
 	void unload();
 
 	void regenerateCollisionMaps();
+	void addTileStates(int index, double stack_height, bool valid);
 	int getSearchIndex(int x, int y);
 
 	Item *getItemAtPosition(int x, int y);

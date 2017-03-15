@@ -91,27 +91,34 @@ void DynamicModel::regenerateCollisionMaps() {
 			valid = true;
 		}
 
-		if (valid) {
-			this->tile_flags[index] = RoomModel::OPEN;
-		}
-		else {
-			this->tile_flags[index] = RoomModel::CLOSED;
-			this->tile_height[index] += item->getDefinition()->stack_height;
-		}
+		this->addTileStates(index, item->getDefinition()->stack_height, valid);
 
 		for (auto kvp : item->getAffectedTiles()) {
 
 			int new_index = this->getSearchIndex(kvp.second.x, kvp.second.y);
-			this->items[new_index] = item;
 
-			if (valid) {
-				this->tile_flags[new_index] = RoomModel::OPEN;
-			}
-			else {
-				this->tile_flags[new_index] = RoomModel::CLOSED;
-				this->tile_height[new_index] += item->getDefinition()->stack_height;
-			}
+			this->items[new_index] = item;
+			this->addTileStates(new_index, item->getDefinition()->stack_height, valid);
 		}
+	}
+}
+
+/*
+	Add the title states (stack height, and whether or not the tile is valid)
+
+	@param x coordinate
+	@param y coordinate
+	@param stack height
+	@bool valid
+*/
+void DynamicModel::addTileStates(int index, double stack_height, bool valid) {
+
+	if (valid) {
+		this->tile_flags[index] = RoomModel::OPEN;
+	}
+	else {
+		this->tile_flags[index] = RoomModel::CLOSED;
+		this->tile_height[index] += stack_height;
 	}
 }
 
