@@ -45,9 +45,9 @@ void RoomUser::setStatus(std::string key, std::string value, bool force_update) 
     }
 
     if (force_update) {
-        //this->updateStatus();
+        this->updateStatus();
         //this->needs_update = true;
-		this->room->send(UserStatusMessageComposer(this->entity));
+		//this->room->send(UserStatusMessageComposer(this->entity));
     }
 }
 
@@ -159,16 +159,14 @@ void RoomUser::stopWalking() {
 	if (item != nullptr) {
 		if (item->getDefinition()->can_sit || item->getDefinition()->interaction_type == "bed") {
 
-			int item_height = item->z + item->getDefinition()->stack_height + 0.4;
+			int item_height = item->z + item->getDefinition()->stack_height + 0.2;
 			this->setRotation(item->rotation, true, false);
 
-			std::cout << "Item rotation: " << item->rotation << ", User rotation: " << this->rotation << endl;
-
 			if (item->getDefinition()->can_sit) {
-				this->setStatus("sit", std::to_string(item_height), true);
+				this->setStatus("sit", std::to_string(item_height));
 			}
 			else {
-				this->setStatus("lay", std::to_string(item_height), true);
+				this->setStatus("lay", std::to_string(item_height));
 			}
 
 			this->updateStatus();
