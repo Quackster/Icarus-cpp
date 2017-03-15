@@ -174,6 +174,9 @@
     <ClCompile Include="src\game\item\inventory\Inventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\room\model\DynamicModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\communication\incoming\MessageEvent.h">
@@ -732,6 +735,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\incoming\room\item\PickupItemMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\room\model\DynamicModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

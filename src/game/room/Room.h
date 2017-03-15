@@ -15,6 +15,7 @@
 #include "game/player/Player.h"
 #include "game/room/RoomData.h"
 #include "game/room/tasks/RoomRunnable.h"
+#include "game/room/model/DynamicModel.h"
 
 class Item;
 class Room
@@ -41,6 +42,8 @@ public:
 
     RoomData *getData() { return room_data; }
     RoomModel *getModel() { return this->room_data->model; }  
+	DynamicModel *getDynamicModel() { return this->dynamic_model; }
+
     std::map<int, Entity*> &getEntities() { return entities; }
     std::shared_ptr<RoomRunnable> getRunnable() { return this->runnable; }
     const std::vector<Player*> getPlayers();
@@ -53,6 +56,8 @@ public:
 
 private:
     RoomData *room_data;
+	DynamicModel *dynamic_model;
+	
     std::shared_ptr<RoomRunnable> runnable;
     std::map<int, Entity*> entities;
 	std::vector<Item*> items;

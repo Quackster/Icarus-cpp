@@ -136,6 +136,7 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\room\model\DynamicModel.cpp" />
     <ClCompile Include="src\game\catalogue\CatalogueItem.cpp" />
     <ClCompile Include="src\game\entities\EntityDetails.cpp" />
     <ClCompile Include="src\game\item\Item.cpp" />
@@ -191,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
+    <ClInclude Include="src\game\room\model\DynamicModel.h" />
     <ClInclude Include="src\communication\incoming\catalogue\PurchaseObjectMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\item\ApplyDecorationMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\item\InventoryMessageEvent.h" />

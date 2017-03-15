@@ -29,7 +29,7 @@ public:
         Response response = this->createResponse();
         response.writeBool(true);
         response.writeInt(room->getData()->wall_height);
-        response.writeString(model->getFloorMap());
+        response.writeString(model->floor_map);
 
         return response;
     }

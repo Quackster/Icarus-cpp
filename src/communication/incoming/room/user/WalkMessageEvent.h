@@ -39,8 +39,8 @@ public:
         Position goal = room_user->goal;
         Position current = room_user->position;
 
-        int map_size_x = room->getModel()->getMapSizeX();
-        int map_size_y = room->getModel()->getMapSizeY();
+		int map_size_x = room->getModel()->map_size_x;
+		int map_size_y = room->getModel()->map_size_y;
 
 		PlayerWalkEvent *player_walk_event = static_cast<PlayerWalkEvent*>(Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerWalkEvent>(player)));
 

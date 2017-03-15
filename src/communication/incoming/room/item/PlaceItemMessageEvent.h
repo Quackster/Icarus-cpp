@@ -62,7 +62,7 @@ public:
 			item->x = x;
 			item->y = y;
 			item->rotation = rotation;
-			item->z = room->getModel()->getSquareHeight(item->x, item->y);
+			item->z = room->getDynamicModel()->getTileHeight(item->x, item->y);
 			
 		}
 

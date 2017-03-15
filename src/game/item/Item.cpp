@@ -126,6 +126,59 @@ void Item::remove() {
 
 }
 
+
+std::map<int, Position> Item::getAffectedTiles()
+{
+	int x = 0;
+
+	std::map<int, Position> point_list;
+
+	if (this->item_definition->length > 1) {
+		if (rotation == 0 || rotation == 4) {
+			for (int i = 1; i < this->item_definition->length; i++) {
+
+				point_list.insert(std::make_pair(x++, Position(this->x, this->y + i, i)));
+
+				for (int j = 1; j < this->item_definition->width; j++) {
+					point_list.insert(std::make_pair(x++, Position(this->x + j, this->y + i, (i < j) ? j : i)));
+				}
+			}
+		}
+		else if (rotation == 2 || rotation == 6) {
+			for (int i = 1; i < this->item_definition->length; i++) {
+				point_list.insert(std::make_pair(x++, Position(this->x + i, this->y, i)));
+
+				for (int j = 1; j < this->item_definition->width; j++) {
+					point_list.insert(std::make_pair(x++, Position(this->x + i, this->y + j, (i < j) ? j : i)));
+				}
+			}
+		}
+	}
+
+	if (this->item_definition->width > 1) {
+		if (rotation == 0 || rotation == 4) {
+			for (int i = 1; i < this->item_definition->width; i++) {
+				point_list.insert(std::make_pair(x++, Position(this->x + i, this->y, i)));
+
+				for (int j = 1; j < this->item_definition->length; j++) {
+					point_list.insert(std::make_pair(x++, Position(this->x + i, this->y + j, (i < j) ? j : i)));
+				}
+			}
+		}
+		else if (rotation == 2 || rotation == 6) {
+			for (int i = 1; i < this->item_definition->width; i++) {
+				point_list.insert(std::make_pair(x++, Position(this->x, this->y + i, i)));
+
+				for (int j = 1; j < this->item_definition->length; j++) {
+					point_list.insert(std::make_pair(x++, Position(this->x + j, this->y + i, (i < j) ? j : i)));
+				}
+			}
+		}
+	}
+
+	return point_list;
+}
+
 void Item::serialise(Response &response) {
 
 	if (this->isWallItem()) {

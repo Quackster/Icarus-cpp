@@ -7,7 +7,9 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+#include <map>
 
+#include "game/pathfinder/Position.h"
 
 class ItemDefinition;
 class Response;
@@ -25,6 +27,7 @@ public:
 	bool isWallItem();
 	bool isFloorItem();
 
+	std::map<int, Position> getAffectedTiles();
 	void serialise(Response &response);
 
 	ItemDefinition *getDefinition() { return this->item_definition; }

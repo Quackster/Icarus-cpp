@@ -11,6 +11,9 @@
 #include "Room.h"
 
 #include "boot/Icarus.h"
+
+
+#include "game/item/Item.h"
 #include "game/entities/Entity.h"
 
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
@@ -32,7 +35,7 @@ RoomUser::RoomUser(Entity *entity) : entity(entity) {
     @param status value
     @return none
 */
-void RoomUser::setStatus(std::string key, std::string value, bool update) {
+void RoomUser::setStatus(std::string key, std::string value, bool force_update) {
 
     if (value.length() > 0) {
         this->statuses[key] = value;
@@ -41,9 +44,10 @@ void RoomUser::setStatus(std::string key, std::string value, bool update) {
         this->statuses.erase(key);
     }
 
-    if (update) {
+    if (force_update) {
         //this->updateStatus();
-        this->needs_update = true;
+        //this->needs_update = true;
+		this->room->send(UserStatusMessageComposer(this->entity));
     }
 }
 
@@ -128,7 +132,7 @@ void RoomUser::walk() {
         else {
             this->setStatus("mv", "");
             this->is_walking = false;
-            this->stopWalking();
+			this->stopWalking();
         }
     }
 }
@@ -140,14 +144,37 @@ void RoomUser::walk() {
 */
 void RoomUser::stopWalking() {
 
-    Room *room = this->room;
-    RoomModel *model = this->room->getModel();
+	Room *room = this->room;
+	RoomModel *model = this->room->getModel();
 
-    if (this->position.x == model->getDoorX() && 
-        this->position.y == model->getDoorY()) {
-        
-        this->leaveRoom();
-    }
+	if (this->position.x == model->door_x &&
+		this->position.y == model->door_y) {
+
+		this->leaveRoom();
+		return;
+	}
+
+	Item *item = this->room->getDynamicModel()->getItemAtPosition(this->position.x, this->position.y);
+
+	if (item != nullptr) {
+		if (item->getDefinition()->can_sit || item->getDefinition()->interaction_type == "bed") {
+
+			int item_height = item->z + item->getDefinition()->stack_height + 0.4;
+			this->setRotation(item->rotation, true, false);
+
+			std::cout << "Item rotation: " << item->rotation << ", User rotation: " << this->rotation << endl;
+
+			if (item->getDefinition()->can_sit) {
+				this->setStatus("sit", std::to_string(item_height), true);
+			}
+			else {
+				this->setStatus("lay", std::to_string(item_height), true);
+			}
+
+			this->updateStatus();
+
+		}
+	}
 }
 
 /*
@@ -258,7 +285,6 @@ LEAVE ROOM ALERT!
  [ROOM] Room ID 18 loaded*/
 
     if (this->room != nullptr) {
-		cout << "LEAVE ROOM ALERT!" << endl;
         this->room->leave(this->entity, hotel_view);
     }
 

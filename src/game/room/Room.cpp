@@ -33,6 +33,8 @@
 
 #include "communication/outgoing/room/item/RemoveItemMessageComposer.h"
 
+#include "game/room/model/DynamicModel.h"
+
 
 /*
     Constructor for rooms
@@ -42,9 +44,9 @@ Room::Room(int room_id, RoomData *room_data) :
     disposed(false),
     //entities(new std::map<int, Entity*>()),
     runnable(nullptr),
-    room_data(room_data) { 
+    room_data(room_data) {
 
-
+	this->dynamic_model = new DynamicModel(this);
 
 } //std::make_shared<RoomRunnable>(this)) { }
 
@@ -91,10 +93,11 @@ void Room::enter(Entity *entity) {
     RoomModel *model = this->getModel();
     RoomUser *room_user = entity->getRoomUser();
 
-    room_user->position.x = model->getDoorX();
-    room_user->position.y = model->getDoorY();
-    room_user->height = model->getDoorZ();
-    room_user->setRotation(model->getDoorRotation(), true);
+	room_user->position.x = model->door_x;
+	room_user->position.y = model->door_y;
+	room_user->height = model->door_z;
+
+    room_user->setRotation(model->door_rotation, true);
     room_user->setRoom(this);
 
     room_user->virtual_id = this->getData()->virtual_id;
@@ -113,7 +116,7 @@ void Room::enter(Entity *entity) {
     this->disposed = false;
     room_user->is_loading_room = true;
 
-    player->send(RoomModelMessageComposer(this->getModel()->getName(), this->id));
+    player->send(RoomModelMessageComposer(this->getModel()->name, this->id));
     player->send(RoomRatingMessageComposer(room_data->score));
 
     int floor = stoi(room_data->floor);
@@ -345,6 +348,7 @@ void Room::load() {
     }
 
 	this->items = ItemDao::getRoomItems(this->id);
+	this->dynamic_model->load();
 
     /*if (this->id == 5) {
 
@@ -383,8 +387,9 @@ void Room::unload() {
         }
     }
 
+	this->dynamic_model->unload();
+
 	for (Item *item : this->items) {
-		cout << "delet dis!" << endl;
 		delete item;
 	}
 

@@ -18,13 +18,8 @@ public:
     const static int CLOSED = 1;
 
     RoomModel(std::string name, std::string heightmap, int door_x, int door_y, int door_z, int door_rotation);
+    ~RoomModel();
 
-    std::string getName() { return name; }
-    std::string getHeightMap() { return height_map; }
-    std::string getFloorMap() { return floor_map; }
-
-    std::string *getSquareChar() { return square_char; }
-    
     double getSquareHeight(int x, int y) const { return square_height[x * map_size_y + y]; }
     int *getSquares() { return squares; }
     const bool isValidSquare(int x, int y) const { 
@@ -39,19 +34,10 @@ public:
 
 		return squares[x * map_size_y + y] == 0; }
 
-    const int &getMapSizeX() const { return this->map_size_x; }
-    const int &getMapSizeY() const { return this->map_size_y; }
-    const int &getDoorX() const { return this->door_x; }
-    const int &getDoorY() const { return this->door_y; }
-    const int &getDoorZ() const { return this->door_z; }
-    const int &getDoorRotation() const { return this->door_rotation; }
-
     const int getRandomX();
     const int getRandomY();
 
-    ~RoomModel();
-
-private:
+    
 
     enum
     {

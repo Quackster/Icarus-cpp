@@ -53,7 +53,7 @@ void Player::login() {
         Remove teh clones
     */
     if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(this->session_details->id) == 1) {
-        //this->getNetworkConnection()->getSocket().close();
+        this->getNetworkConnection()->getSocket().close();
 		return;
     }
 
@@ -95,7 +95,7 @@ void Player::login() {
     @return bool
 */
 bool Player::hasFuse(std::string fuse_right) {
-    return true;
+    return false;
 }
 
 /*
