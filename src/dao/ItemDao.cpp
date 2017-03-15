@@ -18,6 +18,12 @@
 #include "game/item/definitions/ItemDefinition.h"
 #include "game/item/Item.h"
 
+/*
+	Returns a list of all item definitions, with the database id as they key
+	and the item definition pointer as the value
+
+	@return map with integer id key, and ItemDefinition pointer
+*/
 std::map<int, ItemDefinition*> ItemDao::getItemDefinitions() {
 
 	std::map<int, ItemDefinition*> furnitures;

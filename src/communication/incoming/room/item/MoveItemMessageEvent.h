@@ -80,5 +80,7 @@ public:
 		
 		item->save();
 		room->send(MoveItemMessageComposer(item));
+
+		room->getDynamicModel()->regenerateCollisionMaps();
 	}
 };

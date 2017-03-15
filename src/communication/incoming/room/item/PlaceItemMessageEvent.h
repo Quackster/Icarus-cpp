@@ -99,5 +99,6 @@ public:
 
 		room->getItems().push_back(item);
 		room->send(PlaceItemMessageComposer(item));
+		room->getDynamicModel()->regenerateCollisionMaps();
 	}
 };

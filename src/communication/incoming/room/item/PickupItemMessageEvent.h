@@ -58,6 +58,7 @@ public:
 		item->save();
 
 		room->removeItem(item);
+		room->getDynamicModel()->regenerateCollisionMaps();
 		
 		player->getInventory()->addItem(item);
 		player->getInventory()->update();

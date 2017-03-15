@@ -131,9 +131,9 @@ std::map<int, CataloguePage*> CatalogueDao::getPages() {
 }
 
 /*
-Returns a list of catalogue items inside a vector
+	Returns a list of catalogue items inside a vector
 
-@return list of catalogue item
+	@return list of catalogue item
 */
 std::map<int, CatalogueItem*> CatalogueDao::getItems() {
 
