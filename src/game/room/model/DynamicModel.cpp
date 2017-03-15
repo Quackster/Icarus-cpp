@@ -71,7 +71,17 @@ void DynamicModel::regenerateCollisionMaps() {
 		}
 	}
 
-	for (Item *item : this->room->getItems()) {
+	mtx.lock();
+
+	std::vector<Item*> items = this->room->getItems();
+
+	for (int i = 0; i < items.size(); i++) {
+
+		Item *item = items.at(i);
+
+		if (item == nullptr) {
+			continue;
+		}
 
 		int index = this->getSearchIndex(item->x, item->y);
 
@@ -101,6 +111,8 @@ void DynamicModel::regenerateCollisionMaps() {
 			this->addTileStates(new_index, item->getDefinition()->stack_height, valid);
 		}
 	}
+
+	mtx.unlock();
 }
 
 /*

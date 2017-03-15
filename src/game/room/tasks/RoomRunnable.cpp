@@ -56,7 +56,7 @@ void RoomRunnable::run() {
 
         RoomModel *room_model = this->room->getModel();
 
-        mtx.lock(); // Lock entities thread
+		mtx.lock();
 
         std::map<int, Entity*> entities = this->room->getEntities();
 

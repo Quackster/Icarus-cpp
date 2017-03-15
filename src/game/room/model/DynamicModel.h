@@ -7,6 +7,7 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+#include <mutex>
 
 class Room;
 class Item;
@@ -44,6 +45,7 @@ public:
 
 private:
 	Room *room;
+	std::mutex mtx;
 
 	Item **items = nullptr;	
 	int *tile_flags = nullptr;

@@ -7,7 +7,6 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-
 #include <mutex>
 
 #include "thread/Runnable.h"

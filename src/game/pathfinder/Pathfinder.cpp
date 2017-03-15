@@ -183,7 +183,17 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
 			return false;
 		}
 
-        /*if (current.getX() != neighbour.getX() 
+        /*if (current.x != neighbour.x 
+            && current.y != neighbour.y) {
+
+            bool diagonal1 = room->getDynamicModel()->isValidTile(neighbour.x, current.y);
+            bool diagonal2 = room->getDynamicModel()->isValidTile(current.x, neighbour.y);
+
+            if (!diagonal1 || !diagonal2)
+                return false;
+        }*/
+
+		/*if (current.getX() != neighbour.getX() 
             && current.getY() != neighbour.getY()) {
 
             bool diagonal1 = room->getModel()->isValidSquare(neighbour.getX(), current.getY());
@@ -191,7 +201,8 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
 
             if (!diagonal1 || !diagonal2)
                 return false;
-        }*/
+        }
+*/
 
         return true;
 
