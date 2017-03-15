@@ -17,7 +17,6 @@ Game::Game() :
 	navigator_manager(new NavigatorManager()),
 	room_manager(new RoomManager()),
 	executor_service(ExecutorService::createSchedulerService(Icarus::getGameConfiguration()->getInt("thread.pool.size"), std::chrono::milliseconds(500))),
-	plugin_manager(new PluginManager()),
 	furniture_manager(new ItemManager()),
 	catalogue_manager(new CatalogueManager()) {
 }
@@ -30,9 +29,6 @@ Game::Game() :
 void Game::createGame() {
 	
 	this->catalogue_manager->assignFurnitureData();
-
-	this->plugin_manager->loadPlugins();
-	this->plugin_manager->enablePlugins();
 
     RoomDao::addPublicRooms();
 
@@ -48,5 +44,4 @@ Game::~Game() {
     delete this->navigator_manager;
     delete this->room_manager;
     delete this->executor_service;
-	delete this->plugin_manager;
 }

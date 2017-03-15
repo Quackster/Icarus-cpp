@@ -10,9 +10,6 @@
 
 #include "communication/headers/Incoming.h"
 #include "MessageHandler.h"
-#include "plugin/Plugin.h"
-#include "lua.hpp"
-#include "LuaBridge.h"
 
 // Login
 #include "login/AuthenticateMessageEvent.h"

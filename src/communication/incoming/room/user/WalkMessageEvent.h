@@ -11,8 +11,6 @@
 #include "communication/incoming/MessageEvent.h"
 #include "game/pathfinder/Pathfinder.h"
 
-#include "plugin/events/player/PlayerWalkEvent.h"
-
 class WalkMessageEvent : public MessageEvent {
 
 public:
@@ -41,12 +39,6 @@ public:
 
 		int map_size_x = room->getModel()->map_size_x;
 		int map_size_y = room->getModel()->map_size_y;
-
-		PlayerWalkEvent *player_walk_event = static_cast<PlayerWalkEvent*>(Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerWalkEvent>(player)));
-
-		if (player_walk_event->isCancelled()) {
-			return;
-		}
 
         if (goal.x >= map_size_x || goal.x >= map_size_y) {
             return;

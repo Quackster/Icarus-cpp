@@ -143,10 +143,6 @@
     <ClCompile Include="src\game\item\ItemManager.cpp" />
     <ClCompile Include="src\dao\ItemDao.cpp" />
     <ClCompile Include="src\game\item\inventory\Inventory.cpp" />
-    <ClCompile Include="src\plugin\Plugin.cpp" />
-    <ClCompile Include="src\plugin\events\EventFactory.cpp" />
-    <ClCompile Include="src\plugin\PluginMessageEvent.cpp" />
-    <ClCompile Include="src\plugin\PluginManager.cpp" />
     <ClCompile Include="src\game\catalogue\CatalogueManager.cpp" />
     <ClCompile Include="src\communication\incoming\MessageHandler.cpp" />
     <ClCompile Include="src\dao\MessengerDao.cpp" />
@@ -221,14 +217,7 @@
     <ClInclude Include="src\game\catalogue\CataloguePage.h" />
     <ClInclude Include="src\game\item\inventory\Inventory.h" />
     <ClInclude Include="src\game\item\definitions\ItemType.h" />
-    <ClInclude Include="src\plugin\events\EventFactory.h" />
-    <ClInclude Include="src\plugin\events\Event.h" />
-    <ClInclude Include="src\plugin\events\player\PlayerLoginEvent.h" />
-    <ClInclude Include="src\plugin\events\player\PlayerTryLoginEvent.h" />
     <ClInclude Include="src\plugin\events\player\PlayerMoveEvent.h" />
-    <ClInclude Include="src\plugin\events\player\PlayerWalkEvent.h" />
-    <ClInclude Include="src\plugin\Plugin.h" />
-    <ClInclude Include="src\plugin\PluginManager.h" />
     <ClInclude Include="src\communication\incoming\catalogue\CatalogueTabMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\messenger\MessengerUpdateMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\user\ChatMessageEvent.h" />
@@ -372,7 +361,6 @@
     <ClInclude Include="src\network\NetworkServer.h" />
     <ClInclude Include="src\network\rcon\RconConnection.h" />
     <ClInclude Include="src\network\rcon\RconServer.h" />
-    <ClInclude Include="src\plugin\PluginMessageEvent.h" />
     <ClInclude Include="src\stdafx.h" />
     <ClInclude Include="src\targetver.h" />
     <ClInclude Include="src\thread\BlockingQueue.h" />
