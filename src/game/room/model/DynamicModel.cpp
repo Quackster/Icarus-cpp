@@ -45,7 +45,15 @@ void DynamicModel::load() {
 Item *DynamicModel::getItemAtPosition(int x, int y) {
 	//return this->items[this->getSearchIndex(x, y)];
 
-	for (Item *item : this->room->getItems()) {
+	std::vector<Item*> items = room->getItems(FLOOR_ITEM);
+
+	for (int i = 0; i < items.size(); i++) {
+
+		Item *item = items.at(i);
+
+		if (item == nullptr) {
+			continue;
+		}
 
 		if (item->x == x && item->y == y) {
 			return item;
