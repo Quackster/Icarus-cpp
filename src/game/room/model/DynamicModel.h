@@ -21,14 +21,14 @@ public:
 	void unload();
 
 	void regenerateCollisionMaps();
-	void addTileStates(int index, double stack_height, bool valid);
-	int getSearchIndex(int x, int y);
+	void addTileStates(int &index, double stack_height, bool valid);
+	int &getSearchIndex(int x, int y);
 
 	Item *getItemAtPosition(int x, int y);
 
-	double getTileHeight(int x, int y) const { return tile_height[x * map_size_y + y]; }
+	double &getTileHeight(int x, int y) const { return tile_height[x * map_size_y + y]; }
 
-	const bool isValidTile(int x, int y) const {
+	const bool &isValidTile(int x, int y) const {
 
 		if (x >= this->map_size_x || !(x >= 0)) {
 			return 0;
