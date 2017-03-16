@@ -154,6 +154,10 @@ int DynamicModel::getSearchIndex(int x, int y) {
 */
 void DynamicModel::unload() {
 
+	this->tile_flags = nullptr;
+	this->tile_height = nullptr;
+	this->items = nullptr;
+
 	if (this->items != nullptr) {
 		delete[] this->items;
 	}
@@ -166,9 +170,7 @@ void DynamicModel::unload() {
 		delete[] this->tile_height;
 	}
 
-	this->tile_flags = nullptr;
-	this->tile_height = nullptr;
-	this->items = nullptr;
+
 }
 
 /*
