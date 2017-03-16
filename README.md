@@ -4,13 +4,13 @@ Icarus is a server written in C++ designed for version *PRODUCTION-201512012203-
 
 This should compile out of the box if you open up *Icarus.vcxproj* with Visual Studio 2015 C++
 
----
-
 ## Compilation
 
 This project isn't anywhere near being completed, don't even bother doing anything yet, but I'm not stopping you, so go ahead.
 
 ### Windows
+
+---
 
 *For Windows Server 2012 / Windows 10 possibly earlier Windows versions but this hasn't been tested*
 
@@ -29,6 +29,8 @@ Click this [link](https://github.com/TheAmazingAussie/Icarus/archive/master.zip)
 Click the second "Icarus" down from the top and select "show all files" as that's how the project **should be** viewed like
 
 ### Linux
+
+---
 
 *Only tested on Ubuntu, have not tested any other Linux distributions at the moment.*
 
