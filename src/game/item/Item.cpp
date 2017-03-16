@@ -49,8 +49,6 @@ Item::Item(int id, int user_id, int owner_id, int item_id, int room_id, std::str
 			this->y = stoi(y);
 			this->z = z;
 			this->rotation = rotation;
-
-			//cout << "coordinates: " << this->x << ", " << this->y;
 		}
 		else {
 			std::vector<std::string> x_data = Utilities::split(x, ',');
@@ -68,6 +66,11 @@ Item::Item(int id, int user_id, int owner_id, int item_id, int room_id, std::str
 	}
 }
 
+/*
+	Create wall position data for the client rooms
+
+	@return none
+*/
 std::string Item::getWallPosition() {
 
 	if (!this->isWallItem()) {
@@ -79,6 +82,12 @@ std::string Item::getWallPosition() {
 	return ss.str();
 }
 
+/*
+	Update all entities when an item is moved, if it was placed/moved/picked up 
+	and it will force users to sit down or lay depending if the item was a bed or not
+
+	@return none
+*/
 void Item::updateEntities() {
 
 	std::vector<Entity*> affected_players;
@@ -102,7 +111,6 @@ void Item::updateEntities() {
 
 				affected_players.push_back(entity);
 			}
-
 		}
 		
 		// Moved item inside a player
@@ -117,15 +125,19 @@ void Item::updateEntities() {
 	}
 }
 
+/*
+	Returns true or false depending if there's entities in that spot that collides with an 
+	item, such as a bed or a seat, or maybe even a rug!
+
+	@return none
+*/
 bool Item::hasEntityCollision(int x, int y) {
 
 	if (this->x == x && this->y == y) {
 		return true;
 	}
 	else {
-
 		for (auto kvp : this->getAffectedTiles()) {
-
 			if (kvp.second.x == x && kvp.second.y == y) {
 				return true;
 			}

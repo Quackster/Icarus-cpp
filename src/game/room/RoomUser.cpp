@@ -166,6 +166,11 @@ void RoomUser::stopWalking() {
 	}
 }
 
+/*
+	Item trigger, whether it was the last item you walked on, etc
+
+	@return none
+*/
 void RoomUser::currentItemTrigger() {
 	
 	if (this->current_item == nullptr) {
