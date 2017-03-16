@@ -387,8 +387,6 @@ void Room::unload() {
         }
     }
 
-	this->dynamic_model->unload();
-
 	for (Item *item : this->items) {
 		delete item;
 	}

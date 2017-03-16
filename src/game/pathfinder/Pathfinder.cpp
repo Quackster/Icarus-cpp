@@ -183,6 +183,10 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
             return false;
         }
 
+		if (!room->getModel()->isValidSquare(current.x, current.y)) {
+			return false;
+		}
+
 		if (!room->getDynamicModel()->isValidTile(current.x, current.y)) {
 			return false;
 		}

@@ -8,6 +8,7 @@
 */
 #pragma once
 #include <mutex>
+#include <vector>
 
 class Room;
 class Item;
@@ -18,17 +19,14 @@ public:
 	DynamicModel(Room *room);
 
 	void load();
-	void unload();
-
-	void regenerateCollisionMaps();
-	void addTileStates(int index, double stack_height, bool valid);
 	int getSearchIndex(int x, int y);
 
 	Item *getItemAtPosition(int x, int y);
+	std::vector<Item*> getItemsAtPosition(int x, int y, bool single_tile = false);
 
-	double getTileHeight(int x, int y) const { return tile_height[x * map_size_y + y]; }
-
-	const bool isValidTile(int x, int y) const {
+	double getTileHeight(int x, int y);//const { return tile_height[x * map_size_y + y]; }
+	bool isValidTile(int x, int y);
+	/*const bool isValidTile(int x, int y) const {
 
 		if (x >= this->map_size_x || !(x >= 0)) {
 			return 0;
@@ -39,7 +37,7 @@ public:
 		}
 
 		return tile_flags[x * map_size_y + y] == 0;
-	}
+	}*/
 
 	~DynamicModel();
 
@@ -47,8 +45,8 @@ private:
 	Room *room;
 	std::mutex mtx;
 
-	int *tile_flags = nullptr;
-	double *tile_height = nullptr;
+	//int *tile_flags = nullptr;
+	//double *tile_height = nullptr;
 
 	int map_size_x;
 	int map_size_y;

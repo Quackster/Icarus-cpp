@@ -63,9 +63,6 @@ public:
 			item->y = y;
 			item->rotation = rotation;
 			item->z = room->getDynamicModel()->getTileHeight(item->x, item->y);
-
-			room->getDynamicModel()->regenerateCollisionMaps();
-			
 		}
 
 		if (item->isWallItem()) {

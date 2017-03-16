@@ -55,10 +55,6 @@ public:
 			item->y = y;
 			item->rotation = rotation;
 			item->z = room->getModel()->getSquareHeight(item->x, item->y);
-
-			if (regenerate_collision_map) {
-				room->getDynamicModel()->regenerateCollisionMaps();
-			}
 		} 
 		
 		if (item->isWallItem()) {

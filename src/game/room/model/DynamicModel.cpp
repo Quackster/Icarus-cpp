@@ -31,7 +31,7 @@ DynamicModel::DynamicModel(Room *room) :
 	@return none
 */
 void DynamicModel::load() {
-	this->regenerateCollisionMaps();
+
 }
 
 /*
@@ -43,7 +43,6 @@ void DynamicModel::load() {
 	@return Item pointer
 */
 Item *DynamicModel::getItemAtPosition(int x, int y) {
-	//return this->items[this->getSearchIndex(x, y)];
 
 	std::vector<Item*> items = room->getItems(FLOOR_ITEM);
 
@@ -57,14 +56,12 @@ Item *DynamicModel::getItemAtPosition(int x, int y) {
 
 		if (item->x == x && item->y == y) {
 			return item;
-
 		}
 
 		for (auto kvp : item->getAffectedTiles()) {
 
 			if (kvp.second.x == x && kvp.second.y == y) {
 				return item;
-
 			}
 		}
 	}
@@ -72,33 +69,10 @@ Item *DynamicModel::getItemAtPosition(int x, int y) {
 	return nullptr;
 }
 
-/*
-	Regenerate the collision mapping for the pathfinder and set the items
-	to the array for lookup purposes
+std::vector<Item*> DynamicModel::getItemsAtPosition(int x, int y, bool single_tile) {
 
-	@return none
-*/
-void DynamicModel::regenerateCollisionMaps() {
-
-	this->unload();
-
-	//this->items = new Item*[map_size_x * map_size_y];
-	this->tile_flags = new int[map_size_x * map_size_y];
-	this->tile_height = new double[map_size_x * map_size_y];
-
-	for (int y = 0; y < map_size_y; y++) {
-		for (int x = 0; x < map_size_x; x++) {
-
-			int index = this->getSearchIndex(x, y);
-
-			this->tile_flags[index] = room->getModel()->squares[index];
-			this->tile_height[index] = room->getModel()->square_height[index];
-		}
-	}
-
-	mtx.lock();
-
-	std::vector<Item*> items = this->room->getItems();
+	std::vector<Item*> found_items;
+	std::vector<Item*> items = room->getItems(FLOOR_ITEM);
 
 	for (int i = 0; i < items.size(); i++) {
 
@@ -108,52 +82,71 @@ void DynamicModel::regenerateCollisionMaps() {
 			continue;
 		}
 
-		int index = this->getSearchIndex(item->x, item->y);
-
-		bool valid = false;
-
-		if (item->getDefinition()->can_sit) {
-			valid = true;
+		if (item->x == x && item->y == y) {
+			found_items.push_back(item);
 		}
+		else {
 
-		if (item->getDefinition()->is_walkable) {
-			valid = true;
+			if (!single_tile) {
+
+				for (auto kvp : item->getAffectedTiles()) {
+
+					if (kvp.second.x == x && kvp.second.y == y) {
+						found_items.push_back(item);
+					}
+				}
+			}
 		}
-
-		if (item->getDefinition()->interaction_type == "bed") {
-			valid = true;
-		}
-
-		this->addTileStates(index, item->getDefinition()->stack_height, valid);
-
-		for (auto kvp : item->getAffectedTiles()) {
-
-			int new_index = this->getSearchIndex(kvp.second.x, kvp.second.y);
-			this->addTileStates(new_index, item->getDefinition()->stack_height, valid);
-		}
-
 	}
-	
-	mtx.unlock();
+
+	return found_items;
 }
 
-/*
-	Add the title states (stack height, and whether or not the tile is valid)
 
-	@param x coordinate
-	@param y coordinate
-	@param stack height
-	@bool valid
-*/
-void DynamicModel::addTileStates(int index, double stack_height, bool valid) {
+double DynamicModel::getTileHeight(int x, int y) {//const { return tile_height[x * map_size_y + y]; }
 
-	if (valid) {
-		this->tile_flags[index] = RoomModel::OPEN;
+	double final_height = room->getModel()->getSquareHeight(x, y);
+
+	std::vector<Item*> items = this->getItemsAtPosition(x, y, true);
+
+	for (int i = 0; i < items.size(); i++) {
+
+		Item *item = items.at(i);
+
+		if (item == nullptr) {
+			continue;
+		}
+
+		final_height += item->getDefinition()->stack_height;
+
 	}
-	else {
-		this->tile_flags[index] = RoomModel::CLOSED;
-		this->tile_height[index] += stack_height;
+
+	return final_height;
+}
+
+bool DynamicModel::isValidTile(int x, int y) {
+
+	bool valid = false;
+
+	Item *item = this->getItemAtPosition(x, y);
+
+	if (item == nullptr) {
+		return true;
 	}
+
+	if (item->getDefinition()->can_sit) {
+		valid = true;
+	}
+
+	if (item->getDefinition()->is_walkable) {
+		valid = true;
+	}
+
+	if (item->getDefinition()->interaction_type == "bed") {
+		valid = true;
+	}
+
+	return valid;
 }
 
 /*
@@ -169,28 +162,8 @@ int DynamicModel::getSearchIndex(int x, int y) {
 }
 
 /*
-	Deletes all arrays, as they are pointers which require to be
-	deleted once they're no longer used
-
-	@return none
-*/
-void DynamicModel::unload() {
-
-	this->tile_flags = nullptr;
-	this->tile_height = nullptr;
-
-	if (this->tile_flags != nullptr) {
-		delete[] this->tile_flags;
-	}
-
-	if (this->tile_height != nullptr) {
-		delete[] this->tile_height;
-	}
-}
-
-/*
 	Deconstructor for DynamicModel
 */
 DynamicModel::~DynamicModel() {
-	this->unload();
+
 }
