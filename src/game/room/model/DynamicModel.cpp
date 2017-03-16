@@ -123,7 +123,7 @@ void DynamicModel::regenerateCollisionMaps() {
 	@param stack height
 	@bool valid
 */
-void DynamicModel::addTileStates(int &index, double stack_height, bool valid) {
+void DynamicModel::addTileStates(int index, double stack_height, bool valid) {
 
 	if (valid) {
 		this->tile_flags[index] = RoomModel::OPEN;
@@ -142,8 +142,8 @@ void DynamicModel::addTileStates(int &index, double stack_height, bool valid) {
 	@param y coordinate
 	@return array lookup index formula
 */
-int &DynamicModel::getSearchIndex(int x, int y) {
-	return x * map_size_y + y;
+int DynamicModel::getSearchIndex(int x, int y) {
+	return x * this->map_size_y + y;
 }
 
 /*
