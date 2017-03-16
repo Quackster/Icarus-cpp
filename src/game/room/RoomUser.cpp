@@ -174,14 +174,16 @@ void RoomUser::currentItemTrigger() {
 	}
 	else {
 
-		int item_height = this->current_item->z + this->current_item->getDefinition()->stack_height;
-		this->setRotation(this->current_item->rotation, true, false);
+		Item *item = this->current_item;
 
-		if (this->current_item->getDefinition()->can_sit) {
-			this->setStatus("sit", std::to_string(item_height + 0.05));
+		int item_height = item->z + item->getDefinition()->stack_height;
+		this->setRotation(item->rotation, true, false);
+
+		if (item->getDefinition()->can_sit) {
+			this->setStatus("sit", std::to_string(item_height + 0.04));
 		}
 		else {
-			this->setStatus("lay", std::to_string(item_height + 0.45));
+			this->setStatus("lay", std::to_string(item_height + 0.65));
 		}
 	}
 
