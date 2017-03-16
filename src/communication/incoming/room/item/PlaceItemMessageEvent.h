@@ -63,6 +63,8 @@ public:
 			item->y = y;
 			item->rotation = rotation;
 			item->z = room->getDynamicModel()->getTileHeight(item->x, item->y);
+
+			room->getDynamicModel()->regenerateCollisionMaps();
 			
 		}
 
@@ -99,6 +101,5 @@ public:
 
 		room->getItems().push_back(item);
 		room->send(PlaceItemMessageComposer(item));
-		room->getDynamicModel()->regenerateCollisionMaps();
 	}
 };
