@@ -47,8 +47,6 @@ public:
 
 		if (item->isFloorItem()) {
 
-			cout << input << endl;
-
 			int x = stoi(data[1]);
 			int y = stoi(data[2]);
 			int rotation = stoi(data[3]);
