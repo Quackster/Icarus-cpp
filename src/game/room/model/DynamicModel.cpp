@@ -117,8 +117,15 @@ double DynamicModel::getTileHeight(int x, int y) {//const { return tile_height[x
 			continue;
 		}
 
-		final_height += item->getDefinition()->stack_height;
+		if (item->getDefinition()->can_sit ||
+			item->getDefinition()->is_walkable ||
+			item->getDefinition()->interaction_type == "bed") {
+			return final_height;
+		}
+		else {
 
+			final_height += item->getDefinition()->stack_height;
+		}
 	}
 
 	return final_height;
