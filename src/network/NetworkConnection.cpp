@@ -54,16 +54,16 @@ void NetworkConnection::recieveData() {
                 }
                 else {
 
-                    // Use bitwise operators to get the length needed to read the rest of the message
-                    int message_length = (buffer[0] << 24) | (buffer[1] << 16) | (buffer[2] << 8) | (buffer[3]);
+					long message_length = (int)buffer[3] & 0xff;
+					message_length |= ((int)buffer[2] & 0xff) << 8;
+					message_length |= ((int)buffer[1] & 0xff) << 16;
+					message_length |= ((int)buffer[1] & 0xff) << 24;
+
 
                     // Read rest of message, to prevent any combined packets
                     socket.async_receive(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
 
                         if (length > 0) {
-
-							cout << "Message: " << message_length << endl;
-
                             Request request(message_length, buffer);
 
                             if (request.getMessageId() > 0) {
