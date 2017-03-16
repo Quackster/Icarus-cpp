@@ -7,28 +7,28 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+
 #include "boot/Icarus.h"
 #include "game/catalogue/CatalogueTab.h"
 
 #include "communication/incoming/MessageEvent.h"
-#include "communication/outgoing/catalogue/CatalogueTabMessageComposer.h"
+#include "communication/outgoing/catalogue/CataloguePageMessageComposer.h"
 
-class CatalogueMessageEvent : public MessageEvent {
+class CataloguePageMessageEvent : public MessageEvent {
 
 public:
-	CatalogueMessageEvent() { }
+	CataloguePageMessageEvent() { }
 
     void handle(Player *player, Request &request) {
 
-		std::string type = request.readString();
+		int page_id = request.readInt();
 
-		std::vector<CatalogueTab> parent_tabs = Icarus::getGame()->getCatalogueManager()->getParentTabs(player->getDetails()->rank);
+		CataloguePage *catalogue_page = Icarus::getGame()->getCatalogueManager()->getPage(page_id);
 
-		if (parent_tabs.size() == 0) {
-			cout << "oh noes its retarded" << endl;
+		if (catalogue_page == nullptr) {
 			return;
 		}
 
-		player->send(CatalogueTabMessageComposer(type, parent_tabs, -1, player->getDetails()->rank));
+		player->send(CataloguePageMessageComposer(catalogue_page));
     }
 };

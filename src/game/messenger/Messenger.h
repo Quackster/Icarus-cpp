@@ -33,11 +33,11 @@ public:
     void sendStatus(bool force_offline);
     void send(const MessageComposer &composer);
 
-    std::map<int, MessengerUser*> getFriends() {
+    std::map<int, MessengerUser*> &getFriends() {
         return friends;
     }
 
-    std::map<int, MessengerUser*> getRequests() {
+    std::map<int, MessengerUser*> &getRequests() {
         return requests;
     }
 

@@ -10,9 +10,13 @@
 
 #include "game/player/Player.h"
 #include "game/messenger/MessengerUser.h"
+#include "game/item/inventory/Inventory.h"
+
+#include "communication/outgoing/misc/BroadcastMessageAlertComposer.h"
 
 #include "dao/UserDao.h"
 #include "dao/MessengerDao.h"
+#include "dao/ItemDao.h"
 
 #include "boot/Icarus.h"
 
@@ -49,7 +53,7 @@ void Player::login() {
         Remove teh clones
     */
     if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(this->session_details->id) == 1) {
-        //this->getNetworkConnection()->getSocket().close();
+        this->getNetworkConnection()->getSocket().close();
 		return;
     }
 
@@ -71,7 +75,11 @@ void Player::login() {
         MessengerDao::getFriends(this->session_details->id), 
         MessengerDao::getRequests(this->session_details->id));
 
-	this->messenger_user = new MessengerUser(this->session_details->id);
+	this->inventory = new Inventory(
+		this, ItemDao::getInventoryItems(this->session_details->id));
+
+	this->messenger_user = new MessengerUser(
+		this->session_details->id);
 
 
     
@@ -102,11 +110,22 @@ void Player::save() {
 /*
     Send message composer to the session's socket
 
-    @param MessageComposer ptr
+    @param MessageComposer reference
     @return none
 */
 void Player::send(const MessageComposer &composer) {
     this->network_connection->send(composer);
+}
+
+/*
+	Send alert message to session's socket
+
+	@param alert message
+	@param url (optional: don't add )
+	@return none
+*/
+void Player::sendAlert(const std::string alert_message, const std::string url) {
+	this->network_connection->send(BroadcastMessageAlertComposer(alert_message, url));
 }
 
 /*
@@ -177,6 +196,7 @@ Player::~Player() {
 
     delete messenger;
 	delete messenger_user;
+	delete inventory;
     delete session_details;
     delete room_user;
 }

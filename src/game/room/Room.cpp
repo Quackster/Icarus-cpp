@@ -13,7 +13,9 @@
 #include "boot/Icarus.h"
 
 #include "dao/RoomDao.h"
+#include "dao/ItemDao.h"
 
+#include "game/item/Item.h"
 #include "game/bot/Bot.h"
 
 #include "communication/outgoing/user/HotelViewMessageComposer.h"
@@ -24,9 +26,15 @@
 #include "communication/outgoing/room/entry/RightsLevelMessageComposer.h"
 #include "communication/outgoing/room/entry/NoRightsMessageComposer.h"
 #include "communication/outgoing/room/entry/PrepareRoomMessageComposer.h"
+
 #include "communication/outgoing/room/user/RemoveUserMessageComposer.h"
 #include "communication/outgoing/room/user/UserDisplayMessageComposer.h"
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
+
+#include "communication/outgoing/room/item/RemoveItemMessageComposer.h"
+
+#include "game/room/model/DynamicModel.h"
+
 
 /*
     Constructor for rooms
@@ -36,9 +44,9 @@ Room::Room(int room_id, RoomData *room_data) :
     disposed(false),
     //entities(new std::map<int, Entity*>()),
     runnable(nullptr),
-    room_data(room_data) { 
+    room_data(room_data) {
 
-
+	this->dynamic_model = new DynamicModel(this);
 
 } //std::make_shared<RoomRunnable>(this)) { }
 
@@ -46,7 +54,13 @@ Room::Room(int room_id, RoomData *room_data) :
     Whether or not the user has room rights, has optional option for
     owner/staff check only
 */
-bool Room::hasRights(const int user_id, const bool owner_check_only) {
+bool Room::hasRights(Player *player, const bool owner_check_only) {
+
+	if (player->hasFuse("admin")) {
+		return true;
+	}
+
+	const int user_id = player->getDetails()->id;
 
     if (owner_check_only) {
         return this->room_data->owner_id == user_id;
@@ -54,6 +68,10 @@ bool Room::hasRights(const int user_id, const bool owner_check_only) {
     else {
 
         if (this->room_data->owner_id != user_id) {
+
+			if (player->hasFuse("room_any_owner")) {
+				return true;
+			}
 
             // Check to see if user id is located in room_data->user_rights vector
             return std::find(this->room_data->user_rights.begin(), this->room_data->user_rights.end(), user_id) != this->room_data->user_rights.end();
@@ -75,10 +93,11 @@ void Room::enter(Entity *entity) {
     RoomModel *model = this->getModel();
     RoomUser *room_user = entity->getRoomUser();
 
-    room_user->position.x = model->getDoorX();
-    room_user->position.y = model->getDoorY();
-    room_user->height = model->getDoorZ();
-    room_user->setRotation(model->getDoorRotation(), true);
+	room_user->position.x = model->door_x;
+	room_user->position.y = model->door_y;
+	room_user->height = model->door_z;
+
+    room_user->setRotation(model->door_rotation, true);
     room_user->setRoom(this);
 
     room_user->virtual_id = this->getData()->virtual_id;
@@ -97,7 +116,7 @@ void Room::enter(Entity *entity) {
     this->disposed = false;
     room_user->is_loading_room = true;
 
-    player->send(RoomModelMessageComposer(this->getModel()->getName(), this->id));
+    player->send(RoomModelMessageComposer(this->getModel()->name, this->id));
     player->send(RoomRatingMessageComposer(room_data->score));
 
     int floor = stoi(room_data->floor);
@@ -108,18 +127,18 @@ void Room::enter(Entity *entity) {
     }
 
     if (wall > 0) {
-        player->send(RoomSpacesMessageComposer("wall", std::to_string(wall)));
+        player->send(RoomSpacesMessageComposer("wallpaper", std::to_string(wall)));
     }
 
     player->send(RoomSpacesMessageComposer("landscape", room_data->outside));
 
-    if (this->hasRights(player->getDetails()->id, true)) {
+    if (this->hasRights(player, true)) {
 
         room_user->setStatus("flatctrl", "useradmin");
         player->send(RightsLevelMessageComposer(4));
         player->send(HasOwnerRightsMessageComposer());
     }
-    else if (this->hasRights(player->getDetails()->id, false)) {
+    else if (this->hasRights(player, false)) {
 
         room_user->setStatus("flatctrl", "1");
         player->send(RightsLevelMessageComposer(1));
@@ -328,6 +347,9 @@ void Room::load() {
         cout << " [ROOM] Room ID " << this->id << " loaded" << endl;
     }
 
+	this->items = ItemDao::getRoomItems(this->id);
+	this->dynamic_model->load();
+
     /*if (this->id == 5) {
 
         for (int i = 0; i < 20; i++) {
@@ -341,6 +363,7 @@ void Room::load() {
             this->enter(bot);
         }
     }*/
+
 }
 
 /*
@@ -364,6 +387,13 @@ void Room::unload() {
         }
     }
 
+	this->dynamic_model->unload();
+
+	for (Item *item : this->items) {
+		delete item;
+	}
+
+	this->items.clear();
     this->entities.clear();
 
 }
@@ -439,6 +469,65 @@ void Room::scheduleRunnable() {
 
     Icarus::getGame()->getGameScheduler()->schedule(this->runnable);
 }
+
+/*
+Returns a list of items, by defined item type (such as only selecting wall or floor items)
+
+@param ItemType value
+@return list of items
+*/
+std::vector<Item*> Room::getItems(ItemType item_type) {
+
+	std::vector<Item*> return_items;
+
+	for (Item *item : this->items) {
+
+		if (item_type == WALL_ITEM && item->isWallItem()) {
+			return_items.push_back(item);
+		}
+
+		if (item_type == FLOOR_ITEM && item->isFloorItem()) {
+			return_items.push_back(item);
+		}
+
+	}
+
+	return return_items;
+}
+
+/*
+Get Item by item id
+
+@param item id
+@return Item ptr instance
+*/
+Item *Room::getItem(int item_id) {
+
+	for (Item *item : this->items) {
+		if (item->id == item_id) {
+			return item;
+		}
+	}
+
+	return nullptr;
+}
+
+
+/*
+Remove the item from the player's inventory
+
+@param Item ptr
+@return none
+*/
+void Room::removeItem(Item *item) {
+
+	// Remove from vector
+	this->items.erase(std::remove(this->items.begin(), this->items.end(), item), this->items.end());
+
+	// Alert item removed
+	this->send(RemoveItemMessageComposer(item));
+}
+
 
 /*
     Deconstructor for rooms

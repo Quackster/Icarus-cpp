@@ -10,9 +10,6 @@
 
 #include "boot/Icarus.h"
 
-#include "plugin/events/player/PlayerLoginEvent.h"
-#include "plugin/events/Event.h"
-
 #include "communication/incoming/MessageEvent.h"
 #include "communication/outgoing/login/AuthenticateMessageComposer.h"
 #include "communication/outgoing/login/UniqueMachineIDMessageComposer.h"
@@ -34,29 +31,24 @@ public:
             session->getNetworkConnection()->getSocket().close();
             return;
         }
-        else {   
-            
-            EntityDetails *details = UserDao::findUserByTicket(session, sso_ticket);
+		else {
 
-            if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(details->id) > 0) {
-                session->getNetworkConnection()->getSocket().close();
-                delete details;
-                return;
-            }
+			EntityDetails *details = UserDao::findUserByTicket(session, sso_ticket);
 
-            session->setDetails(details);
-        }
+			if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(details->id) > 0) {
+				session->getNetworkConnection()->getSocket().close();
+				delete details;
+				return;
+			}
 
-		Event *event = Icarus::getGame()->getPluginManager()->callEvent(std::make_shared<PlayerLoginEvent>(*session, sso_ticket));
-
-		if (event->isCancelled()) {
-			return;
+			session->setDetails(details);
 		}
 
         session->send(AuthenticateMessageComposer());
         session->send(UniqueMachineIDMessageComposer(""));// session->getUniqueId()));
         session->send(HomeRoomMessageComposer(0, false));
         session->send(LandingWidgetMessageComposer());
+
 
         session->login();
 

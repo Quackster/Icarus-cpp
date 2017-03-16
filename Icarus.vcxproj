@@ -122,13 +122,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\lib\boost_1_62_0;src;D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\include;D:\Program Files\MySQL\MySQL Connector C 6.1\include;C:\Users\Alex\Documents\GitHub\Icarus\include\lua\include;C:\Users\Alex\Documents\GitHub\Icarus\include\LuaBridge;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Lib\boost_1_63_0;src;D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\include;D:\Program Files\MySQL\MySQL Connector C 6.1\include;C:\Users\Alex\Documents\GitHub\Icarus\include\lua\include;C:\Users\Alex\Documents\GitHub\Icarus\include\LuaBridge;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>CPPCONN_PUBLIC_FUNC=</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\lib\opt;D:\Program Files\MySQL\MySQL Connector C 6.1\lib;D:\lib\boost_1_62_0\stage\x64\lib;C:\Users\Alex\Documents\GitHub\Icarus\include\lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\lib\opt;D:\Program Files\MySQL\MySQL Connector C 6.1\lib;D:\Lib\boost_1_63_0\stage\x64\lib;C:\Users\Alex\Documents\GitHub\Icarus\include\lua;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>lua53.lib;mysqlcppconn.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -136,10 +136,13 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\plugin\Plugin.cpp" />
-    <ClCompile Include="src\plugin\events\EventFactory.cpp" />
-    <ClCompile Include="src\plugin\PluginMessageEvent.cpp" />
-    <ClCompile Include="src\plugin\PluginManager.cpp" />
+    <ClCompile Include="src\game\room\model\DynamicModel.cpp" />
+    <ClCompile Include="src\game\catalogue\CatalogueItem.cpp" />
+    <ClCompile Include="src\game\entities\EntityDetails.cpp" />
+    <ClCompile Include="src\game\item\Item.cpp" />
+    <ClCompile Include="src\game\item\ItemManager.cpp" />
+    <ClCompile Include="src\dao\ItemDao.cpp" />
+    <ClCompile Include="src\game\item\inventory\Inventory.cpp" />
     <ClCompile Include="src\game\catalogue\CatalogueManager.cpp" />
     <ClCompile Include="src\communication\incoming\MessageHandler.cpp" />
     <ClCompile Include="src\dao\MessengerDao.cpp" />
@@ -173,7 +176,7 @@
     <ClCompile Include="src\communication\streams\Request.cpp" />
     <ClCompile Include="src\communication\streams\Response.cpp" />
     <ClCompile Include="src\dao\UserDao.cpp" />
-    <ClCompile Include="src\game\DatabaseManager.cpp" />
+    <ClCompile Include="src\database\DatabaseManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\game\player\Player.cpp" />
     <ClCompile Include="src\game\player\PlayerManager.cpp" />
@@ -182,15 +185,40 @@
     <ClCompile Include="src\network\NetworkConnection.cpp" />
     <ClCompile Include="src\network\NetworkServer.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
-    <ClCompile Include="src\TestingClass.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\plugin\events\EventFactory.h" />
-    <ClInclude Include="src\plugin\events\Event.h" />
-    <ClInclude Include="src\plugin\events\player\PlayerLoginEvent.h" />
-    <ClInclude Include="src\plugin\Plugin.h" />
-    <ClInclude Include="src\plugin\PluginManager.h" />
-    <ClInclude Include="src\communication\incoming\catalogue\CatalogueMessageEvent.h" />
+    <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
+    <ClInclude Include="src\game\room\model\DynamicModel.h" />
+    <ClInclude Include="src\communication\incoming\catalogue\PurchaseObjectMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\item\ApplyDecorationMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\item\InventoryMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\item\PickupItemMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\item\MoveItemMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\room\item\PlaceItemMessageEvent.h" />
+    <ClInclude Include="src\communication\outgoing\catalogue\PurchaseNotificationMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\catalogue\PurchaseErrorMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\room\item\RemoveItemMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\room\item\MoveItemMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\room\item\WallItemsMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\room\item\FloorItemsMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\room\item\PlaceItemMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\item\RemoveInventoryItemComposer.h" />
+    <ClInclude Include="src\communication\outgoing\item\InventoryMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\item\FurniListNotificationComposer.h" />
+    <ClInclude Include="src\communication\outgoing\item\UpdateInventoryMessageComposer.h" />
+    <ClInclude Include="src\game\catalogue\CatalogueItem.h" />
+    <ClInclude Include="src\game\item\Item.h" />
+    <ClInclude Include="src\game\item\definitions\ItemDefinition.h" />
+    <ClInclude Include="src\game\item\ItemManager.h" />
+    <ClInclude Include="src\communication\incoming\catalogue\CataloguePageMessageEvent.h" />
+    <ClInclude Include="src\communication\outgoing\catalogue\CataloguePageMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\misc\BroadcastMessageAlertComposer.h" />
+    <ClInclude Include="src\dao\ItemDao.h" />
+    <ClInclude Include="src\game\catalogue\CataloguePage.h" />
+    <ClInclude Include="src\game\item\inventory\Inventory.h" />
+    <ClInclude Include="src\game\item\definitions\ItemType.h" />
+    <ClInclude Include="src\plugin\events\player\PlayerMoveEvent.h" />
+    <ClInclude Include="src\communication\incoming\catalogue\CatalogueTabMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\messenger\MessengerUpdateMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\user\ChatMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\user\DanceMessageEvent.h" />
@@ -333,13 +361,11 @@
     <ClInclude Include="src\network\NetworkServer.h" />
     <ClInclude Include="src\network\rcon\RconConnection.h" />
     <ClInclude Include="src\network\rcon\RconServer.h" />
-    <ClInclude Include="src\plugin\PluginMessageEvent.h" />
     <ClInclude Include="src\stdafx.h" />
     <ClInclude Include="src\targetver.h" />
     <ClInclude Include="src\thread\BlockingQueue.h" />
     <ClInclude Include="src\thread\ExecutorService.h" />
     <ClInclude Include="src\thread\Runnable.h" />
-    <ClInclude Include="src\TestingClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

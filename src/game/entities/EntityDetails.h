@@ -8,8 +8,18 @@
 */
 #pragma once
 
-struct EntityDetails
+class Entity;
+class EntityDetails
 {
+
+public:
+	EntityDetails(Entity *entity);
+	~EntityDetails();
+
+	void setCredits(int new_amount);
+
+	Entity *entity;
+
     int id;
     std::string username;
     std::string motto;

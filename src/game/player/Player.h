@@ -10,10 +10,9 @@
 
 #include "network/NetworkConnection.h"
 
-
-
 #include "game/entities/Entity.h"
 #include "game/messenger/Messenger.h"
+#include "game/item/inventory/Inventory.h"
 
 class MessengerUser;
 class Player : public Entity {
@@ -29,6 +28,7 @@ public:
     void clear();
     void close();
     void send(const MessageComposer &composer);
+	void sendAlert(const std::string alert_message, const std::string url = "");
 
     NetworkConnection *getNetworkConnection() { return this->network_connection; }
     std::string getUniqueId() { return this->unique_id; }
@@ -39,10 +39,11 @@ public:
         return this->room_user; 
     }
 
-    std::vector<Room*> getRooms();
+	std::vector<Room*> getRooms();
     
     Messenger *getMessenger() { return this->messenger; }
 	MessengerUser *getMessengerUser() { return this->messenger_user; }
+	Inventory *getInventory() { return this->inventory; }
     bool authenticated() { return logged_in; }
     bool disposed() { return disconnected; }
 
@@ -57,6 +58,7 @@ private:
     RoomUser *room_user = nullptr;
     Messenger *messenger = nullptr;
 	MessengerUser *messenger_user = nullptr;
+	Inventory *inventory = nullptr;
     std::string unique_id;
     bool logged_in;
     bool disconnected;

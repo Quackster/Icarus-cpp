@@ -28,19 +28,19 @@ std::map<int, MessengerUser*> MessengerDao::getFriends(int user_id) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
-        std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
-        std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT * FROM messenger_friendships WHERE (sender = " + std::to_string(user_id) + ") OR (receiver = " + std::to_string(user_id) + ")"));
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+        std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sql_connection->createStatement());
+        std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT * FROM messenger_friendships WHERE (sender = " + std::to_string(user_id) + ") OR (receiver = " + std::to_string(user_id) + ")"));
 
-        while (resultSet->next()) {
+        while (result_set->next()) {
 
             MessengerUser *buddy;
 
-            if (resultSet->getInt("sender") != user_id) {
-                buddy = new MessengerUser(resultSet->getInt("sender"));
+            if (result_set->getInt("sender") != user_id) {
+                buddy = new MessengerUser(result_set->getInt("sender"));
             }
             else {
-                buddy = new MessengerUser(resultSet->getInt("receiver"));
+                buddy = new MessengerUser(result_set->getInt("receiver"));
             }
 
             friends.insert(std::make_pair(buddy->getDetails()->id, buddy));

@@ -18,7 +18,6 @@
 #include "Icarus.h"
 
 #include "network/rcon/RconServer.h"
-#include "plugin/PluginManager.h"
 
 static std::random_device rd;
 static std::mt19937 rng(rd());

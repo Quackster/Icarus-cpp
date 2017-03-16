@@ -15,6 +15,7 @@
 #include "misc/Utilities.h"
 
 #include "dao/NavigatorDao.h"
+#include "dao/RoomDao.h"
 
 class CreateRoomMessageEvent : public MessageEvent {
 
@@ -28,8 +29,6 @@ public:
         
         //[0][0][0][9]
         //[0][0][0][0][0][0][2]
-
-
 
         std::string room_name = request.readString();
         room_name = Utilities::escape(room_name);
@@ -61,9 +60,15 @@ public:
             return;
         }
 
-        int id = NavigatorDao::createRoom(room_name, description, room_model, player->getDetails()->id, category, max_users, trade_settings);
+        int room_id = NavigatorDao::createRoom(room_name, description, room_model, player->getDetails()->id, category, max_users, trade_settings);
 
-        player->send(CreateRoomMessageComposer(id, room_name));
+		Room *room = RoomDao::getRoom(room_id);
+
+		if (room != nullptr) {
+			Icarus::getGame()->getRoomManager()->addRoom(room);
+		}
+
+        player->send(CreateRoomMessageComposer(room_id, room_name));
 
     }
 };

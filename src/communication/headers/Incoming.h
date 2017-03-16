@@ -47,5 +47,13 @@ public:
     static const int StartTypingMessageEvent = 1752;
     static const int StopTypingMessageEvent = 998;
     static const int ShowSignMessageEvent = 2604;
-	static const int CatalogueMessageEvent = 3871;
+	static const int CatalogueTabMessageEvent = 3871;
+	static const int CataloguePageMessageEvent = 530;
+	static const int PurchaseObjectMessageEvent = 2893;
+	static const int InventoryMessageEvent = 3991;
+	static const int ApplyDecorationMessageEvent = 1421;
+	static const int PlaceItemMessageEvent = 1414;
+	static const int MoveItemMessageEvent = 888;
+	static const int MoveWallItemMessageEvent = 3589;
+	static const int PickupItemMessageEvent = 103;
 };

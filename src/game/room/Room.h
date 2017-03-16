@@ -15,14 +15,16 @@
 #include "game/player/Player.h"
 #include "game/room/RoomData.h"
 #include "game/room/tasks/RoomRunnable.h"
+#include "game/room/model/DynamicModel.h"
 
+class Item;
 class Room
 {
 public:
     Room(int room_id, RoomData *room_data);
     ~Room();
 
-    bool hasRights(const int user_id, const bool owner_check_only = false);
+    bool hasRights(Player *player, const bool owner_check_only = false);
     void serialise(Response &response, const bool enter_room = false);
     void enter(Entity *entity);
     void leave(Entity *entity, const bool hotel_view, const bool dispose = true);
@@ -33,9 +35,16 @@ public:
     void updateVirtualId();
     void save();
     void scheduleRunnable();
+	std::vector<Item*> getItems(ItemType item_type);
+	std::vector<Item*> &getItems() { return this->items; }
+	Item *getItem(int item_id);
+	void removeItem(Item *item);
+
     RoomData *getData() { return room_data; }
     RoomModel *getModel() { return this->room_data->model; }  
-    std::map<int, Entity*> getEntities() { return entities; }
+	DynamicModel *getDynamicModel() { return this->dynamic_model; }
+
+    std::map<int, Entity*> &getEntities() { return entities; }
     std::shared_ptr<RoomRunnable> getRunnable() { return this->runnable; }
     const std::vector<Player*> getPlayers();
     void setRoomData(RoomData *room_data) { this->room_data = room_data; };
@@ -47,8 +56,11 @@ public:
 
 private:
     RoomData *room_data;
+	DynamicModel *dynamic_model;
+	
     std::shared_ptr<RoomRunnable> runnable;
     std::map<int, Entity*> entities;
+	std::vector<Item*> items;
 
     void load();
     void unload();

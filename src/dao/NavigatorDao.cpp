@@ -63,21 +63,21 @@ std::vector<NavigatorTab*> NavigatorDao::getTabsByChildId(int child_id) {
 
     try {
 
-        std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
-        std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sqlConnection->createStatement());
-        std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, child_id, tab_name, title, button_type, closed, thumbnail, room_populator FROM navigator_tabs WHERE child_id = " + std::to_string(child_id)));
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+        std::shared_ptr<sql::Statement> statement = std::shared_ptr<sql::Statement>(sql_connection->createStatement());
+        std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery("SELECT id, child_id, tab_name, title, button_type, closed, thumbnail, room_populator FROM navigator_tabs WHERE child_id = " + std::to_string(child_id)));
 
-        while (resultSet->next()) {
+        while (result_set->next()) {
 
             NavigatorTab *tab = new NavigatorTab(
-                resultSet->getInt("id"),
-                resultSet->getInt("child_id"),
-                resultSet->getString("tab_name"),
-                resultSet->getString("title"),
-                (char)resultSet->getInt("button_type"),
-                resultSet->getBoolean("closed"),
-                resultSet->getBoolean("thumbnail"),
-                resultSet->getString("room_populator")
+                result_set->getInt("id"),
+                result_set->getInt("child_id"),
+                result_set->getString("tab_name"),
+                result_set->getString("title"),
+                (char)result_set->getInt("button_type"),
+                result_set->getBoolean("closed"),
+                result_set->getBoolean("thumbnail"),
+                result_set->getString("room_populator")
 
             );
 

@@ -46,6 +46,12 @@
 #include "room/user/ShowSignMessageEvent.h"
 #include "room/user/DanceMessageEvent.h"
 
+// Room Item
+#include "room/item/PlaceItemMessageEvent.h"
+#include "room/item/ApplyDecorationMessageEvent.h"
+#include "room/item/MoveItemMessageEvent.h"
+#include "room/item/PickupItemMessageEvent.h"
+
 // Doorbell
 #include "room/doorbell/AnswerDoorbellMessageEvent.h"
 #include "room/doorbell/EnterDoorbellMessageEvent.h"
@@ -63,7 +69,17 @@
 #include "messenger/MessengerInviteMessageEvent.h"
 
 // Catalogue
-#include "catalogue/CatalogueMessageEvent.h"
+#include "catalogue/CatalogueTabMessageEvent.h"
+#include "catalogue/CataloguePageMessageEvent.h"
+#include "catalogue/PurchaseObjectMessageEvent.h"
+
+// Item
+#include "item/InventoryMessageEvent.h"
+
+
+
+// Outgoing
+#include "communication/outgoing/misc/BroadcastMessageAlertComposer.h"
 
 /*
     MessageHandler constructor
@@ -106,6 +122,13 @@ MessageHandler::MessageHandler() {
    this->createEvent(Incoming::ShowSignMessageEvent, new ShowSignMessageEvent());
    this->createEvent(Incoming::DanceMessageEvent, new DanceMessageEvent());
 
+   // Room Items
+   this->createEvent(Incoming::ApplyDecorationMessageEvent, new ApplyDecorationMessageEvent());
+   this->createEvent(Incoming::PlaceItemMessageEvent, new PlaceItemMessageEvent());
+   this->createEvent(Incoming::MoveItemMessageEvent, new MoveItemMessageEvent());
+   this->createEvent(Incoming::MoveWallItemMessageEvent, new MoveItemMessageEvent());
+   this->createEvent(Incoming::PickupItemMessageEvent, new PickupItemMessageEvent());
+
     // Doorbell
    this->createEvent(Incoming::AnswerDoorbellMessageEvent, new AnswerDoorbellMessageEvent());
    this->createEvent(Incoming::EnterDoorbellMessageEvent, new EnterDoorbellMessageEvent());
@@ -123,7 +146,13 @@ MessageHandler::MessageHandler() {
    this->createEvent(Incoming::MessengerInviteMessageEvent, new MessengerInviteMessageEvent());
    
    // Catalogue
-   this->createEvent(Incoming::CatalogueMessageEvent, new CatalogueMessageEvent());
+   this->createEvent(Incoming::CatalogueTabMessageEvent, new CatalogueTabMessageEvent());
+   this->createEvent(Incoming::CataloguePageMessageEvent, new CataloguePageMessageEvent());
+   this->createEvent(Incoming::PurchaseObjectMessageEvent, new PurchaseObjectMessageEvent());
+
+   // Item
+   this->createEvent(Incoming::InventoryMessageEvent, new InventoryMessageEvent());
+
 }
 
 /*
@@ -173,6 +202,7 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
 
             if (!player->authenticated()) {
                 printf("Player tried to send packet while not logged in, scripting maybe?\n");
+				player->close();
                 return;
             }
         }
@@ -189,6 +219,18 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
         }
     }
 }
+
+/*
+	Add all outgoing events to script for Lua
+
+	@parma plugin ptr
+	@return none
+*/
+void MessageHandler::addObjects(Plugin *plugin) {
+
+
+}
+
 /* 
     MessageHandler deconstructor
 

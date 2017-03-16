@@ -41,10 +41,13 @@ public:
             response.writeInt(room_user->position.x);
             response.writeInt(room_user->position.y);
             response.writeString(std::to_string(room_user->height));
+			
+			room_user->walk();
+
             response.writeInt(room_user->head_rotation);
             response.writeInt(room_user->rotation);
 
-            room_user->walk();
+            /*bool stopped_walking = */
 
             std::string status = "/";
 
@@ -54,9 +57,14 @@ public:
 
             response.writeString(status + "/");
 
-            if (room_user->needs_update) {
-                room_user->needs_update = false;
-            }
+			if (room_user->needs_update) {
+				room_user->needs_update = false;
+			}
+
+			/*if (stopped_walking) {
+					room_user->stopWalking();
+				}
+            }*/
         }
 
         return response;

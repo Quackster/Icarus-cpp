@@ -34,7 +34,7 @@ public:
         response.writeInt(room->getData()->who_can_mute);
         response.writeInt(room->getData()->who_can_kick);
         response.writeInt(room->getData()->who_can_ban);
-        response.writeBool(room->hasRights(player->getDetails()->id, true)); // TODO: Rights, true if moderator or room owner
+        response.writeBool(room->hasRights(player, true)); // TODO: Rights, true if moderator or room owner
         response.writeInt(room->getData()->chat_mode);
         response.writeInt(room->getData()->chat_size);
         response.writeInt(room->getData()->chat_speed);

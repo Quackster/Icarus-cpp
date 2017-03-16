@@ -16,13 +16,13 @@ bool UserDao::exists(std::string sso_ticket) {
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
     try {
-        std::shared_ptr<sql::Connection> sqlConnection = connection->sql_connection;
-        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sqlConnection->prepareStatement("SELECT id FROM users WHERE sso_ticket = ?")); {
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id FROM users WHERE sso_ticket = ?")); {
             statement->setString(1, sso_ticket);
         }
 
-        std::shared_ptr<sql::ResultSet> resultSet = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
-        output = resultSet->next();
+        std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+        output = result_set->next();
     }
     catch (sql::SQLException &e) {
         Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
@@ -132,7 +132,7 @@ EntityDetails *UserDao::findUserByTicket(Player *player, std::string sso_ticket)
             /*
                 This pointer gets deleted in the 'Session' deconstructor
             */
-            details = new EntityDetails();
+            details = new EntityDetails(player);
 
             details->id = result_set->getInt("id");
             details->username = result_set->getString("username");
@@ -183,7 +183,7 @@ std::shared_ptr<EntityDetails> UserDao::getDetails(int user_id) {
 
         while (result_set->next()) {
 
-            details = std::make_shared<EntityDetails>();
+            details = std::make_shared<EntityDetails>(nullptr);
             details->id = result_set->getInt("id");
             details->username = result_set->getString("username");
             details->motto = result_set->getString("mission");

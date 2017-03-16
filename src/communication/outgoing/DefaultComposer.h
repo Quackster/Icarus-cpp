@@ -12,14 +12,14 @@
 class DefaultComposer : public MessageComposer {
 
 public:
-    DefaultComposer() { }
+	DefaultComposer() { }
 
-    const Response compose() const {
-        Response response = this->createResponse();
-        return response;
-    }
+	const Response compose() const {
+		Response response = this->createResponse();
+		return response;
+	}
 
-    const int getHeader() const {
-        return Outgoing::AuthenticationOKMessageComposer;
-    }
+	const int getHeader() const {
+		return Outgoing::AuthenticationOKMessageComposer;
+	}
 };

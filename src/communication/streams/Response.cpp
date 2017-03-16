@@ -33,21 +33,20 @@ and increases the bytes written by 4
 
 @return char array
 */
-void Response::writeInt(int number) {
+void Response::writeInt(int value) {
 
     char output[4];
 
-    output[3] = (char)number & 0xff;
-    output[2] = (char)(number >> 8) & 0xff;
-    output[1] = (char)(number >> 16) & 0xff;
-    output[0] = (char)(number >> 24) & 0xff;
+	output[0] = (char)(value >> 24);
+	output[1] = (char)(value >> 16);
+	output[2] = (char)(value >> 8);
+	output[3] = (char)(value);
 
     for (int i = 0; i < 4; i++) {
         this->message.push_back(output[i]);
     }
 
     this->index = this->index + 4;
-    //delete[] bytes;
 }
 
 /*

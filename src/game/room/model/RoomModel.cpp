@@ -55,14 +55,14 @@ RoomModel::RoomModel(std::string name, std::string height_map, int door_x, int d
 
             if (Utilities::isNumber(square)) {
                 this->square_height[index] = stoi(square);
-                this->squares[index] = 0;
+                this->squares[index] = OPEN;
             }
             else if (square == "x") {
-                this->squares[index] = 1;
+                this->squares[index] = CLOSED;
             }
 
             if (this->door_x == x && this->door_y == y) {
-                this->squares[index] = 0;
+                this->squares[index] = OPEN;
                 this->square_height[index] = this->door_z;
             }
 

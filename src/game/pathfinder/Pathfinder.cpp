@@ -12,6 +12,7 @@
 #include <algorithm>
 
 #include "Pathfinder.h"
+#include "game/room/model/DynamicModel.h"
 
 /*
     Deconstructor for Pathfinder
@@ -65,8 +66,8 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
 
     RoomModel *model = room->getModel();
 
-    int map_size_x = model->getMapSizeX();
-    int map_size_y = model->getMapSizeY();
+	int map_size_x = model->map_size_x;
+	int map_size_y = model->map_size_y;
     std::map<int, std::map<int, std::shared_ptr<PathfinderNode>>> map;
 
     std::shared_ptr<PathfinderNode> node = std::make_shared<PathfinderNode>();
@@ -157,8 +158,8 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
 
     try {
 
-        int map_size_x = room->getModel()->getMapSizeX();
-        int map_size_y = room->getModel()->getMapSizeY();
+        int map_size_x = room->getModel()->map_size_x;
+        int map_size_y = room->getModel()->map_size_y;
 
         if (neighbour.x >= map_size_x 
             || neighbour.y >= map_size_y) {
@@ -178,11 +179,21 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
             return false;
         }
 
-        if (!room->getModel()->isValidSquare(neighbour.x, neighbour.y)) {
-            return false;
-        }
+		if (!room->getDynamicModel()->isValidTile(current.x, current.y)) {
+			return false;
+		}
 
-        /*if (current.getX() != neighbour.getX() 
+        /*if (current.x != neighbour.x 
+            && current.y != neighbour.y) {
+
+            bool diagonal1 = room->getDynamicModel()->isValidTile(neighbour.x, current.y);
+            bool diagonal2 = room->getDynamicModel()->isValidTile(current.x, neighbour.y);
+
+            if (!diagonal1 || !diagonal2)
+                return false;
+        }*/
+
+		/*if (current.getX() != neighbour.getX() 
             && current.getY() != neighbour.getY()) {
 
             bool diagonal1 = room->getModel()->isValidSquare(neighbour.getX(), current.getY());
@@ -190,7 +201,8 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
 
             if (!diagonal1 || !diagonal2)
                 return false;
-        }*/
+        }
+*/
 
         return true;
 

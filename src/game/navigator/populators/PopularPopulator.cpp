@@ -20,7 +20,7 @@ std::vector<Room*> PopularPopulator::populate(bool room_limit, Player* player) {
         }
 
         if (room->getData()->room_state == ROOM_STATE_INVISIBLE) {
-            if (!room->hasRights(player->getDetails()->id)) {
+            if (!room->hasRights(player)) {
                 continue;
             }
         }

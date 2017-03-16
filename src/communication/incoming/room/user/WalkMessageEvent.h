@@ -37,29 +37,26 @@ public:
         Position goal = room_user->goal;
         Position current = room_user->position;
 
-        int map_size_x = room->getModel()->getMapSizeX();
-        int map_size_y = room->getModel()->getMapSizeY();
+		int map_size_x = room->getModel()->map_size_x;
+		int map_size_y = room->getModel()->map_size_y;
 
         if (goal.x >= map_size_x || goal.x >= map_size_y) {
             return;
         }
 
-        if (goal.x == current.y && goal.x == current.y) {
+        if (goal.x == current.x && goal.x == current.y) {
             return;
         }
 
-        if (!Pathfinder::isValidStep(room, current, goal, false)) {
+		if (!room->getDynamicModel()->isValidTile(room_user->goal.x, room_user->goal.y)) {
             return;
         }
 
         auto path = Pathfinder::makePath(room_user->position, room_user->goal, room);
 
         if (path.size() == 0) {
-            cout << "return 3" << endl;
-            return; // TODO: Call pathfinder to retry again.
+            return;
         }
-
-        cout << "path size: " << path.size() << endl;
 
         room_user->setPath(path);
         room_user->is_walking = true;
