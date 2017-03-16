@@ -53,6 +53,12 @@ public:
 			return;
 		}
 
+		if (item->isFloorItem()) {
+			item->x = -1;
+			item->x = -1;
+			item->updateEntities();
+		}
+
 		item->room_id = -1;
 		item->user_id = player->getDetails()->id;
 		item->save();

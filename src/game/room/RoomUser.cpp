@@ -101,6 +101,7 @@ void RoomUser::reset() {
     this->statuses.clear();// = std::map<std::string, std::string>();
     this->path.clear();// = std::queue<Position>();
     this->room = nullptr;
+	this->current_item = nullptr;
     this->in_room = false;
     this->is_walking = false;
     this->is_loading_room = false;
@@ -159,20 +160,32 @@ void RoomUser::stopWalking() {
 	if (item != nullptr) {
 		if (item->getDefinition()->can_sit || item->getDefinition()->interaction_type == "bed") {
 
-			int item_height = item->z + item->getDefinition()->stack_height;
-			this->setRotation(item->rotation, true, false);
-
-			if (item->getDefinition()->can_sit) {
-				this->setStatus("sit", std::to_string(item_height + 0.05));
-			}
-			else {
-				this->setStatus("lay", std::to_string(item_height + 0.45));
-			}
-
-			this->updateStatus();
-
+			this->current_item = item;
+			this->currentItemTrigger();
 		}
 	}
+}
+
+void RoomUser::currentItemTrigger() {
+	
+	if (this->current_item == nullptr) {
+		this->setStatus("sit", "");
+		this->setStatus("lay", "");
+	}
+	else {
+
+		int item_height = this->current_item->z + this->current_item->getDefinition()->stack_height;
+		this->setRotation(this->current_item->rotation, true, false);
+
+		if (this->current_item->getDefinition()->can_sit) {
+			this->setStatus("sit", std::to_string(item_height + 0.05));
+		}
+		else {
+			this->setStatus("lay", std::to_string(item_height + 0.45));
+		}
+	}
+
+	this->updateStatus();
 }
 
 /*

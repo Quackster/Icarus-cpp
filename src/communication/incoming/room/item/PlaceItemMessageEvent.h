@@ -92,6 +92,11 @@ public:
 		}
 
 		item->room_id = room->id;
+
+		if (item->isFloorItem()) {
+			item->updateEntities();
+		}
+
 		item->save();
 
 		player->getInventory()->removeItem(item, false);

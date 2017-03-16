@@ -45,16 +45,12 @@ public:
 			int y = request.readInt();
 			int rotation = request.readInt();
 
-			bool regenerate_collision_map = false;
-
-			if (x != item->x || y != item->y) {
-				regenerate_collision_map = true;
-			}
-
 			item->x = x;
 			item->y = y;
 			item->rotation = rotation;
 			item->z = room->getModel()->getSquareHeight(item->x, item->y);
+
+			item->updateEntities();
 		} 
 		
 		if (item->isWallItem()) {

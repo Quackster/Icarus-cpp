@@ -79,6 +79,62 @@ std::string Item::getWallPosition() {
 	return ss.str();
 }
 
+void Item::updateEntities() {
+
+	std::vector<Entity*> affected_players;
+
+	Room *room = Icarus::getGame()->getRoomManager()->getRoom(this->room_id);
+
+	if (room == nullptr) {
+		return;
+	}
+
+	for (auto kvp : room->getEntities()) {
+
+		Entity *entity = kvp.second;
+
+		if (entity->getRoomUser()->current_item != nullptr) {
+			if (entity->getRoomUser()->current_item->id == this->id) {
+
+				if (!hasEntityCollision(entity->getRoomUser()->position.x, entity->getRoomUser()->position.y)) {
+					entity->getRoomUser()->current_item = nullptr;
+				}
+
+				affected_players.push_back(entity);
+			}
+
+		}
+		
+		// Moved item inside a player
+		else if (hasEntityCollision(entity->getRoomUser()->position.x, entity->getRoomUser()->position.y)) {
+			entity->getRoomUser()->current_item = this;
+			affected_players.push_back(entity);
+		}
+	}
+
+	for (Entity *entity : affected_players) {
+		entity->getRoomUser()->currentItemTrigger();
+	}
+}
+
+bool Item::hasEntityCollision(int x, int y) {
+
+	if (this->x == x && this->y == y) {
+		return true;
+	}
+	else {
+
+		for (auto kvp : this->getAffectedTiles()) {
+
+			if (kvp.second.x == x && kvp.second.y == y) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 /*
 	Returns true if it's a wall item, false if it isn't
 
