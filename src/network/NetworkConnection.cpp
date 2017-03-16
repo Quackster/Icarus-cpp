@@ -61,6 +61,9 @@ void NetworkConnection::recieveData() {
                     socket.async_receive(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
 
                         if (length > 0) {
+
+							cout << "Message: " << message_length << endl;
+
                             Request request(message_length, buffer);
 
                             if (request.getMessageId() > 0) {
