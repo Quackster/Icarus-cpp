@@ -47,7 +47,6 @@ private:
 	Room *room;
 	std::mutex mtx;
 
-	Item **items = nullptr;	
 	int *tile_flags = nullptr;
 	double *tile_height = nullptr;
 

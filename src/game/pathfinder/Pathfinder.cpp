@@ -12,6 +12,10 @@
 #include <algorithm>
 
 #include "Pathfinder.h"
+
+#include "game/item/Item.h"
+#include "game/item/definitions/ItemDefinition.h"
+
 #include "game/room/model/DynamicModel.h"
 
 /*
@@ -183,6 +187,24 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
 			return false;
 		}
 
+		/*bool valid = false;
+
+		Item *item = room->getDynamicModel()->getItemAtPosition(current.x, current.y);
+
+		if (item->getDefinition()->can_sit) {
+			valid = true;
+		}
+
+		if (item->getDefinition()->is_walkable) {
+			valid = true;
+		}
+
+		if (item->getDefinition()->interaction_type == "bed") {
+			valid = true;
+		}
+
+
+
         /*if (current.x != neighbour.x 
             && current.y != neighbour.y) {
 
@@ -191,20 +213,12 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
 
             if (!diagonal1 || !diagonal2)
                 return false;
-        }*/
-
-		/*if (current.getX() != neighbour.getX() 
-            && current.getY() != neighbour.getY()) {
-
-            bool diagonal1 = room->getModel()->isValidSquare(neighbour.getX(), current.getY());
-            bool diagonal2 = room->getModel()->isValidSquare(current.getX(), neighbour.getY());
-
-            if (!diagonal1 || !diagonal2)
-                return false;
         }
-*/
 
-        return true;
+        return valid;*/
+
+
+		return true;
 
     }
     catch (std::exception &e) {

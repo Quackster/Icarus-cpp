@@ -43,7 +43,25 @@ void DynamicModel::load() {
 	@return Item pointer
 */
 Item *DynamicModel::getItemAtPosition(int x, int y) {
-	return this->items[this->getSearchIndex(x, y)];
+	//return this->items[this->getSearchIndex(x, y)];
+
+	for (Item *item : this->room->getItems()) {
+
+		if (item->x == x && item->y == y) {
+			return item;
+
+		}
+
+		for (auto kvp : item->getAffectedTiles()) {
+
+			if (kvp.second.x == x && kvp.second.y == y) {
+				return item;
+
+			}
+		}
+	}
+
+	return nullptr;
 }
 
 /*
@@ -56,7 +74,7 @@ void DynamicModel::regenerateCollisionMaps() {
 
 	this->unload();
 
-	this->items = new Item*[map_size_x * map_size_y];
+	//this->items = new Item*[map_size_x * map_size_y];
 	this->tile_flags = new int[map_size_x * map_size_y];
 	this->tile_height = new double[map_size_x * map_size_y];
 
@@ -67,7 +85,6 @@ void DynamicModel::regenerateCollisionMaps() {
 
 			this->tile_flags[index] = room->getModel()->squares[index];
 			this->tile_height[index] = room->getModel()->square_height[index];
-			this->items[index] = nullptr;
 		}
 	}
 
@@ -84,8 +101,6 @@ void DynamicModel::regenerateCollisionMaps() {
 		}
 
 		int index = this->getSearchIndex(item->x, item->y);
-
-		this->items[index] = item;
 
 		bool valid = false;
 
@@ -106,12 +121,11 @@ void DynamicModel::regenerateCollisionMaps() {
 		for (auto kvp : item->getAffectedTiles()) {
 
 			int new_index = this->getSearchIndex(kvp.second.x, kvp.second.y);
-
-			this->items[new_index] = item;
 			this->addTileStates(new_index, item->getDefinition()->stack_height, valid);
 		}
-	}
 
+	}
+	
 	mtx.unlock();
 }
 
@@ -156,11 +170,6 @@ void DynamicModel::unload() {
 
 	this->tile_flags = nullptr;
 	this->tile_height = nullptr;
-	this->items = nullptr;
-
-	if (this->items != nullptr) {
-		delete[] this->items;
-	}
 
 	if (this->tile_flags != nullptr) {
 		delete[] this->tile_flags;
@@ -169,8 +178,6 @@ void DynamicModel::unload() {
 	if (this->tile_height != nullptr) {
 		delete[] this->tile_height;
 	}
-
-
 }
 
 /*
