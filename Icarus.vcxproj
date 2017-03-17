@@ -122,13 +122,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\Lib\boost_1_63_0;src;D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\include;D:\Program Files\MySQL\MySQL Connector C 6.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\lib\boost_1_63_0;src;D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\include;D:\Program Files\MySQL\MySQL Connector C 6.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>CPPCONN_PUBLIC_FUNC=;_WIN32_WINNT=0x0501;WIN32_LEAN_AND_MEAN=</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\lib\opt;D:\Program Files\MySQL\MySQL Connector C 6.1\lib;D:\Lib\boost_1_63_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\lib\opt;D:\Program Files\MySQL\MySQL Connector C 6.1\lib;D:\lib\boost_1_63_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>mysqlcppconn.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

@@ -71,7 +71,7 @@ Lets not forget **Configuration Properties > Linker > General > Additional Libra
 
 - **D:\Program Files\MySQL\MySQL Connector C++ 1.1.8**\lib\opt
 - **D:\Program Files\MySQL\MySQL Connector C 6.1**\lib
-- **D:\Lib\boost_1_63_0**\stage\x64\lib;
+- **D:\lib\boost_1_63_0**\stage\x64\lib;
 
 Replace the bolded parts with your installed paths, leave the \lib and \lib\opt where they are!
 
