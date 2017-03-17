@@ -16,11 +16,11 @@ This project isn't anywhere near being completed, don't even bother doing anythi
 
 **Download**
 
- -Download [Boost 1.63](http://www.boost.org/users/history/version_1_63_0.html) for Windows and extract it somewhere you will remember.
+ - Download [Boost version 1.63](http://www.boost.org/users/history/version_1_63_0.html) for Windows and extract it somewhere you will remember.
  
- - Download [MySQL C++ Connector](https://dev.mysql.com/downloads/connector/cpp/)
+ - Download [MySQL C++ Connector](https://dev.mysql.com/downloads/connector/cpp/) for Windows
  
- - Download [MySQL C Connector](https://dev.mysql.com/downloads/connector/c/)
+ - Download [MySQL C Connector](https://dev.mysql.com/downloads/connector/c/) for Windows
 
 **Compiling steps**
 
@@ -28,7 +28,7 @@ This project isn't anywhere near being completed, don't even bother doing anythi
 
 - Make sure you're installing C++ components, this is needed for compiling Boost.
 
-*Configuring Boost*
+*Configuring and Compiling Boost*
 
 Go to where you extracted boost, create a compile called compile.bat inside the folder where you see bootstrap.bat and add this:
 
@@ -46,9 +46,34 @@ pause
 
 Execute this file and it should compile, it takes a long time so don't worry if it takes more than 10 minutes.
 
+*Configuring MySQL Connectors*
+
+- Install both MySQL/C and MySQL/C++ Connector in the links above
+
+- Remember where you installed these, the paths are required
+
 - After that's done, please open Icarus.vcxproj and at the top of Visual Studio where you see **Debug | x86** please change it to **Release | x64** otherwise the program will **not** work correctly.
 
-- Go to the properties of the project **Configuration Properties > C/C++ > General** and make sure the paths are correct to wherever you extracted and compiled Boost.
+- Configure the correct Boost and MySQL Connector paths for **Configuration Properties > C/C++ > General > Additional Include Directories** 
+
+Where you see:
+
+- **D:\lib\boost_1_63_0**;
+- **D:\Program Files\MySQL\MySQL Connector C++ 1.1.8**\include
+- **D:\Program Files\MySQL\MySQL Connector C 6.1**\include
+- %(AdditionalIncludeDirectories)
+
+You'll want to replace these parts in bold with your installed paths, leave the /include at the end.
+
+- Lets not forget **Configuration Properties > Linker > General > Additional Library Directories**
+
+Where you see:
+
+- **D:\Program Files\MySQL\MySQL Connector C++ 1.1.8**\lib\opt
+- **D:\Program Files\MySQL\MySQL Connector C 6.1**\lib
+- **D:\Lib\boost_1_63_0**\stage\x64\lib;
+
+Replace the bolded parts with your installed paths, leave the \lib and \lib\opt where they are!
 
 ### Linux
 
