@@ -56,7 +56,7 @@ Execute this file and it should compile, it takes a long time so don't worry if 
 
 - Configure the correct Boost and MySQL Connector paths for **Configuration Properties > C/C++ > General > Additional Include Directories** 
 
-Where you see:
+*Where you see:*
 
 - **D:\lib\boost_1_63_0**;
 - **D:\Program Files\MySQL\MySQL Connector C++ 1.1.8**\include
@@ -65,9 +65,9 @@ Where you see:
 
 You'll want to replace these parts in bold with your installed paths, leave the /include at the end.
 
-- Lets not forget **Configuration Properties > Linker > General > Additional Library Directories**
+Lets not forget **Configuration Properties > Linker > General > Additional Library Directories**
 
-Where you see:
+*Where you see:*
 
 - **D:\Program Files\MySQL\MySQL Connector C++ 1.1.8**\lib\opt
 - **D:\Program Files\MySQL\MySQL Connector C 6.1**\lib
