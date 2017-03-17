@@ -155,6 +155,8 @@ void RoomUser::stopWalking() {
 		return;
 	}
 
+	bool no_current_item = false;
+
 	Item *item = this->room->getDynamicModel()->getItemAtPosition(this->position.x, this->position.y);
 
 	if (item != nullptr) {
@@ -163,6 +165,16 @@ void RoomUser::stopWalking() {
 			this->current_item = item;
 			this->currentItemTrigger();
 		}
+		else {
+			no_current_item = true;
+		}
+	}
+	else {
+		no_current_item = true;
+	}
+
+	if (no_current_item) {
+		this->current_item = nullptr;
 	}
 }
 
