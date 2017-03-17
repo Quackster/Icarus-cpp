@@ -329,7 +329,7 @@ void MessengerDao::readMessages(int user_id) {
 	try {
 
 		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
-		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE messenger_messages SET unread = 0 AND to_id = ?")); {
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE messenger_messages SET unread = 0 WHERE unread = 1 AND to_id = ?")); {
 			statement->setInt(1, user_id);
 		}
 
