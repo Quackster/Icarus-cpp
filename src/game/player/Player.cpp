@@ -55,31 +55,31 @@ Player::Player(NetworkConnection *network_connection) :
 */
 void Player::login() {
 
-    /*
-        Remove teh clones
-    */
-    if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(this->session_details->id) == 1) {
-        this->getNetworkConnection()->getSocket().close();
+	/*
+		Remove teh clones
+	*/
+	if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(this->session_details->id) == 1) {
+		this->getNetworkConnection()->getSocket().close();
 		return;
-    }
+	}
 
-    this->logged_in = true;    
-    
-    /*
-        Insert players into lookup dictionaries
-    */
-    Icarus::getPlayerManager()->getPlayersIDLookup()->insert(std::make_pair(this->session_details->id, this));
-    Icarus::getPlayerManager()->getPlayersUsernameLookup()->insert(std::make_pair(this->session_details->username, this));
+	this->logged_in = true;
 
-    /*
-        Load player variables
-    */
-    this->room_user = new RoomUser(this);
-    this->messenger = new Messenger(
-        this,
-        this->session_details->id, 
-        MessengerDao::getFriends(this->session_details->id), 
-        MessengerDao::getRequests(this->session_details->id));
+	/*
+		Insert players into lookup dictionaries
+	*/
+	Icarus::getPlayerManager()->getPlayersIDLookup()->insert(std::make_pair(this->session_details->id, this));
+	Icarus::getPlayerManager()->getPlayersUsernameLookup()->insert(std::make_pair(this->session_details->username, this));
+
+	/*
+		Load player variables
+	*/
+	this->room_user = new RoomUser(this);
+	this->messenger = new Messenger(
+		this,
+		this->session_details->id,
+		MessengerDao::getFriends(this->session_details->id),
+		MessengerDao::getRequests(this->session_details->id));
 
 	this->inventory = new Inventory(
 		this, ItemDao::getInventoryItems(this->session_details->id));
@@ -88,11 +88,19 @@ void Player::login() {
 		this->session_details->id);
 
 	/*
-        Cache room data
-    */
-    Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->id);
+		Cache room data
+	*/
+	Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->id);
 
-	//this->handleNewPlayer();
+	//
+	// If this is the user's first time logging in, lets give them
+	//   a starter room :-)
+	//
+	if (!this->session_details->has_logged_in) {
+		this->handleNewPlayer();
+	}
+
+	this->save();
 }
 
 /*
@@ -101,6 +109,13 @@ void Player::login() {
 	@return none
 */
 void Player::handleNewPlayer() {
+
+	if (this->session_details->has_logged_in) {
+		return;
+	}
+
+	this->session_details->has_logged_in = true;
+	this->save();
 
 	std::vector<RoomNewbie*> newbie_rooms = Icarus::getGame()->getRoomManager()->getNewbieRoomTemplates();
 

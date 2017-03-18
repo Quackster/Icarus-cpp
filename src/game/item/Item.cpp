@@ -52,7 +52,6 @@ Item::Item(int id, int user_id, int owner_id, int item_id, int room_id, std::str
 		}
 		else {
 			this->parseWallPosition(x + " " + y);
-
 		}
 	}
 }

@@ -77,10 +77,8 @@ std::vector<RoomNewbie*> RoomDao::getNewbieRoomSelection() {
 
 			RoomNewbie *room_newbie = new RoomNewbie();
 			room_newbie->model = result_set->getString("model");
-
-			std::vector<std::string> decorations = Utilities::split(result_set->getString("decoration"), ';');
-			room_newbie->wallpaper = decorations[0];
-			room_newbie->floorpaper = decorations[1];
+			room_newbie->wallpaper = result_set->getString("wallpaper");
+			room_newbie->floorpaper = result_set->getString("floor");
 
 			std::string items_datas = result_set->getString("items");
 
@@ -96,6 +94,8 @@ std::vector<RoomNewbie*> RoomDao::getNewbieRoomSelection() {
 						floor_item = false; // windowed item
 					}
 
+					cout << "Item data: " << item_data << endl;
+
 					std::vector<std::string> data = Utilities::split(item_data, ';');
 
 					RoomNewbieItem newbie_item;
@@ -106,6 +106,7 @@ std::vector<RoomNewbie*> RoomDao::getNewbieRoomSelection() {
 					if (floor_item) {
 						newbie_item.x = stoi(data[1]);
 						newbie_item.y = stoi(data[2]);
+						newbie_item.rotation = stoi(data[3]);
 
 					}
 					else {

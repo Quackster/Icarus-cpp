@@ -28,4 +28,5 @@ public:
     int credits;
     std::string machine_id;
     bool authenticated;
+	bool has_logged_in = true;
 };

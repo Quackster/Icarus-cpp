@@ -19,11 +19,11 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    try {
+   // try {
 		Icarus::boot();
-    } catch (std::exception& e) {
-        cout << endl << " Error occurred: " << e.what() << endl;
-    }
+    //} catch (std::exception& e) {
+        //cout << endl << " Error occurred: " << e.what() << endl;
+    //}
 
 	if (!close_when_crash) {
 		cout << endl << " Server has crashed, if you want the program to close when it crashes, start it with the command argument: -close" << endl;
