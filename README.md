@@ -18,9 +18,9 @@ This project isn't anywhere near being completed, don't even bother doing anythi
 
  - Download [Boost version 1.63](http://www.boost.org/users/history/version_1_63_0.html) for Windows and extract it somewhere you will remember.
  
- - Download [MySQL C++ Connector](https://dev.mysql.com/downloads/connector/cpp/) for Windows
+ - Download [MySQL C++ Connector](https://dev.mysql.com/downloads/connector/cpp/) **Windows (x86, 64-bit), MSI Installer**
  
- - Download [MySQL C Connector](https://dev.mysql.com/downloads/connector/c/) for Windows
+ - Download [MySQL C Connector](https://dev.mysql.com/downloads/connector/c/) **Windows (x86, 64-bit), MSI Installer**
 
 **Compiling steps**
 
