@@ -218,6 +218,7 @@ void UserDao::updateUser(int user_id, EntityDetails *details) {
         std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE users SET last_online = ?, has_logged_in = ? WHERE id = ?")); {
             statement->setInt64(1, Icarus::getUnixTimestamp());
+			statement->setBoolean(2, details->has_logged_in);
             statement->setInt(3, user_id);
 
         }
