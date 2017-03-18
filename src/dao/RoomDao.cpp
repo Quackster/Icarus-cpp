@@ -69,7 +69,7 @@ std::vector<RoomNewbie*> RoomDao::getNewbieRoomSelection() {
 	try {
 
 		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
-		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, model, decoration, items FROM rooms_newbie"));
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, model, wallpaper, floor, items FROM rooms_newbie"));
 
 		std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
 
@@ -84,17 +84,13 @@ std::vector<RoomNewbie*> RoomDao::getNewbieRoomSelection() {
 
 			if (items_datas.length() > 0) {
 
-				std::vector<std::string> new_items = Utilities::split(items_datas, '|');
-
-				for (std::string item_data : new_items) {
+				for (std::string item_data : Utilities::split(items_datas, '|')) {
 
 					bool floor_item = true;
 
 					if (Utilities::contains(item_data, " ")) {
 						floor_item = false; // windowed item
 					}
-
-					cout << "Item data: " << item_data << endl;
 
 					std::vector<std::string> data = Utilities::split(item_data, ';');
 
