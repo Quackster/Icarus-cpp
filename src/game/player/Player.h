@@ -24,6 +24,7 @@ public:
     bool hasFuse(std::string fuse_right);
 
     void login();
+	void handleNewPlayer();
     void save();
     void clear();
     void close();

@@ -20,6 +20,7 @@ public:
 	~Item();
 	
 	std::string getWallPosition();
+	void parseWallPosition(std::string position);
 
 	void updateEntities();
 	bool hasEntityCollision(int x, int y);
@@ -42,8 +43,8 @@ public:
 	int room_id = -1;
 	int x = -1;
 	int y = -1;
-	double z = -1;
-	int rotation = -1;
+	double z = 0;
+	int rotation = 0;
 	std::string extra_data = "";
 
 	char side;

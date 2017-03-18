@@ -12600,7 +12600,7 @@ CREATE TABLE `items` (
   `room_id` int(11) NOT NULL DEFAULT '-1',
   `x` varchar(50) DEFAULT NULL,
   `y` varchar(50) DEFAULT NULL,
-  `z` float NOT NULL DEFAULT '-1',
+  `z` float NOT NULL DEFAULT '0',
   `rotation` int(11) NOT NULL DEFAULT '0',
   `extra_data` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

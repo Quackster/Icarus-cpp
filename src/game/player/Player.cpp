@@ -9,12 +9,18 @@
 #include "stdafx.h"
 
 #include "game/player/Player.h"
+#include "game/room/misc/RoomNewbie.h"
 #include "game/messenger/MessengerUser.h"
 #include "game/item/inventory/Inventory.h"
+#include "game/item/Item.h"
+
+#include "misc/Utilities.h"
 
 #include "communication/outgoing/misc/BroadcastMessageAlertComposer.h"
 
 #include "dao/UserDao.h"
+#include "dao/RoomDao.h"
+#include "dao/NavigatorDao.h"
 #include "dao/MessengerDao.h"
 #include "dao/ItemDao.h"
 
@@ -85,6 +91,58 @@ void Player::login() {
         Cache room data
     */
     Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->id);
+
+	this->handleNewPlayer();
+}
+
+/*
+	Server handling for new player
+
+	@return none
+*/
+void Player::handleNewPlayer() {
+
+	std::vector<RoomNewbie*> newbie_rooms = Icarus::getGame()->getRoomManager()->getNewbieRoomTemplates();
+
+	if (newbie_rooms.size() < 1) {
+		return;
+	}
+
+	RoomNewbie *newbie_template = newbie_rooms.at(Icarus::getRandomNumber(0, newbie_rooms.size() - 1));
+
+	int room_id = NavigatorDao::createRoom(
+		this->session_details->username + "'s Room", 
+		"My first room", 
+		"model_newbie", 
+		this->session_details->id, 0, 30, 0);
+
+
+	Room *room = Icarus::getGame()->getRoomManager()->getRoom(room_id);
+
+	room->getData()->wallpaper = newbie_template->wallpaper;
+	room->getData()->floor = newbie_template->floorpaper;
+
+	for (RoomNewbieItem newbie_item : newbie_template->items) {
+
+		ItemDefinition *definition = newbie_item.definition;
+
+		Item *item = ItemDao::newItem(definition->id, this->session_details->id, "");
+		item->room_id = room->id;
+
+		if (newbie_item.x == -1) { // Wall item
+			item->parseWallPosition(newbie_item.position);
+
+		} 
+		else { // Floor item
+
+			item->x = newbie_item.x;
+			item->y = newbie_item.y;
+			item->z = room->getDynamicModel()->getTileHeight(item->x, item->y);
+		}
+
+		item->save();
+		room->getItems().push_back(item);
+	}
 }
 
 /*

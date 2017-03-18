@@ -26,7 +26,7 @@ public:
     static ExecutorService *createSchedulerService(int threads, std::chrono::milliseconds duration);
 
     void schedule(std::shared_ptr<Runnable> runnable);
-    void stop() { cout << "called stop func" << endl; this->running = false; }
+    void stop() { this->running = false; }
 
 private:
     bool running;

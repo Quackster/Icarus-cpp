@@ -704,5 +704,11 @@
     <ClInclude Include="src\game\room\model\DynamicModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\game\room\misc\RoomNewbie.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\room\misc\RoomNewbieItem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

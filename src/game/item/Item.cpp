@@ -51,16 +51,7 @@ Item::Item(int id, int user_id, int owner_id, int item_id, int room_id, std::str
 			this->rotation = rotation;
 		}
 		else {
-			std::vector<std::string> x_data = Utilities::split(x, ',');
-
-			this->side = x_data[0].c_str()[0];
-			this->width_x = stoi(x_data[1]);
-			this->width_y = stoi(x_data[2]);
-
-			std::vector<std::string> y_data = Utilities::split(y, ',');
-
-			this->length_x = stoi(y_data[0]);
-			this->length_y = stoi(y_data[1]);
+			this->parseWallPosition(x + " " + y);
 
 		}
 	}
@@ -80,6 +71,24 @@ std::string Item::getWallPosition() {
 	std::stringstream ss;
 	ss << ":w=" << this->width_x << "," << this->width_y << " " << "l=" << this->length_x << "," << this->length_y << " " << this->side;
 	return ss.str();
+}
+
+/*
+	Parse wall item with the arguments given, this should only exist in one place!
+
+	@param Wall position (left/right,width_x, width_y length_x, length_y) eg (r,3,6 2,7)
+	@return none
+*/
+void Item::parseWallPosition(std::string position) {
+
+	std::vector<std::string> x_data = Utilities::split(Utilities::split(position, ' ')[0], ',');
+	this->side = x_data[0].c_str()[0];
+	this->width_x = stoi(x_data[1]);
+	this->width_y = stoi(x_data[2]);
+
+	std::vector<std::string> y_data = Utilities::split(Utilities::split(position, ' ')[1], ',');
+	this->length_x = stoi(y_data[0]);
+	this->length_y = stoi(y_data[1]);
 }
 
 /*
