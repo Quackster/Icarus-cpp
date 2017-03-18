@@ -11,6 +11,9 @@
 #include "UserDao.h"
 #include "RoomDao.h"
 
+#include "game/room/misc/RoomNewbie.h"
+#include "game/item/definitions/ItemDefinition.h"
+
 #include "boot/Icarus.h"
 #include "misc/Utilities.h"
 
@@ -50,6 +53,82 @@ std::map<std::string, RoomModel*> RoomDao::getModels() {
     Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
 
     return models;
+
+}
+
+/*
+Get all room models
+
+@return room model ptr instances
+*/
+std::vector<RoomNewbie*> RoomDao::getNewbieRoomSelection() {
+
+	std::vector<RoomNewbie*> newbie_rooms;// = new std::map<std::string, RoomModel*>();
+	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+	try {
+
+		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, model, decoration, items FROM rooms_newbie"));
+
+		std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+
+		while (result_set->next()) {
+
+			RoomNewbie *room_newbie = new RoomNewbie();
+			room_newbie->model = result_set->getString("model");
+
+			std::vector<std::string> decorations = Utilities::split(result_set->getString("decoration"), ';');
+			room_newbie->wallpaper = decorations[0];
+			room_newbie->floorpaper = decorations[1];
+
+			std::string items_datas = result_set->getString("items");
+
+			if (items_datas.length() > 0) {
+
+				std::vector<std::string> new_items = Utilities::split(items_datas, '|');
+
+				for (std::string item_data : new_items) {
+
+					bool floor_item = true;
+
+					if (Utilities::contains(item_data, " ")) {
+						floor_item = false; // windowed item
+					}
+
+					std::vector<std::string> data = Utilities::split(item_data, ';');
+
+					RoomNewbieItem newbie_item;
+
+					newbie_item.item_id = stoi(data[0]);
+					newbie_item.definition = Icarus::getGame()->getItemManager()->getDefinitionByID(newbie_item.item_id);
+
+					if (floor_item) {
+						newbie_item.x = stoi(data[1]);
+						newbie_item.y = stoi(data[2]);
+
+					}
+					else {
+						newbie_item.position = data[1];
+					}
+
+					room_newbie->items.push_back(newbie_item);
+				}
+
+			}
+
+			newbie_rooms.push_back(room_newbie);
+
+		}
+
+	}
+	catch (sql::SQLException &e) {
+		Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+	}
+
+	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+	return newbie_rooms;
 
 }
 
