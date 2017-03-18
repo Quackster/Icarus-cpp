@@ -153,11 +153,12 @@ void Player::handleNewPlayer() {
 
 			item->x = newbie_item.x;
 			item->y = newbie_item.y;
+			item->rotation = newbie_item.rotation;
 			item->z = room->getDynamicModel()->getTileHeight(item->x, item->y);
 		}
 
 		item->save();
-		room->getItems().push_back(item);
+		delete item;
 	}
 }
 
