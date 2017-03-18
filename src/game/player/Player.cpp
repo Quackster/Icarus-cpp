@@ -92,7 +92,7 @@ void Player::login() {
     */
     Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->id);
 
-	this->handleNewPlayer();
+	//this->handleNewPlayer();
 }
 
 /*
@@ -121,6 +121,7 @@ void Player::handleNewPlayer() {
 
 	room->getData()->wallpaper = newbie_template->wallpaper;
 	room->getData()->floor = newbie_template->floorpaper;
+	room->save();
 
 	for (RoomNewbieItem newbie_item : newbie_template->items) {
 
