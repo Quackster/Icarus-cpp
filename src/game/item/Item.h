@@ -21,6 +21,8 @@ public:
 	
 	std::string getWallPosition();
 
+	void updateEntities();
+	bool hasEntityCollision(int x, int y);
 	void save();
 	void remove();
 

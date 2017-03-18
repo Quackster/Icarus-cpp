@@ -9,7 +9,6 @@
 #pragma once
 #include <map>
 #include <vector>
-
 #include "communication/streams/Response.h"
 #include "game/entities/Entity.h"
 #include "game/player/Player.h"

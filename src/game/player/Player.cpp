@@ -81,8 +81,6 @@ void Player::login() {
 	this->messenger_user = new MessengerUser(
 		this->session_details->id);
 
-
-    
 	/*
         Cache room data
     */

@@ -47,8 +47,6 @@ public:
 
 		if (item->isFloorItem()) {
 
-			cout << input << endl;
-
 			int x = stoi(data[1]);
 			int y = stoi(data[2]);
 			int rotation = stoi(data[3]);
@@ -63,7 +61,6 @@ public:
 			item->y = y;
 			item->rotation = rotation;
 			item->z = room->getDynamicModel()->getTileHeight(item->x, item->y);
-			
 		}
 
 		if (item->isWallItem()) {
@@ -93,12 +90,16 @@ public:
 		}
 
 		item->room_id = room->id;
+
+		if (item->isFloorItem()) {
+			item->updateEntities();
+		}
+
 		item->save();
 
 		player->getInventory()->removeItem(item, false);
 
 		room->getItems().push_back(item);
 		room->send(PlaceItemMessageComposer(item));
-		room->getDynamicModel()->regenerateCollisionMaps();
 	}
 };

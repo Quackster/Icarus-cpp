@@ -54,9 +54,9 @@ std::vector<Room*> RoomManager::getPlayerRooms(int user_id) {
 
     std::vector<Room*> rooms;
 
-    for (auto room_entry : this->rooms) {
+    for (auto kvp : this->rooms) {
 
-        Room* room = room_entry.second;
+        Room* room = kvp.second;
 
         if (room->getData()->owner_id == user_id) {
             rooms.push_back(room);
@@ -114,7 +114,7 @@ Room *RoomManager::getRoom(int room_id) {
 */
 void RoomManager::addRoom(Room *room) {
 
-    if (!this->hasRoom(room->getData()->id)) {
+    if (!this->hasRoom(room->id)) {
         this->rooms.insert(std::make_pair(room->id, room));
     }
 }
@@ -131,7 +131,6 @@ void RoomManager::deleteRoom(int room_id) {
 
         Room *room = this->getRoom(room_id);
         this->rooms.erase(room_id);
-
         delete room;
     }
 }

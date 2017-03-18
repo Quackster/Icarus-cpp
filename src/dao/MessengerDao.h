@@ -30,6 +30,7 @@ public:
     static bool newFriend(int sender, int receiver);
     static void offlineMessage(int to, int from, std::string message, bool offline = false);
     static std::map<std::string, int> getOfflineMessages(int user_id);
+	static void readMessages(int user_id);
 
 };
 

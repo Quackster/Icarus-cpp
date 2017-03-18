@@ -39,6 +39,8 @@ public:
             }
         }
 
+		MessengerDao::readMessages(player->getDetails()->id);
+
 		player->getMessenger()->initialised = true;
 		player->getMessenger()->sendStatus(false);
     }
