@@ -108,9 +108,9 @@ void Configuration::parse() {
             output_file << "##     Game config    ##" << endl;
             output_file << "########################" << endl;
             output_file << endl;
-            output_file << "thread.pool.size=" << processors << ";" << endl;
-            output_file << endl;
             output_file << "game.revision=PRODUCTION-201512012203-525044429;" << endl;
+            output_file << endl;
+            output_file << "thread.pool.size=" << processors << ";" << endl;
             output_file << endl;
             output_file << "chat.flood.max=5;" << endl;
             output_file << "chat.flood.seconds=4;" << endl;
@@ -118,7 +118,7 @@ void Configuration::parse() {
             output_file << endl;
             output_file << "room.idle.seconds=300;" << endl;
 			output_file << endl;
-			output_file << "newuser.create.newbie.room=true" << endl;
+			output_file << "newuser.create.newbie.room=false;" << endl;
         }
 
         output_file.close();
