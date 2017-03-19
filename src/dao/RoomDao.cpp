@@ -64,6 +64,11 @@ Get all room models
 std::vector<RoomNewbie*> RoomDao::getNewbieRoomSelection() {
 
 	std::vector<RoomNewbie*> newbie_rooms;// = new std::map<std::string, RoomModel*>();
+
+	if (!Icarus::getGameConfiguration()->getBool("newuser.create.newbie.room")) {
+		return newbie_rooms; // Don't bother running through with caching this data
+	}
+
 	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
 	try {
