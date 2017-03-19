@@ -11,13 +11,13 @@
 
 struct CatalogueTab
 {
-	int id;
-	int parent_id;
-	std::string caption;
-	int icon_colour;
-	int icon_image;
-	bool enabled;
-	int min_rank;
-	std::vector<CatalogueTab*> *child_tabs = new std::vector<CatalogueTab*>();
+    int id;
+    int parent_id;
+    std::string caption;
+    int icon_colour;
+    int icon_image;
+    bool enabled;
+    int min_rank;
+    std::vector<CatalogueTab*> *child_tabs = new std::vector<CatalogueTab*>();
 };
 

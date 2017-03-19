@@ -11,24 +11,24 @@
 
 int main(int argc, char* argv[]) {
 
-	bool close_when_crash = false;   
-	
-	if (argc > 1) {
+    bool close_when_crash = false;   
+    
+    if (argc > 1) {
         if (std::string(argv[1]) == "-close") {
-			close_when_crash = true;
+            close_when_crash = true;
         }
     }
 
     try {
-		Icarus::boot();
+        Icarus::boot();
     } catch (std::exception& e) {
         cout << endl << " Error occurred: " << e.what() << endl;
     }
 
-	if (!close_when_crash) {
-		cout << endl << " Server has crashed, if you want the program to close when it crashes, start it with the command argument: -close" << endl;
-		while (true);
-	}
+    if (!close_when_crash) {
+        cout << endl << " Server has crashed, if you want the program to close when it crashes, start it with the command argument: -close" << endl;
+        while (true);
+    }
 
     return 0;
 }

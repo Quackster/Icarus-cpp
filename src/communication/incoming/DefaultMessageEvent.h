@@ -12,7 +12,7 @@
 class DefaultMessageEvent : public MessageEvent {
 
 public:
-	DefaultMessageEvent() { }
+    DefaultMessageEvent() { }
 
-	void handle(Player *player, Request &request) { }
+    void handle(Player *player, Request &request) { }
 };

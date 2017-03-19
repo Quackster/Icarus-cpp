@@ -140,7 +140,7 @@ EntityDetails *UserDao::findUserByTicket(Player *player, std::string sso_ticket)
             details->figure = result_set->getString("figure");
             details->rank = result_set->getInt("rank");
             details->credits = result_set->getInt("credits");
-			details->has_logged_in = result_set->getBoolean("has_logged_in");
+            details->has_logged_in = result_set->getBoolean("has_logged_in");
         }
 
     }
@@ -218,7 +218,7 @@ void UserDao::updateUser(int user_id, EntityDetails *details) {
         std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
         std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE users SET last_online = ?, has_logged_in = ? WHERE id = ?")); {
             statement->setInt64(1, Icarus::getUnixTimestamp());
-			statement->setBoolean(2, details->has_logged_in);
+            statement->setBoolean(2, details->has_logged_in);
             statement->setInt(3, user_id);
 
         }

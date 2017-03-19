@@ -13,14 +13,14 @@
 #include <vector>
 
 struct CataloguePage {
-	int id = -1;
-	std::string caption;
-	int parent_id = -1;
-	std::string type;
-	std::string layout;
-	int minimum_rank;
+    int id = -1;
+    std::string caption;
+    int parent_id = -1;
+    std::string type;
+    std::string layout;
+    int minimum_rank;
 
-	std::vector<std::string> images;
-	std::vector<std::string> texts;
-	std::vector<CatalogueItem*> items;
+    std::vector<std::string> images;
+    std::vector<std::string> texts;
+    std::vector<CatalogueItem*> items;
 };

@@ -15,161 +15,161 @@
 #include "game/item/definitions/ItemDefinition.h"
 
 /*
-	The constructor for DynamicModel
+    The constructor for DynamicModel
 */
 DynamicModel::DynamicModel(Room *room) :
-	room(room) {
+    room(room) {
 
-	this->map_size_x = room->getModel()->map_size_x;
-	this->map_size_y = room->getModel()->map_size_y;
+    this->map_size_x = room->getModel()->map_size_x;
+    this->map_size_y = room->getModel()->map_size_y;
 }
 
 
 /*
-	Create the multi-dimensional arrays for storing data about each tile
+    Create the multi-dimensional arrays for storing data about each tile
 
-	@return none
+    @return none
 */
 void DynamicModel::load() {
 
 }
 
 /*
-	Returns an item at a given position, will return nullptr
-	if no item was found, will include the item's affected tiles
+    Returns an item at a given position, will return nullptr
+    if no item was found, will include the item's affected tiles
 
-	@param x coordinate
-	@param y coordinate
-	@return Item pointer
+    @param x coordinate
+    @param y coordinate
+    @return Item pointer
 */
 Item *DynamicModel::getItemAtPosition(int x, int y) {
 
-	std::vector<Item*> items = room->getItems(FLOOR_ITEM);
+    std::vector<Item*> items = room->getItems(FLOOR_ITEM);
 
-	for (int i = 0; i < items.size(); i++) {
+    for (int i = 0; i < items.size(); i++) {
 
-		Item *item = items.at(i);
+        Item *item = items.at(i);
 
-		if (item == nullptr) {
-			continue;
-		}
+        if (item == nullptr) {
+            continue;
+        }
 
-		if (item->x == x && item->y == y) {
-			return item;
-		}
+        if (item->x == x && item->y == y) {
+            return item;
+        }
 
-		for (auto kvp : item->getAffectedTiles()) {
+        for (auto kvp : item->getAffectedTiles()) {
 
-			if (kvp.second.x == x && kvp.second.y == y) {
-				return item;
-			}
-		}
-	}
+            if (kvp.second.x == x && kvp.second.y == y) {
+                return item;
+            }
+        }
+    }
 
-	return nullptr;
+    return nullptr;
 }
 
 std::vector<Item*> DynamicModel::getItemsAtPosition(int x, int y, bool single_tile) {
 
-	std::vector<Item*> found_items;
-	std::vector<Item*> items = room->getItems(FLOOR_ITEM);
+    std::vector<Item*> found_items;
+    std::vector<Item*> items = room->getItems(FLOOR_ITEM);
 
-	for (int i = 0; i < items.size(); i++) {
+    for (int i = 0; i < items.size(); i++) {
 
-		Item *item = items.at(i);
+        Item *item = items.at(i);
 
-		if (item == nullptr) {
-			continue;
-		}
+        if (item == nullptr) {
+            continue;
+        }
 
-		if (item->x == x && item->y == y) {
-			found_items.push_back(item);
-		}
-		else {
+        if (item->x == x && item->y == y) {
+            found_items.push_back(item);
+        }
+        else {
 
-			if (!single_tile) {
+            if (!single_tile) {
 
-				for (auto kvp : item->getAffectedTiles()) {
+                for (auto kvp : item->getAffectedTiles()) {
 
-					if (kvp.second.x == x && kvp.second.y == y) {
-						found_items.push_back(item);
-					}
-				}
-			}
-		}
-	}
+                    if (kvp.second.x == x && kvp.second.y == y) {
+                        found_items.push_back(item);
+                    }
+                }
+            }
+        }
+    }
 
-	return found_items;
+    return found_items;
 }
 
 
 double DynamicModel::getTileHeight(int x, int y) {//const { return tile_height[x * map_size_y + y]; }
 
-	double final_height = room->getModel()->getSquareHeight(x, y);
+    double final_height = room->getModel()->getSquareHeight(x, y);
 
-	std::vector<Item*> items = this->getItemsAtPosition(x, y, true);
+    std::vector<Item*> items = this->getItemsAtPosition(x, y, true);
 
-	for (int i = 0; i < items.size(); i++) {
+    for (int i = 0; i < items.size(); i++) {
 
-		Item *item = items.at(i);
+        Item *item = items.at(i);
 
-		if (item == nullptr) {
-			continue;
-		}
+        if (item == nullptr) {
+            continue;
+        }
 
-		if (item->getDefinition()->can_sit ||
-			item->getDefinition()->is_walkable ||
-			item->getDefinition()->interaction_type == "bed") {
-			return final_height;
-		}
-		else {
+        if (item->getDefinition()->can_sit ||
+            item->getDefinition()->is_walkable ||
+            item->getDefinition()->interaction_type == "bed") {
+            return final_height;
+        }
+        else {
 
-			final_height += item->getDefinition()->stack_height;
-		}
-	}
+            final_height += item->getDefinition()->stack_height;
+        }
+    }
 
-	return final_height;
+    return final_height;
 }
 
 bool DynamicModel::isValidTile(int x, int y) {
 
-	bool valid = false;
+    bool valid = false;
 
-	Item *item = this->getItemAtPosition(x, y);
+    Item *item = this->getItemAtPosition(x, y);
 
-	if (item == nullptr) {
-		return true;
-	}
+    if (item == nullptr) {
+        return true;
+    }
 
-	if (item->getDefinition()->can_sit) {
-		valid = true;
-	}
+    if (item->getDefinition()->can_sit) {
+        valid = true;
+    }
 
-	if (item->getDefinition()->is_walkable) {
-		valid = true;
-	}
+    if (item->getDefinition()->is_walkable) {
+        valid = true;
+    }
 
-	if (item->getDefinition()->interaction_type == "bed") {
-		valid = true;
-	}
+    if (item->getDefinition()->interaction_type == "bed") {
+        valid = true;
+    }
 
-	return valid;
+    return valid;
 }
 
 /*
-	Creates the search index for array lookup with the given 
-	x and y coordinates (very fast lookup method!) :)
+    Creates the search index for array lookup with the given 
+    x and y coordinates (very fast lookup method!) :)
 
-	@param x coordinate
-	@param y coordinate
-	@return array lookup index formula
+    @param x coordinate
+    @param y coordinate
+    @return array lookup index formula
 */
 int DynamicModel::getSearchIndex(int x, int y) {
-	return x * this->map_size_y + y;
+    return x * this->map_size_y + y;
 }
 
 /*
-	Deconstructor for DynamicModel
+    Deconstructor for DynamicModel
 */
 DynamicModel::~DynamicModel() {
 

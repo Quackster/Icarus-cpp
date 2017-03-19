@@ -22,14 +22,14 @@ Game::Game()  { }
 */
 void Game::createGame() {
 
-	// Load game order
-	this->navigator_manager = new NavigatorManager();
-	this->executor_service = ExecutorService::createSchedulerService(Icarus::getGameConfiguration()->getInt("thread.pool.size"), std::chrono::milliseconds(500));
-	this->furniture_manager = new ItemManager();
-	this->catalogue_manager = new CatalogueManager();
-	this->room_manager = new RoomManager();
-	
-	this->catalogue_manager->assignFurnitureData();
+    // Load game order
+    this->navigator_manager = new NavigatorManager();
+    this->executor_service = ExecutorService::createSchedulerService(Icarus::getGameConfiguration()->getInt("thread.pool.size"), std::chrono::milliseconds(500));
+    this->furniture_manager = new ItemManager();
+    this->catalogue_manager = new CatalogueManager();
+    this->room_manager = new RoomManager();
+    
+    this->catalogue_manager->assignFurnitureData();
     RoomDao::addPublicRooms();
 }
 

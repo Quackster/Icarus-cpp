@@ -324,21 +324,21 @@ std::map<std::string, int> MessengerDao::getOfflineMessages(int user_id) {
 
 void MessengerDao::readMessages(int user_id) {
 
-	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
-	try {
+    try {
 
-		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
-		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE messenger_messages SET unread = 0 WHERE unread = 1 AND to_id = ?")); {
-			statement->setInt(1, user_id);
-		}
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE messenger_messages SET unread = 0 WHERE unread = 1 AND to_id = ?")); {
+            statement->setInt(1, user_id);
+        }
 
-		statement->execute();
-	}
-	catch (sql::SQLException &e) {
-		Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
-	}
+        statement->execute();
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
 
-	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
 
 }

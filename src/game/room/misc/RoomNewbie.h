@@ -14,8 +14,8 @@
 
 struct RoomNewbie {
 
-	std::string model;
-	std::string wallpaper;
-	std::string floorpaper;
-	std::vector<RoomNewbieItem> items;
+    std::string model;
+    std::string wallpaper;
+    std::string floorpaper;
+    std::vector<RoomNewbieItem> items;
 };

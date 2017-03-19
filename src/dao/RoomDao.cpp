@@ -63,74 +63,74 @@ Get all room models
 */
 std::vector<RoomNewbie*> RoomDao::getNewbieRoomSelection() {
 
-	std::vector<RoomNewbie*> newbie_rooms;// = new std::map<std::string, RoomModel*>();
+    std::vector<RoomNewbie*> newbie_rooms;// = new std::map<std::string, RoomModel*>();
 
-	if (!Icarus::getGameConfiguration()->getBool("newuser.create.newbie.room")) {
-		return newbie_rooms; // Don't bother running through with caching this data
-	}
+    if (!Icarus::getGameConfiguration()->getBool("newuser.create.newbie.room")) {
+        return newbie_rooms; // Don't bother running through with caching this data
+    }
 
-	std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
 
-	try {
+    try {
 
-		std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
-		std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, model, wallpaper, floor, items FROM rooms_newbie"));
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, model, wallpaper, floor, items FROM rooms_newbie"));
 
-		std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+        std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
 
-		while (result_set->next()) {
+        while (result_set->next()) {
 
-			RoomNewbie *room_newbie = new RoomNewbie();
-			room_newbie->model = result_set->getString("model");
-			room_newbie->wallpaper = result_set->getString("wallpaper");
-			room_newbie->floorpaper = result_set->getString("floor");
+            RoomNewbie *room_newbie = new RoomNewbie();
+            room_newbie->model = result_set->getString("model");
+            room_newbie->wallpaper = result_set->getString("wallpaper");
+            room_newbie->floorpaper = result_set->getString("floor");
 
-			std::string items_datas = result_set->getString("items");
+            std::string items_datas = result_set->getString("items");
 
-			if (items_datas.length() > 0) {
+            if (items_datas.length() > 0) {
 
-				for (std::string item_data : Utilities::split(items_datas, '|')) {
+                for (std::string item_data : Utilities::split(items_datas, '|')) {
 
-					bool floor_item = true;
+                    bool floor_item = true;
 
-					if (Utilities::contains(item_data, " ")) {
-						floor_item = false; // windowed item
-					}
+                    if (Utilities::contains(item_data, " ")) {
+                        floor_item = false; // windowed item
+                    }
 
-					std::vector<std::string> data = Utilities::split(item_data, ';');
+                    std::vector<std::string> data = Utilities::split(item_data, ';');
 
-					RoomNewbieItem newbie_item;
+                    RoomNewbieItem newbie_item;
 
-					newbie_item.item_id = stoi(data[0]);
-					newbie_item.definition = Icarus::getGame()->getItemManager()->getDefinitionByID(newbie_item.item_id);
+                    newbie_item.item_id = stoi(data[0]);
+                    newbie_item.definition = Icarus::getGame()->getItemManager()->getDefinitionByID(newbie_item.item_id);
 
-					if (floor_item) {
-						newbie_item.x = stoi(data[1]);
-						newbie_item.y = stoi(data[2]);
-						newbie_item.rotation = stoi(data[3]);
+                    if (floor_item) {
+                        newbie_item.x = stoi(data[1]);
+                        newbie_item.y = stoi(data[2]);
+                        newbie_item.rotation = stoi(data[3]);
 
-					}
-					else {
-						newbie_item.position = data[1];
-					}
+                    }
+                    else {
+                        newbie_item.position = data[1];
+                    }
 
-					room_newbie->items.push_back(newbie_item);
-				}
+                    room_newbie->items.push_back(newbie_item);
+                }
 
-			}
+            }
 
-			newbie_rooms.push_back(room_newbie);
+            newbie_rooms.push_back(room_newbie);
 
-		}
+        }
 
-	}
-	catch (sql::SQLException &e) {
-		Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
-	}
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
 
-	Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
 
-	return newbie_rooms;
+    return newbie_rooms;
 
 }
 
@@ -417,9 +417,9 @@ void RoomDao::updateRoom(int room_id, Room *room) {
             statement->setInt(20, room_data->chat_distance);
             statement->setInt(21, room_data->chat_flood);
             statement->setString(22, room_data->password);
-			statement->setString(23, room_data->wallpaper);
-			statement->setString(24, room_data->floor);
-			statement->setString(25, room_data->outside);
+            statement->setString(23, room_data->wallpaper);
+            statement->setString(24, room_data->floor);
+            statement->setString(25, room_data->outside);
 
             statement->setInt(26, room_data->id);
         }

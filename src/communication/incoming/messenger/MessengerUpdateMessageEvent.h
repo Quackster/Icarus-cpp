@@ -19,9 +19,9 @@
 class MessengerUpdateMessageEvent : public MessageEvent {
 
 public:
-	MessengerUpdateMessageEvent() { }
+    MessengerUpdateMessageEvent() { }
 
     void handle(Player *player, Request &request) {
-		cout << "MESSENGER UPDATE!!" << endl;
+        cout << "MESSENGER UPDATE!!" << endl;
     }
 };

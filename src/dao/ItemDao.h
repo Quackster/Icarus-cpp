@@ -18,16 +18,16 @@ class ItemDao
 {
 
 private:
-	ItemDao() { };
+    ItemDao() { };
 
 public:
     static std::map<int, ItemDefinition*> getItemDefinitions();
 
-	static std::vector<Item*> getInventoryItems(int user_id);
-	static std::vector<Item*> getRoomItems(int room_id);
+    static std::vector<Item*> getInventoryItems(int user_id);
+    static std::vector<Item*> getRoomItems(int room_id);
 
-	static Item *newItem(int item_id, int owner_id, std::string extra_data);
-	static void save(Item *item);
-	static void remove(Item *item);
+    static Item *newItem(int item_id, int owner_id, std::string extra_data);
+    static void save(Item *item);
+    static void remove(Item *item);
 };
 

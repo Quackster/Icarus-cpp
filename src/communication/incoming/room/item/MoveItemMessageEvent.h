@@ -17,50 +17,50 @@
 class MoveItemMessageEvent : public MessageEvent {
 
 public:
-	MoveItemMessageEvent() { }
+    MoveItemMessageEvent() { }
 
-	void handle(Player *player, Request &request) {
+    void handle(Player *player, Request &request) {
 
-		if (!player->getRoomUser()->in_room) {
-			return;
-		}
+        if (!player->getRoomUser()->in_room) {
+            return;
+        }
 
-		Room *room = player->getRoomUser()->getRoom();
+        Room *room = player->getRoomUser()->getRoom();
 
-		if (!room->hasRights(player)) {
-			return;
-		}
+        if (!room->hasRights(player)) {
+            return;
+        }
 
-		int item_id = request.readInt();
+        int item_id = request.readInt();
 
-		Item *item = room->getItem(item_id);
+        Item *item = room->getItem(item_id);
 
-		if (item == nullptr) {
-			return;
-		}
+        if (item == nullptr) {
+            return;
+        }
 
-		if (item->isFloorItem()) {
+        if (item->isFloorItem()) {
 
-			int x = request.readInt();
-			int y = request.readInt();
-			int rotation = request.readInt();
+            int x = request.readInt();
+            int y = request.readInt();
+            int rotation = request.readInt();
 
-			item->x = x;
-			item->y = y;
-			item->rotation = rotation;
-			item->z = room->getModel()->getSquareHeight(item->x, item->y);
+            item->x = x;
+            item->y = y;
+            item->rotation = rotation;
+            item->z = room->getModel()->getSquareHeight(item->x, item->y);
 
-			item->updateEntities();
-		} 
-		
-		if (item->isWallItem()) {
-			std::string input = request.readString();
-			std::vector<std::string> pos = Utilities::split(Utilities::split(input, ':')[1], ' ');
-			item->parseWallPosition(pos[2] + "," + pos[0].substr(2) + " " + pos[1].substr(2));
+            item->updateEntities();
+        } 
+        
+        if (item->isWallItem()) {
+            std::string input = request.readString();
+            std::vector<std::string> pos = Utilities::split(Utilities::split(input, ':')[1], ' ');
+            item->parseWallPosition(pos[2] + "," + pos[0].substr(2) + " " + pos[1].substr(2));
 
-		}
-		
-		item->save();
-		room->send(MoveItemMessageComposer(item));
-	}
+        }
+        
+        item->save();
+        room->send(MoveItemMessageComposer(item));
+    }
 };

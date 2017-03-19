@@ -17,50 +17,50 @@
 #include "ItemManager.h"
 
 /*
-	Constructor for Furniture
+    Constructor for Furniture
 */
 ItemManager::ItemManager() :
-	id_lookup(ItemDao::getItemDefinitions()) { 
+    id_lookup(ItemDao::getItemDefinitions()) { 
 
-	std::map<std::string, std::string> interaction_types;
+    std::map<std::string, std::string> interaction_types;
 
-	for (auto furniture : this->id_lookup) {
-		this->sprite_lookup[furniture.first] = furniture.second;
-	}
+    for (auto furniture : this->id_lookup) {
+        this->sprite_lookup[furniture.first] = furniture.second;
+    }
 }
 
 /*
-	Get item definitiion instance by item id
+    Get item definitiion instance by item id
 
-	@param item id
-	@return item definition
+    @param item id
+    @return item definition
 */
 ItemDefinition *ItemManager::getDefinitionByID(int item_id) {
 
-	if (this->id_lookup.count(item_id) > 0) {
-		return this->id_lookup.find(item_id)->second;
-	}
+    if (this->id_lookup.count(item_id) > 0) {
+        return this->id_lookup.find(item_id)->second;
+    }
 
-	return nullptr;
+    return nullptr;
 }
 
 /*
-	Get item definitiion instance by sprite id
+    Get item definitiion instance by sprite id
 
-	@param sprite id
-	@return item definition
+    @param sprite id
+    @return item definition
 */
 ItemDefinition *ItemManager::getDefinitionBySpriteID(int item_id) {
 
-	if (this->sprite_lookup.count(item_id) > 0) {
-		return this->sprite_lookup.find(item_id)->second;
-	}
+    if (this->sprite_lookup.count(item_id) > 0) {
+        return this->sprite_lookup.find(item_id)->second;
+    }
 
-	return nullptr;
+    return nullptr;
 }
 
 /*
-	Item manager deconstructor
+    Item manager deconstructor
 */
 ItemManager::~ItemManager()
 {

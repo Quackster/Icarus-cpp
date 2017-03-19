@@ -23,16 +23,16 @@ public:
     double getSquareHeight(int x, int y) const { return square_height[x * map_size_y + y]; }
     int *getSquares() { return squares; }
     const bool isValidSquare(int x, int y) const { 
-		
-		if (x >= this->map_size_x || !(x >= 0)) {
-			return 0;
-		}
+        
+        if (x >= this->map_size_x || !(x >= 0)) {
+            return 0;
+        }
 
-		if (y >= this->map_size_y || !(y >= 0)) {
-			return 0;
-		}
+        if (y >= this->map_size_y || !(y >= 0)) {
+            return 0;
+        }
 
-		return squares[x * map_size_y + y] == 0; }
+        return squares[x * map_size_y + y] == 0; }
 
     const int getRandomX();
     const int getRandomY();

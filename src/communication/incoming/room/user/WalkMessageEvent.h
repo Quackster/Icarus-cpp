@@ -37,8 +37,8 @@ public:
         Position goal = room_user->goal;
         Position current = room_user->position;
 
-		int map_size_x = room->getModel()->map_size_x;
-		int map_size_y = room->getModel()->map_size_y;
+        int map_size_x = room->getModel()->map_size_x;
+        int map_size_y = room->getModel()->map_size_y;
 
         if (goal.x >= map_size_x || goal.x >= map_size_y) {
             return;
@@ -48,7 +48,7 @@ public:
             return;
         }
 
-		if (!room->getDynamicModel()->isValidTile(room_user->goal.x, room_user->goal.y)) {
+        if (!room->getDynamicModel()->isValidTile(room_user->goal.x, room_user->goal.y)) {
             return;
         }
 

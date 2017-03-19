@@ -24,12 +24,12 @@ public:
     bool hasFuse(std::string fuse_right);
 
     void login();
-	void handleNewPlayer();
+    void handleNewPlayer();
     void save();
     void clear();
     void close();
     void send(const MessageComposer &composer);
-	void sendAlert(const std::string alert_message, const std::string url = "");
+    void sendAlert(const std::string alert_message, const std::string url = "");
 
     NetworkConnection *getNetworkConnection() { return this->network_connection; }
     std::string getUniqueId() { return this->unique_id; }
@@ -40,11 +40,11 @@ public:
         return this->room_user; 
     }
 
-	std::vector<Room*> getRooms();
+    std::vector<Room*> getRooms();
     
     Messenger *getMessenger() { return this->messenger; }
-	MessengerUser *getMessengerUser() { return this->messenger_user; }
-	Inventory *getInventory() { return this->inventory; }
+    MessengerUser *getMessengerUser() { return this->messenger_user; }
+    Inventory *getInventory() { return this->inventory; }
     bool authenticated() { return logged_in; }
     bool disposed() { return disconnected; }
 
@@ -58,8 +58,8 @@ private:
     EntityDetails *session_details = nullptr;
     RoomUser *room_user = nullptr;
     Messenger *messenger = nullptr;
-	MessengerUser *messenger_user = nullptr;
-	Inventory *inventory = nullptr;
+    MessengerUser *messenger_user = nullptr;
+    Inventory *inventory = nullptr;
     std::string unique_id;
     bool logged_in;
     bool disconnected;

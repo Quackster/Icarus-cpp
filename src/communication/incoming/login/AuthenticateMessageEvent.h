@@ -31,18 +31,18 @@ public:
             session->getNetworkConnection()->getSocket().close();
             return;
         }
-		else {
+        else {
 
-			EntityDetails *details = UserDao::findUserByTicket(session, sso_ticket);
+            EntityDetails *details = UserDao::findUserByTicket(session, sso_ticket);
 
-			if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(details->id) > 0) {
-				session->getNetworkConnection()->getSocket().close();
-				delete details;
-				return;
-			}
+            if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(details->id) > 0) {
+                session->getNetworkConnection()->getSocket().close();
+                delete details;
+                return;
+            }
 
-			session->setDetails(details);
-		}
+            session->setDetails(details);
+        }
 
         session->send(AuthenticateMessageComposer());
         session->send(UniqueMachineIDMessageComposer(""));// session->getUniqueId()));

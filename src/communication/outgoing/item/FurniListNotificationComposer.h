@@ -15,24 +15,24 @@
 class FurniListNotificationComposer : public MessageComposer {
 
 public:
-	FurniListNotificationComposer(int item_id, int type) :
-		item_id(item_id),
-		type(type){ }
+    FurniListNotificationComposer(int item_id, int type) :
+        item_id(item_id),
+        type(type){ }
 
-	const Response compose() const {
-		Response response = this->createResponse();
-		response.writeInt(1);
-		response.writeInt(type);
-		response.writeInt(1);
-		response.writeInt(item_id);
-		return response;
-	}
+    const Response compose() const {
+        Response response = this->createResponse();
+        response.writeInt(1);
+        response.writeInt(type);
+        response.writeInt(1);
+        response.writeInt(item_id);
+        return response;
+    }
 
-	const int getHeader() const {
-		return Outgoing::FurniListNotificationComposer;
-	}
+    const int getHeader() const {
+        return Outgoing::FurniListNotificationComposer;
+    }
 
 private:
-	int item_id;
-	int type;
+    int item_id;
+    int type;
 };

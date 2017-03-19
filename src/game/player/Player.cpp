@@ -39,9 +39,9 @@ Player::Player(NetworkConnection *network_connection) :
     logged_in(false),
     disconnected(false) {
 
-	if (network_connection == nullptr) {
-		return;
-	}
+    if (network_connection == nullptr) {
+        return;
+    }
     
     if (Icarus::getLogConfiguration()->getBool("log.player.connect")) {
         cout << " [SESSION] Client connected with ID: " << this->getNetworkConnection()->getConnectionId() << endl;
@@ -55,114 +55,114 @@ Player::Player(NetworkConnection *network_connection) :
 */
 void Player::login() {
 
-	/*
-		Remove teh clones
-	*/
-	if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(this->session_details->id) == 1) {
-		this->getNetworkConnection()->getSocket().close();
-		return;
-	}
+    /*
+        Remove teh clones
+    */
+    if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(this->session_details->id) == 1) {
+        this->getNetworkConnection()->getSocket().close();
+        return;
+    }
 
-	this->logged_in = true;
+    this->logged_in = true;
 
-	/*
-		Insert players into lookup dictionaries
-	*/
-	Icarus::getPlayerManager()->getPlayersIDLookup()->insert(std::make_pair(this->session_details->id, this));
-	Icarus::getPlayerManager()->getPlayersUsernameLookup()->insert(std::make_pair(this->session_details->username, this));
+    /*
+        Insert players into lookup dictionaries
+    */
+    Icarus::getPlayerManager()->getPlayersIDLookup()->insert(std::make_pair(this->session_details->id, this));
+    Icarus::getPlayerManager()->getPlayersUsernameLookup()->insert(std::make_pair(this->session_details->username, this));
 
-	/*
-		Load player variables
-	*/
-	this->room_user = new RoomUser(this);
-	this->messenger = new Messenger(
-		this,
-		this->session_details->id,
-		MessengerDao::getFriends(this->session_details->id),
-		MessengerDao::getRequests(this->session_details->id));
+    /*
+        Load player variables
+    */
+    this->room_user = new RoomUser(this);
+    this->messenger = new Messenger(
+        this,
+        this->session_details->id,
+        MessengerDao::getFriends(this->session_details->id),
+        MessengerDao::getRequests(this->session_details->id));
 
-	this->inventory = new Inventory(
-		this, ItemDao::getInventoryItems(this->session_details->id));
+    this->inventory = new Inventory(
+        this, ItemDao::getInventoryItems(this->session_details->id));
 
-	this->messenger_user = new MessengerUser(
-		this->session_details->id);
+    this->messenger_user = new MessengerUser(
+        this->session_details->id);
 
-	/*
-		Cache room data
-	*/
-	Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->id);
+    /*
+        Cache room data
+    */
+    Icarus::getGame()->getRoomManager()->createPlayerRooms(this->session_details->id);
 
-	//
-	// If this is the user's first time logging in, lets give them
-	//   a starter room :-)
-	//
-	if (!this->session_details->has_logged_in) {
-		this->handleNewPlayer();
-	}
+    //
+    // If this is the user's first time logging in, lets give them
+    //   a starter room :-)
+    //
+    if (!this->session_details->has_logged_in) {
+        this->handleNewPlayer();
+    }
 
-	this->save();
+    this->save();
 }
 
 /*
-	Server handling for new player
+    Server handling for new player
 
-	@return none
+    @return none
 */
 void Player::handleNewPlayer() {
 
-	if (this->session_details->has_logged_in) {
-		return;
-	}
+    if (this->session_details->has_logged_in) {
+        return;
+    }
 
-	this->session_details->has_logged_in = true;
-	this->save();
+    this->session_details->has_logged_in = true;
+    this->save();
 
-	if (Icarus::getGameConfiguration()->getBool("newuser.create.newbie.room")) {
+    if (Icarus::getGameConfiguration()->getBool("newuser.create.newbie.room")) {
 
-		std::vector<RoomNewbie*> newbie_rooms = Icarus::getGame()->getRoomManager()->getNewbieRoomTemplates();
+        std::vector<RoomNewbie*> newbie_rooms = Icarus::getGame()->getRoomManager()->getNewbieRoomTemplates();
 
-		if (newbie_rooms.size() < 1) {
-			return;
-		}
+        if (newbie_rooms.size() < 1) {
+            return;
+        }
 
-		RoomNewbie *newbie_template = newbie_rooms.at(Icarus::getRandomNumber(0, newbie_rooms.size() - 1));
+        RoomNewbie *newbie_template = newbie_rooms.at(Icarus::getRandomNumber(0, newbie_rooms.size() - 1));
 
-		int room_id = NavigatorDao::createRoom(
-			this->session_details->username + "'s Room",
-			"My first room",
-			"model_newbie",
-			this->session_details->id, 0, 30, 0);
+        int room_id = NavigatorDao::createRoom(
+            this->session_details->username + "'s Room",
+            "My first room",
+            "model_newbie",
+            this->session_details->id, 0, 30, 0);
 
 
-		Room *room = Icarus::getGame()->getRoomManager()->getRoom(room_id);
+        Room *room = Icarus::getGame()->getRoomManager()->getRoom(room_id);
 
-		room->getData()->wallpaper = newbie_template->wallpaper;
-		room->getData()->floor = newbie_template->floorpaper;
-		room->save();
+        room->getData()->wallpaper = newbie_template->wallpaper;
+        room->getData()->floor = newbie_template->floorpaper;
+        room->save();
 
-		for (RoomNewbieItem newbie_item : newbie_template->items) {
+        for (RoomNewbieItem newbie_item : newbie_template->items) {
 
-			ItemDefinition *definition = newbie_item.definition;
+            ItemDefinition *definition = newbie_item.definition;
 
-			Item *item = ItemDao::newItem(definition->id, this->session_details->id, "");
-			item->room_id = room->id;
+            Item *item = ItemDao::newItem(definition->id, this->session_details->id, "");
+            item->room_id = room->id;
 
-			if (newbie_item.x == -1) { // Wall item
-				item->parseWallPosition(newbie_item.position);
+            if (newbie_item.x == -1) { // Wall item
+                item->parseWallPosition(newbie_item.position);
 
-			}
-			else { // Floor item
+            }
+            else { // Floor item
 
-				item->x = newbie_item.x;
-				item->y = newbie_item.y;
-				item->rotation = newbie_item.rotation;
-				item->z = room->getDynamicModel()->getTileHeight(item->x, item->y);
-			}
+                item->x = newbie_item.x;
+                item->y = newbie_item.y;
+                item->rotation = newbie_item.rotation;
+                item->z = room->getDynamicModel()->getTileHeight(item->x, item->y);
+            }
 
-			item->save();
-			delete item;
-		}
-	}
+            item->save();
+            delete item;
+        }
+    }
 }
 
 /*
@@ -194,14 +194,14 @@ void Player::send(const MessageComposer &composer) {
 }
 
 /*
-	Send alert message to session's socket
+    Send alert message to session's socket
 
-	@param alert message
-	@param url (optional: don't add )
-	@return none
+    @param alert message
+    @param url (optional: don't add )
+    @return none
 */
 void Player::sendAlert(const std::string alert_message, const std::string url) {
-	this->network_connection->send(BroadcastMessageAlertComposer(alert_message, url));
+    this->network_connection->send(BroadcastMessageAlertComposer(alert_message, url));
 }
 
 /*
@@ -256,9 +256,9 @@ void Player::close() {
 */
 Player::~Player() {
 
-	if (network_connection == nullptr) {
-		return;
-	}
+    if (network_connection == nullptr) {
+        return;
+    }
 
     this->getNetworkConnection()->setConnectionState(false);
 
@@ -271,8 +271,8 @@ Player::~Player() {
     }
 
     delete messenger;
-	delete messenger_user;
-	delete inventory;
+    delete messenger_user;
+    delete inventory;
     delete session_details;
     delete room_user;
 }

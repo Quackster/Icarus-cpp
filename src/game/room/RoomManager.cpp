@@ -20,7 +20,7 @@ RoomManager::RoomManager() :
     rooms(std::map<int, Room*>()), 
     public_rooms(std::vector<Room*>()),
     models(RoomDao::getModels()),
-	rooms_newbie(RoomDao::getNewbieRoomSelection()) {}
+    rooms_newbie(RoomDao::getNewbieRoomSelection()) {}
 
 /*
     Loads new player rooms if they're not already added to memory
@@ -102,13 +102,13 @@ bool RoomManager::hasRoom(int room_id) {
 */
 Room *RoomManager::getRoom(int room_id) {
 
-	if (!this->hasRoom(room_id)) {
-		this->addRoom(RoomDao::getRoom(room_id));
-	}
+    if (!this->hasRoom(room_id)) {
+        this->addRoom(RoomDao::getRoom(room_id));
+    }
 
     if (this->hasRoom(room_id)) {
         return this->rooms.find(room_id)->second;
-	}
+    }
 
     return nullptr;
 }

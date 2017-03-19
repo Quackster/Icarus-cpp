@@ -42,6 +42,6 @@ public:
     }
 
     void clearFriends();
-	void clearRequests();
-	bool initialised;
+    void clearRequests();
+    bool initialised;
 };

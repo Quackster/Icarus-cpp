@@ -12,22 +12,22 @@
 class PurchaseErrorMessageComposer : public MessageComposer {
 
 public:
-	PurchaseErrorMessageComposer(bool credits_error, bool pixel_error) :
-		credits_error(credits_error),
-		pixel_error(pixel_error) { }
+    PurchaseErrorMessageComposer(bool credits_error, bool pixel_error) :
+        credits_error(credits_error),
+        pixel_error(pixel_error) { }
 
-	const Response compose() const {
-		Response response = this->createResponse();
-		response.writeBool(this->credits_error);
-		response.writeBool(this->pixel_error);
-		return response;
-	}
+    const Response compose() const {
+        Response response = this->createResponse();
+        response.writeBool(this->credits_error);
+        response.writeBool(this->pixel_error);
+        return response;
+    }
 
-	const int getHeader() const {
-		return Outgoing::PurchaseErrorMessageComposer;
-	}
+    const int getHeader() const {
+        return Outgoing::PurchaseErrorMessageComposer;
+    }
 
 private:
-	bool credits_error;
-	bool pixel_error;
+    bool credits_error;
+    bool pixel_error;
 };

@@ -17,55 +17,55 @@
 class PickupItemMessageEvent : public MessageEvent {
 
 public:
-	PickupItemMessageEvent() { }
+    PickupItemMessageEvent() { }
 
-	void handle(Player *player, Request &request) {
+    void handle(Player *player, Request &request) {
 
-		if (!player->getRoomUser()->in_room) {
-			return;
-		}
+        if (!player->getRoomUser()->in_room) {
+            return;
+        }
 
-		int unknown = request.readInt();
-		int item_id = request.readInt();
+        int unknown = request.readInt();
+        int item_id = request.readInt();
 
-		Room *room = player->getRoomUser()->getRoom();
-		Item *item = room->getItem(item_id);
+        Room *room = player->getRoomUser()->getRoom();
+        Item *item = room->getItem(item_id);
 
-		if (item == nullptr) {
-			return;
-		}
+        if (item == nullptr) {
+            return;
+        }
 
-		bool can_pickup = false;
+        bool can_pickup = false;
 
-		if (room->hasRights(player)) {
-			can_pickup = true;
-		}
+        if (room->hasRights(player)) {
+            can_pickup = true;
+        }
 
-		if (item->owner_id == player->getDetails()->id) {
-			can_pickup = true;
-		}
-		
-		if (player->hasFuse("room_item_take")) {
-			can_pickup = true;
-		}
+        if (item->owner_id == player->getDetails()->id) {
+            can_pickup = true;
+        }
+        
+        if (player->hasFuse("room_item_take")) {
+            can_pickup = true;
+        }
 
-		if (!can_pickup) {
-			return;
-		}
+        if (!can_pickup) {
+            return;
+        }
 
-		if (item->isFloorItem()) {
-			item->x = -1;
-			item->x = -1;
-			item->updateEntities();
-		}
+        if (item->isFloorItem()) {
+            item->x = -1;
+            item->x = -1;
+            item->updateEntities();
+        }
 
-		item->room_id = -1;
-		item->user_id = player->getDetails()->id;
-		item->save();
+        item->room_id = -1;
+        item->user_id = player->getDetails()->id;
+        item->save();
 
-		room->removeItem(item);
-		
-		player->getInventory()->addItem(item);
-		player->getInventory()->update();
-	}
+        room->removeItem(item);
+        
+        player->getInventory()->addItem(item);
+        player->getInventory()->update();
+    }
 };

@@ -13,21 +13,21 @@
 class PurchaseNotificationMessageComposer : public MessageComposer {
 
 public:
-	PurchaseNotificationMessageComposer(CatalogueItem *item, int amount) :
-		item(item),
-		amount(amount) { }
+    PurchaseNotificationMessageComposer(CatalogueItem *item, int amount) :
+        item(item),
+        amount(amount) { }
 
-	const Response compose() const {
-		Response response = this->createResponse();
-		item->serialise(response);
-		return response;
-	}
+    const Response compose() const {
+        Response response = this->createResponse();
+        item->serialise(response);
+        return response;
+    }
 
-	const int getHeader() const {
-		return Outgoing::PurchaseNotificationMessageComposer;
-	}
+    const int getHeader() const {
+        return Outgoing::PurchaseNotificationMessageComposer;
+    }
 
 private:
-	CatalogueItem *item;
-	int amount;
+    CatalogueItem *item;
+    int amount;
 };

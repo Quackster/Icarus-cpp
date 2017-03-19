@@ -135,9 +135,9 @@ void Messenger::removeRequest(int user_id) {
 */
 void Messenger::sendStatus(bool force_offline) {
 
-	/*std::shared_ptr<MessengerUser> self = std::make_shared<MessengerUser>(this->user_id);*/
+    /*std::shared_ptr<MessengerUser> self = std::make_shared<MessengerUser>(this->user_id);*/
 
-	const MessengerUpdateMessageComposer response = MessengerUpdateMessageComposer(this->player->getMessengerUser(), force_offline);
+    const MessengerUpdateMessageComposer response = MessengerUpdateMessageComposer(this->player->getMessengerUser(), force_offline);
 
     for (auto kvp : this->friends) {
 
@@ -145,15 +145,15 @@ void Messenger::sendStatus(bool force_offline) {
 
         if (buddy->isOnline()) {
             if (buddy->getPlayer()->getMessenger()->initialised) {
-				buddy->getPlayer()->send(response);
+                buddy->getPlayer()->send(response);
                 /*buddy->getPlayer()->getNetworkConnection()->send(RemoveFriendMessageComposer(this->user_id));
-				buddy->getPlayer()->getNetworkConnection()->send(MessengerUpdateMessageComposer(self.get(), force_offline));*/
-				
+                buddy->getPlayer()->getNetworkConnection()->send(MessengerUpdateMessageComposer(self.get(), force_offline));*/
+                
 
             }
         }
 
-		//self->visible_status = force_offline ? false : self->isOnline();
+        //self->visible_status = force_offline ? false : self->isOnline();
     }
 }
 

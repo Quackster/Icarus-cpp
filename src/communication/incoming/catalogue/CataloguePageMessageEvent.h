@@ -17,18 +17,18 @@
 class CataloguePageMessageEvent : public MessageEvent {
 
 public:
-	CataloguePageMessageEvent() { }
+    CataloguePageMessageEvent() { }
 
     void handle(Player *player, Request &request) {
 
-		int page_id = request.readInt();
+        int page_id = request.readInt();
 
-		CataloguePage *catalogue_page = Icarus::getGame()->getCatalogueManager()->getPage(page_id);
+        CataloguePage *catalogue_page = Icarus::getGame()->getCatalogueManager()->getPage(page_id);
 
-		if (catalogue_page == nullptr) {
-			return;
-		}
+        if (catalogue_page == nullptr) {
+            return;
+        }
 
-		player->send(CataloguePageMessageComposer(catalogue_page));
+        player->send(CataloguePageMessageComposer(catalogue_page));
     }
 };

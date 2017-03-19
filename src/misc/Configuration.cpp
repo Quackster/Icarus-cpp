@@ -94,14 +94,14 @@ void Configuration::parse() {
 
         if (this->file == "config/game.ini") {
 
-			int processors = std::thread::hardware_concurrency();
+            int processors = std::thread::hardware_concurrency();
 
-			if (processors == 0) {
-				processors = 8;
-			}
-			else {
-				processors = processors * 2;
-			}
+            if (processors == 0) {
+                processors = 8;
+            }
+            else {
+                processors = processors * 2;
+            }
 
             output_file << endl;
             output_file << "########################" << endl;
@@ -117,8 +117,8 @@ void Configuration::parse() {
             output_file << "chat.flood.wait=20;" << endl;
             output_file << endl;
             output_file << "room.idle.seconds=300;" << endl;
-			output_file << endl;
-			output_file << "newuser.create.newbie.room=false;" << endl;
+            output_file << endl;
+            output_file << "newuser.create.newbie.room=false;" << endl;
         }
 
         output_file.close();

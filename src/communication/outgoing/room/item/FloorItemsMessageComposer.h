@@ -13,31 +13,31 @@
 class FloorItemsMessageComposer : public MessageComposer {
 
 public:
-	FloorItemsMessageComposer(std::vector<Item*> items) :
-		items(items) { }
+    FloorItemsMessageComposer(std::vector<Item*> items) :
+        items(items) { }
 
-	const Response compose() const {
-		Response response = this->createResponse();
-		response.writeInt(this->items.size());
+    const Response compose() const {
+        Response response = this->createResponse();
+        response.writeInt(this->items.size());
 
-		for (Item *item : this->items) {
-			response.writeInt(item->user_id);
-			response.writeString(item->owner_name);
-		}
+        for (Item *item : this->items) {
+            response.writeInt(item->user_id);
+            response.writeString(item->owner_name);
+        }
 
-		response.writeInt(this->items.size());
+        response.writeInt(this->items.size());
 
-		for (Item *item : this->items) {
-			item->serialise(response);
-		}
+        for (Item *item : this->items) {
+            item->serialise(response);
+        }
 
-		return response;
-	}
+        return response;
+    }
 
-	const int getHeader() const {
-		return Outgoing::FloorItemsMessageComposer;
-	}
+    const int getHeader() const {
+        return Outgoing::FloorItemsMessageComposer;
+    }
 
 private:
-	std::vector<Item*> items;
+    std::vector<Item*> items;
 };

@@ -14,34 +14,34 @@
 class RemoveItemMessageComposer : public MessageComposer {
 
 public:
-	RemoveItemMessageComposer(Item *item) :
-		item(item) { }
+    RemoveItemMessageComposer(Item *item) :
+        item(item) { }
 
-	const Response compose() const {
-		Response response = this->createResponse();
+    const Response compose() const {
+        Response response = this->createResponse();
 
-		response.writeString(item->id);
-		response.writeBool(false);
-		response.writeInt(item->user_id);
+        response.writeString(item->id);
+        response.writeBool(false);
+        response.writeInt(item->user_id);
 
-		if (item->isFloorItem()) {
-			response.writeInt(0);
-		}
+        if (item->isFloorItem()) {
+            response.writeInt(0);
+        }
 
-		return response;
-	}
+        return response;
+    }
 
-	const int getHeader() const {
+    const int getHeader() const {
 
 
-		if (item->isFloorItem()) {
-			return Outgoing::RemoveItemMessageComposer;
-		}
-		else {
-			return Outgoing::RemoveWallItemMessageComposer;;
-		}
-	}
+        if (item->isFloorItem()) {
+            return Outgoing::RemoveItemMessageComposer;
+        }
+        else {
+            return Outgoing::RemoveWallItemMessageComposer;;
+        }
+    }
 
 private:
-	Item *item;
+    Item *item;
 };

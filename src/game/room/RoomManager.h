@@ -32,14 +32,14 @@ public:
 
     std::map<int, Room*> &getRooms() { return rooms; }
 
-	std::vector<RoomNewbie*> getNewbieRoomTemplates() { return rooms_newbie; }
+    std::vector<RoomNewbie*> getNewbieRoomTemplates() { return rooms_newbie; }
     std::vector<Room*> &getPublicRooms() { return public_rooms; }
 
 private:
     std::map<int, Room*> rooms;
     std::vector<Room*> public_rooms;
 
-	std::vector<RoomNewbie*> rooms_newbie;
+    std::vector<RoomNewbie*> rooms_newbie;
     std::map<std::string, RoomModel*> models;
 };
 

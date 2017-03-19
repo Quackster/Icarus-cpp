@@ -47,7 +47,7 @@ void RoomUser::setStatus(std::string key, std::string value, bool force_update) 
     if (force_update) {
         this->updateStatus();
         //this->needs_update = true;
-		//this->room->send(UserStatusMessageComposer(this->entity));
+        //this->room->send(UserStatusMessageComposer(this->entity));
     }
 }
 
@@ -101,7 +101,7 @@ void RoomUser::reset() {
     this->statuses.clear();// = std::map<std::string, std::string>();
     this->path.clear();// = std::queue<Position>();
     this->room = nullptr;
-	this->current_item = nullptr;
+    this->current_item = nullptr;
     this->in_room = false;
     this->is_walking = false;
     this->is_loading_room = false;
@@ -133,7 +133,7 @@ void RoomUser::walk() {
         else {
             this->setStatus("mv", "");
             this->is_walking = false;
-			this->stopWalking();
+            this->stopWalking();
         }
     }
 }
@@ -145,66 +145,66 @@ void RoomUser::walk() {
 */
 void RoomUser::stopWalking() {
 
-	Room *room = this->room;
-	RoomModel *model = this->room->getModel();
+    Room *room = this->room;
+    RoomModel *model = this->room->getModel();
 
-	if (this->position.x == model->door_x &&
-		this->position.y == model->door_y) {
+    if (this->position.x == model->door_x &&
+        this->position.y == model->door_y) {
 
-		this->leaveRoom();
-		return;
-	}
+        this->leaveRoom();
+        return;
+    }
 
-	bool no_current_item = false;
+    bool no_current_item = false;
 
-	Item *item = this->room->getDynamicModel()->getItemAtPosition(this->position.x, this->position.y);
+    Item *item = this->room->getDynamicModel()->getItemAtPosition(this->position.x, this->position.y);
 
-	if (item != nullptr) {
-		if (item->getDefinition()->can_sit || item->getDefinition()->interaction_type == "bed") {
+    if (item != nullptr) {
+        if (item->getDefinition()->can_sit || item->getDefinition()->interaction_type == "bed") {
 
-			this->current_item = item;
-			this->currentItemTrigger();
-		}
-		else {
-			no_current_item = true;
-		}
-	}
-	else {
-		no_current_item = true;
-	}
+            this->current_item = item;
+            this->currentItemTrigger();
+        }
+        else {
+            no_current_item = true;
+        }
+    }
+    else {
+        no_current_item = true;
+    }
 
-	if (no_current_item) {
-		this->current_item = nullptr;
-	}
+    if (no_current_item) {
+        this->current_item = nullptr;
+    }
 }
 
 /*
-	Item trigger, whether it was the last item you walked on, etc
+    Item trigger, whether it was the last item you walked on, etc
 
-	@return none
+    @return none
 */
 void RoomUser::currentItemTrigger() {
-	
-	if (this->current_item == nullptr) {
-		this->setStatus("sit", "");
-		this->setStatus("lay", "");
-	}
-	else {
+    
+    if (this->current_item == nullptr) {
+        this->setStatus("sit", "");
+        this->setStatus("lay", "");
+    }
+    else {
 
-		Item *item = this->current_item;
+        Item *item = this->current_item;
 
-		int item_height = item->z + item->getDefinition()->stack_height;
-		this->setRotation(item->rotation, true, false);
+        int item_height = item->z + item->getDefinition()->stack_height;
+        this->setRotation(item->rotation, true, false);
 
-		if (item->getDefinition()->can_sit) {
-			this->setStatus("sit", std::to_string(item_height + 0.04));
-		}
-		else {
-			this->setStatus("lay", std::to_string(item_height + 0.65));
-		}
-	}
+        if (item->getDefinition()->can_sit) {
+            this->setStatus("sit", std::to_string(item_height + 0.04));
+        }
+        else {
+            this->setStatus("lay", std::to_string(item_height + 0.65));
+        }
+    }
 
-	this->updateStatus();
+    this->updateStatus();
 }
 
 /*
@@ -305,7 +305,7 @@ void RoomUser::awake() {
 */
 void RoomUser::leaveRoom(bool hotel_view) {
 
-	/*LEAVE ROOM ALERT!
+    /*LEAVE ROOM ALERT!
  [ROOM] Room ID 18 unloaded
  [ROOM] Room ID 18 loaded
  [SESSION] [CONNECTION: 2] 1787/ [6]√[0][10]Navigation[0][0][0][11]go.official[0][2]18[0][0][0][0]

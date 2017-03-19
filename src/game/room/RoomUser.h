@@ -27,7 +27,7 @@ public:
     void reset();
     void walk();
     void stopWalking();
-	void currentItemTrigger();
+    void currentItemTrigger();
     bool containsStatus(std::string key);
     void setStatus(std::string key, std::string value, bool update = false);
     void updateStatus();
@@ -49,7 +49,7 @@ public:
 
     double height;
     Entity *entity;
-	Item *current_item;
+    Item *current_item;
 
     Position next;
     Position position;

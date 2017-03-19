@@ -18,51 +18,51 @@
 class ApplyDecorationMessageEvent : public MessageEvent {
 
 public:
-	ApplyDecorationMessageEvent() { }
+    ApplyDecorationMessageEvent() { }
 
     void handle(Player *player, Request &request) { 
-	
-		if (!player->getRoomUser()->in_room) {
-			return;
-		}
+    
+        if (!player->getRoomUser()->in_room) {
+            return;
+        }
 
-		Room *room = player->getRoomUser()->getRoom();
+        Room *room = player->getRoomUser()->getRoom();
 
-		if (!room->hasRights(player)) {
-			return;
-		}
+        if (!room->hasRights(player)) {
+            return;
+        }
 
-		Item *item = player->getInventory()->getItem(request.readInt());
+        Item *item = player->getInventory()->getItem(request.readInt());
 
-		if (item == nullptr) {
-			return;
-		}
+        if (item == nullptr) {
+            return;
+        }
 
-		if (Utilities::contains(item->getDefinition()->item_name, "a2")) {
+        if (Utilities::contains(item->getDefinition()->item_name, "a2")) {
 
-			if (item->extra_data.length() > 0) {
-				room->send(RoomSpacesMessageComposer("floor", item->extra_data));
-				room->getData()->floor = item->extra_data;
-			}
-		}
+            if (item->extra_data.length() > 0) {
+                room->send(RoomSpacesMessageComposer("floor", item->extra_data));
+                room->getData()->floor = item->extra_data;
+            }
+        }
 
-		if (Utilities::contains(item->getDefinition()->item_name, "wallpaper")) {
+        if (Utilities::contains(item->getDefinition()->item_name, "wallpaper")) {
 
-			if (item->extra_data.length() > 0) {
-				room->send(RoomSpacesMessageComposer("wallpaper", item->extra_data));
-				room->getData()->wallpaper = item->extra_data;
-			}
-		}
+            if (item->extra_data.length() > 0) {
+                room->send(RoomSpacesMessageComposer("wallpaper", item->extra_data));
+                room->getData()->wallpaper = item->extra_data;
+            }
+        }
 
-		if (Utilities::contains(item->getDefinition()->item_name, "landscape")) {
+        if (Utilities::contains(item->getDefinition()->item_name, "landscape")) {
 
-			player->send(RoomSpacesMessageComposer("landscape", item->extra_data));
-			room->getData()->outside = item->extra_data;
+            player->send(RoomSpacesMessageComposer("landscape", item->extra_data));
+            room->getData()->outside = item->extra_data;
 
-		}
+        }
 
-		player->getInventory()->removeItem(item);
+        player->getInventory()->removeItem(item);
 
-		room->save();
-	}
+        room->save();
+    }
 };

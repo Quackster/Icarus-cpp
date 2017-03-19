@@ -25,6 +25,6 @@ public:
     void createEvent(int header, MessageEvent *event);
     MessageEvent *getMessageEvent(int header);
     void invoke(int header, Request &request, Player *player);
-	static void addObjects(Plugin *plugin);
+    static void addObjects(Plugin *plugin);
 };
 

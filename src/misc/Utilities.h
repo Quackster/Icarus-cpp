@@ -25,11 +25,11 @@ public:
     static std::string replaceChar(std::string &str, char ch1, char ch2);
     static std::string removeChar(std::string &s, char ch1);
     static std::string join(std::vector<std::string> strings, std::string delim);
-	static std::vector<std::string> Utilities::readLines(std::string file_path);
-	static std::string base64_encode(const std::string &in);
-	static std::string base64_decode(const std::string &in);
-	static bool contains(std::string haystack, std::string needle);
-	static std::string uppercase(std::string str);
+    static std::vector<std::string> Utilities::readLines(std::string file_path);
+    static std::string base64_encode(const std::string &in);
+    static std::string base64_decode(const std::string &in);
+    static bool contains(std::string haystack, std::string needle);
+    static std::string uppercase(std::string str);
 
 };
 

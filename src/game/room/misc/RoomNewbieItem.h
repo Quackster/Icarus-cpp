@@ -13,13 +13,13 @@
 class ItemDefinition;
 struct RoomNewbieItem {
 
-	int item_id;
-	std::string position;
-	
-	int x = -1;
-	int y = -1;
-	int z;
-	int rotation = 0;
+    int item_id;
+    std::string position;
+    
+    int x = -1;
+    int y = -1;
+    int z;
+    int rotation = 0;
 
-	ItemDefinition *definition;
+    ItemDefinition *definition;
 };

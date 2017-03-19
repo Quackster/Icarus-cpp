@@ -70,8 +70,8 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
 
     RoomModel *model = room->getModel();
 
-	int map_size_x = model->map_size_x;
-	int map_size_y = model->map_size_y;
+    int map_size_x = model->map_size_x;
+    int map_size_y = model->map_size_y;
     std::map<int, std::map<int, std::shared_ptr<PathfinderNode>>> map;
 
     std::shared_ptr<PathfinderNode> node = std::make_shared<PathfinderNode>();
@@ -183,29 +183,29 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
             return false;
         }
 
-		if (!room->getModel()->isValidSquare(current.x, current.y)) {
-			return false;
-		}
+        if (!room->getModel()->isValidSquare(current.x, current.y)) {
+            return false;
+        }
 
-		if (!room->getDynamicModel()->isValidTile(current.x, current.y)) {
-			return false;
-		}
+        if (!room->getDynamicModel()->isValidTile(current.x, current.y)) {
+            return false;
+        }
 
-		/*bool valid = false;
+        /*bool valid = false;
 
-		Item *item = room->getDynamicModel()->getItemAtPosition(current.x, current.y);
+        Item *item = room->getDynamicModel()->getItemAtPosition(current.x, current.y);
 
-		if (item->getDefinition()->can_sit) {
-			valid = true;
-		}
+        if (item->getDefinition()->can_sit) {
+            valid = true;
+        }
 
-		if (item->getDefinition()->is_walkable) {
-			valid = true;
-		}
+        if (item->getDefinition()->is_walkable) {
+            valid = true;
+        }
 
-		if (item->getDefinition()->interaction_type == "bed") {
-			valid = true;
-		}
+        if (item->getDefinition()->interaction_type == "bed") {
+            valid = true;
+        }
 
 
 
@@ -222,7 +222,7 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
         return valid;*/
 
 
-		return true;
+        return true;
 
     }
     catch (std::exception &e) {

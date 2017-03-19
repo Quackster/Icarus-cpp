@@ -13,31 +13,31 @@
 class WallItemsMessageComposer : public MessageComposer {
 
 public:
-	WallItemsMessageComposer(std::vector<Item*> items) :
-		items(items) { }
+    WallItemsMessageComposer(std::vector<Item*> items) :
+        items(items) { }
 
-	const Response compose() const {
-		Response response = this->createResponse();
-		response.writeInt(this->items.size());
+    const Response compose() const {
+        Response response = this->createResponse();
+        response.writeInt(this->items.size());
 
-		for (Item *item : this->items) {
-			response.writeInt(item->user_id);
-			response.writeString(item->owner_name);
-		}
+        for (Item *item : this->items) {
+            response.writeInt(item->user_id);
+            response.writeString(item->owner_name);
+        }
 
-		response.writeInt(this->items.size());
+        response.writeInt(this->items.size());
 
-		for (Item *item : this->items) {
-			item->serialise(response);
-		}
+        for (Item *item : this->items) {
+            item->serialise(response);
+        }
 
-		return response;
-	}
+        return response;
+    }
 
-	const int getHeader() const {
-		return Outgoing::WallItemsMessageComposer;
-	}
+    const int getHeader() const {
+        return Outgoing::WallItemsMessageComposer;
+    }
 
 private:
-	std::vector<Item*> items;
+    std::vector<Item*> items;
 };
