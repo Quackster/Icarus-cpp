@@ -117,48 +117,51 @@ void Player::handleNewPlayer() {
 	this->session_details->has_logged_in = true;
 	this->save();
 
-	std::vector<RoomNewbie*> newbie_rooms = Icarus::getGame()->getRoomManager()->getNewbieRoomTemplates();
+	if (Icarus::getGameConfiguration()->getBool("newuser.create.newbie.room")) {
 
-	if (newbie_rooms.size() < 1) {
-		return;
-	}
+		std::vector<RoomNewbie*> newbie_rooms = Icarus::getGame()->getRoomManager()->getNewbieRoomTemplates();
 
-	RoomNewbie *newbie_template = newbie_rooms.at(Icarus::getRandomNumber(0, newbie_rooms.size() - 1));
-
-	int room_id = NavigatorDao::createRoom(
-		this->session_details->username + "'s Room", 
-		"My first room", 
-		"model_newbie", 
-		this->session_details->id, 0, 30, 0);
-
-
-	Room *room = Icarus::getGame()->getRoomManager()->getRoom(room_id);
-
-	room->getData()->wallpaper = newbie_template->wallpaper;
-	room->getData()->floor = newbie_template->floorpaper;
-	room->save();
-
-	for (RoomNewbieItem newbie_item : newbie_template->items) {
-
-		ItemDefinition *definition = newbie_item.definition;
-
-		Item *item = ItemDao::newItem(definition->id, this->session_details->id, "");
-		item->room_id = room->id;
-
-		if (newbie_item.x == -1) { // Wall item
-			item->parseWallPosition(newbie_item.position);
-
-		} 
-		else { // Floor item
-
-			item->x = newbie_item.x;
-			item->y = newbie_item.y;
-			item->rotation = newbie_item.rotation;
-			item->z = room->getDynamicModel()->getTileHeight(item->x, item->y);
+		if (newbie_rooms.size() < 1) {
+			return;
 		}
 
-		item->save();
-		delete item;
+		RoomNewbie *newbie_template = newbie_rooms.at(Icarus::getRandomNumber(0, newbie_rooms.size() - 1));
+
+		int room_id = NavigatorDao::createRoom(
+			this->session_details->username + "'s Room",
+			"My first room",
+			"model_newbie",
+			this->session_details->id, 0, 30, 0);
+
+
+		Room *room = Icarus::getGame()->getRoomManager()->getRoom(room_id);
+
+		room->getData()->wallpaper = newbie_template->wallpaper;
+		room->getData()->floor = newbie_template->floorpaper;
+		room->save();
+
+		for (RoomNewbieItem newbie_item : newbie_template->items) {
+
+			ItemDefinition *definition = newbie_item.definition;
+
+			Item *item = ItemDao::newItem(definition->id, this->session_details->id, "");
+			item->room_id = room->id;
+
+			if (newbie_item.x == -1) { // Wall item
+				item->parseWallPosition(newbie_item.position);
+
+			}
+			else { // Floor item
+
+				item->x = newbie_item.x;
+				item->y = newbie_item.y;
+				item->rotation = newbie_item.rotation;
+				item->z = room->getDynamicModel()->getTileHeight(item->x, item->y);
+			}
+
+			item->save();
+			delete item;
+		}
 	}
 }
 
