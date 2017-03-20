@@ -188,6 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
+    <ClInclude Include="src\communication\outgoing\login\AvailabilityMessageComposer.h" />
     <ClInclude Include="src\game\room\misc\RoomNewbie.h" />
     <ClInclude Include="src\game\room\misc\RoomNewbieItem.h" />
     <ClInclude Include="src\game\room\model\DynamicModel.h" />

@@ -710,5 +710,8 @@
     <ClInclude Include="src\game\room\misc\RoomNewbieItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\communication\outgoing\login\AvailabilityMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

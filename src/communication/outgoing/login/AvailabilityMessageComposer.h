@@ -8,33 +8,21 @@
 */
 #pragma once
 #include "communication/outgoing/MessageComposer.h"
-#include "game/item/Item.h"
 
-class MoveItemMessageComposer : public MessageComposer {
+class AvailabilityMessageComposer : public MessageComposer {
 
 public:
-    MoveItemMessageComposer(Item *item) :
-        item(item) { }
+    AvailabilityMessageComposer() { }
 
     const Response compose() const {
         Response response = this->createResponse();
-        item->serialise(response);
+        response.writeBool(true);
+        response.writeBool(false);
+        response.writeBool(true);
         return response;
     }
 
     const int getHeader() const {
-
-        if (item->isWallItem()) {
-            return Outgoing::MoveWallItemMessageComposer;
-        }
-
-        if (item->isFloorItem()) {
-            return Outgoing::MoveFloorItemMessageComposer;
-        }
-
-        return -1;
+        return Outgoing::AvailabilityMessageComposer;
     }
-
-private:
-    Item *item;
 };

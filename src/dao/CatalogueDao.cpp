@@ -113,7 +113,6 @@ std::map<int, CataloguePage*> CatalogueDao::getPages() {
 
                 if (str.back() == '=') {
                     str = Utilities::base64_decode(str);
-					std::cout << str << str;
                 }
 
                 page->texts.push_back(str);
@@ -124,7 +123,7 @@ std::map<int, CataloguePage*> CatalogueDao::getPages() {
     }
     catch (sql::SQLException &e) {
         Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
-    }
+	}
 
     Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
     

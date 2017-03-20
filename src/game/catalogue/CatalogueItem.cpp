@@ -78,8 +78,8 @@ void CatalogueItem::serialise(Response &response) {
         response.writeBool(false);
     }
 
-	response.writeBool(false);
-	response.writeString("");
+    response.writeBool(false);
+    response.writeString("");
 }
 
 /*

@@ -82,5 +82,6 @@ public:
     static const int MoveWallItemMessageComposer = 3408;//3630
     static const int RemoveItemMessageComposer = 2362;//1744
     static const int RemoveWallItemMessageComposer = 209;//2793
-	static const int CommunityGoalHallOfFameWidget = 2208;
+    static const int CommunityGoalHallOfFameWidget = 2208;
+    static const int AvailabilityMessageComposer = 3690;
 };

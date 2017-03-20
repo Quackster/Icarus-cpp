@@ -23,28 +23,28 @@ public:
         player->send(UserObjectMessageComposer(player));
         player->send(SendPerkAllowancesMessageComposer());
 
-		/*std::vector<Player*> hall_of_fame;
-		
-		for (int i = 0; i < 10; i++) {
-			hall_of_fame.push_back(player);
-		}
+        /*std::vector<Player*> hall_of_fame;
+        
+        for (int i = 0; i < 10; i++) {
+            hall_of_fame.push_back(player);
+        }
 
-		Response res(Outgoing::CommunityGoalHallOfFameWidget);
-		res.writeString("africaDesert");
-		res.writeInt(hall_of_fame.size());
+        Response res(Outgoing::CommunityGoalHallOfFameWidget);
+        res.writeString("africaDesert");
+        res.writeInt(hall_of_fame.size());
 
-		int points = 10;
-		int rank = 10;
+        int points = 10;
+        int rank = 10;
 
-		for (Player *winner : hall_of_fame) {
-			res.writeInt(winner->getDetails()->id);
-			res.writeString(winner->getDetails()->username);
-			res.writeString(winner->getDetails()->figure);
-			res.writeInt(rank--);
-			res.writeInt(points--); // Number of points
-		}
+        for (Player *winner : hall_of_fame) {
+            res.writeInt(winner->getDetails()->id);
+            res.writeString(winner->getDetails()->username);
+            res.writeString(winner->getDetails()->figure);
+            res.writeInt(rank--);
+            res.writeInt(points--); // Number of points
+        }
 
-		player->getNetworkConnection()->send(res);*/
+        player->getNetworkConnection()->send(res);*/
 
         Response res(3015);
         res.writeInt(2);
