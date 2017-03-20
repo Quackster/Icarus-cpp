@@ -29,14 +29,15 @@ int NavigatorDao::createRoom(std::string room_name, std::string description, std
 
         // Insert room data
         std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
-        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("INSERT INTO rooms (name, description, owner_id, model, category, users_max, trade_state) VALUES (?, ?, ?, ?, ?, ?, ?);")); {
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("INSERT INTO rooms (name, description, owner_id, model, category, users_now, users_max, trade_state) VALUES (?, ?, ?, ?, ?, ?, ?, ?);")); {
             statement->setString(1, room_name);
             statement->setString(2, description);
             statement->setInt(3, owner_id);
             statement->setString(4, room_model);
             statement->setInt(5, category);
-            statement->setInt(6, max_users);
-            statement->setInt(7, trade_settings);
+            statement->setInt(6, 0);
+            statement->setInt(7, max_users);
+            statement->setInt(8, trade_settings);
             statement->executeUpdate();
         }
 
@@ -163,7 +164,7 @@ std::vector<Room*> NavigatorDao::getPreviewRooms(NavigatorQuery query, int user_
         if (query == NAVIGATOR_FRIENDS_ROOMS) {
             for (auto kvp : player->getMessenger()->getFriends()) {
 
-                std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id FROM rooms WHERE owner_id = ? ORDER BY date_created DESC LIMIT 9")); {
+                std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id FROM rooms WHERE owner_id = ? ORDER BY date_created DESC, users_now DESC LIMIT 9")); {
                     statement->setInt(1, kvp.first);
                 }
 
@@ -198,6 +199,7 @@ std::vector<Room*> NavigatorDao::getPreviewRooms(NavigatorQuery query, int user_
                 room_data->group_id = result_set->getInt("group_id");
                 room_data->description = result_set->getString("description");
                 room_data->password = result_set->getString("password");
+                room_data->users_now = result_set->getInt("users_now");
                 room_data->users_max = result_set->getInt("users_max");
                 room_data->wallpaper = result_set->getString("wallpaper");
                 room_data->floor = result_set->getString("floor");

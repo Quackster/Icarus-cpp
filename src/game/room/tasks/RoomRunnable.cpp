@@ -135,7 +135,7 @@ void RoomRunnable::run() {
 
         this->room->send(UserStatusMessageComposer(update_entities));
 
-        if (room->getPlayers().size() > 0 && this->room->getRunnable() != nullptr) {
+        if (room->getData()->users_now  > 0 && this->room->getRunnable() != nullptr) {
             Icarus::getGame()->getGameScheduler()->schedule(this->room->getRunnable());
         }
         else {

@@ -23,7 +23,7 @@ public:
 
             Room *room = kvp.second;
 
-            if (room->getPlayers().size() == 0) {
+            if (room->getData()->users_now == 0) {
                 continue;
             }
 

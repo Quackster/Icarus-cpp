@@ -14,7 +14,7 @@
 
 struct PopulationSorter {
     inline bool operator() (Room* struct1, Room* struct2) {
-        return struct1->getPlayers().size() > struct2->getPlayers().size();//(struct1.key < struct2.key);
+        return struct1->getData()->users_now > struct2->getData()->users_now;//(struct1.key < struct2.key);
     }
 };
 

@@ -48,6 +48,14 @@ public:
         session->send(AuthenticateMessageComposer());
         session->send(UniqueMachineIDMessageComposer(""));// session->getUniqueId()));
         session->send(HomeRoomMessageComposer(0, false));
+
+        //UserRightsMessageComposer = 3315;
+        Response response(3315);
+        response.writeInt(2);
+        response.writeInt(7);
+        response.writeBool(false);
+        session->getNetworkConnection()->send(response);
+
         session->send(LandingWidgetMessageComposer());
         session->send(AvailabilityMessageComposer());
         session->login();

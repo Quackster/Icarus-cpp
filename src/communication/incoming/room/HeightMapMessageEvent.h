@@ -50,7 +50,7 @@ public:
 
         player->send(UserDisplayMessageComposer(room->getEntities()));
         player->send(UserStatusMessageComposer(room->getEntities()));
-        player->send(RoomDataMessageComposer(room, player, true, true));
+
         player->send(RoomOwnerRightsComposer(room->getData()->id, room->hasRights(player, true)));
 
         // Tell friends we're in a room! :)
@@ -70,7 +70,7 @@ public:
             }
         }
 
-
+        player->send(RoomDataMessageComposer(room, player, true, true));
         /*
         player.send(new ChatOptionsMessageComposer(room));
         player.send(new WallOptionsMessageComposer(room.getData().isHideWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));

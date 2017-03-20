@@ -37,7 +37,7 @@ public:
     static const int CanCreateRoomMessageEvent = 2411;//1968
     static const int CreateRoomMessageEvent = 92;//828
     static const int DanceMessageEvent = 1225;//1666
-    static const int RoomEditInfoMessageEvent = -2035;//2035
+    static const int RoomEditInfoMessageEvent = 581;//2035
     static const int DeleteRoomMessageEvent = 439;//2126
     static const int SaveRoomMessageEvent = 3023;//915
     static const int AnswerDoorbellMessageEvent = 1781;//1491

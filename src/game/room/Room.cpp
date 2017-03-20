@@ -102,7 +102,11 @@ void Room::enter(Entity *entity) {
     this->updateVirtualId();
 
     if (!this->hasEntity(entity)) {
+
         this->entities.insert(std::make_pair(room_user->virtual_id, entity));
+
+        this->room_data->users_now = this->getPlayers().size();
+        this->save();
     }
 
     if (entity->getEntityType() != PLAYER) { // From this code onwards is executed for players only
@@ -142,7 +146,7 @@ void Room::enter(Entity *entity) {
         player->send(RightsLevelMessageComposer(1));
     }
 
-    if (this->getPlayers().size() == 1) {
+    if (this->room_data->users_now == 1) {
 
         this->load();
 
@@ -190,6 +194,9 @@ void Room::leave(Entity *entity, const bool hotel_view, const bool dispose) {
 
         // Reset room user
         entity->getRoomUser()->reset();
+
+        this->room_data->users_now = this->getPlayers().size();
+        this->save();
     }
 
     if (dispose) {
@@ -226,7 +233,7 @@ void Room::serialise(Response &response, const bool enter_room) {
     response.writeInt(this->room_data->owner);
     response.writeString(this->room_data->owner_name); // Owner name
     response.writeInt(this->room_data->state);
-    response.writeInt(this->getPlayers().size()); // Users now
+    response.writeInt(this->room_data->users_now); // Users now
     response.writeInt(this->room_data->users_max);
     response.writeString(this->room_data->description);
     response.writeInt(this->room_data->trade_state);
@@ -313,7 +320,7 @@ void Room::dispose(const bool force_dispose) {
     }
     else {
 
-        bool empty_room = this->getPlayers().size() == 0;
+        bool empty_room = this->room_data->users_now == 0;
 
         if (empty_room) {
             reset = true;

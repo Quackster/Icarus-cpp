@@ -41,7 +41,7 @@ public:
             }
         }
 
-        if (room->getPlayers().size() >= room->getData()->users_max) {
+        if (room->getData()->users_now >= room->getData()->users_max) {
 
             if (!player->hasFuse("user_enter_full_rooms") && room->getData()->owner_id != player->getDetails()->id) {
                 player->send(RoomEnterErrorMessageComposer(1));
@@ -53,7 +53,7 @@ public:
         if (room->getData()->state > 0 && !room->hasRights(player, false)) {
             if (room->getData()->room_state == ROOM_STATE_DOORBELL) {
 
-                if (room->getPlayers().size() > 0) {
+                if (room->getData()->users_now > 0) {
 
                     // Send to all users who have rights in that particular room
                     room->send(GenericDoorbellMessageComposer(player->getDetails()->username), true);

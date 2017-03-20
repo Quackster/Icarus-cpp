@@ -18,7 +18,7 @@ public:
 
     const Response compose() const {
         Response response = this->createResponse();
-        response.writeInt(0);
+        response.writeInt(15);
         response.writeString("USE_GUIDE_TOOL");
         response.writeString("");
         response.writeBool(false);
