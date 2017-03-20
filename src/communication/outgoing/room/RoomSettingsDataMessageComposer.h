@@ -48,7 +48,7 @@ public:
         response.writeInt(room_data->chat_speed);
         response.writeInt(room_data->chat_distance);
         response.writeInt(room_data->chat_flood);
-        response.writeBool(false);
+        response.writeBool(true);
         response.writeInt(room_data->who_can_mute);
         response.writeInt(room_data->who_can_kick);
         response.writeInt(room_data->who_can_ban);
