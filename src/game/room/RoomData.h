@@ -32,6 +32,7 @@ struct RoomData {
     int group_id;
     std::string description;
     std::string password;
+    int users_now;
     int users_max;
     RoomModel *model;
     std::string wallpaper;

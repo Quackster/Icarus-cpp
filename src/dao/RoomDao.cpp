@@ -392,7 +392,7 @@ void RoomDao::updateRoom(int room_id, Room *room) {
     try {
 
         std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
-        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE rooms SET name = ?, description = ?, state = ?, users_max = ?, category = ?, tags = ?, trade_state = ?, allow_pets = ?, allow_pets_eat = ?, allow_walkthrough = ?, hidewall = ?, wall_thickness = ?, floor_thickness = ?, who_can_mute = ?, who_can_ban = ?, who_can_kick = ?, chat_mode = ?, chat_size = ?, chat_speed = ?, chat_distance = ?, chat_flood = ?, password = ?, wallpaper = ?, floor = ?, outside = ? WHERE id = ?")); {
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE rooms SET name = ?, description = ?, state = ?, users_max = ?, users_now = ?, category = ?, tags = ?, trade_state = ?, allow_pets = ?, allow_pets_eat = ?, allow_walkthrough = ?, hidewall = ?, wall_thickness = ?, floor_thickness = ?, who_can_mute = ?, who_can_ban = ?, who_can_kick = ?, chat_mode = ?, chat_size = ?, chat_speed = ?, chat_distance = ?, chat_flood = ?, password = ?, wallpaper = ?, floor = ?, outside = ? WHERE id = ?")); {
 
             RoomData *room_data = room->getData();
 
@@ -400,29 +400,29 @@ void RoomDao::updateRoom(int room_id, Room *room) {
             statement->setString(2, room_data->description);
             statement->setInt(3, room_data->state);
             statement->setInt(4, room_data->users_max);
-            statement->setInt(5, room_data->category);
-            statement->setString(6, Utilities::join(room_data->tags, ","));
-            statement->setInt(7, room_data->trade_state);
-            statement->setInt(8, room_data->allow_pets);
-            statement->setInt(9, room_data->allow_pets_eat);
-            statement->setInt(10, room_data->allow_walkthrough);
-            statement->setInt(11, room_data->hide_wall);
-            statement->setInt(12, room_data->wall_thickness);
-            statement->setInt(13, room_data->floor_thickness);
-            statement->setInt(14, room_data->who_can_mute);
-            statement->setInt(15, room_data->who_can_kick);
-            statement->setInt(16, room_data->who_can_ban);
-            statement->setInt(17, room_data->chat_mode);
-            statement->setInt(18, room_data->chat_size);
-            statement->setInt(19, room_data->chat_speed);
-            statement->setInt(20, room_data->chat_distance);
-            statement->setInt(21, room_data->chat_flood);
-            statement->setString(22, room_data->password);
-            statement->setString(23, room_data->wallpaper);
-            statement->setString(24, room_data->floor);
-            statement->setString(25, room_data->outside);
-
-            statement->setInt(26, room_data->id);
+            statement->setInt(5, room_data->users_now);
+            statement->setInt(6, room_data->category);
+            statement->setString(7, Utilities::join(room_data->tags, ","));
+            statement->setInt(8, room_data->trade_state);
+            statement->setInt(9, room_data->allow_pets);
+            statement->setInt(10, room_data->allow_pets_eat);
+            statement->setInt(11, room_data->allow_walkthrough);
+            statement->setInt(12, room_data->hide_wall);
+            statement->setInt(13, room_data->wall_thickness);
+            statement->setInt(14, room_data->floor_thickness);
+            statement->setInt(15, room_data->who_can_mute);
+            statement->setInt(16, room_data->who_can_kick);
+            statement->setInt(17, room_data->who_can_ban);
+            statement->setInt(18, room_data->chat_mode);
+            statement->setInt(19, room_data->chat_size);
+            statement->setInt(20, room_data->chat_speed);
+            statement->setInt(21, room_data->chat_distance);
+            statement->setInt(22, room_data->chat_flood);
+            statement->setString(23, room_data->password);
+            statement->setString(24, room_data->wallpaper);
+            statement->setString(25, room_data->floor);
+            statement->setString(26, room_data->outside);
+            statement->setInt(27, room_data->id);
         }
 
         statement->execute();
