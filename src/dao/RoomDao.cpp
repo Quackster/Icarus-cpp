@@ -57,6 +57,30 @@ std::map<std::string, RoomModel*> RoomDao::getModels() {
 }
 
 /*
+    Set all current user count back to zero
+
+    @return none
+*/
+void RoomDao::resetRooms() {
+
+    std::map<std::string, RoomModel*> models;// = new std::map<std::string, RoomModel*>();
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+    try {
+
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("UPDATE rooms SET users_now = 0 WHERE users_now > 0"));
+        statement->execute();
+
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
+
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+}
+
+/*
 Get all room models
 
 @return room model ptr instances
@@ -215,7 +239,6 @@ Room* RoomDao::getRoom(int room_id) {
     // Return single room
     return getRooms(rooms)[0];
 }
-
 
 
 /*

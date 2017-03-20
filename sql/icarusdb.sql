@@ -1,3 +1,12 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.6
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Mar 20, 2017 at 01:24 PM
+-- Server version: 5.6.35
+-- PHP Version: 5.6.30
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -30,8 +39,8 @@ CREATE TABLE `catalog_featured_pages` (
 --
 
 INSERT INTO `catalog_featured_pages` (`id`, `caption`, `image`, `page_link`, `page_id`) VALUES
-(1, 'Welcome to the new Icarus catalog!', 'catalogue/feature_cata_vert_hween16LTD.png', '', -1),
-(2, 'Icarus has updated!', 'catalogue/feature_cata_hort_hween16bun4.png', '', -1),
+(1, 'Welcome to the new Comet catalog!', 'catalogue/feature_cata_vert_hween16LTD.png', '', -1),
+(2, 'Comet has updated!', 'catalogue/feature_cata_hort_hween16bun4.png', '', -1),
 (3, 'Some awesome furniture to get!', 'catalogue/feature_cata_hort_newfurnihween16.png', '', -1),
 (4, 'HC? Don\'t worry.. It\'s free!', 'catalogue/feature_cata_hort_HC_b.png', '', -1);
 
@@ -6153,7 +6162,7 @@ INSERT INTO `catalog_pages` (`id`, `parent_id`, `type`, `extra_data`, `caption`,
 (9998, 9895647, 'DEFAULT', NULL, 'Badge Shop', 1, 2556, '1', '1', 1, '0', 3, 'default_3x3', 0, '0', '', '', 'undefined'),
 (57578, 2, 'DEFAULT', NULL, 'Military', 1, 257, '1', '1', 1, '0', 9, 'default_3x3', 0, '0', '[\"You have enemies? Good. That means you\'ve stood up for something, sometime in your life. \",\"Click on an item for more information.\"]', '[\"army_header\",\"army_teaser\"]', 'undefined'),
 (57579, 2, 'DEFAULT', NULL, 'Kitchen 2015', 1, 269, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '[\"Make your dream kitchen, just remember to clean the dishes!\",\"Click on an item for more information.\"]', '[\"kitchen15_header\",\"kitchen15_teaser\"]', 'undefined'),
-(85585, 9999, 'DEFAULT', NULL, 'Icarus Catalogue', 1, 2554, '1', '1', 1, '0', 1, 'recycler_info', 0, '0', '[\"<i><b><font color=\\\"#0E668C\\\" size=\\\"16\\\">What can I find in the shop?<\\/font><\\/b><\\/i><br><br>Upgrade your clothing with Habbo Club, adopt a pet or decorate your room the way you like it. Whatever you like to do most in Habbo, you\'ll find a way to make that experience even better by browsing our Shop.<br><br><li>Join <a href=\\\"event:catalog\\/open\\/habbo_club\\\">Habbo Club<\\/a><\\/li><li><a href=\\\"event:catalog\\/open\\/set_pixelnew\\\">Decorate <\\/a>your room<\\/li><li>Adopt a <a href=\\\"event:catalog\\/open\\/pet_horse\\\">Pet<\\/a>, <a href=\\\"event:catalog\\/open\\/bots\\\">Bot<\\/a> or <a href=\\\"event:catalog\\/open\\/monster_plants_info\\\">Monsterplants<\\/a><\\/li><li>Make your own <a href=\\\"event:catalog\\/open\\/category_wired\\\">Wired<\\/a> games <\\/li><li>Trade in our <a href=\\\"event:catalog\\/open\\/marketplace_offers\\\">Marketplace<\\/a><\\/li><br><i><b><font color=\\\"#0E668C\\\" size=\\\"16\\\">Where can I get credits?<\\/font><\\/b><\\/i><br><br>We have many methods of payment such as SMS, Home Phone, Prepaid Cards, and Credit Cards.<br><br><a href=\\\"event:habblet\\/open\\/credits\\\">Visit our credits page for more info.<\\/a>\",\"Reedem a voucher code here.\"]', '[\"catalog_frontpage_headline_shop_GENERAL\",\"frontpage_teaser\"]', 'undefined'),
+(85585, 9999, 'DEFAULT', NULL, 'Comet Catalogue', 1, 2554, '1', '1', 1, '0', 1, 'recycler_info', 0, '0', '[\"<i><b><font color=\\\"#0E668C\\\" size=\\\"16\\\">What can I find in the shop?<\\/font><\\/b><\\/i><br><br>Upgrade your clothing with Habbo Club, adopt a pet or decorate your room the way you like it. Whatever you like to do most in Habbo, you\'ll find a way to make that experience even better by browsing our Shop.<br><br><li>Join <a href=\\\"event:catalog\\/open\\/habbo_club\\\">Habbo Club<\\/a><\\/li><li><a href=\\\"event:catalog\\/open\\/set_pixelnew\\\">Decorate <\\/a>your room<\\/li><li>Adopt a <a href=\\\"event:catalog\\/open\\/pet_horse\\\">Pet<\\/a>, <a href=\\\"event:catalog\\/open\\/bots\\\">Bot<\\/a> or <a href=\\\"event:catalog\\/open\\/monster_plants_info\\\">Monsterplants<\\/a><\\/li><li>Make your own <a href=\\\"event:catalog\\/open\\/category_wired\\\">Wired<\\/a> games <\\/li><li>Trade in our <a href=\\\"event:catalog\\/open\\/marketplace_offers\\\">Marketplace<\\/a><\\/li><br><i><b><font color=\\\"#0E668C\\\" size=\\\"16\\\">Where can I get credits?<\\/font><\\/b><\\/i><br><br>We have many methods of payment such as SMS, Home Phone, Prepaid Cards, and Credit Cards.<br><br><a href=\\\"event:habblet\\/open\\/credits\\\">Visit our credits page for more info.<\\/a>\",\"Reedem a voucher code here.\"]', '[\"catalog_frontpage_headline_shop_GENERAL\",\"frontpage_teaser\"]', 'undefined'),
 (9895647, 0, 'DEFAULT', NULL, 'Badges', 1, 2556, '1', '1', 1, '0', 10, 'default_3x3', 0, '0', '', '', 'undefined'),
 (9895648, 3, 'DEFAULT', NULL, 'Promote Room', 1, 2555, '1', '1', 1, '0', 1, 'roomads', 0, '0', '', '[\"events_header\"]', 'undefined'),
 (9895649, 9895646, 'DEFAULT', NULL, 'Room Addons', 1, 64, '1', '1', 1, '0', 1, 'default_3x3', 0, '0', '', '[\"events_header\"]', 'undefined'),
@@ -8961,7 +8970,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (2752, 'Mayan Calendar', 'ny2013_calendar', 's', 1, 1, '0.01', '1', '0', '1', 4838, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2753, 'Mayan Building Block', 'ny2013_block', 's', 1, 1, '0.01', '1', '0', '1', 4839, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2754, 'Fireworks Wolf Purple', 'fireworks_14', 's', 1, 1, '1', '0', '0', '0', 4840, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(2755, 'Flaming Icarus', 'ny2013_aftermath', 's', 1, 1, '0.01', '1', '0', '1', 4841, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(2755, 'Flaming Comet', 'ny2013_aftermath', 's', 1, 1, '0.01', '1', '0', '1', 4841, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2756, 'Mayan Floor', 'ny2013_floor', 's', 2, 2, '0.01', '1', '0', '1', 4842, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2757, 'year2013 name', 'year2013', 'i', 0, 0, '1', '0', '0', '0', 4475, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2758, 'Mayan Wall', 'ny2013_wall', 'i', 0, 0, '1', '0', '0', '0', 4476, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -9040,7 +9049,7 @@ INSERT INTO `furniture` (`id`, `public_name`, `item_name`, `type`, `width`, `len
 (2831, 'Jelly Chair', 'qt_val11_jellychair', 's', 1, 1, '1', '1', '1', '0', 3810, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2832, 'Jelly Heart', 'qt_val11_jellyheart', 's', 1, 1, '1', '1', '1', '0', 3811, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2833, 'Roller Rink Chair', 'val11_chair', 's', 1, 1, '1', '0', '1', '0', 3806, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
-(2834, 'Icarus Box', 'val11_playa', 's', 1, 1, '0.01', '1', '0', '0', 3804, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
+(2834, 'Comet Box', 'val11_playa', 's', 1, 1, '0.01', '1', '0', '0', 3804, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2835, 'Roller Rink Railing', 'val11_rail', 's', 1, 2, '0.01', '1', '0', '0', 3812, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2836, 'Blue Waasa Rug', 'waasa_rug1', 's', 2, 4, '0.01', '1', '0', '1', 3899, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
 (2837, 'Yellow Waasa Rug', 'waasa_rug2', 's', 2, 4, '0.01', '1', '0', '1', 3904, '0', '1', '0', '1', '1', 'default', 4, '0', 0, '0', -1, 0, '1', '', NULL),
@@ -12597,33 +12606,6 @@ CREATE TABLE `items` (
   `extra_data` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `items`
---
-
-INSERT INTO `items` (`id`, `user_id`, `owner_id`, `item_id`, `room_id`, `x`, `y`, `z`, `rotation`, `extra_data`) VALUES
-(3, 5, 5, 1660, 6, 'r,6,0', '12,34', 0, 0, ''),
-(4, 5, 5, 1660, 6, 'l,0,8', '6,31', 0, 0, ''),
-(5, 5, 5, 1661, 6, 'r,3,4', '13,36', 0, 0, ''),
-(6, 5, 5, 940, 6, '5', '2', 0, 2, ''),
-(7, 5, 5, 174, 6, '1', '10', 0, 2, ''),
-(8, 5, 5, 169, 6, '10', '1', 0, 4, ''),
-(9, 5, 5, 931, 6, '3', '7', 0, 4, ''),
-(10, 5, 5, 1050, -1, NULL, NULL, -1, 0, ''),
-(11, 5, 5, 1059, -1, NULL, NULL, -1, 0, ''),
-(12, 5, 5, 1536, -1, NULL, NULL, -1, 0, ''),
-(13, 5, 5, 1536, -1, NULL, NULL, -1, 0, ''),
-(14, 5, 5, 804, 7, '3', '7', 0, 2, ''),
-(15, 5, 5, 804, 7, '3', '5', 0, 2, ''),
-(16, 5, 5, 141, -1, NULL, NULL, -1, 0, ''),
-(17, 5, 5, 143, -1, NULL, NULL, -1, 0, ''),
-(18, 5, 5, 1752, 7, 'l,4,3', '10,35', 0, 0, ''),
-(19, 5, 5, 25, -1, NULL, NULL, -1, 0, ''),
-(20, 5, 5, 606, 7, '3', '9', 0, 0, ''),
-(21, 5, 5, 1558, -1, NULL, NULL, -1, 0, ''),
-(22, 5, 5, 1566, -1, NULL, NULL, -1, 0, ''),
-(23, 5, 5, 1569, -1, NULL, NULL, -1, 0, '');
-
 -- --------------------------------------------------------
 
 --
@@ -12784,8 +12766,8 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `name`, `room_type`, `date_created`, `owner_id`, `group_id`, `thumbnail`, `description`, `password`, `users_now`, `users_max`, `model`, `wallpaper`, `floor`, `outside`, `tags`, `trade_state`, `state`, `score`, `category`, `allow_pets`, `allow_pets_eat`, `allow_walkthrough`, `hidewall`, `wall_thickness`, `floor_thickness`, `chat_mode`, `chat_size`, `chat_speed`, `chat_flood`, `chat_distance`, `who_can_mute`, `who_can_kick`, `who_can_ban`) VALUES
-(5, 'Hotel Lobby', 1, '0000-00-00 00:00:00', -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 100, 0, 0, 0),
-(8, 'wdwdwdwdqd', 0, '2017-03-20 15:00:38', 5, 0, NULL, '', '', 0, 10, 'model_f', '0', '0', '0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0);
+(5, 'Hotel Lobby', 1, '2017-03-20 20:15:27', -1, 0, 'thumbnails/picture1.png', '', '', 0, 25, 'model_n', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 100, 0, 0, 0),
+(6, 'Chill Lounge', 1, '2017-03-20 20:19:36', -1, 0, 'thumbnails/picture2.png', '', '', 0, 25, 'model_newbie', '0', '0', '0.0', '', 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 1, 100, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -12992,8 +12974,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `rank`, `join_date`, `last_online`, `sso_ticket`, `email`, `mission`, `figure`, `credits`, `has_logged_in`) VALUES
-(2, 'AlexBot', NULL, 1, 44324323, 1490027003, '321', NULL, 'eating more cake, k?', 'hr-125-45.ea-1406-1408.sh-3068-1408-1408.hd-209-1....', 0, 1),
-(5, 'Alex', 'bf070b42503c652ba6f0494adf55c57951c9cd5a', 1, 1489384512, 1490027030, '123', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'hr-125-45.ea-1406-1408.sh-3068-1408-1408.hd-209-1.ch-267-1408.lg-270-64', 5000, 1);
+(2, 'AlexBot', NULL, 1, 44324323, 1490036714, '321', NULL, 'eating more cake, k?', 'hr-125-45.ea-1406-1408.sh-3068-1408-1408.hd-209-1....', 0, 1),
+(5, 'Alex', 'bf070b42503c652ba6f0494adf55c57951c9cd5a', 1, 1489384512, 1490041430, '123', 'we3rejfpef3@cefc.com', 'Icarus alpha tester', 'hr-125-45.ea-1406-1408.sh-3068-1408-1408.hd-209-1.ch-267-1408.lg-270-64', 5000, 1);
 
 --
 -- Indexes for dumped tables
@@ -13137,7 +13119,7 @@ ALTER TABLE `furniture`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `messenger_friendships`
 --
@@ -13167,7 +13149,7 @@ ALTER TABLE `navigator_tabs`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `rooms_newbie`
 --

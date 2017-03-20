@@ -26,6 +26,7 @@ private:
 
 public:
     static std::map<std::string, RoomModel*> getModels();
+    static void resetRooms();
     static std::vector<RoomNewbie*> RoomDao::getNewbieRoomSelection();
     static std::vector<int> getPlayerRooms(int user_id);
     static void addPublicRooms();
