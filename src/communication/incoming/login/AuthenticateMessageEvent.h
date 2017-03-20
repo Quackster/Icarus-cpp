@@ -48,16 +48,25 @@ public:
         session->send(UniqueMachineIDMessageComposer(""));// session->getUniqueId()));
         session->send(HomeRoomMessageComposer(0, false));
         session->send(LandingWidgetMessageComposer());
-
-
         session->login();
-
-        //[0][0][0][10]D[0][12]bonusbag16_2[0][0]#"[0][0][0]x[0][0][0]x
-        Response response(266);
+		
+		//[0][0][0][10]D[0][12]bonusbag16_2[0][0]#"[0][0][0]x[0][0][0]x
+		/*Response response(266);
         response.writeString("A2 DIGITV"); // product data id
         response.writeInt(2); // -1 for invisible
         response.writeInt(3); // amount
-        response.writeInt(4); // max amount
+        response.writeInt(4); // max amount*/
+
+        //[0][0][0][10]D[0][12]bonusbag16_2[0][0]#"[0][0][0]x[0][0][0]x
+        Response response(3690);
+		response.writeBool(true);
+		response.writeBool(false);
+		response.writeBool(true);
         session->getNetworkConnection()->send(response);
+
+		response = Response(1811);
+		response.writeInt(0);
+		response.writeInt(0);
+		session->getNetworkConnection()->send(response);
     }
 };
