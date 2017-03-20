@@ -30,6 +30,8 @@ void Game::createGame() {
     this->room_manager = new RoomManager();
     
     this->catalogue_manager->assignFurnitureData();
+
+    RoomDao::resetRooms();
     RoomDao::addPublicRooms();
 }
 
