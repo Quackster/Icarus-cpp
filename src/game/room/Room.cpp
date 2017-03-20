@@ -46,8 +46,6 @@ Room::Room(int room_id, RoomData *room_data) :
     runnable(nullptr),
     room_data(room_data) {
 
-    this->dynamic_model = new DynamicModel(this);
-
 } //std::make_shared<RoomRunnable>(this)) { }
 
 /*
@@ -348,6 +346,8 @@ void Room::load() {
     }
 
     this->items = ItemDao::getRoomItems(this->id);
+
+    this->dynamic_model = new DynamicModel(this);
     this->dynamic_model->load();
 
     /*if (this->id == 5) {
@@ -394,6 +394,11 @@ void Room::unload() {
     this->items.clear();
     this->entities.clear();
 
+    if (this->dynamic_model != nullptr) {
+        delete this->dynamic_model;
+    }
+
+    this->dynamic_model = nullptr;
 }
 
 /*

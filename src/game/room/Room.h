@@ -52,14 +52,17 @@ public:
     
     const int id;
     bool disposed;
+    bool fake_ptr = false;
 
 private:
     RoomData *room_data;
-    DynamicModel *dynamic_model;
+    DynamicModel *dynamic_model = nullptr;
     
     std::shared_ptr<RoomRunnable> runnable;
     std::map<int, Entity*> entities;
     std::vector<Item*> items;
+
+    
 
     void load();
     void unload();

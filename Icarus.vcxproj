@@ -151,15 +151,11 @@
     <ClCompile Include="src\game\messenger\Messenger.cpp" />
     <ClCompile Include="src\game\messenger\MessengerUser.cpp" />
     <ClCompile Include="src\game\bot\Bot.cpp" />
-    <ClCompile Include="src\game\navigator\populators\OfficialRoomPopulator.cpp" />
-    <ClCompile Include="src\game\navigator\populators\PopularPopulator.cpp" />
     <ClCompile Include="src\game\pathfinder\Pathfinder.cpp" />
     <ClCompile Include="src\game\pathfinder\PathfinderNode.cpp" />
     <ClCompile Include="src\game\pathfinder\Position.cpp" />
     <ClCompile Include="src\dao\RoomDao.cpp" />
     <ClCompile Include="src\game\room\model\RoomModel.cpp" />
-    <ClCompile Include="src\game\navigator\populators\DefaultPopulator.cpp" />
-    <ClCompile Include="src\game\navigator\populators\MyRoomPopulator.cpp" />
     <ClCompile Include="src\game\room\model\Rotation.cpp" />
     <ClCompile Include="src\game\room\Room.cpp" />
     <ClCompile Include="src\game\room\RoomManager.cpp" />
@@ -189,6 +185,8 @@
   <ItemGroup>
     <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
     <ClInclude Include="src\communication\outgoing\login\AvailabilityMessageComposer.h" />
+    <ClInclude Include="src\game\navigator\populators\DisposablePopulator.h" />
+    <ClInclude Include="src\game\navigator\populators\FriendsPopulator.h" />
     <ClInclude Include="src\game\room\misc\RoomNewbie.h" />
     <ClInclude Include="src\game\room\misc\RoomNewbieItem.h" />
     <ClInclude Include="src\game\room\model\DynamicModel.h" />

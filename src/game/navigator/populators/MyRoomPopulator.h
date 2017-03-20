@@ -9,11 +9,18 @@
 #pragma once
 #include <vector>
 
+#include "boot/Icarus.h"
 #include "RoomPopulator.h"
 
 class MyRoomPopulator : public RoomPopulator {
 
 public:
     MyRoomPopulator() { }
-    std::vector<Room*> populate(bool room_limit, Player* player);
+
+    std::vector<Room*> populate(bool room_limit, Player* player) {
+
+        std::vector<Room*> rooms = Icarus::getGame()->getRoomManager()->getPlayerRooms(player->getDetails()->id);
+        this->sort(rooms);
+        return rooms;
+    }
 };

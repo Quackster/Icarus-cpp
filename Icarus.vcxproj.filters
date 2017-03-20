@@ -78,12 +78,6 @@
     <ClCompile Include="src\game\room\model\RoomModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\navigator\populators\DefaultPopulator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\navigator\populators\MyRoomPopulator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\game\room\RoomUser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -97,12 +91,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\game\room\tasks\RoomRunnable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\navigator\populators\PopularPopulator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\navigator\populators\OfficialRoomPopulator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\game\messenger\Messenger.cpp">
@@ -711,6 +699,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\outgoing\login\AvailabilityMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\navigator\populators\FriendsPopulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\navigator\populators\DisposablePopulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

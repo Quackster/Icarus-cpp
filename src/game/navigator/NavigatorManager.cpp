@@ -15,6 +15,8 @@
 #include "populators/MyRoomPopulator.h"
 #include "populators/OfficialRoomPopulator.h"
 #include "populators/PopularPopulator.h"
+#include "populators/FriendsPopulator.h"
+
 /*
 Constructor for Navigator Manager
 
@@ -29,7 +31,7 @@ NavigatorManager::NavigatorManager() :
     this->room_populators.insert(std::make_pair("OfficialRoomPopulator", new OfficialRoomPopulator()));
     this->room_populators.insert(std::make_pair("PopularPopulator", new PopularPopulator()));
     this->room_populators.insert(std::make_pair("MyRoomPopulator", new MyRoomPopulator()));
-
+    this->room_populators.insert(std::make_pair("FriendsPopulator", new FriendsPopulator()));
 }
 /*
     Gets tab by name

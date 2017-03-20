@@ -15,5 +15,16 @@ class OfficialRoomPopulator : public RoomPopulator {
 
 public:
     OfficialRoomPopulator() { }
-    std::vector<Room*> populate(bool room_limit, Player* player);
+    std::vector<Room*> populate(bool room_limit, Player* player) {
+
+        std::vector<Room*> rooms;
+
+        for (auto room : Icarus::getGame()->getRoomManager()->getPublicRooms()) {
+
+            rooms.push_back(room);
+        }
+
+        this->sort(rooms);
+        return rooms;
+    }
 };

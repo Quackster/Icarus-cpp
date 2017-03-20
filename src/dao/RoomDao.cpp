@@ -248,9 +248,10 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
                 // The user leaves the room and they're not the owner, and they're the last one in the room
                 // The user disconnects and there's no one else in the room so they get deleted
                 //
-                // 'delete' called from the .deleteRoom function from RoomManager
-
+                // 'delete' called from the .deleteRoom function from RoomManage
                 RoomData *room_data = new RoomData();
+                Room *room = new Room(room_id, room_data);
+
                 room_data->id = room_id;
                 room_data->name = result_set->getString("name");
                 room_data->room_type = (char)result_set->getInt("room_type");
@@ -284,7 +285,7 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
                 room_data->who_can_mute = result_set->getInt("who_can_mute");
                 room_data->who_can_kick = result_set->getInt("who_can_kick");
                 room_data->who_can_ban = result_set->getInt("who_can_ban");
-                room_data->user_rights = getRights(room_id);
+                room_data->user_rights = getRights(room->getData()->id);
 
                 if (room_data->state == 0) {
                     room_data->room_state = ROOM_STATE_OPEN;
@@ -304,8 +305,8 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
 
                 room_data->user_rights.push_back(room_data->owner_id);
 
+             
 
-                Room *room = new Room(room_id, room_data);
                 rooms.push_back(room);
             }
         }
