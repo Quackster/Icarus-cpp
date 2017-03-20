@@ -122,13 +122,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\lib\boost_1_63_0;src;D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\include;D:\Program Files\MySQL\MySQL Connector C 6.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\lib\boost_1_63_0;src;E:\Program Files\MySQL\MySQL Connector C++ 1.1.8\include;E:\Program Files\MySQL\MySQL Connector C 6.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>CPPCONN_PUBLIC_FUNC=;_WIN32_WINNT=0x0501;WIN32_LEAN_AND_MEAN=</PreprocessorDefinitions>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Program Files\MySQL\MySQL Connector C++ 1.1.8\lib\opt;D:\Program Files\MySQL\MySQL Connector C 6.1\lib;D:\lib\boost_1_63_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>E:\Program Files\MySQL\MySQL Connector C++ 1.1.8\lib\opt;E:\Program Files\MySQL\MySQL Connector C 6.1\lib;E:\lib\boost_1_63_0\stage\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>mysqlcppconn.lib;libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -151,15 +151,11 @@
     <ClCompile Include="src\game\messenger\Messenger.cpp" />
     <ClCompile Include="src\game\messenger\MessengerUser.cpp" />
     <ClCompile Include="src\game\bot\Bot.cpp" />
-    <ClCompile Include="src\game\navigator\populators\OfficialRoomPopulator.cpp" />
-    <ClCompile Include="src\game\navigator\populators\PopularPopulator.cpp" />
     <ClCompile Include="src\game\pathfinder\Pathfinder.cpp" />
     <ClCompile Include="src\game\pathfinder\PathfinderNode.cpp" />
     <ClCompile Include="src\game\pathfinder\Position.cpp" />
     <ClCompile Include="src\dao\RoomDao.cpp" />
     <ClCompile Include="src\game\room\model\RoomModel.cpp" />
-    <ClCompile Include="src\game\navigator\populators\DefaultPopulator.cpp" />
-    <ClCompile Include="src\game\navigator\populators\MyRoomPopulator.cpp" />
     <ClCompile Include="src\game\room\model\Rotation.cpp" />
     <ClCompile Include="src\game\room\Room.cpp" />
     <ClCompile Include="src\game\room\RoomManager.cpp" />
@@ -188,6 +184,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
+    <ClInclude Include="src\communication\outgoing\login\AvailabilityMessageComposer.h" />
+    <ClInclude Include="src\game\navigator\populators\DisposablePopulator.h" />
+    <ClInclude Include="src\game\navigator\populators\FriendsPopulator.h" />
+    <ClInclude Include="src\game\room\misc\RoomNewbie.h" />
+    <ClInclude Include="src\game\room\misc\RoomNewbieItem.h" />
     <ClInclude Include="src\game\room\model\DynamicModel.h" />
     <ClInclude Include="src\communication\incoming\catalogue\PurchaseObjectMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\item\ApplyDecorationMessageEvent.h" />

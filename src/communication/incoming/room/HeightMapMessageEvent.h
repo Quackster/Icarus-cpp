@@ -45,8 +45,8 @@ public:
         player->send(HeightMapMessageComposer(room));
         player->send(FloorMapMessageComposer(room));
 
-		player->send(WallItemsMessageComposer(room->getItems(WALL_ITEM)));
-		player->send(FloorItemsMessageComposer(room->getItems(FLOOR_ITEM)));
+        player->send(WallItemsMessageComposer(room->getItems(WALL_ITEM)));
+        player->send(FloorItemsMessageComposer(room->getItems(FLOOR_ITEM)));
 
         player->send(UserDisplayMessageComposer(room->getEntities()));
         player->send(UserStatusMessageComposer(room->getEntities()));
@@ -71,9 +71,9 @@ public:
         }
 
 
-		/*
-		player.send(new ChatOptionsMessageComposer(room));
-		player.send(new WallOptionsMessageComposer(room.getData().isHideWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
+        /*
+        player.send(new ChatOptionsMessageComposer(room));
+        player.send(new WallOptionsMessageComposer(room.getData().isHideWall(), room.getData().getWallThickness(), room.getData().getFloorThickness()));
 */
     }
 };

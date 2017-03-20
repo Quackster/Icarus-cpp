@@ -12,22 +12,22 @@
 class BroadcastMessageAlertComposer : public MessageComposer {
 
 public:
-	BroadcastMessageAlertComposer(std::string message, std::string url = "") :
-		message(message),
-		url(url) { }
+    BroadcastMessageAlertComposer(std::string message, std::string url = "") :
+        message(message),
+        url(url) { }
 
-	const Response compose() const {
-		Response response = this->createResponse();
-		response.writeString(message);
-		response.writeString(url);
-		return response;
-	}
+    const Response compose() const {
+        Response response = this->createResponse();
+        response.writeString(message);
+        response.writeString(url);
+        return response;
+    }
 
-	const int getHeader() const {
-		return Outgoing::BroadcastMessageAlertComposer;
-	}
+    const int getHeader() const {
+        return Outgoing::BroadcastMessageAlertComposer;
+    }
 
 private:
-	std::string message;
-	std::string url;
+    std::string message;
+    std::string url;
 };

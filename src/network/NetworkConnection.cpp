@@ -54,10 +54,10 @@ void NetworkConnection::recieveData() {
                 }
                 else {
 
-					long message_length = (int)buffer[3] & 0xff;
-					message_length |= ((int)buffer[2] & 0xff) << 8;
-					message_length |= ((int)buffer[1] & 0xff) << 16;
-					message_length |= ((int)buffer[1] & 0xff) << 24;
+                    long message_length = (int)buffer[3] & 0xff;
+                    message_length |= ((int)buffer[2] & 0xff) << 8;
+                    message_length |= ((int)buffer[1] & 0xff) << 16;
+                    message_length |= ((int)buffer[1] & 0xff) << 24;
 
 
                     // Read rest of message, to prevent any combined packets
@@ -166,18 +166,18 @@ void NetworkConnection::handleData(Request request) {
 }
 
 /*
-	Send response class to socket
+    Send response class to socket
 
-	@return none
+    @return none
 */
 void NetworkConnection::send(Response response) {
     this->writeData(response.getData(), response.getBytesWritten());
 }
 
 /*
-	Send compose class to socket
+    Send compose class to socket
 
-	@return none
+    @return none
 */
 void NetworkConnection::send(const MessageComposer &composer) {
 
@@ -191,9 +191,9 @@ void NetworkConnection::send(const MessageComposer &composer) {
 
 
 /*
-	Send policy to the socket
+    Send policy to the socket
 
-	@return void
+    @return void
 
 */
 void NetworkConnection::sendPolicy() {
@@ -208,32 +208,32 @@ void NetworkConnection::sendPolicy() {
 }
 
 /*
-	Returns the connection ID (incremented from 0 when server starts)
-	This is used to get the session from Session Manager
+    Returns the connection ID (incremented from 0 when server starts)
+    This is used to get the session from Session Manager
 
-	WARNING: If the user hasn't passed the flash policy, using this to get the session
-			 is utterly useless
+    WARNING: If the user hasn't passed the flash policy, using this to get the session
+             is utterly useless
 
-	@return connectionID integer
+    @return connectionID integer
 */
 int NetworkConnection::getConnectionId() { 
     return connection_id; 
 };
 
 /*
-	Gets the connection state of the user. True for connected, false for disconnected
+    Gets the connection state of the user. True for connected, false for disconnected
 
-	@return connection flag
+    @return connection flag
 */
 bool NetworkConnection::getConnectionState() { 
     return connection_state; 
 };
 
 /*
-	Sets the connection state, if set to false, the user will no longer receive
-	any incoming packets
+    Sets the connection state, if set to false, the user will no longer receive
+    any incoming packets
 
-	@return none
+    @return none
 */
 void NetworkConnection::setConnectionState(bool connection_state) {
     this->connection_state = connection_state; 

@@ -9,6 +9,8 @@
 #pragma once
 #include <vector>
 
+#include "game/navigator/populators/DisposablePopulator.h"
+
 #include "game/player/Player.h"
 #include "game/navigator/NavigatorTab.h"
 #include "communication/outgoing/MessageComposer.h"
@@ -65,6 +67,13 @@ public:
 
                 for (Room *room : rooms) {
                     room->serialise(response);
+                }
+
+                // If the populator inherits the disposable class, the items MUST be deleted!
+                DisposablePopulator *disposable = dynamic_cast<DisposablePopulator*>(populator);
+
+                if (disposable) {
+                    disposable->dispose(rooms);
                 }
             }
         }

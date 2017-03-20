@@ -15,5 +15,10 @@ class DefaultPopulator : public RoomPopulator {
 
 public:
     DefaultPopulator() { }
-    std::vector<Room*> populate(bool room_limit, Player* player);
+
+    std::vector<Room*> populate(bool room_limit, Player* player) {
+
+        std::vector<Room*> rooms;
+        return rooms;
+    }
 };

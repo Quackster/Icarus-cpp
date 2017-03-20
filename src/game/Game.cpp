@@ -13,13 +13,7 @@
 #include "boot/Icarus.h"
 #include "dao/RoomDao.h"
 
-Game::Game() :
-	navigator_manager(new NavigatorManager()),
-	room_manager(new RoomManager()),
-	executor_service(ExecutorService::createSchedulerService(Icarus::getGameConfiguration()->getInt("thread.pool.size"), std::chrono::milliseconds(500))),
-	furniture_manager(new ItemManager()),
-	catalogue_manager(new CatalogueManager()) {
-}
+Game::Game()  { }
 
 /*
     Function that loads data after everything else needed to be loaded first
@@ -27,12 +21,16 @@ Game::Game() :
     @return none
 */
 void Game::createGame() {
-	
-	this->catalogue_manager->assignFurnitureData();
 
+    // Load game order
+    this->navigator_manager = new NavigatorManager();
+    this->executor_service = ExecutorService::createSchedulerService(Icarus::getGameConfiguration()->getInt("thread.pool.size"), std::chrono::milliseconds(500));
+    this->furniture_manager = new ItemManager();
+    this->catalogue_manager = new CatalogueManager();
+    this->room_manager = new RoomManager();
+    
+    this->catalogue_manager->assignFurnitureData();
     RoomDao::addPublicRooms();
-
-
 }
 
 Game::~Game() {

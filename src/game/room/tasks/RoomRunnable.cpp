@@ -56,7 +56,7 @@ void RoomRunnable::run() {
 
         RoomModel *room_model = this->room->getModel();
 
-		mtx.lock();
+        mtx.lock();
 
         std::map<int, Entity*> entities = this->room->getEntities();
 
@@ -91,42 +91,42 @@ void RoomRunnable::run() {
                     }
 
 
-					if (this->hasTicked(5)) {
-						if (entity->getEntityType() == BOT) {
+                    if (this->hasTicked(5)) {
+                        if (entity->getEntityType() == BOT) {
 
-							if (room_user->is_walking) {
-								continue;
-							}
+                            if (room_user->is_walking) {
+                                continue;
+                            }
 
-							Position goal = room_user->goal;
-							Position current = room_user->position;
+                            Position goal = room_user->goal;
+                            Position current = room_user->position;
 
-							room_user->goal.x = room_model->getRandomX();
-							room_user->goal.y = room_model->getRandomY();
+                            room_user->goal.x = room_model->getRandomX();
+                            room_user->goal.y = room_model->getRandomY();
 
-							int map_size_x = room->getModel()->map_size_x;
-							int map_size_y = room->getModel()->map_size_y;
+                            int map_size_x = room->getModel()->map_size_x;
+                            int map_size_y = room->getModel()->map_size_y;
 
-							if (goal.x >= map_size_x || goal.x >= map_size_y) {
-								continue;
-							}
+                            if (goal.x >= map_size_x || goal.x >= map_size_y) {
+                                continue;
+                            }
 
-							if (goal.x == current.y && goal.x == current.y) {
-								continue;
-							}
+                            if (goal.x == current.y && goal.x == current.y) {
+                                continue;
+                            }
 
-							if (!Pathfinder::isValidStep(room, current, goal, false)) {
-								continue;
-							}
+                            if (!Pathfinder::isValidStep(room, current, goal, false)) {
+                                continue;
+                            }
 
-							auto path = Pathfinder::makePath(room_user->position, room_user->goal, room);
+                            auto path = Pathfinder::makePath(room_user->position, room_user->goal, room);
 
-							if (path.size() > 0) {
-								room_user->setPath(path);
-								room_user->is_walking = true;
-							}
-						}
-					}
+                            if (path.size() > 0) {
+                                room_user->setPath(path);
+                                room_user->is_walking = true;
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -62,11 +62,11 @@ public:
 
         int room_id = NavigatorDao::createRoom(room_name, description, room_model, player->getDetails()->id, category, max_users, trade_settings);
 
-		Room *room = RoomDao::getRoom(room_id);
+        Room *room = RoomDao::getRoom(room_id);
 
-		if (room != nullptr) {
-			Icarus::getGame()->getRoomManager()->addRoom(room);
-		}
+        if (room != nullptr) {
+            Icarus::getGame()->getRoomManager()->addRoom(room);
+        }
 
         player->send(CreateRoomMessageComposer(room_id, room_name));
 

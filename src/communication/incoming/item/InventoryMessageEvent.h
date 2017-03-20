@@ -13,9 +13,9 @@
 class InventoryMessageEvent : public MessageEvent {
 
 public:
-	InventoryMessageEvent() { }
+    InventoryMessageEvent() { }
 
-	void handle(Player *player, Request &request) {
-		player->getInventory()->update();
-	}
+    void handle(Player *player, Request &request) {
+        player->getInventory()->update();
+    }
 };

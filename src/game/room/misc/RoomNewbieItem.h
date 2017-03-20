@@ -7,12 +7,19 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-#include "communication/incoming/MessageEvent.h"
+#include <string>
+#include <vector>
 
-class DefaultMessageEvent : public MessageEvent {
+class ItemDefinition;
+struct RoomNewbieItem {
 
-public:
-    DefaultMessageEvent() { }
+    int item_id;
+    std::string position;
+    
+    int x = -1;
+    int y = -1;
+    int z;
+    int rotation = 0;
 
-    void handle(Player *player, Request &request) { }
+    ItemDefinition *definition;
 };

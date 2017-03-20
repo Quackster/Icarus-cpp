@@ -7,12 +7,15 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-#include "communication/incoming/MessageEvent.h"
+#include <string>
+#include <vector>
 
-class DefaultMessageEvent : public MessageEvent {
+#include "RoomNewbieItem.h"
 
-public:
-    DefaultMessageEvent() { }
+struct RoomNewbie {
 
-    void handle(Player *player, Request &request) { }
+    std::string model;
+    std::string wallpaper;
+    std::string floorpaper;
+    std::vector<RoomNewbieItem> items;
 };

@@ -12,14 +12,14 @@
 class UpdateInventoryMessageComposer : public MessageComposer {
 
 public:
-	UpdateInventoryMessageComposer() { }
+    UpdateInventoryMessageComposer() { }
 
-	const Response compose() const {
-		Response response = this->createResponse();
-		return response;
-	}
+    const Response compose() const {
+        Response response = this->createResponse();
+        return response;
+    }
 
-	const int getHeader() const {
-		return Outgoing::UpdateInventoryMessageComposer;
-	}
+    const int getHeader() const {
+        return Outgoing::UpdateInventoryMessageComposer;
+    }
 };

@@ -16,18 +16,18 @@
 class CatalogueTabMessageEvent : public MessageEvent {
 
 public:
-	CatalogueTabMessageEvent() { }
+    CatalogueTabMessageEvent() { }
 
     void handle(Player *player, Request &request) {
 
-		std::string type = request.readString();
+        std::string type = request.readString();
 
-		std::vector<CatalogueTab*> parent_tabs = Icarus::getGame()->getCatalogueManager()->getParentTabs(player->getDetails()->rank);
+        std::vector<CatalogueTab*> parent_tabs = Icarus::getGame()->getCatalogueManager()->getParentTabs(player->getDetails()->rank);
 
-		if (parent_tabs.size() == 0) {
-			return;
-		}
+        if (parent_tabs.size() == 0) {
+            return;
+        }
 
-		player->send(CatalogueTabMessageComposer(type, parent_tabs, -1, player->getDetails()->rank));
+        player->send(CatalogueTabMessageComposer(type, parent_tabs, -1, player->getDetails()->rank));
     }
 };

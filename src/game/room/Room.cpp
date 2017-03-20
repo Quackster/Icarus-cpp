@@ -46,8 +46,6 @@ Room::Room(int room_id, RoomData *room_data) :
     runnable(nullptr),
     room_data(room_data) {
 
-	this->dynamic_model = new DynamicModel(this);
-
 } //std::make_shared<RoomRunnable>(this)) { }
 
 /*
@@ -56,11 +54,11 @@ Room::Room(int room_id, RoomData *room_data) :
 */
 bool Room::hasRights(Player *player, const bool owner_check_only) {
 
-	if (player->hasFuse("admin")) {
-		return true;
-	}
+    if (player->hasFuse("admin")) {
+        return true;
+    }
 
-	const int user_id = player->getDetails()->id;
+    const int user_id = player->getDetails()->id;
 
     if (owner_check_only) {
         return this->room_data->owner_id == user_id;
@@ -69,9 +67,9 @@ bool Room::hasRights(Player *player, const bool owner_check_only) {
 
         if (this->room_data->owner_id != user_id) {
 
-			if (player->hasFuse("room_any_owner")) {
-				return true;
-			}
+            if (player->hasFuse("room_any_owner")) {
+                return true;
+            }
 
             // Check to see if user id is located in room_data->user_rights vector
             return std::find(this->room_data->user_rights.begin(), this->room_data->user_rights.end(), user_id) != this->room_data->user_rights.end();
@@ -93,9 +91,9 @@ void Room::enter(Entity *entity) {
     RoomModel *model = this->getModel();
     RoomUser *room_user = entity->getRoomUser();
 
-	room_user->position.x = model->door_x;
-	room_user->position.y = model->door_y;
-	room_user->height = model->door_z;
+    room_user->position.x = model->door_x;
+    room_user->position.y = model->door_y;
+    room_user->height = model->door_z;
 
     room_user->setRotation(model->door_rotation, true);
     room_user->setRoom(this);
@@ -347,8 +345,10 @@ void Room::load() {
         cout << " [ROOM] Room ID " << this->id << " loaded" << endl;
     }
 
-	this->items = ItemDao::getRoomItems(this->id);
-	this->dynamic_model->load();
+    this->items = ItemDao::getRoomItems(this->id);
+
+    this->dynamic_model = new DynamicModel(this);
+    this->dynamic_model->load();
 
     /*if (this->id == 5) {
 
@@ -387,13 +387,18 @@ void Room::unload() {
         }
     }
 
-	for (Item *item : this->items) {
-		delete item;
-	}
+    for (Item *item : this->items) {
+        delete item;
+    }
 
-	this->items.clear();
+    this->items.clear();
     this->entities.clear();
 
+    if (this->dynamic_model != nullptr) {
+        delete this->dynamic_model;
+    }
+
+    this->dynamic_model = nullptr;
 }
 
 /*
@@ -476,21 +481,21 @@ Returns a list of items, by defined item type (such as only selecting wall or fl
 */
 std::vector<Item*> Room::getItems(ItemType item_type) {
 
-	std::vector<Item*> return_items;
+    std::vector<Item*> return_items;
 
-	for (Item *item : this->items) {
+    for (Item *item : this->items) {
 
-		if (item_type == WALL_ITEM && item->isWallItem()) {
-			return_items.push_back(item);
-		}
+        if (item_type == WALL_ITEM && item->isWallItem()) {
+            return_items.push_back(item);
+        }
 
-		if (item_type == FLOOR_ITEM && item->isFloorItem()) {
-			return_items.push_back(item);
-		}
+        if (item_type == FLOOR_ITEM && item->isFloorItem()) {
+            return_items.push_back(item);
+        }
 
-	}
+    }
 
-	return return_items;
+    return return_items;
 }
 
 /*
@@ -501,13 +506,13 @@ Get Item by item id
 */
 Item *Room::getItem(int item_id) {
 
-	for (Item *item : this->items) {
-		if (item->id == item_id) {
-			return item;
-		}
-	}
+    for (Item *item : this->items) {
+        if (item->id == item_id) {
+            return item;
+        }
+    }
 
-	return nullptr;
+    return nullptr;
 }
 
 
@@ -519,11 +524,11 @@ Remove the item from the player's inventory
 */
 void Room::removeItem(Item *item) {
 
-	// Remove from vector
-	this->items.erase(std::remove(this->items.begin(), this->items.end(), item), this->items.end());
+    // Remove from vector
+    this->items.erase(std::remove(this->items.begin(), this->items.end(), item), this->items.end());
 
-	// Alert item removed
-	this->send(RemoveItemMessageComposer(item));
+    // Alert item removed
+    this->send(RemoveItemMessageComposer(item));
 }
 
 

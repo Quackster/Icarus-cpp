@@ -13,14 +13,14 @@
 class ItemManager
 {
 public:
-	ItemManager();
-	~ItemManager();
+    ItemManager();
+    ~ItemManager();
 
-	ItemDefinition *getDefinitionByID(int item_id);
-	ItemDefinition *getDefinitionBySpriteID(int item_id);
+    ItemDefinition *getDefinitionByID(int item_id);
+    ItemDefinition *getDefinitionBySpriteID(int item_id);
 
 private:
-	std::map<int, ItemDefinition*> id_lookup;
-	std::map<int, ItemDefinition*> sprite_lookup;
+    std::map<int, ItemDefinition*> id_lookup;
+    std::map<int, ItemDefinition*> sprite_lookup;
 };
 

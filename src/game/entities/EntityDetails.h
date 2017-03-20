@@ -13,12 +13,12 @@ class EntityDetails
 {
 
 public:
-	EntityDetails(Entity *entity);
-	~EntityDetails();
+    EntityDetails(Entity *entity);
+    ~EntityDetails();
 
-	void setCredits(int new_amount);
+    void setCredits(int new_amount);
 
-	Entity *entity;
+    Entity *entity;
 
     int id;
     std::string username;
@@ -28,4 +28,5 @@ public:
     int credits;
     std::string machine_id;
     bool authenticated;
+    bool has_logged_in = true;
 };

@@ -29,7 +29,7 @@ public:
     }
     void writeShort(short numberr);
     void writeString(const char* str) { this->writeCChar(str); };
-	void writeString(int str) { this->writeString(std::to_string(str)); };
+    void writeString(int str) { this->writeString(std::to_string(str)); };
     void writeString(std::string str) { this->writeCChar(str.c_str()); };
 
     char *getData();

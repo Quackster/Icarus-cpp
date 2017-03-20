@@ -10,6 +10,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <thread>
 
 #include "Configuration.h"
 #include "Utilities.h"
@@ -92,20 +93,32 @@ void Configuration::parse() {
         }
 
         if (this->file == "config/game.ini") {
+
+            int processors = std::thread::hardware_concurrency();
+
+            if (processors == 0) {
+                processors = 8;
+            }
+            else {
+                processors = processors * 2;
+            }
+
             output_file << endl;
             output_file << "########################" << endl;
             output_file << "##     Game config    ##" << endl;
             output_file << "########################" << endl;
             output_file << endl;
-            output_file << "thread.pool.size=8;" << endl;
+            output_file << "game.revision=PRODUCTION-201701242205-837386173;" << endl;
             output_file << endl;
-            output_file << "game.revision=PRODUCTION-201512012203-525044429;" << endl;
+            output_file << "thread.pool.size=" << processors << ";" << endl;
             output_file << endl;
             output_file << "chat.flood.max=5;" << endl;
             output_file << "chat.flood.seconds=4;" << endl;
             output_file << "chat.flood.wait=20;" << endl;
             output_file << endl;
             output_file << "room.idle.seconds=300;" << endl;
+            output_file << endl;
+            output_file << "newuser.create.newbie.room=false;" << endl;
         }
 
         output_file.close();

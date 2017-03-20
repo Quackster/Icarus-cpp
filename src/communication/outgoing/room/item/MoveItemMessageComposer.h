@@ -13,26 +13,28 @@
 class MoveItemMessageComposer : public MessageComposer {
 
 public:
-	MoveItemMessageComposer(Item *item) :
-		item(item) { }
+    MoveItemMessageComposer(Item *item) :
+        item(item) { }
 
-	const Response compose() const {
-		Response response = this->createResponse();
-		item->serialise(response);
-		return response;
-	}
+    const Response compose() const {
+        Response response = this->createResponse();
+        item->serialise(response);
+        return response;
+    }
 
-	const int getHeader() const {
+    const int getHeader() const {
 
-		if (item->isWallItem()) {
-			return Outgoing::MoveWallItemMessageComposer;
-		}
+        if (item->isWallItem()) {
+            return Outgoing::MoveWallItemMessageComposer;
+        }
 
-		if (item->isFloorItem()) {
-			return Outgoing::MoveFloorItemMessageComposer;
-		}
-	}
+        if (item->isFloorItem()) {
+            return Outgoing::MoveFloorItemMessageComposer;
+        }
+
+        return -1;
+    }
 
 private:
-	Item *item;
+    Item *item;
 };

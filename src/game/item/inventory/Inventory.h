@@ -19,16 +19,16 @@ public:
     Inventory(Player *player, std::vector<Item*> items);
     ~Inventory();
 
-	void update();
-	void addItem(Item *item);
-	void removeItem(Item *item, bool delete_from_database = true);
+    void update();
+    void addItem(Item *item);
+    void removeItem(Item *item, bool delete_from_database = true);
 
-	Item *getItem(int item_id);
-	std::vector<Item*> getItems(ItemType type);
-	std::vector<Item*> getItems() { return this->items; }
+    Item *getItem(int item_id);
+    std::vector<Item*> getItems(ItemType type);
+    std::vector<Item*> getItems() { return this->items; }
 
 private:
-	Player *player;
+    Player *player;
     std::vector<Item*> items;
 
 };

@@ -202,7 +202,7 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
 
             if (!player->authenticated()) {
                 printf("Player tried to send packet while not logged in, scripting maybe?\n");
-				player->close();
+                player->close();
                 return;
             }
         }
@@ -221,10 +221,10 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
 }
 
 /*
-	Add all outgoing events to script for Lua
+    Add all outgoing events to script for Lua
 
-	@parma plugin ptr
-	@return none
+    @parma plugin ptr
+    @return none
 */
 void MessageHandler::addObjects(Plugin *plugin) {
 

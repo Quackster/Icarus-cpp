@@ -15,6 +15,7 @@
 #include "communication/outgoing/login/UniqueMachineIDMessageComposer.h"
 #include "communication/outgoing/login/HomeRoomMessageComposer.h"
 #include "communication/outgoing/login/LandingWidgetMessageComposer.h"
+#include "communication/outgoing/login/AvailabilityMessageComposer.h"
 
 #include "dao/UserDao.h"
 
@@ -31,33 +32,31 @@ public:
             session->getNetworkConnection()->getSocket().close();
             return;
         }
-		else {
+        else {
 
-			EntityDetails *details = UserDao::findUserByTicket(session, sso_ticket);
+            EntityDetails *details = UserDao::findUserByTicket(session, sso_ticket);
 
-			if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(details->id) > 0) {
-				session->getNetworkConnection()->getSocket().close();
-				delete details;
-				return;
-			}
+            if (Icarus::getPlayerManager()->getPlayersIDLookup()->count(details->id) > 0) {
+                session->getNetworkConnection()->getSocket().close();
+                delete details;
+                return;
+            }
 
-			session->setDetails(details);
-		}
+            session->setDetails(details);
+        }
 
         session->send(AuthenticateMessageComposer());
         session->send(UniqueMachineIDMessageComposer(""));// session->getUniqueId()));
         session->send(HomeRoomMessageComposer(0, false));
         session->send(LandingWidgetMessageComposer());
-
-
+        session->send(AvailabilityMessageComposer());
         session->login();
-
+        
         //[0][0][0][10]D[0][12]bonusbag16_2[0][0]#"[0][0][0]x[0][0][0]x
-        Response response(266);
+        /*Response response(266);
         response.writeString("A2 DIGITV"); // product data id
         response.writeInt(2); // -1 for invisible
         response.writeInt(3); // amount
-        response.writeInt(4); // max amount
-        session->getNetworkConnection()->send(response);
+        response.writeInt(4); // max amount*/
     }
 };

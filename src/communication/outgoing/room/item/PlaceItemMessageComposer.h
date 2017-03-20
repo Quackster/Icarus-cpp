@@ -13,26 +13,26 @@
 class PlaceItemMessageComposer : public MessageComposer {
 
 public:
-	PlaceItemMessageComposer(Item *item) :
-		item(item) { }
+    PlaceItemMessageComposer(Item *item) :
+        item(item) { }
 
-	const Response compose() const {
-		Response response = this->createResponse();
-		item->serialise(response);
-		response.writeString(item->owner_name);
-		return response;
-	}
+    const Response compose() const {
+        Response response = this->createResponse();
+        item->serialise(response);
+        response.writeString(item->owner_name);
+        return response;
+    }
 
-	const int getHeader() const {
+    const int getHeader() const {
 
-		if (item->isFloorItem()) {
-			return Outgoing::PlaceFloorItemMessageComposer;
-		}
-		else {
-			return Outgoing::PlaceWallItemMessageComposer;
-		}
-	}
+        if (item->isFloorItem()) {
+            return Outgoing::PlaceFloorItemMessageComposer;
+        }
+        else {
+            return Outgoing::PlaceWallItemMessageComposer;
+        }
+    }
 
 private:
-	Item *item;
+    Item *item;
 };

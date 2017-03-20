@@ -16,39 +16,39 @@ class DynamicModel
 {
 
 public:
-	DynamicModel(Room *room);
+    DynamicModel(Room *room);
 
-	void load();
-	int getSearchIndex(int x, int y);
+    void load();
+    int getSearchIndex(int x, int y);
 
-	Item *getItemAtPosition(int x, int y);
-	std::vector<Item*> getItemsAtPosition(int x, int y, bool single_tile = false);
+    Item *getItemAtPosition(int x, int y);
+    std::vector<Item*> getItemsAtPosition(int x, int y, bool single_tile = false);
 
-	double getTileHeight(int x, int y);//const { return tile_height[x * map_size_y + y]; }
-	bool isValidTile(int x, int y);
-	/*const bool isValidTile(int x, int y) const {
+    double getTileHeight(int x, int y);//const { return tile_height[x * map_size_y + y]; }
+    bool isValidTile(int x, int y);
+    /*const bool isValidTile(int x, int y) const {
 
-		if (x >= this->map_size_x || !(x >= 0)) {
-			return 0;
-		}
+        if (x >= this->map_size_x || !(x >= 0)) {
+            return 0;
+        }
 
-		if (y >= this->map_size_y || !(y >= 0)) {
-			return 0;
-		}
+        if (y >= this->map_size_y || !(y >= 0)) {
+            return 0;
+        }
 
-		return tile_flags[x * map_size_y + y] == 0;
-	}*/
+        return tile_flags[x * map_size_y + y] == 0;
+    }*/
 
-	~DynamicModel();
+    ~DynamicModel();
 
 private:
-	Room *room;
-	std::mutex mtx;
+    Room *room;
+    std::mutex mtx;
 
-	//int *tile_flags = nullptr;
-	//double *tile_height = nullptr;
+    //int *tile_flags = nullptr;
+    //double *tile_height = nullptr;
 
-	int map_size_x;
-	int map_size_y;
+    int map_size_x;
+    int map_size_y;
 };
 

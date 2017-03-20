@@ -11,6 +11,9 @@
 #include "UserDao.h"
 #include "RoomDao.h"
 
+#include "game/room/misc/RoomNewbie.h"
+#include "game/item/definitions/ItemDefinition.h"
+
 #include "boot/Icarus.h"
 #include "misc/Utilities.h"
 
@@ -50,6 +53,84 @@ std::map<std::string, RoomModel*> RoomDao::getModels() {
     Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
 
     return models;
+
+}
+
+/*
+Get all room models
+
+@return room model ptr instances
+*/
+std::vector<RoomNewbie*> RoomDao::getNewbieRoomSelection() {
+
+    std::vector<RoomNewbie*> newbie_rooms;// = new std::map<std::string, RoomModel*>();
+
+    if (!Icarus::getGameConfiguration()->getBool("newuser.create.newbie.room")) {
+        return newbie_rooms; // Don't bother running through with caching this data
+    }
+
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+    try {
+
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+        std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id, model, wallpaper, floor, items FROM rooms_newbie"));
+
+        std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+
+        while (result_set->next()) {
+
+            RoomNewbie *room_newbie = new RoomNewbie();
+            room_newbie->model = result_set->getString("model");
+            room_newbie->wallpaper = result_set->getString("wallpaper");
+            room_newbie->floorpaper = result_set->getString("floor");
+
+            std::string items_datas = result_set->getString("items");
+
+            if (items_datas.length() > 0) {
+
+                for (std::string item_data : Utilities::split(items_datas, '|')) {
+
+                    bool floor_item = true;
+
+                    if (Utilities::contains(item_data, " ")) {
+                        floor_item = false; // windowed item
+                    }
+
+                    std::vector<std::string> data = Utilities::split(item_data, ';');
+
+                    RoomNewbieItem newbie_item;
+
+                    newbie_item.item_id = stoi(data[0]);
+                    newbie_item.definition = Icarus::getGame()->getItemManager()->getDefinitionByID(newbie_item.item_id);
+
+                    if (floor_item) {
+                        newbie_item.x = stoi(data[1]);
+                        newbie_item.y = stoi(data[2]);
+                        newbie_item.rotation = stoi(data[3]);
+
+                    }
+                    else {
+                        newbie_item.position = data[1];
+                    }
+
+                    room_newbie->items.push_back(newbie_item);
+                }
+
+            }
+
+            newbie_rooms.push_back(room_newbie);
+
+        }
+
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
+
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+    return newbie_rooms;
 
 }
 
@@ -167,9 +248,10 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
                 // The user leaves the room and they're not the owner, and they're the last one in the room
                 // The user disconnects and there's no one else in the room so they get deleted
                 //
-                // 'delete' called from the .deleteRoom function from RoomManager
-
+                // 'delete' called from the .deleteRoom function from RoomManage
                 RoomData *room_data = new RoomData();
+                Room *room = new Room(room_id, room_data);
+
                 room_data->id = room_id;
                 room_data->name = result_set->getString("name");
                 room_data->room_type = (char)result_set->getInt("room_type");
@@ -203,7 +285,7 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
                 room_data->who_can_mute = result_set->getInt("who_can_mute");
                 room_data->who_can_kick = result_set->getInt("who_can_kick");
                 room_data->who_can_ban = result_set->getInt("who_can_ban");
-                room_data->user_rights = getRights(room_id);
+                room_data->user_rights = getRights(room->getData()->id);
 
                 if (room_data->state == 0) {
                     room_data->room_state = ROOM_STATE_OPEN;
@@ -223,8 +305,8 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
 
                 room_data->user_rights.push_back(room_data->owner_id);
 
+             
 
-                Room *room = new Room(room_id, room_data);
                 rooms.push_back(room);
             }
         }
@@ -336,9 +418,9 @@ void RoomDao::updateRoom(int room_id, Room *room) {
             statement->setInt(20, room_data->chat_distance);
             statement->setInt(21, room_data->chat_flood);
             statement->setString(22, room_data->password);
-			statement->setString(23, room_data->wallpaper);
-			statement->setString(24, room_data->floor);
-			statement->setString(25, room_data->outside);
+            statement->setString(23, room_data->wallpaper);
+            statement->setString(24, room_data->floor);
+            statement->setString(25, room_data->outside);
 
             statement->setInt(26, room_data->id);
         }

@@ -9,25 +9,20 @@
 #pragma once
 #include "communication/outgoing/MessageComposer.h"
 
-class PurchaseErrorMessageComposer : public MessageComposer {
+class AvailabilityMessageComposer : public MessageComposer {
 
 public:
-    PurchaseErrorMessageComposer(bool credits_error, bool pixel_error) :
-        credits_error(credits_error),
-        pixel_error(pixel_error) { }
+    AvailabilityMessageComposer() { }
 
     const Response compose() const {
         Response response = this->createResponse();
-        response.writeBool(this->credits_error);
-        response.writeBool(this->pixel_error);
+        response.writeBool(true);
+        response.writeBool(false);
+        response.writeBool(true);
         return response;
     }
 
     const int getHeader() const {
-        return Outgoing::PurchaseErrorMessageComposer;
+        return Outgoing::AvailabilityMessageComposer;
     }
-
-private:
-    bool credits_error;
-    bool pixel_error;
 };

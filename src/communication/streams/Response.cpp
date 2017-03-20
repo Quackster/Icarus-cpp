@@ -37,10 +37,10 @@ void Response::writeInt(int value) {
 
     char output[4];
 
-	output[0] = (char)(value >> 24);
-	output[1] = (char)(value >> 16);
-	output[2] = (char)(value >> 8);
-	output[3] = (char)(value);
+    output[0] = (char)(value >> 24);
+    output[1] = (char)(value >> 16);
+    output[2] = (char)(value >> 8);
+    output[3] = (char)(value);
 
     for (int i = 0; i < 4; i++) {
         this->message.push_back(output[i]);

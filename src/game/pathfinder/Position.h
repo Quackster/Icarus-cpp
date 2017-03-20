@@ -14,7 +14,7 @@ class Position
 public:
     Position();
     Position(int x, int y);
-	Position(int x, int y, int z);
+    Position(int x, int y, int z);
     ~Position();
 
     Position addPoint(Position point) {
@@ -45,6 +45,6 @@ public:
 
     int x;
     int y;
-	int z;
+    int z;
 };
 

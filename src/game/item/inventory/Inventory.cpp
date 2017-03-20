@@ -26,96 +26,96 @@
     @param list of inventory items
 */
 Inventory::Inventory(Player *player, std::vector<Item*> items) :
-	player(player),
+    player(player),
     items(items) { }
 
 /*
-	Returns a list of items, by defined item type (such as only selecting wall or floor items)
+    Returns a list of items, by defined item type (such as only selecting wall or floor items)
 
-	@param ItemType value
-	@return list of items
+    @param ItemType value
+    @return list of items
 */
 std::vector<Item*> Inventory::getItems(ItemType item_type) {
 
-	std::vector<Item*> return_items;
+    std::vector<Item*> return_items;
 
-	for (Item *item : this->items) {
-		
-		if (item_type == WALL_ITEM && item->isWallItem()) {
-			return_items.push_back(item);
-		}
+    for (Item *item : this->items) {
+        
+        if (item_type == WALL_ITEM && item->isWallItem()) {
+            return_items.push_back(item);
+        }
 
-		if (item_type == FLOOR_ITEM && item->isFloorItem()) {
-			return_items.push_back(item);
-		}
+        if (item_type == FLOOR_ITEM && item->isFloorItem()) {
+            return_items.push_back(item);
+        }
 
-	}
+    }
 
-	return return_items;
+    return return_items;
 }
 
 /*
-	Insert an item to the inventory, this will also send a notification that a new item
-	has been added
+    Insert an item to the inventory, this will also send a notification that a new item
+    has been added
 
-	@param Item instance
-	@return none
+    @param Item instance
+    @return none
 */
 void Inventory::addItem(Item *item) {
 
-	this->items.push_back(item);
-	this->player->send(FurniListNotificationComposer(item->id, 1));
+    this->items.push_back(item);
+    this->player->send(FurniListNotificationComposer(item->id, 1));
 }
 
 /*
-	Remove the item from the player's inventory
+    Remove the item from the player's inventory
 
-	@param Item ptr
-	@return none
+    @param Item ptr
+    @return none
 */
 void Inventory::removeItem(Item *item, bool delete_from_database) {
 
-	// Remove from vector
-	this->items.erase(std::remove(this->items.begin(), this->items.end(), item), this->items.end());
+    // Remove from vector
+    this->items.erase(std::remove(this->items.begin(), this->items.end(), item), this->items.end());
 
-	// Show client that the item is gone
-	this->player->send(RemoveInventoryItemComposer(item->id));
+    // Show client that the item is gone
+    this->player->send(RemoveInventoryItemComposer(item->id));
 
-	if (delete_from_database) {
-		ItemDao::remove(item);
-	}
-	
+    if (delete_from_database) {
+        ItemDao::remove(item);
+    }
+    
 }
 
 /*
-	Get Item by item id
+    Get Item by item id
 
-	@param item id
-	@return Item ptr instance
+    @param item id
+    @return Item ptr instance
 */
 Item *Inventory::getItem(int item_id) {
 
-	for (Item *item : this->items) {
-		if (item->id == item_id) {
-			return item;
-		}
-	}
+    for (Item *item : this->items) {
+        if (item->id == item_id) {
+            return item;
+        }
+    }
 
-	return nullptr;
+    return nullptr;
 }
 
 /*
-	Force update inventory system
+    Force update inventory system
 
-	@return none
+    @return none
 */
 void Inventory::update() {
 
-	player->send(UpdateInventoryMessageComposer());
+    player->send(UpdateInventoryMessageComposer());
 
-	player->send(InventoryMessageComposer(
-		player->getInventory()->getItems(FLOOR_ITEM),
-		player->getInventory()->getItems(WALL_ITEM)));
+    player->send(InventoryMessageComposer(
+        player->getInventory()->getItems(FLOOR_ITEM),
+        player->getInventory()->getItems(WALL_ITEM)));
 }
 
 /*
@@ -123,7 +123,7 @@ void Inventory::update() {
 */
 Inventory::~Inventory() {
 
-	for (Item *item : this->items) {
-		delete item;
-	}
+    for (Item *item : this->items) {
+        delete item;
+    }
 }

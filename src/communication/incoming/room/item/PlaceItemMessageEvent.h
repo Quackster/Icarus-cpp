@@ -20,86 +20,62 @@
 class PlaceItemMessageEvent : public MessageEvent {
 
 public:
-	PlaceItemMessageEvent() { }
+    PlaceItemMessageEvent() { }
 
-	void handle(Player *player, Request &request) { 
-	
-		if (!player->getRoomUser()->in_room) {
-			return;
-		}
+    void handle(Player *player, Request &request) { 
+    
+        if (!player->getRoomUser()->in_room) {
+            return;
+        }
 
-		Room *room = player->getRoomUser()->getRoom();
+        Room *room = player->getRoomUser()->getRoom();
 
-		if (!room->hasRights(player)) {
-			return;
-		}
+        if (!room->hasRights(player)) {
+            return;
+        }
 
-		std::string input = request.readString();
+        std::string input = request.readString();
 
-		std::vector<std::string> data = Utilities::split(input, ' ');
-		int item_id = stoi(Utilities::replaceChar(data[0], '-', ' '));
+        std::vector<std::string> data = Utilities::split(input, ' ');
+        int item_id = stoi(Utilities::replaceChar(data[0], '-', ' '));
 
-		Item *item = player->getInventory()->getItem(item_id);
+        Item *item = player->getInventory()->getItem(item_id);
 
-		if (item == nullptr) {
-			return;
-		}
+        if (item == nullptr) {
+            return;
+        }
 
-		if (item->isFloorItem()) {
+        if (item->isFloorItem()) {
 
-			int x = stoi(data[1]);
-			int y = stoi(data[2]);
-			int rotation = stoi(data[3]);
+            int x = stoi(data[1]);
+            int y = stoi(data[2]);
+            int rotation = stoi(data[3]);
 
-			/*if (item.getData().getInteractionType() == InteractionType.ROLLER) {
-				if (player.getRoomUser().getRoom().getItemManager().getItems(InteractionType.ROLLER).size() >= GameSettings.MAX_ROLLERS_PER_ROOM) {
-					return; // todo: alert
-				}
-			}*/
+            item->x = x;
+            item->y = y;
+            item->rotation = rotation;
+            item->z = room->getDynamicModel()->getTileHeight(item->x, item->y);
+        }
 
-			item->x = x;
-			item->y = y;
-			item->rotation = rotation;
-			item->z = room->getDynamicModel()->getTileHeight(item->x, item->y);
-		}
+        if (item->isWallItem()) {
 
-		if (item->isWallItem()) {
+            // :w=0,10 l=13,37 l
+            
+            std::vector<std::string> pos = Utilities::split(Utilities::split(input, ':')[1], ' ');
+            item->parseWallPosition(pos[2] + "," + pos[0].substr(2) + " " + pos[1].substr(2));
+        }
 
-			// :w=0,10 l=13,37 l
-			
-			std::vector<std::string> pos = Utilities::split(Utilities::split(input, ':')[1], ' ');
+        item->room_id = room->id;
 
-			char side;
+        if (item->isFloorItem()) {
+            item->updateEntities();
+        }
 
-			if (pos[2] == "l")
-				side = 'l';
-			else
-				side = 'r';
+        item->save();
 
-			std::vector<std::string> x_data = Utilities::split(pos[0].substr(2), ',');
+        player->getInventory()->removeItem(item, false);
 
-			item->width_x = stoi(x_data[0]);
-			item->width_y = stoi(x_data[1]);
-
-			std::vector<std::string> y_data = Utilities::split(pos[1].substr(2), ',');
-
-			item->length_x = stoi(y_data[0]);
-			item->length_y = stoi(y_data[1]);
-
-			item->side = side;
-		}
-
-		item->room_id = room->id;
-
-		if (item->isFloorItem()) {
-			item->updateEntities();
-		}
-
-		item->save();
-
-		player->getInventory()->removeItem(item, false);
-
-		room->getItems().push_back(item);
-		room->send(PlaceItemMessageComposer(item));
-	}
+        room->getItems().push_back(item);
+        room->send(PlaceItemMessageComposer(item));
+    }
 };

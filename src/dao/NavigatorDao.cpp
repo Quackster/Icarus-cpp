@@ -9,6 +9,14 @@
 #include "stdafx.h"
 
 #include "dao/NavigatorDao.h"
+#include "dao/UserDao.h"
+#include "dao/RoomDao.h"
+
+#include "misc/Utilities.h"
+
+#include "game/room/Room.h"
+#include "game/room/RoomData.h"
+
 #include "boot/Icarus.h"
 
 int NavigatorDao::createRoom(std::string room_name, std::string description, std::string room_model, int owner_id, int category, int max_users, int trade_settings) {
@@ -132,4 +140,101 @@ std::vector<NavigatorCategory*> NavigatorDao::getCategories() {
     Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
 
     return categories;
+}
+
+/*
+Get list of room instances by list of room ids
+
+@param vector room ids
+@return room ptr instances
+*/
+std::vector<Room*> NavigatorDao::getPreviewRooms(NavigatorQuery query, int user_id) {
+
+    std::vector<Room*> rooms;
+    std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
+
+    try {
+
+        std::shared_ptr<sql::Connection> sql_connection = connection->sql_connection;
+        std::vector<int> room_ids;
+
+        Player *player = Icarus::getPlayerManager()->getPlayerById(user_id);
+
+        if (query == NAVIGATOR_FRIENDS_ROOMS) {
+            for (auto kvp : player->getMessenger()->getFriends()) {
+
+                std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT id FROM rooms WHERE owner_id = ? ORDER BY date_created DESC LIMIT 9")); {
+                    statement->setInt(1, kvp.first);
+                }
+
+                std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+
+                while (result_set->next()) {
+                    room_ids.push_back(result_set->getInt("id"));
+                }
+            }
+        }
+
+
+        for (int room_id : room_ids) {
+
+            std::shared_ptr<sql::PreparedStatement> statement = std::shared_ptr<sql::PreparedStatement>(sql_connection->prepareStatement("SELECT * FROM rooms WHERE id = ? ")); {
+                statement->setInt(1, room_id);
+            }
+
+            std::shared_ptr<sql::ResultSet> result_set = std::shared_ptr<sql::ResultSet>(statement->executeQuery());
+
+            while (result_set->next()) {
+
+                RoomData *room_data = new RoomData();
+                Room *room = new Room(room_id, room_data);
+
+                room_data->id = room_id;
+                room_data->name = result_set->getString("name");
+                room_data->room_type = (char)result_set->getInt("room_type");
+                room_data->thumbnail = result_set->getString("thumbnail");
+                room_data->owner_id = result_set->getInt("owner_id");
+                room_data->owner_name = UserDao::getName(result_set->getInt("owner_id"));
+                room_data->group_id = result_set->getInt("group_id");
+                room_data->description = result_set->getString("description");
+                room_data->password = result_set->getString("password");
+                room_data->users_max = result_set->getInt("users_max");
+                room_data->wallpaper = result_set->getString("wallpaper");
+                room_data->floor = result_set->getString("floor");
+                room_data->outside = result_set->getString("outside");
+                room_data->tags = Utilities::split(result_set->getString("tags"), ',');
+                room_data->trade_state = result_set->getInt("trade_state");
+                room_data->state = result_set->getInt("state");
+                room_data->score = result_set->getInt("score");
+                room_data->category = result_set->getInt("category");
+
+                if (room_data->state == 0) {
+                    room_data->room_state = ROOM_STATE_OPEN;
+                }
+
+                if (room_data->state == 1) {
+                    room_data->room_state = ROOM_STATE_DOORBELL;
+                }
+
+                if (room_data->state == 2) {
+                    room_data->room_state = ROOM_STATE_PASSWORD;
+                }
+
+                if (room_data->state == 3) {
+                    room_data->room_state = ROOM_STATE_INVISIBLE;
+                }
+
+                room_data->user_rights.push_back(room_data->owner_id);
+
+                rooms.push_back(room);
+            }
+        }
+    }
+    catch (sql::SQLException &e) {
+        Icarus::getDatabaseManager()->printException(e, __FILE__, __FUNCTION__, __LINE__);
+    }
+
+    Icarus::getDatabaseManager()->getConnectionPool()->unborrow(connection);
+
+    return rooms;
 }

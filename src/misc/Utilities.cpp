@@ -189,62 +189,62 @@ std::string Utilities::join(std::vector<std::string> strings, std::string delim)
 }
 
 /*
-	Reads a file line by line
+    Reads a file line by line
 
-	@param file path
-	@return vector of lines
+    @param file path
+    @return vector of lines
 */
 std::vector<std::string> Utilities::readLines(std::string file_path) {
 
-	std::vector<std::string> lines;
+    std::vector<std::string> lines;
 
-	std::ifstream infile(file_path);
+    std::ifstream infile(file_path);
 
-	for (std::string line; getline(infile, line); ) {
-		lines.push_back(line);
-	}
+    for (std::string line; getline(infile, line); ) {
+        lines.push_back(line);
+    }
 
-	infile.close();
+    infile.close();
 
-	return lines;
+    return lines;
 }
 
 /*
-	See whether a sequence letters exists in the string
+    See whether a sequence letters exists in the string
 
-	@param the full string
-	@param the string to locate
-	@return whether or not the haystack contains the needle
+    @param the full string
+    @param the string to locate
+    @return whether or not the haystack contains the needle
 */
 bool Utilities::contains(std::string haystack, std::string needle) {
-	std::size_t found = haystack.find(needle);
-	return found != std::string::npos;
+    std::size_t found = haystack.find(needle);
+    return found != std::string::npos;
 }
 
 std::string Utilities::uppercase(std::string str) {
 
-	std::stringstream ss;
-	std::locale loc;
-	 
-	for (std::string::size_type i = 0; i < str.length(); ++i) {
-		ss << std::toupper(str[i], loc);
-	}
+    std::stringstream ss;
+    std::locale loc;
+     
+    for (std::string::size_type i = 0; i < str.length(); ++i) {
+        ss << std::toupper(str[i], loc);
+    }
 
-	return ss.str();
+    return ss.str();
 }
 
 std::string Utilities::base64_encode(const std::string &val) {
-	using namespace boost::archive::iterators;
-	using It = base64_from_binary<transform_width<std::string::const_iterator, 6, 8>>;
-	auto tmp = std::string(It(std::begin(val)), It(std::end(val)));
-	return tmp.append((3 - val.size() % 3) % 3, '=');
+    using namespace boost::archive::iterators;
+    using It = base64_from_binary<transform_width<std::string::const_iterator, 6, 8>>;
+    auto tmp = std::string(It(std::begin(val)), It(std::end(val)));
+    return tmp.append((3 - val.size() % 3) % 3, '=');
 }
 
 std::string Utilities::base64_decode(const std::string &val) {
-	using namespace boost::archive::iterators;
-	using It = transform_width<binary_from_base64<std::string::const_iterator>, 8, 6>;
-	return boost::algorithm::trim_right_copy_if(std::string(It(std::begin(val)), It(std::end(val))), [](char c) {
-		return c == '\0';
-	});
+    using namespace boost::archive::iterators;
+    using It = transform_width<binary_from_base64<std::string::const_iterator>, 8, 6>;
+    return boost::algorithm::trim_right_copy_if(std::string(It(std::begin(val)), It(std::end(val))), [](char c) {
+        return c == '\0';
+    });
 }
 

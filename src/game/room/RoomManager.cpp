@@ -10,14 +10,17 @@
 
 #include "dao/RoomDao.h"
 
+#include "misc/RoomNewbie.h"
+#include "game/item/definitions/ItemDefinition.h"
+
 /*
     Constructor for room manager
 */
 RoomManager::RoomManager() :
     rooms(std::map<int, Room*>()), 
     public_rooms(std::vector<Room*>()),
-    models(RoomDao::getModels()) {
-}
+    models(RoomDao::getModels()),
+    rooms_newbie(RoomDao::getNewbieRoomSelection()) {}
 
 /*
     Loads new player rooms if they're not already added to memory
@@ -98,6 +101,10 @@ bool RoomManager::hasRoom(int room_id) {
     @return Room ptr
 */
 Room *RoomManager::getRoom(int room_id) {
+
+    if (!this->hasRoom(room_id)) {
+        this->addRoom(RoomDao::getRoom(room_id));
+    }
 
     if (this->hasRoom(room_id)) {
         return this->rooms.find(room_id)->second;
