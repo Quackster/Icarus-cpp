@@ -24,6 +24,9 @@ public:
     }
 
     const Response compose() const {
+
+        std::cout << "Room info = compose" << endl;
+
         Response response = this->createResponse();
         response.writeBool(this->is_loading);
         room->serialise(response, true);

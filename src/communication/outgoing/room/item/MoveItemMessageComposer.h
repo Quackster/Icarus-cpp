@@ -31,6 +31,8 @@ public:
         if (item->isFloorItem()) {
             return Outgoing::MoveFloorItemMessageComposer;
         }
+
+		return -1;
     }
 
 private:

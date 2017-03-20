@@ -113,6 +113,7 @@ std::map<int, CataloguePage*> CatalogueDao::getPages() {
 
                 if (str.back() == '=') {
                     str = Utilities::base64_decode(str);
+					std::cout << str << str;
                 }
 
                 page->texts.push_back(str);

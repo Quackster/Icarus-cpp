@@ -77,6 +77,9 @@ void CatalogueItem::serialise(Response &response) {
     else {
         response.writeBool(false);
     }
+
+	response.writeBool(false);
+	response.writeString("");
 }
 
 /*
