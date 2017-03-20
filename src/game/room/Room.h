@@ -52,7 +52,6 @@ public:
     
     const int id;
     bool disposed;
-    bool fake_ptr = false;
 
 private:
     RoomData *room_data;
@@ -61,8 +60,6 @@ private:
     std::shared_ptr<RoomRunnable> runnable;
     std::map<int, Entity*> entities;
     std::vector<Item*> items;
-
-    
 
     void load();
     void unload();

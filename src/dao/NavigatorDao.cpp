@@ -189,8 +189,6 @@ std::vector<Room*> NavigatorDao::getPreviewRooms(NavigatorQuery query, int user_
                 RoomData *room_data = new RoomData();
                 Room *room = new Room(room_id, room_data);
 
-                room->fake_ptr = true;
-
                 room_data->id = room_id;
                 room_data->name = result_set->getString("name");
                 room_data->room_type = (char)result_set->getInt("room_type");
@@ -201,7 +199,6 @@ std::vector<Room*> NavigatorDao::getPreviewRooms(NavigatorQuery query, int user_
                 room_data->description = result_set->getString("description");
                 room_data->password = result_set->getString("password");
                 room_data->users_max = result_set->getInt("users_max");
-                room_data->model = Icarus::getGame()->getRoomManager()->getModel(result_set->getString("model"));
                 room_data->wallpaper = result_set->getString("wallpaper");
                 room_data->floor = result_set->getString("floor");
                 room_data->outside = result_set->getString("outside");
@@ -210,20 +207,6 @@ std::vector<Room*> NavigatorDao::getPreviewRooms(NavigatorQuery query, int user_
                 room_data->state = result_set->getInt("state");
                 room_data->score = result_set->getInt("score");
                 room_data->category = result_set->getInt("category");
-                room_data->allow_pets = result_set->getBoolean("allow_pets");
-                room_data->allow_pets_eat = result_set->getBoolean("allow_pets_eat");
-                room_data->allow_walkthrough = result_set->getBoolean("allow_walkthrough");
-                room_data->hide_wall = result_set->getBoolean("hidewall");
-                room_data->wall_thickness = result_set->getInt("wall_thickness");
-                room_data->floor_thickness = result_set->getInt("floor_thickness");
-                room_data->chat_mode = result_set->getInt("chat_mode");
-                room_data->chat_size = result_set->getInt("chat_size");
-                room_data->chat_speed = result_set->getInt("chat_speed");
-                room_data->chat_flood = result_set->getInt("chat_flood");
-                room_data->chat_distance = result_set->getInt("chat_distance");
-                room_data->who_can_mute = result_set->getInt("who_can_mute");
-                room_data->who_can_kick = result_set->getInt("who_can_kick");
-                room_data->who_can_ban = result_set->getInt("who_can_ban");
 
                 if (room_data->state == 0) {
                     room_data->room_state = ROOM_STATE_OPEN;
