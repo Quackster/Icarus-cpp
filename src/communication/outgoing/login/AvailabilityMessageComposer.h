@@ -23,6 +23,6 @@ public:
     }
 
     const int getHeader() const {
-        return -1234;// return Outgoing::AvailabilityMessageComposer;
+        return Outgoing::AvailabilityMessageComposer;
     }
 };
