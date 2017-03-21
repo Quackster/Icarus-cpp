@@ -40,11 +40,11 @@ public:
         int map_size_x = room->getModel()->map_size_x;
         int map_size_y = room->getModel()->map_size_y;
 
-        if (goal.x >= map_size_x || goal.x >= map_size_y) {
+        if (goal.x >= map_size_x || goal.y >= map_size_y) {
             return;
         }
 
-        if (goal.x == current.x && goal.x == current.y) {
+        if (goal.x == current.x && goal.y == current.y) {
             return;
         }
 
