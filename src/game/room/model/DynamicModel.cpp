@@ -7,6 +7,7 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #include "stdafx.h"
+
 #include "DynamicModel.h"
 
 #include "game/room/Room.h"
@@ -14,11 +15,19 @@
 #include "game/item/Item.h"
 #include "game/item/definitions/ItemDefinition.h"
 
+#include "communication/outgoing/room/item/RemoveItemMessageComposer.h"
+#include "communication/outgoing/room/item/PlaceItemMessageComposer.h"
+#include "communication/outgoing/room/item/MoveItemMessageComposer.h"
+
+
 /*
     The constructor for DynamicModel
 */
 DynamicModel::DynamicModel(Room *room) :
-    room(room) {
+    room(room),
+    items(Array2D<Item*>(0, 0)),
+    flags(Array2D<int>(0, 0)),
+    height(Array2D<double>(0, 0)) {
 
     this->map_size_x = room->getModel()->map_size_x;
     this->map_size_y = room->getModel()->map_size_y;
@@ -26,134 +35,161 @@ DynamicModel::DynamicModel(Room *room) :
 
 
 /*
-    Create the multi-dimensional arrays for storing data about each tile
-
-    @return none
+Create the multi-dimensional arrays for storing data about each tile
+@return none
 */
 void DynamicModel::load() {
-
+    this->regenerateCollisionMaps();
 }
 
 /*
+Regenerate the collision mapping for the pathfinder and set the items
+to the array for lookup purposes
+@return none
+*/
+void DynamicModel::regenerateCollisionMaps() {
+
+    this->items = Array2D<Item*>(this->map_size_x, this->map_size_y);
+    this->flags = Array2D<int>(this->map_size_x, this->map_size_y);
+    this->height = Array2D<double>(this->map_size_x, this->map_size_y);
+
+    for (int y = 0; y < map_size_y; y++) {
+        for (int x = 0; x < map_size_x; x++) {
+
+            int index = this->getSearchIndex(x, y);
+
+            this->flags[x][y] = room->getModel()->squares[index];
+            this->height[x][y] = room->getModel()->square_height[index];
+            this->items[x][y] = nullptr;
+        }
+    }
+
+    std::vector<Item*> items = this->room->getItems(FLOOR_ITEM);
+
+    for (int i = 0; i < items.size(); i++) {
+
+        Item *item = items.at(i);
+
+        if (item == nullptr) {
+            continue;
+        }
+
+        this->items[item->x][item->y] = item;
+
+        bool valid = false;
+
+        if (item->getDefinition()->can_sit) {
+            valid = true;
+        }
+
+        if (item->getDefinition()->is_walkable) {
+            valid = true;
+        }
+
+        if (item->getDefinition()->interaction_type == "bed") {
+            valid = true;
+        }
+
+        this->addTileStates(item->x, item->y, item->getDefinition()->stack_height, valid);
+
+        for (auto kvp : item->getAffectedTiles()) {
+            this->items[kvp.second.x][kvp.second.y] = item;
+            this->addTileStates(kvp.second.x, kvp.second.y, item->getDefinition()->stack_height, valid);
+        }
+    }
+}
+
+
+/*
+Add the title states (stack height, and whether or not the tile is valid)
+@param x coordinate
+@param y coordinate
+@param stack height
+@bool valid
+*/
+void DynamicModel::addTileStates(int x, int y, double stack_height, bool valid) {
+
+    if (valid) {
+        this->flags[x][y] = RoomModel::OPEN;
+    }
+    else {
+        this->flags[x][y] = RoomModel::CLOSED;
+        this->height[x][y] += stack_height;
+    }
+}
+/*
     Returns an item at a given position, will return nullptr
     if no item was found, will include the item's affected tiles
-
     @param x coordinate
     @param y coordinate
     @return Item pointer
 */
 Item *DynamicModel::getItemAtPosition(int x, int y) {
-
-    std::vector<Item*> items = room->getItems(FLOOR_ITEM);
-
-    for (int i = 0; i < items.size(); i++) {
-
-        Item *item = items.at(i);
-
-        if (item == nullptr) {
-            continue;
-        }
-
-        if (item->x == x && item->y == y) {
-            return item;
-        }
-
-        for (auto kvp : item->getAffectedTiles()) {
-
-            if (kvp.second.x == x && kvp.second.y == y) {
-                return item;
-            }
-        }
-    }
-
-    return nullptr;
-}
-
-std::vector<Item*> DynamicModel::getItemsAtPosition(int x, int y, bool single_tile) {
-
-    std::vector<Item*> found_items;
-    std::vector<Item*> items = room->getItems(FLOOR_ITEM);
-
-    for (int i = 0; i < items.size(); i++) {
-
-        Item *item = items.at(i);
-
-        if (item == nullptr) {
-            continue;
-        }
-
-        if (item->x == x && item->y == y) {
-            found_items.push_back(item);
-        }
-        else {
-
-            if (!single_tile) {
-
-                for (auto kvp : item->getAffectedTiles()) {
-
-                    if (kvp.second.x == x && kvp.second.y == y) {
-                        found_items.push_back(item);
-                    }
-                }
-            }
-        }
-    }
-
-    return found_items;
+    return this->items[x][y];
 }
 
 
-double DynamicModel::getTileHeight(int x, int y) {//const { return tile_height[x * map_size_y + y]; }
+/*
+    Remove the item from the player's inventory
 
-    double final_height = room->getModel()->getSquareHeight(x, y);
+    @param Item ptr
+    @return none
+*/
+void DynamicModel::removeItem(Item *item) {
 
-    std::vector<Item*> items = this->getItemsAtPosition(x, y, true);
+    // Remove room id from item
+    item->room_id = -1;
+    item->save();
 
-    for (int i = 0; i < items.size(); i++) {
+    // Remove from vector
+    this->room->getItems().erase(std::remove(this->room->getItems().begin(), this->room->getItems().end(), item), this->room->getItems().end());
 
-        Item *item = items.at(i);
+    // Alert item removed
+    this->room->send(RemoveItemMessageComposer(item));
 
-        if (item == nullptr) {
-            continue;
-        }
-
-        if (item->getDefinition()->can_sit ||
-            item->getDefinition()->is_walkable ||
-            item->getDefinition()->interaction_type == "bed") {
-            return final_height;
-        }
-        else {
-
-            final_height += item->getDefinition()->stack_height;
-        }
-    }
-
-    return final_height;
+    // Regenerate collision map
+    this->regenerateCollisionMaps();
 }
 
-bool DynamicModel::isValidTile(int x, int y) {
+/*
+    Add the item to the room
 
-    bool valid = false;
+    @param Item ptr
+    @return none
+*/
+void DynamicModel::addItem(Item *item) {
+    
+    // Assign room id to item
+    item->room_id = room->id;
 
-    Item *item = this->getItemAtPosition(x, y);
-
-    if (item == nullptr) {
-        return true;
+    if (item->isFloorItem()) {
+        item->updateEntities();
     }
 
-    if (item->getDefinition()->can_sit) {
-        valid = true;
-    }
+    item->save();
 
-    if (item->getDefinition()->is_walkable) {
-        valid = true;
-    }
+    // Add item to room's known items
+   this->room->getItems().push_back(item);
 
-    if (item->getDefinition()->interaction_type == "bed") {
-        valid = true;
-    }
+    // Show client the item was added
+    this->room->send(PlaceItemMessageComposer(item));
 
-    return valid;
+    // Regenerate collision map
+    this->regenerateCollisionMaps();
+}
+
+/*
+    Update the position, must be in a room!
+
+    @return none
+*/
+void DynamicModel::updateItemPosition(Item *item) {
+
+    // Alert clients of item changes
+    room->send(MoveItemMessageComposer(item));
+
+    // Regenerate the collision map
+    room->getDynamicModel()->regenerateCollisionMaps();
 }
 
 /*

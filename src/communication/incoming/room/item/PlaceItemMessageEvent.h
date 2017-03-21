@@ -15,8 +15,6 @@
 
 #include "communication/incoming/MessageEvent.h"
 
-#include "communication/outgoing/room/item/PlaceItemMessageComposer.h"
-
 class PlaceItemMessageEvent : public MessageEvent {
 
 public:
@@ -65,17 +63,8 @@ public:
             item->parseWallPosition(pos[2] + "," + pos[0].substr(2) + " " + pos[1].substr(2));
         }
 
-        item->room_id = room->id;
-
-        if (item->isFloorItem()) {
-            item->updateEntities();
-        }
-
-        item->save();
-
         player->getInventory()->removeItem(item, false);
-
-        room->getItems().push_back(item);
-        room->send(PlaceItemMessageComposer(item));
+        room->getDynamicModel()->addItem(item);
+       
     }
 };

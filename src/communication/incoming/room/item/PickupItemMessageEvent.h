@@ -59,11 +59,8 @@ public:
             item->updateEntities();
         }
 
-        item->room_id = -1;
         item->user_id = player->getDetails()->id;
-        item->save();
-
-        room->removeItem(item);
+        room->getDynamicModel()->removeItem(item);
         
         player->getInventory()->addItem(item);
         player->getInventory()->update();

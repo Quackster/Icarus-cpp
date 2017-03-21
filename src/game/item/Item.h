@@ -13,6 +13,7 @@
 
 class ItemDefinition;
 class Response;
+class Room;
 class Item
 {
 public:
@@ -23,8 +24,10 @@ public:
     void parseWallPosition(std::string position);
 
     void updateEntities();
+
     bool hasEntityCollision(int x, int y);
     void save();
+
     void remove();
 
     bool isWallItem();

@@ -37,7 +37,6 @@ public:
     std::vector<Item*> getItems(ItemType item_type);
     std::vector<Item*> &getItems() { return this->items; }
     Item *getItem(int item_id);
-    void removeItem(Item *item);
 
     RoomData *getData() { return room_data; }
     RoomModel *getModel() { return this->room_data->model; }  

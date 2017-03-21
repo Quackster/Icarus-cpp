@@ -199,7 +199,7 @@ void RoomUser::currentItemTrigger() {
         if (item->getDefinition()->can_sit) {
             this->setStatus("sit", std::to_string(item_height + 0.04));
         }
-        else {
+        else if (item->getDefinition()->interaction_type == "bed") {
             this->setStatus("lay", std::to_string(item_height + 0.65));
         }
     }
