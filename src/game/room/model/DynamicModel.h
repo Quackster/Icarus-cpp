@@ -10,6 +10,8 @@
 #include <mutex>
 #include <vector>
 
+#include "misc/Array2D.h"
+
 class Room;
 class Item;
 class DynamicModel
@@ -20,30 +22,23 @@ public:
 
     void load();
     int getSearchIndex(int x, int y);
+    void regenerateCollisionMaps();
+    void addTileStates(int x, int y, double stack_height, bool valid);
 
     Item *getItemAtPosition(int x, int y);
-    std::vector<Item*> getItemsAtPosition(int x, int y, bool single_tile = false);
 
-    double getTileHeight(int x, int y);//const { return tile_height[x * map_size_y + y]; }
-    bool isValidTile(int x, int y);
-    /*const bool isValidTile(int x, int y) const {
-
-        if (x >= this->map_size_x || !(x >= 0)) {
-            return 0;
-        }
-
-        if (y >= this->map_size_y || !(y >= 0)) {
-            return 0;
-        }
-
-        return tile_flags[x * map_size_y + y] == 0;
-    }*/
+    double &getTileHeight(int x, int y) const { return height[x][y]; }
+    bool isValidTile(int x, int y) const { return flags[x][y] == 0;    }
 
     ~DynamicModel();
 
 private:
     Room *room;
     std::mutex mtx;
+
+    Array2D<Item*> items;
+    Array2D<int> flags;
+    Array2D<double> height;
 
     //int *tile_flags = nullptr;
     //double *tile_height = nullptr;

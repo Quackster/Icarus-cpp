@@ -32,4 +32,3 @@ public:
     static std::string uppercase(std::string str);
 
 };
-
