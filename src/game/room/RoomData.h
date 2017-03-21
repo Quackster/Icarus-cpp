@@ -14,11 +14,13 @@
 
 class Room;
 
-enum RoomState {
-    ROOM_STATE_OPEN,
-    ROOM_STATE_INVISIBLE,
-    ROOM_STATE_DOORBELL,
-    ROOM_STATE_PASSWORD,
+class RoomState {
+    
+public:
+    static const int OPEN = 0;
+    static const int INVISIBLE = 3;
+    static const int DOORBELL = 1;
+    static const int PASSWORD = 2;
 };
 
 struct RoomData {
@@ -41,7 +43,6 @@ struct RoomData {
     std::vector<std::string> tags;
     int trade_state;
     int state;
-    RoomState room_state;
     int score;
     int category;
     bool allow_pets;

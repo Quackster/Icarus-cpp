@@ -200,32 +200,11 @@ std::vector<Room*> NavigatorDao::getPreviewRooms(NavigatorQuery query, int user_
                 room_data->description = result_set->getString("description");
                 room_data->password = result_set->getString("password");
                 room_data->users_now = result_set->getInt("users_now");
-                room_data->users_max = result_set->getInt("users_max");
-                room_data->wallpaper = result_set->getString("wallpaper");
-                room_data->floor = result_set->getString("floor");
-                room_data->outside = result_set->getString("outside");
                 room_data->tags = Utilities::split(result_set->getString("tags"), ',');
                 room_data->trade_state = result_set->getInt("trade_state");
                 room_data->state = result_set->getInt("state");
                 room_data->score = result_set->getInt("score");
                 room_data->category = result_set->getInt("category");
-
-                if (room_data->state == 0) {
-                    room_data->room_state = ROOM_STATE_OPEN;
-                }
-
-                if (room_data->state == 1) {
-                    room_data->room_state = ROOM_STATE_DOORBELL;
-                }
-
-                if (room_data->state == 2) {
-                    room_data->room_state = ROOM_STATE_PASSWORD;
-                }
-
-                if (room_data->state == 3) {
-                    room_data->room_state = ROOM_STATE_INVISIBLE;
-                }
-
                 room_data->user_rights.push_back(room_data->owner_id);
 
                 rooms.push_back(room);

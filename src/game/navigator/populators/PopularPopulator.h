@@ -31,7 +31,7 @@ public:
                 continue;
             }
 
-            if (room->getData()->room_state == ROOM_STATE_INVISIBLE) {
+            if (room->getData()->state == RoomState::INVISIBLE) {
                 if (!room->hasRights(player)) {
                     continue;
                 }
