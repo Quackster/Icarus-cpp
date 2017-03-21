@@ -309,23 +309,6 @@ std::vector<Room*> RoomDao::getRooms(std::vector<int> room_ids) {
                 room_data->who_can_kick = result_set->getInt("who_can_kick");
                 room_data->who_can_ban = result_set->getInt("who_can_ban");
                 room_data->user_rights = getRights(room->getData()->id);
-
-                if (room_data->state == 0) {
-                    room_data->room_state = ROOM_STATE_OPEN;
-                }
-
-                if (room_data->state == 1) {
-                    room_data->room_state = ROOM_STATE_DOORBELL;
-                }
-
-                if (room_data->state == 2) {
-                    room_data->room_state = ROOM_STATE_PASSWORD;
-                }
-
-                if (room_data->state == 3) {
-                    room_data->room_state = ROOM_STATE_INVISIBLE;
-                }
-
                 room_data->user_rights.push_back(room_data->owner_id);
 
              

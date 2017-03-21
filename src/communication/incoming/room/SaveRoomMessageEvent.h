@@ -157,24 +157,6 @@ public:
         room_data->chat_speed = chat_speed;
         room_data->chat_distance = chat_distance;
         room_data->chat_flood = chat_flood;
-
-        if (room_data->state == 0) {
-            room_data->room_state = ROOM_STATE_OPEN;
-        }
-
-        if (room_data->state == 1) {
-            room_data->room_state = ROOM_STATE_DOORBELL;
-        }
-
-        if (room_data->state == 2) {
-            room_data->room_state = ROOM_STATE_PASSWORD;
-        }
-
-        if (room_data->state == 3) {
-            room_data->room_state = ROOM_STATE_INVISIBLE;
-        }
-
-
         room->save();
 
         room->send(RoomDataMessageComposer(room, player, false, false));

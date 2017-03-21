@@ -51,7 +51,7 @@ public:
         }
 
         if (room->getData()->state > 0 && !room->hasRights(player, false)) {
-            if (room->getData()->room_state == ROOM_STATE_DOORBELL) {
+            if (room->getData()->state == RoomState::DOORBELL) {
 
                 if (room->getData()->users_now > 0) {
 
@@ -69,7 +69,7 @@ public:
                 return;
             }
 
-            if (room->getData()->room_state == ROOM_STATE_PASSWORD) {
+            if (room->getData()->state == RoomState::PASSWORD) {
 
                 std::string password = request.readString();
 
