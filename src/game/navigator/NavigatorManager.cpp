@@ -18,9 +18,9 @@
 #include "populators/FriendsPopulator.h"
 
 /*
-Constructor for Navigator Manager
+    Constructor for Navigator Manager
 
-Initialises the list for storing navigator tabs
+    Initialises the list for storing navigator tabs
 */
 NavigatorManager::NavigatorManager() :
     tabs(NavigatorDao::getTabsByChildId(-1)), 

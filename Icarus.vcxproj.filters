@@ -153,6 +153,9 @@
     <ClCompile Include="src\game\room\model\DynamicModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\item\interactor\InteractorManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\communication\incoming\MessageEvent.h">
@@ -705,6 +708,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\game\navigator\populators\DisposablePopulator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\item\interactor\InteractorManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\item\interactor\BaseInteractor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\item\interactor\interactors\DefaultInteractor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\room\item\InteractItemMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\item\interactor\interactors\GateInteractor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

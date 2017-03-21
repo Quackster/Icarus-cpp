@@ -19,6 +19,10 @@
 #include "misc/Utilities.h"
 #include "boot/Icarus.h"
 
+#include "game/room/Room.h"
+
+#include "communication/outgoing/room/item/MoveItemMessageComposer.h"
+
 /*
     Constructor for Item, this is a shared class between room and inventory items
 
@@ -131,6 +135,12 @@ void Item::updateEntities() {
     for (Entity *entity : affected_players) {
         entity->getRoomUser()->currentItemTrigger();
     }
+}
+
+void Item::updateStatus() {
+
+    // Alert clients of item changes
+    this->getRoom()->send(MoveItemMessageComposer(this));
 }
 
 /*
@@ -304,10 +314,31 @@ void Item::serialise(Response &response) {
         }
 
     }
-        response.writeInt(-1); // secondsToExpiration
-        response.writeInt((this->item_definition->interaction_modes_count > 0) ? 1 : 0);
-        response.writeInt(this->owner_id); // owner id!
-    }
+    response.writeInt(-1); // secondsToExpiration
+    response.writeInt((this->item_definition->interaction_modes_count > 0) ? 1 : 0);
+    response.writeInt(this->owner_id); // owner id!
+}
+
+/*
+    Gets the current interactor, nullptr will return if no
+    interactor was located
+
+    @return interactor ptr
+*/
+BaseInteractor *Item::getInteractor() { 
+    return Icarus::getGame()->getItemManager()->getInteractorManager()->getInteractor(this->item_definition->interaction_type); 
+}
+
+/*
+    Gets the current room the item is in, nullptr will run if no
+    room was located
+
+    @return room ptr
+*/
+Room *Item::getRoom() {
+    return Icarus::getGame()->getRoomManager()->getRoom(this->room_id);
+}
+
 
 /*
     Deconstructor for Item

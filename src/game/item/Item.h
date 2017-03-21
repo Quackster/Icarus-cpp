@@ -8,9 +8,9 @@
 */
 #pragma once
 #include <map>
-
 #include "game/pathfinder/Position.h"
 
+class BaseInteractor;
 class ItemDefinition;
 class Response;
 class Room;
@@ -24,6 +24,7 @@ public:
     void parseWallPosition(std::string position);
 
     void updateEntities();
+    void updateStatus();
 
     bool hasEntityCollision(int x, int y);
     void save();
@@ -37,6 +38,8 @@ public:
     void serialise(Response &response);
 
     ItemDefinition *getDefinition() { return this->item_definition; }
+    Room *getRoom();
+    BaseInteractor *getInteractor();
 
     int id = -1;
     int user_id = -1;

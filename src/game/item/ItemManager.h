@@ -8,6 +8,8 @@
 */
 #pragma once
 #include <vector>
+
+#include "game/item/interactor/InteractorManager.h"
 #include "game/item/definitions/ItemDefinition.h"
 
 class ItemManager
@@ -19,8 +21,12 @@ public:
     ItemDefinition *getDefinitionByID(int item_id);
     ItemDefinition *getDefinitionBySpriteID(int item_id);
 
+    InteractorManager *getInteractorManager() { return this->interactor_manager; }
+
 private:
     std::map<int, ItemDefinition*> id_lookup;
     std::map<int, ItemDefinition*> sprite_lookup;
+
+    InteractorManager *interactor_manager;
 };
 

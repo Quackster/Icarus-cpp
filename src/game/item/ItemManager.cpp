@@ -20,7 +20,8 @@
     Constructor for Furniture
 */
 ItemManager::ItemManager() :
-    id_lookup(ItemDao::getItemDefinitions()) { 
+    id_lookup(ItemDao::getItemDefinitions()),
+    interactor_manager(new InteractorManager()) {
 
     std::map<std::string, std::string> interaction_types;
 
@@ -62,6 +63,6 @@ ItemDefinition *ItemManager::getDefinitionBySpriteID(int item_id) {
 /*
     Item manager deconstructor
 */
-ItemManager::~ItemManager()
-{
+ItemManager::~ItemManager() {
+    delete this->interactor_manager;
 }

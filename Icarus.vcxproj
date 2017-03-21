@@ -136,6 +136,7 @@
     <Text Include="readme.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\game\item\interactor\InteractorManager.cpp" />
     <ClCompile Include="src\game\room\model\DynamicModel.cpp" />
     <ClCompile Include="src\game\catalogue\CatalogueItem.cpp" />
     <ClCompile Include="src\game\entities\EntityDetails.cpp" />
@@ -184,7 +185,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
+    <ClInclude Include="src\communication\incoming\room\item\InteractItemMessageEvent.h" />
     <ClInclude Include="src\communication\outgoing\login\AvailabilityMessageComposer.h" />
+    <ClInclude Include="src\game\item\interactor\InteractorManager.h" />
+    <ClInclude Include="src\game\item\interactor\BaseInteractor.h" />
+    <ClInclude Include="src\game\item\interactor\interactors\DefaultInteractor.h" />
+    <ClInclude Include="src\game\item\interactor\interactors\GateInteractor.h" />
     <ClInclude Include="src\game\navigator\populators\DisposablePopulator.h" />
     <ClInclude Include="src\game\navigator\populators\FriendsPopulator.h" />
     <ClInclude Include="src\game\room\misc\RoomNewbie.h" />

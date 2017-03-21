@@ -90,6 +90,14 @@ void DynamicModel::regenerateCollisionMaps() {
             valid = true;
         }
 
+
+        if (item->getDefinition()->interaction_type == "gate") {
+            if (item->extra_data == "1") {
+                valid = true;
+            }
+        }
+
+
         this->addTileStates(item->x, item->y, item->getDefinition()->stack_height, valid);
 
         for (auto kvp : item->getAffectedTiles()) {
@@ -185,11 +193,10 @@ void DynamicModel::addItem(Item *item) {
 */
 void DynamicModel::updateItemPosition(Item *item) {
 
-    // Alert clients of item changes
-    room->send(MoveItemMessageComposer(item));
+    item->updateStatus();
 
     // Regenerate the collision map
-    room->getDynamicModel()->regenerateCollisionMaps();
+    this->room->getDynamicModel()->regenerateCollisionMaps();
 }
 
 /*

@@ -27,7 +27,6 @@ public:
         int goal_x = request.readInt();
         int goal_y = request.readInt();
 
-
         RoomUser *room_user = player->getRoomUser();
         room_user->awake();
 
