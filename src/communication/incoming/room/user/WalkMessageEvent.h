@@ -31,6 +31,10 @@ public:
         RoomUser *room_user = player->getRoomUser();
         room_user->awake();
 
+        if (room_user->goal.x == goal_x && room_user->goal.y == goal_y) {
+            return;
+        }
+
         room_user->goal.x = goal_x;
         room_user->goal.y = goal_y;
 
