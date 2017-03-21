@@ -15,6 +15,11 @@
 #include "game/item/Item.h"
 #include "game/item/definitions/ItemDefinition.h"
 
+#include "communication/outgoing/room/item/RemoveItemMessageComposer.h"
+#include "communication/outgoing/room/item/PlaceItemMessageComposer.h"
+#include "communication/outgoing/room/item/MoveItemMessageComposer.h"
+
+
 /*
     The constructor for DynamicModel
 */
@@ -124,30 +129,63 @@ Item *DynamicModel::getItemAtPosition(int x, int y) {
 }
 
 
-/*bool DynamicModel::isValidTile(int x, int y) {
+/*
+    Remove the item from the player's inventory
 
-    bool valid = false;
+    @param Item ptr
+    @return none
+*/
+void DynamicModel::removeItem(Item *item) {
 
-    Item *item = this->getItemAtPosition(x, y);
+    // Remove room id from item
+    item->room_id = -1;
+    item->save();
 
-    if (item == nullptr) {
-        return true;
-    }
+    // Remove from vector
+    this->room->getItems().erase(std::remove(this->room->getItems().begin(), this->room->getItems().end(), item), this->room->getItems().end());
 
-    if (item->getDefinition()->can_sit) {
-        valid = true;
-    }
+    // Alert item removed
+    this->room->send(RemoveItemMessageComposer(item));
 
-    if (item->getDefinition()->is_walkable) {
-        valid = true;
-    }
+    // Regenerate collision map
+    this->regenerateCollisionMaps();
+}
 
-    if (item->getDefinition()->interaction_type == "bed") {
-        valid = true;
-    }
+/*
+    Add the item to the room
 
-    return valid;
-}*/
+    @param Item ptr
+    @return none
+*/
+void DynamicModel::addItem(Item *item) {
+    
+    // Assign room id to item
+    item->room_id = room->id;
+    item->save();
+
+    // Add item to room's known items
+   this->room->getItems().push_back(item);
+
+    // Show client the item was added
+    this->room->send(PlaceItemMessageComposer(item));
+
+    // Regenerate collision map
+    this->regenerateCollisionMaps();
+}
+
+/*
+    Update the position, must be in a room!
+
+    @return none
+*/
+void DynamicModel::updateItemPosition(Item *item) {
+
+    // Alert clients of item changes
+    room->send(MoveItemMessageComposer(item));
+
+    // Regenerate the collision map
+    room->getDynamicModel()->regenerateCollisionMaps();
+}
 
 /*
     Creates the search index for array lookup with the given 

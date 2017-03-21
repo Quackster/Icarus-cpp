@@ -26,6 +26,9 @@ public:
     void addTileStates(int x, int y, double stack_height, bool valid);
 
     Item *getItemAtPosition(int x, int y);
+    void removeItem(Item *item);
+    void addItem(Item *item);
+    void updateItemPosition(Item *item);
 
     double &getTileHeight(int x, int y) const { return height[x][y]; }
     bool isValidTile(int x, int y) const { return flags[x][y] == 0;    }

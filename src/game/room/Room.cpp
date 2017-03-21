@@ -31,8 +31,6 @@
 #include "communication/outgoing/room/user/UserDisplayMessageComposer.h"
 #include "communication/outgoing/room/user/UserStatusMessageComposer.h"
 
-#include "communication/outgoing/room/item/RemoveItemMessageComposer.h"
-
 #include "game/room/model/DynamicModel.h"
 
 
@@ -481,10 +479,10 @@ void Room::scheduleRunnable() {
 }
 
 /*
-Returns a list of items, by defined item type (such as only selecting wall or floor items)
+    Returns a list of items, by defined item type (such as only selecting wall or floor items)
 
-@param ItemType value
-@return list of items
+    @param ItemType value
+    @return list of items
 */
 std::vector<Item*> Room::getItems(ItemType item_type) {
 
@@ -506,10 +504,10 @@ std::vector<Item*> Room::getItems(ItemType item_type) {
 }
 
 /*
-Get Item by item id
+    Get Item by item id
 
-@param item id
-@return Item ptr instance
+    @param item id
+    @return Item ptr instance
 */
 Item *Room::getItem(int item_id) {
 
@@ -521,23 +519,6 @@ Item *Room::getItem(int item_id) {
 
     return nullptr;
 }
-
-
-/*
-Remove the item from the player's inventory
-
-@param Item ptr
-@return none
-*/
-void Room::removeItem(Item *item) {
-
-    // Remove from vector
-    this->items.erase(std::remove(this->items.begin(), this->items.end(), item), this->items.end());
-
-    // Alert item removed
-    this->send(RemoveItemMessageComposer(item));
-}
-
 
 /*
     Deconstructor for rooms

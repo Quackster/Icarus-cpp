@@ -12,8 +12,6 @@
 #include "game/item/Item.h"
 #include "game/room/Room.h"
 
-#include "communication/outgoing/room/item/MoveItemMessageComposer.h"
-
 class MoveItemMessageEvent : public MessageEvent {
 
 public:
@@ -61,6 +59,6 @@ public:
         }
         
         item->save();
-        room->send(MoveItemMessageComposer(item));
+        room->getDynamicModel()->updateItemPosition(item);
     }
 };
