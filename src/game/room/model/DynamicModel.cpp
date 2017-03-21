@@ -161,6 +161,11 @@ void DynamicModel::addItem(Item *item) {
     
     // Assign room id to item
     item->room_id = room->id;
+
+    if (item->isFloorItem()) {
+        item->updateEntities();
+    }
+
     item->save();
 
     // Add item to room's known items

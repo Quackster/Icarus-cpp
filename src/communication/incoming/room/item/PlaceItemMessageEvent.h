@@ -62,12 +62,9 @@ public:
             std::vector<std::string> pos = Utilities::split(Utilities::split(input, ':')[1], ' ');
             item->parseWallPosition(pos[2] + "," + pos[0].substr(2) + " " + pos[1].substr(2));
         }
-        if (item->isFloorItem()) {
-            item->updateEntities();
-        }
 
-        room->getDynamicModel()->addItem(item);
         player->getInventory()->removeItem(item, false);
+        room->getDynamicModel()->addItem(item);
        
     }
 };
