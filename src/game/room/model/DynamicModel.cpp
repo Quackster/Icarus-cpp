@@ -152,7 +152,7 @@ void DynamicModel::addTileStates(int x, int y, double stack_height, bool valid) 
         this->flags[x][y] = RoomModel::CLOSED;
     }
 
-    this->stack_height[x][y] =+ stack_height;
+    this->stack_height[x][y] += stack_height;
 }
 /*
     Returns an item at a given position, will return nullptr
