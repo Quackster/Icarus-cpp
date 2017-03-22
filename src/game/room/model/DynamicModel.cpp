@@ -196,8 +196,10 @@ void DynamicModel::addItem(Item *item) {
 
     item->room_id = room->id;
 
-    this->regenerateCollisionMaps();
-    this->handleItemAdjustment(item);
+    if (item->isFloorItem()) {
+        this->handleItemAdjustment(item);
+        this->regenerateCollisionMaps();
+    }
 
     this->room->getItems().push_back(item);
     this->room->send(PlaceItemMessageComposer(item));
@@ -212,10 +214,11 @@ void DynamicModel::addItem(Item *item) {
 */
 void DynamicModel::updateItemPosition(Item *item, bool calculate_height) {
 
-    this->room->getDynamicModel()->regenerateCollisionMaps();
-
-    if (calculate_height) {
-        this->handleItemAdjustment(item);
+    if (item->isFloorItem()) {
+        if (calculate_height) {
+            this->handleItemAdjustment(item);
+            this->room->getDynamicModel()->regenerateCollisionMaps();
+        }
     }
 
     item->updateStatus();
@@ -229,17 +232,19 @@ void DynamicModel::updateItemPosition(Item *item, bool calculate_height) {
     @return none
 */
 void DynamicModel::handleItemAdjustment(Item *item) {
-    
-    if (item->isFloorItem()) {
 
-        Item *found_item = this->getItemAtPosition(item->x, item->y);
+    Item *found_item = this->getItemAtPosition(item->x, item->y);
 
-        if (item->getDefinition()->can_stack && found_item != nullptr) {
-            item->z = this->getStackHeight(item->x, item->y) +item->getDefinition()->stack_height;
+    if (found_item != nullptr) {
+        if (found_item->getDefinition()->can_stack) {
+            item->z = this->getStackHeight(item->x, item->y) + found_item->getDefinition()->stack_height;
         }
         else {
             item->z = this->getTileHeight(item->x, item->y);
         }
+    }
+    else {
+        item->z = this->getTileHeight(item->x, item->y);
     }
 
     item->updateEntities();
