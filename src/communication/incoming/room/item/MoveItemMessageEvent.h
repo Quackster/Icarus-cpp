@@ -37,18 +37,21 @@ public:
             return;
         }
 
+        bool calculate_height = true;
+
         if (item->isFloorItem()) {
 
             int x = request.readInt();
             int y = request.readInt();
             int rotation = request.readInt();
 
+            if (x == item->x && item->y == y) {
+                calculate_height = false;
+            }
+
             item->x = x;
             item->y = y;
             item->rotation = rotation;
-            item->z = room->getModel()->getSquareHeight(item->x, item->y);
-
-            item->updateEntities();
         } 
         
         if (item->isWallItem()) {
@@ -58,7 +61,6 @@ public:
 
         }
         
-        item->save();
-        room->getDynamicModel()->updateItemPosition(item);
+        room->getDynamicModel()->updateItemPosition(item, calculate_height);
     }
 };

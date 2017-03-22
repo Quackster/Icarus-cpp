@@ -112,7 +112,7 @@ void DynamicModel::regenerateCollisionMaps() {
             int stack_height = 0;
 
             if (item->getDefinition()->can_stack) {
-                stack_height = item->getDefinition()->stack_height;
+                stack_height = item->z;
             }
 
             this->addTileStates(item->x, item->y, stack_height, valid);
@@ -153,7 +153,7 @@ void DynamicModel::addTileStates(int x, int y, double stack_height, bool valid) 
         this->flags[x][y] = RoomModel::CLOSED;
     }
 
-    this->height[x][y] += stack_height;
+    this->height[x][y] = this->height[x][y] + stack_height;
 }
 /*
     Returns an item at a given position, will return nullptr
@@ -166,7 +166,6 @@ Item *DynamicModel::getItemAtPosition(int x, int y) {
     return this->items[x][y];
 }
 
-
 /*
     Remove the item from the player's inventory
 
@@ -175,18 +174,17 @@ Item *DynamicModel::getItemAtPosition(int x, int y) {
 */
 void DynamicModel::removeItem(Item *item) {
 
-    // Remove room id from item
     item->room_id = -1;
-    item->save();
+    item->x = -1;
+    item->y = -1;
+    item->z = 0;
+    item->rotation = 0;
 
-    // Remove from vector
     this->room->getItems().erase(std::remove(this->room->getItems().begin(), this->room->getItems().end(), item), this->room->getItems().end());
-
-    // Alert item removed
     this->room->send(RemoveItemMessageComposer(item));
-
-    // Regenerate collision map
     this->regenerateCollisionMaps();
+
+    item->save();
 }
 
 /*
@@ -196,24 +194,16 @@ void DynamicModel::removeItem(Item *item) {
     @return none
 */
 void DynamicModel::addItem(Item *item) {
-    
-    // Assign room id to item
+
     item->room_id = room->id;
 
-    if (item->isFloorItem()) {
-        item->updateEntities();
-    }
-
-    item->save();
-
-    // Add item to room's known items
-   this->room->getItems().push_back(item);
-
-    // Show client the item was added
-    this->room->send(PlaceItemMessageComposer(item));
-
-    // Regenerate collision map
     this->regenerateCollisionMaps();
+    this->handleItemAdjustment(item);
+
+    this->room->getItems().push_back(item);
+    this->room->send(PlaceItemMessageComposer(item));
+    
+    item->save();
 }
 
 /*
@@ -221,12 +211,38 @@ void DynamicModel::addItem(Item *item) {
 
     @return none
 */
-void DynamicModel::updateItemPosition(Item *item) {
+void DynamicModel::updateItemPosition(Item *item, bool calculate_height) {
 
-    item->updateStatus();
-
-    // Regenerate the collision map
     this->room->getDynamicModel()->regenerateCollisionMaps();
+
+    if (calculate_height) {
+        this->handleItemAdjustment(item);
+    }   
+    
+    item->updateStatus();
+    item->save();
+}
+
+/*
+    Deal with the stacking of items and general affected tiles if the item was moved or placed
+
+    @param Item to handle
+    @return none
+*/
+void DynamicModel::handleItemAdjustment(Item *item) {
+    
+    if (item->isFloorItem()) {
+        if (item->getDefinition()->can_stack) {
+
+            item->z = this->getTileHeight(item->x, item->y) + item->getDefinition()->stack_height;
+            this->height[item->x][item->y] = item->z;
+        }
+        else {
+            item->z = this->getTileHeight(item->x, item->y);
+        }
+    }
+
+    item->updateEntities();
 }
 
 /*

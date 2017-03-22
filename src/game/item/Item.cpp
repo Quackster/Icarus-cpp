@@ -302,7 +302,7 @@ void Item::serialise(Response &response) {
         response.writeInt(this->y);
         response.writeInt(this->rotation);
         response.writeString(this->z);
-        response.writeString("");
+        response.writeString(this->z);
 
         if (this->item_definition->interaction_type == "youtubetv") {
 

@@ -52,7 +52,6 @@ public:
             item->x = x;
             item->y = y;
             item->rotation = rotation;
-            item->z = room->getDynamicModel()->getTileHeight(item->x, item->y);
         }
 
         if (item->isWallItem()) {
