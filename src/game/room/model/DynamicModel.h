@@ -31,7 +31,8 @@ public:
     void updateItemPosition(Item *item, bool calculate_height = true);
     void handleItemAdjustment(Item *item);
 
-    double getTileHeight(int x, int y) const { return height[x][y]; }
+    double getTileHeight(int x, int y) const { return tile_height[x][y]; }
+    double getStackHeight(int x, int y) const { return stack_height[x][y]; }
     bool isValidTile(int x, int y) const { return flags[x][y] == 0;    }
 
     ~DynamicModel();
@@ -42,7 +43,8 @@ private:
 
     Array2D<Item*> items;
     Array2D<int> flags;
-    Array2D<double> height;
+    Array2D<double> tile_height;
+    Array2D<double> stack_height;
 
     //int *tile_flags = nullptr;
     //double *tile_height = nullptr;

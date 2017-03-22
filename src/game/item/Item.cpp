@@ -301,7 +301,7 @@ void Item::serialise(Response &response) {
         response.writeInt(this->x);
         response.writeInt(this->y);
         response.writeInt(this->rotation);
-        response.writeString(this->z);
+        response.writeString(std::to_string(this->z));
         response.writeString("");
 
         if (this->item_definition->interaction_type == "youtubetv") {

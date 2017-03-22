@@ -27,7 +27,8 @@ DynamicModel::DynamicModel(Room *room) :
     room(room),
     items(Array2D<Item*>(0, 0)),
     flags(Array2D<int>(0, 0)),
-    height(Array2D<double>(0, 0)) {
+    stack_height(Array2D<double>(0, 0)),
+    tile_height(Array2D<double>(0, 0)) {
 
     this->map_size_x = room->getModel()->map_size_x;
     this->map_size_y = room->getModel()->map_size_y;
@@ -51,7 +52,9 @@ void DynamicModel::regenerateCollisionMaps() {
 
     this->items = Array2D<Item*>(this->map_size_x, this->map_size_y);
     this->flags = Array2D<int>(this->map_size_x, this->map_size_y);
-    this->height = Array2D<double>(this->map_size_x, this->map_size_y);
+
+    this->stack_height = Array2D<double>(this->map_size_x, this->map_size_y);
+    this->tile_height = Array2D<double>(this->map_size_x, this->map_size_y);
 
     for (int y = 0; y < map_size_y; y++) {
         for (int x = 0; x < map_size_x; x++) {
@@ -59,7 +62,8 @@ void DynamicModel::regenerateCollisionMaps() {
             int index = this->getSearchIndex(x, y);
 
             this->flags[x][y] = room->getModel()->squares[index];
-            this->height[x][y] = room->getModel()->square_height[index];
+            this->stack_height[x][y] = room->getModel()->square_height[index];
+            this->tile_height[x][y] = room->getModel()->square_height[index];
             this->items[x][y] = nullptr;
         }
     }
@@ -112,7 +116,7 @@ void DynamicModel::regenerateCollisionMaps() {
             double stack_height = 0;
 
             if (item->getDefinition()->can_stack) {
-                stack_height = item->z;
+                stack_height = item->getDefinition()->stack_height;
             }
 
             this->addTileStates(item->x, item->y, stack_height, valid);
@@ -153,7 +157,7 @@ void DynamicModel::addTileStates(int x, int y, double stack_height, bool valid) 
         this->flags[x][y] = RoomModel::CLOSED;
     }
 
-    this->height[x][y] =+ stack_height;
+    this->stack_height[x][y] =+ stack_height;
 }
 /*
     Returns an item at a given position, will return nullptr
@@ -234,7 +238,8 @@ void DynamicModel::handleItemAdjustment(Item *item) {
     
     if (item->isFloorItem()) {
         if (item->getDefinition()->can_stack) {
-            item->z = this->getTileHeight(item->x, item->y) +item->getDefinition()->stack_height;
+            std::cout << "can stack: " << item->id << ", " << item->getDefinition()->id << endl;
+            item->z = this->getStackHeight(item->x, item->y);
         }
         else {
             item->z = this->getTileHeight(item->x, item->y);
