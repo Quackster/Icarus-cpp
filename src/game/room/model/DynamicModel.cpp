@@ -109,7 +109,7 @@ void DynamicModel::regenerateCollisionMaps() {
                 }
             }
 
-            int stack_height = 0;
+            double stack_height = 0;
 
             if (item->getDefinition()->can_stack) {
                 stack_height = item->z;
@@ -125,7 +125,7 @@ void DynamicModel::regenerateCollisionMaps() {
                     if (existing_item_affected->getDefinition()->interaction_type == "gate") {
                         continue;
                     }
-                } 
+                }
                 else {
 
                     this->items[kvp.second.x][kvp.second.y] = item;
@@ -153,7 +153,7 @@ void DynamicModel::addTileStates(int x, int y, double stack_height, bool valid) 
         this->flags[x][y] = RoomModel::CLOSED;
     }
 
-    this->height[x][y] = this->height[x][y] + stack_height;
+    this->height[x][y] =+ stack_height;
 }
 /*
     Returns an item at a given position, will return nullptr
@@ -197,8 +197,9 @@ void DynamicModel::addItem(Item *item) {
 
     item->room_id = room->id;
 
-    this->regenerateCollisionMaps();
+
     this->handleItemAdjustment(item);
+    this->regenerateCollisionMaps();
 
     this->room->getItems().push_back(item);
     this->room->send(PlaceItemMessageComposer(item));
@@ -213,12 +214,12 @@ void DynamicModel::addItem(Item *item) {
 */
 void DynamicModel::updateItemPosition(Item *item, bool calculate_height) {
 
-    this->room->getDynamicModel()->regenerateCollisionMaps();
-
     if (calculate_height) {
         this->handleItemAdjustment(item);
-    }   
-    
+    }
+
+    this->room->getDynamicModel()->regenerateCollisionMaps();
+
     item->updateStatus();
     item->save();
 }
@@ -233,9 +234,7 @@ void DynamicModel::handleItemAdjustment(Item *item) {
     
     if (item->isFloorItem()) {
         if (item->getDefinition()->can_stack) {
-
-            item->z = this->getTileHeight(item->x, item->y) + item->getDefinition()->stack_height;
-            this->height[item->x][item->y] = item->z;
+            item->z = this->getTileHeight(item->x, item->y) +item->getDefinition()->stack_height;
         }
         else {
             item->z = this->getTileHeight(item->x, item->y);
