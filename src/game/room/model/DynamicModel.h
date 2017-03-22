@@ -21,7 +21,6 @@ public:
     DynamicModel(Room *room);
 
     void load();
-    int getSearchIndex(int x, int y);
     void regenerateCollisionMaps();
     void addTileStates(int x, int y, double stack_height, bool valid);
 
@@ -40,7 +39,8 @@ private:
     Room *room;
     std::mutex mtx;
 
-    Array2D<Item*> items;
+    //Array2D<Item*> items;
+    Array2D<Item*> highest_items;
     Array2D<int> flags;
     Array2D<double> stack_height;
 

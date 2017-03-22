@@ -173,7 +173,7 @@ void RoomRunnable::processEntity(Entity *entity) {
             room_user->setStatus("sit", "");
 
             int rotation = Rotation::getRotation(room_user->position.x, room_user->position.y, next.x, next.y);
-            double height = this->room->getDynamicModel()->getTileHeight(next.x, next.y);
+            double height = this->room->getModel()->getSquareHeight(next.x, next.y);
 
             room_user->setRotation(rotation, true, false);
 

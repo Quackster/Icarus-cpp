@@ -25,7 +25,8 @@
 */
 DynamicModel::DynamicModel(Room *room) :
     room(room),
-    items(Array2D<Item*>(0, 0)),
+    //items(Array2D<Item*>(0, 0)),
+    highest_items(Array2D<Item*>(0, 0)),
     flags(Array2D<int>(0, 0)),
     stack_height(Array2D<double>(0, 0)) {
 
@@ -49,7 +50,9 @@ void DynamicModel::load() {
 */
 void DynamicModel::regenerateCollisionMaps() {
 
-    this->items = Array2D<Item*>(this->map_size_x, this->map_size_y);
+    //this->items = Array2D<Item*>(this->map_size_x, this->map_size_y);
+    this->highest_items = Array2D<Item*>(this->map_size_x, this->map_size_y);
+
     this->flags = Array2D<int>(this->map_size_x, this->map_size_y);
     this->stack_height = Array2D<double>(this->map_size_x, this->map_size_y);
 
@@ -58,7 +61,9 @@ void DynamicModel::regenerateCollisionMaps() {
 
             this->flags[x][y] = room->getModel()->isValidSquare(x, y) ? RoomModel::OPEN : RoomModel::CLOSED;
             this->stack_height[x][y] = room->getModel()->getSquareHeight(x, y);
-            this->items[x][y] = nullptr;
+            
+            //this->items[x][y] = nullptr;
+            this->highest_items[x][y] = nullptr;
         }
     }
 
@@ -72,15 +77,26 @@ void DynamicModel::regenerateCollisionMaps() {
             continue;
         }
 
-        Item *existing_item = this->items[item->x][item->y];
+        Item *highest_item = this->highest_items[item->x][item->y];
+
+        if (highest_item == nullptr) {
+            this->highest_items[item->x][item->y] = item;
+        }
+        else {
+            if (item->z > highest_item->z) {
+                this->highest_items[item->x][item->y] = item;
+            }
+        }
+
+        /*Item *existing_item = this->items[item->x][item->y];
 
         if (existing_item != nullptr) {
             if (existing_item->getDefinition()->interaction_type == "gate") {
                 continue;
             }
-        }
+        }*/
 
-        this->items[item->x][item->y] = item;
+        //this->items[item->x][item->y] = item;
 
         bool valid = false;
 
@@ -115,15 +131,25 @@ void DynamicModel::regenerateCollisionMaps() {
 
         for (auto kvp : item->getAffectedTiles()) {
 
-            Item *existing_item_affected = this->items[kvp.second.x][kvp.second.y];
+            /*Item *existing_item_affected = this->items[kvp.second.x][kvp.second.y];
 
             if (existing_item_affected != nullptr) {
                 if (existing_item_affected->getDefinition()->interaction_type == "gate") {
                     continue;
                 }
+            }*/
+
+            Item *highest_item = this->highest_items[kvp.second.x][kvp.second.y];
+
+            if (highest_item == nullptr) {
+                this->highest_items[kvp.second.x][kvp.second.y] = item;
+            }
+            else {
+                if (item->z > highest_item->z) {
+                    this->highest_items[kvp.second.x][kvp.second.y] = item;
+                }
             }
 
-            this->items[kvp.second.x][kvp.second.y] = item;
             this->addTileStates(kvp.second.x, kvp.second.y, stacked_height, valid);
         }
     }
@@ -156,7 +182,7 @@ void DynamicModel::addTileStates(int x, int y, double stack_height, bool valid) 
     @return Item pointer
 */
 Item *DynamicModel::getItemAtPosition(int x, int y) {
-    return this->items[x][y];
+    return this->highest_items[x][y];
 }
 
 /*
@@ -241,18 +267,6 @@ void DynamicModel::handleItemAdjustment(Item *item, bool rotation_only) {
     }
 
     item->updateEntities();
-}
-
-/*
-    Creates the search index for array lookup with the given 
-    x and y coordinates (very fast lookup method!) :)
-
-    @param x coordinate
-    @param y coordinate
-    @return array lookup index formula
-*/
-int DynamicModel::getSearchIndex(int x, int y) {
-    return x * this->map_size_y + y;
 }
 
 /*
