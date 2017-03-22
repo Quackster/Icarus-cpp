@@ -81,6 +81,12 @@ std::map<int, ItemDefinition*> ItemDao::getItemDefinitions() {
     return furnitures;
 }
 
+/*
+    Gets a list of inventory items by the given user id
+
+    @param user id of items to get
+    @return vector of items
+*/
 std::vector<Item*> ItemDao::getInventoryItems(int user_id) {
 
     std::vector<Item*> items;
@@ -126,6 +132,12 @@ std::vector<Item*> ItemDao::getInventoryItems(int user_id) {
     return items;
 }
 
+/*
+    Gets a list of room items by given room id
+
+    @param room id to get list of items
+    @param list of items
+*/
 std::vector<Item*> ItemDao::getRoomItems(int room_id) {
 
     std::vector<Item*> items;
@@ -171,6 +183,15 @@ std::vector<Item*> ItemDao::getRoomItems(int room_id) {
     return items;
 }
 
+/*
+    Inserts a new item into the database, with the furniture, owner and extra data given
+    and will return an item instance with its auto-inserted id
+
+    @param item id
+    @param owner id
+    @param extra data
+    @return Item
+*/
 Item *ItemDao::newItem(int item_id, int owner_id, std::string extra_data) {
 
     int id = -1;
@@ -208,6 +229,12 @@ Item *ItemDao::newItem(int item_id, int owner_id, std::string extra_data) {
     return item;
 }
 
+/*
+    Saves all item data, such as coordinates, room id, inventory holder, item state/extra data etc
+
+    @param Item
+    @return none
+*/
 void ItemDao::save(Item *item) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
@@ -253,6 +280,12 @@ void ItemDao::save(Item *item) {
 
 }
 
+/*
+    Deletes an item entry in the database
+
+    @param Item
+    @return none
+*/
 void ItemDao::remove(Item *item) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();

@@ -322,6 +322,12 @@ std::map<std::string, int> MessengerDao::getOfflineMessages(int user_id) {
 
 }
 
+/*
+    Update database to show all offline messages have been read by given 'sent to' user id
+
+    @param user id of where the messages were sent to
+    @return none
+*/
 void MessengerDao::readMessages(int user_id) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();

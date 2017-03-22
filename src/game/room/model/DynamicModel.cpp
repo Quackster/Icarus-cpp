@@ -36,17 +36,17 @@ DynamicModel::DynamicModel(Room *room) :
 
 
 /*
-Create the multi-dimensional arrays for storing data about each tile
-@return none
+    Create the multi-dimensional arrays for storing data about each tile
+    @return none
 */
 void DynamicModel::load() {
     this->regenerateCollisionMaps();
 }
 
 /*
-Regenerate the collision mapping for the pathfinder and set the items
-to the array for lookup purposes
-@return none
+    Regenerate the collision mapping for the pathfinder and set the items
+    to the array for lookup purposes
+    @return none
 */
 void DynamicModel::regenerateCollisionMaps() {
 
@@ -137,11 +137,11 @@ void DynamicModel::regenerateCollisionMaps() {
 
 
 /*
-Add the title states (stack height, and whether or not the tile is valid)
-@param x coordinate
-@param y coordinate
-@param stack height
-@bool valid
+    Add the title states (stack height, and whether or not the tile is valid)
+    @param x coordinate
+    @param y coordinate
+    @param stack height
+    @bool valid
 */
 void DynamicModel::addTileStates(int x, int y, double stack_height, bool valid) {
 

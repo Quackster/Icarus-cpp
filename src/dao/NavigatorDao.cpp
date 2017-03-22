@@ -144,10 +144,10 @@ std::vector<NavigatorCategory*> NavigatorDao::getCategories() {
 }
 
 /*
-Get list of room instances by list of room ids
+    Get list of room previews (NOT FUNCTIONAL ROOMS!) by given query type
 
-@param vector room ids
-@return room ptr instances
+    @param NavigatorQuery enum type
+    @return User id of the player performing the query
 */
 std::vector<Room*> NavigatorDao::getPreviewRooms(NavigatorQuery query, int user_id) {
 

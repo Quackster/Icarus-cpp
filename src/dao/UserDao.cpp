@@ -76,6 +76,12 @@ std::string UserDao::getName(int user_id) {
     return username;
 };
 
+/*
+    Returns a players user id by given username, this performs a database lookup
+
+    @param username of user
+    @return 0 if not found, more than 0 if found
+*/
 int UserDao::getIdByUsername(std::string username) {
 
     std::shared_ptr<MySQLConnection> connection = Icarus::getDatabaseManager()->getConnectionPool()->borrow();
@@ -202,6 +208,7 @@ std::shared_ptr<EntityDetails> UserDao::getDetails(int user_id) {
 
     return details;
 };
+
 /*
     Updates player details
 

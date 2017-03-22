@@ -70,6 +70,7 @@ bool RoomUser::containsStatus(std::string key) {
 void RoomUser::updateStatus() {
     this->needs_update = true;
 }
+
 /*
     Sets rotation of user, optional to set head rotation too, and also optional to update player status
 
