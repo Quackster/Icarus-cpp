@@ -31,7 +31,6 @@ public:
     void updateItemPosition(Item *item, bool rotation_only = false);
     void handleItemAdjustment(Item *item, bool rotation_only = false);
 
-    const double &getTileHeight(int x, int y) const { return tile_height[x][y]; }
     const double &getStackHeight(int x, int y) const { return stack_height[x][y]; }
     bool isValidTile(int x, int y) const { return flags[x][y] == 0;    }
 
@@ -43,7 +42,6 @@ private:
 
     Array2D<Item*> items;
     Array2D<int> flags;
-    Array2D<double> tile_height;
     Array2D<double> stack_height;
 
     //int *tile_flags = nullptr;

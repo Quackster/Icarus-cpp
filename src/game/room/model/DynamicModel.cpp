@@ -27,8 +27,7 @@ DynamicModel::DynamicModel(Room *room) :
     room(room),
     items(Array2D<Item*>(0, 0)),
     flags(Array2D<int>(0, 0)),
-    stack_height(Array2D<double>(0, 0)),
-    tile_height(Array2D<double>(0, 0)) {
+    stack_height(Array2D<double>(0, 0)) {
 
     this->map_size_x = room->getModel()->map_size_x;
     this->map_size_y = room->getModel()->map_size_y;
@@ -52,18 +51,13 @@ void DynamicModel::regenerateCollisionMaps() {
 
     this->items = Array2D<Item*>(this->map_size_x, this->map_size_y);
     this->flags = Array2D<int>(this->map_size_x, this->map_size_y);
-
     this->stack_height = Array2D<double>(this->map_size_x, this->map_size_y);
-    this->tile_height = Array2D<double>(this->map_size_x, this->map_size_y);
 
     for (int y = 0; y < map_size_y; y++) {
         for (int x = 0; x < map_size_x; x++) {
 
-            int index = this->getSearchIndex(x, y);
-
-            this->flags[x][y] = room->getModel()->squares[index];
-            this->stack_height[x][y] = room->getModel()->square_height[index];
-            this->tile_height[x][y] = room->getModel()->square_height[index];
+            this->flags[x][y] = room->getModel()->isValidSquare(x, y) ? RoomModel::OPEN : RoomModel::CLOSED;
+            this->stack_height[x][y] = room->getModel()->getSquareHeight(x, y);
             this->items[x][y] = nullptr;
         }
     }
@@ -238,11 +232,11 @@ void DynamicModel::handleItemAdjustment(Item *item, bool rotation_only) {
                 item->z = this->getStackHeight(item->x, item->y);
             }
             else {
-                item->z = this->getTileHeight(item->x, item->y);
+                item->z = this->room->getModel()->getSquareHeight(item->x, item->y);
             }
         }
         else {
-            item->z = this->getTileHeight(item->x, item->y);
+            item->z = this->room->getModel()->getSquareHeight(item->x, item->y);
         }
     }
 
