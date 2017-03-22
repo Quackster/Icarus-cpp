@@ -74,35 +74,64 @@ void DynamicModel::regenerateCollisionMaps() {
             continue;
         }
 
-        this->items[item->x][item->y] = item;
+        Item *existing_item = this->items[item->x][item->y];
 
-        bool valid = false;
-
-        if (item->getDefinition()->can_sit) {
-            valid = true;
-        }
-
-        if (item->getDefinition()->is_walkable) {
-            valid = true;
-        }
-
-        if (item->getDefinition()->interaction_type == "bed") {
-            valid = true;
-        }
-
-
-        if (item->getDefinition()->interaction_type == "gate") {
-            if (item->extra_data == "1") {
-                valid = true;
+        if (existing_item != nullptr) {
+            if (existing_item->getDefinition()->interaction_type == "gate") {
+                continue;
             }
         }
+        else {
+
+            this->items[item->x][item->y] = item;
 
 
-        this->addTileStates(item->x, item->y, item->getDefinition()->stack_height, valid);
+            bool valid = false;
 
-        for (auto kvp : item->getAffectedTiles()) {
-            this->items[kvp.second.x][kvp.second.y] = item;
-            this->addTileStates(kvp.second.x, kvp.second.y, item->getDefinition()->stack_height, valid);
+            if (item->getDefinition()->can_sit) {
+                valid = true;
+            }
+
+            if (item->getDefinition()->interaction_type == "bed") {
+                valid = true;
+            }
+
+            if (item->getDefinition()->is_walkable) {
+                valid = true;
+            }
+
+            if (item->getDefinition()->interaction_type == "gate") {
+                if (item->extra_data == "1") {
+                    valid = true;
+                }
+                else {
+                    valid = false;
+                }
+            }
+
+            int stack_height = 0;
+
+            if (item->getDefinition()->can_stack) {
+                stack_height = item->getDefinition()->stack_height;
+            }
+
+            this->addTileStates(item->x, item->y, stack_height, valid);
+
+            for (auto kvp : item->getAffectedTiles()) {
+
+                Item *existing_item_affected = this->items[kvp.second.x][kvp.second.y];
+
+                if (existing_item_affected != nullptr) {
+                    if (existing_item_affected->getDefinition()->interaction_type == "gate") {
+                        continue;
+                    }
+                } 
+                else {
+
+                    this->items[kvp.second.x][kvp.second.y] = item;
+                    this->addTileStates(kvp.second.x, kvp.second.y, stack_height, valid);
+                }
+            }
         }
     }
 }
@@ -122,8 +151,9 @@ void DynamicModel::addTileStates(int x, int y, double stack_height, bool valid) 
     }
     else {
         this->flags[x][y] = RoomModel::CLOSED;
-        this->height[x][y] += stack_height;
     }
+
+    this->height[x][y] += stack_height;
 }
 /*
     Returns an item at a given position, will return nullptr
