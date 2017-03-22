@@ -45,7 +45,11 @@ std::map<int, ItemDefinition*> ItemDao::getItemDefinitions() {
             furni->length = result_set->getInt("length");
 
             std::string::size_type sz;
-            furni->stack_height = std::stod(result_set->getString("stack_height"), &sz);
+            furni->height = std::stod(result_set->getString("stack_height"), &sz);
+
+            if (furni->height = 0.00) {
+                furni->height = 0.01;
+            }
 
             furni->type = result_set->getString("type");
 

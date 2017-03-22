@@ -16,7 +16,7 @@ struct ItemDefinition {
     std::string type;
     int width;
     int length;
-    double stack_height;
+    double height;
     bool can_stack;
     bool can_sit;
     bool is_walkable;

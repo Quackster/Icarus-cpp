@@ -88,16 +88,6 @@ void DynamicModel::regenerateCollisionMaps() {
             }
         }
 
-        /*Item *existing_item = this->items[item->x][item->y];
-
-        if (existing_item != nullptr) {
-            if (existing_item->getDefinition()->interaction_type == "gate") {
-                continue;
-            }
-        }*/
-
-        //this->items[item->x][item->y] = item;
-
         bool valid = false;
 
         if (item->getDefinition()->can_sit) {
@@ -124,20 +114,12 @@ void DynamicModel::regenerateCollisionMaps() {
         double stacked_height = 0;
 
         if (item->getDefinition()->can_stack) {
-            stacked_height = item->getDefinition()->stack_height;
+            stacked_height = item->getDefinition()->height;
         }
 
         this->addTileStates(item->x, item->y, stacked_height, valid);
 
         for (auto kvp : item->getAffectedTiles()) {
-
-            /*Item *existing_item_affected = this->items[kvp.second.x][kvp.second.y];
-
-            if (existing_item_affected != nullptr) {
-                if (existing_item_affected->getDefinition()->interaction_type == "gate") {
-                    continue;
-                }
-            }*/
 
             Item *highest_item = this->highest_items[kvp.second.x][kvp.second.y];
 
@@ -255,7 +237,7 @@ void DynamicModel::handleItemAdjustment(Item *item, bool rotation_only) {
 
         if (found_item != nullptr) {
             if (found_item->getDefinition()->can_stack) {
-                item->z = this->getStackHeight(item->x, item->y);
+                item->z = this->getStackHeight(item->x, item->y);// +(item->getDefinition()->can_stack ? 0.99 : 0);
             }
             else {
                 item->z = this->room->getModel()->getSquareHeight(item->x, item->y);

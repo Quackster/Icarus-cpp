@@ -194,7 +194,7 @@ void RoomUser::currentItemTrigger() {
 
         Item *item = this->current_item;
 
-        int item_height = item->z + item->getDefinition()->stack_height;
+        int item_height = item->z + item->getDefinition()->height;
         this->setRotation(item->rotation, true, false);
 
         if (item->getDefinition()->can_sit) {
