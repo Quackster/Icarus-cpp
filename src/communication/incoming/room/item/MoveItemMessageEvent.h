@@ -37,7 +37,7 @@ public:
             return;
         }
 
-        bool calculate_height = true;
+        bool rotation_only = false;
 
         if (item->isFloorItem()) {
 
@@ -46,7 +46,7 @@ public:
             int rotation = request.readInt();
 
             if (x == item->x && item->y == y) {
-                calculate_height = false;
+                rotation_only = true;
             }
 
             item->x = x;
@@ -61,6 +61,6 @@ public:
 
         }
         
-        room->getDynamicModel()->updateItemPosition(item, calculate_height);
+        room->getDynamicModel()->updateItemPosition(item, rotation_only);
     }
 };

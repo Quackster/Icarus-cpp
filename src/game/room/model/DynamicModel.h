@@ -28,8 +28,8 @@ public:
     Item *getItemAtPosition(int x, int y);
     void removeItem(Item *item);
     void addItem(Item *item);
-    void updateItemPosition(Item *item, bool calculate_height = true);
-    void handleItemAdjustment(Item *item);
+    void updateItemPosition(Item *item, bool rotation_only = false);
+    void handleItemAdjustment(Item *item, bool rotation_only = false);
 
     const double &getTileHeight(int x, int y) const { return tile_height[x][y]; }
     const double &getStackHeight(int x, int y) const { return stack_height[x][y]; }
