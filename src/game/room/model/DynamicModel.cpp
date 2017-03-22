@@ -234,6 +234,7 @@ void DynamicModel::handleItemAdjustment(Item *item) {
 
     if (found_item != nullptr) {
         if (found_item->getDefinition()->can_stack) {
+            item->z = this->getStackHeight(item->x, item->y);
         }
         else {
             item->z = this->getTileHeight(item->x, item->y);
