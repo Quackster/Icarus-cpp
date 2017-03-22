@@ -85,57 +85,52 @@ void DynamicModel::regenerateCollisionMaps() {
                 continue;
             }
         }
-        else {
 
-            this->items[item->x][item->y] = item;
+        this->items[item->x][item->y] = item;
 
+        bool valid = false;
 
-            bool valid = false;
+        if (item->getDefinition()->can_sit) {
+            valid = true;
+        }
 
-            if (item->getDefinition()->can_sit) {
+        if (item->getDefinition()->interaction_type == "bed") {
+            valid = true;
+        }
+
+        if (item->getDefinition()->is_walkable) {
+            valid = true;
+        }
+
+        if (item->getDefinition()->interaction_type == "gate") {
+            if (item->extra_data == "1") {
                 valid = true;
             }
-
-            if (item->getDefinition()->interaction_type == "bed") {
-                valid = true;
+            else {
+                valid = false;
             }
+        }
 
-            if (item->getDefinition()->is_walkable) {
-                valid = true;
-            }
+        double stacked_height = 0;
 
-            if (item->getDefinition()->interaction_type == "gate") {
-                if (item->extra_data == "1") {
-                    valid = true;
-                }
-                else {
-                    valid = false;
-                }
-            }
+        if (item->getDefinition()->can_stack) {
+            stacked_height = item->z;
+        }
 
-            double stack_height = 0;
+        this->addTileStates(item->x, item->y, stacked_height, valid);
 
-            if (item->getDefinition()->can_stack) {
-                stack_height = item->getDefinition()->stack_height;
-            }
+        for (auto kvp : item->getAffectedTiles()) {
 
-            this->addTileStates(item->x, item->y, stack_height, valid);
+            Item *existing_item_affected = this->items[kvp.second.x][kvp.second.y];
 
-            for (auto kvp : item->getAffectedTiles()) {
-
-                Item *existing_item_affected = this->items[kvp.second.x][kvp.second.y];
-
-                if (existing_item_affected != nullptr) {
-                    if (existing_item_affected->getDefinition()->interaction_type == "gate") {
-                        continue;
-                    }
-                }
-                else {
-
-                    this->items[kvp.second.x][kvp.second.y] = item;
-                    this->addTileStates(kvp.second.x, kvp.second.y, stack_height, valid);
+            if (existing_item_affected != nullptr) {
+                if (existing_item_affected->getDefinition()->interaction_type == "gate") {
+                    continue;
                 }
             }
+
+            this->items[kvp.second.x][kvp.second.y] = item;
+            this->addTileStates(kvp.second.x, kvp.second.y, stacked_height, valid);
         }
     }
 }
@@ -201,9 +196,8 @@ void DynamicModel::addItem(Item *item) {
 
     item->room_id = room->id;
 
-
-    this->handleItemAdjustment(item);
     this->regenerateCollisionMaps();
+    this->handleItemAdjustment(item);
 
     this->room->getItems().push_back(item);
     this->room->send(PlaceItemMessageComposer(item));
@@ -218,11 +212,11 @@ void DynamicModel::addItem(Item *item) {
 */
 void DynamicModel::updateItemPosition(Item *item, bool calculate_height) {
 
+    this->room->getDynamicModel()->regenerateCollisionMaps();
+
     if (calculate_height) {
         this->handleItemAdjustment(item);
     }
-
-    this->room->getDynamicModel()->regenerateCollisionMaps();
 
     item->updateStatus();
     item->save();
@@ -237,9 +231,11 @@ void DynamicModel::updateItemPosition(Item *item, bool calculate_height) {
 void DynamicModel::handleItemAdjustment(Item *item) {
     
     if (item->isFloorItem()) {
-        if (item->getDefinition()->can_stack) {
-            std::cout << "can stack: " << item->id << ", " << item->getDefinition()->id << endl;
-            item->z = this->getStackHeight(item->x, item->y);
+
+        Item *found_item = this->getItemAtPosition(item->x, item->y);
+
+        if (item->getDefinition()->can_stack && found_item != nullptr) {
+            item->z = this->getStackHeight(item->x, item->y) +item->getDefinition()->stack_height;
         }
         else {
             item->z = this->getTileHeight(item->x, item->y);
