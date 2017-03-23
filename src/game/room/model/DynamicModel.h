@@ -22,8 +22,6 @@ public:
 
     void load();
     void regenerateCollisionMaps();
-    void addTileStates(int x, int y, double stack_height, bool valid);
-
     Item *getItemAtPosition(int x, int y);
     void removeItem(Item *item);
     void addItem(Item *item);

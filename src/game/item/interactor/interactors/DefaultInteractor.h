@@ -23,29 +23,16 @@ public:
     void onInteract(Room *room, Item *item) {
 
         int modes = item->getDefinition()->interaction_modes_count;
+        int current_mode = Utilities::isNumber(item->extra_data) ? stoi(item->extra_data) : 0;
 
-        int current_mode = 0;
-        int new_mode = 0;
-
-        if (Utilities::isNumber(item->extra_data)) {
-            current_mode = stoi(item->extra_data);
-        }
-
-        if (current_mode <= 0) {
-            new_mode = 1;
-        }
-        else if (current_mode >= modes) {
-            new_mode = 0;
+        if (current_mode >= modes) {
+            current_mode = 0;
         }
         else {
-            new_mode = current_mode + 1;
+            current_mode++;
         }
 
-        if (new_mode == current_mode) {
-            return; // don't bother updating since nothing changed
-        }
-
-        item->extra_data = std::to_string(new_mode);
+        item->extra_data = std::to_string(current_mode);
         item->updateStatus();
         item->save();
     }

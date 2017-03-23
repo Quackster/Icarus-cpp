@@ -160,26 +160,9 @@ bool DynamicModel::isValidTile(int x, int y) {
 
 
 /*
-    Add the title states (stack height, and whether or not the tile is valid)
-    @param x coordinate
-    @param y coordinate
-    @param stack height
-    @bool valid
-*/
-void DynamicModel::addTileStates(int x, int y, double stack_height, bool valid) {
-
-    /*if (valid) {
-        this->flags[x][y] = RoomModel::OPEN;
-    }
-    else {
-        this->flags[x][y] = RoomModel::CLOSED;
-    }*/
-
-    this->stack_height[x][y] += stack_height;
-}
-/*
     Returns an item at a given position, will return nullptr
     if no item was found, will include the item's affected tiles
+
     @param x coordinate
     @param y coordinate
     @return Item pointer
@@ -201,6 +184,7 @@ void DynamicModel::removeItem(Item *item) {
     item->y = -1;
     item->z = 0;
     item->rotation = 0;
+    item->extra_data = "";
 
     this->room->getItems().erase(std::remove(this->room->getItems().begin(), this->room->getItems().end(), item), this->room->getItems().end());
     this->room->send(RemoveItemMessageComposer(item));

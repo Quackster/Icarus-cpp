@@ -218,8 +218,7 @@ void Item::remove() {
     @param none
     @return map with counter as key, and affected tile position as value
 */
-std::map<int, Position> Item::getAffectedTiles()
-{
+std::map<int, Position> Item::getAffectedTiles() {
     int x = 0;
 
     std::map<int, Position> point_list;
