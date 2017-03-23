@@ -31,7 +31,7 @@ public:
     void handleItemAdjustment(Item *item, bool rotation_only = false);
 
     const double &getStackHeight(int x, int y) const { return stack_height[x][y]; }
-    bool isValidTile(int x, int y) const { return flags[x][y] == 0;    }
+    bool isValidTile(int x, int y);
 
     ~DynamicModel();
 
@@ -41,7 +41,6 @@ private:
 
     //Array2D<Item*> items;
     Array2D<Item*> highest_items;
-    Array2D<int> flags;
     Array2D<double> stack_height;
 
     //int *tile_flags = nullptr;

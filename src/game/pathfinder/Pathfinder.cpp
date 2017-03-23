@@ -183,46 +183,7 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
             return false;
         }
 
-        if (!room->getModel()->isValidSquare(current.x, current.y)) {
-            return false;
-        }
-
-        if (!room->getDynamicModel()->isValidTile(current.x, current.y)) {
-            return false;
-        }
-
-        /*bool valid = false;
-
-        Item *item = room->getDynamicModel()->getItemAtPosition(current.x, current.y);
-
-        if (item->getDefinition()->can_sit) {
-            valid = true;
-        }
-
-        if (item->getDefinition()->is_walkable) {
-            valid = true;
-        }
-
-        if (item->getDefinition()->interaction_type == "bed") {
-            valid = true;
-        }
-
-
-
-        /*if (current.x != neighbour.x 
-            && current.y != neighbour.y) {
-
-            bool diagonal1 = room->getDynamicModel()->isValidTile(neighbour.x, current.y);
-            bool diagonal2 = room->getDynamicModel()->isValidTile(current.x, neighbour.y);
-
-            if (!diagonal1 || !diagonal2)
-                return false;
-        }
-
-        return valid;*/
-
-
-        return true;
+        return room->getDynamicModel()->isValidTile(current.x, current.y);
 
     }
     catch (std::exception &e) {

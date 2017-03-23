@@ -27,7 +27,6 @@ DynamicModel::DynamicModel(Room *room) :
     room(room),
     //items(Array2D<Item*>(0, 0)),
     highest_items(Array2D<Item*>(0, 0)),
-    flags(Array2D<int>(0, 0)),
     stack_height(Array2D<double>(0, 0)) {
 
     this->map_size_x = room->getModel()->map_size_x;
@@ -50,19 +49,12 @@ void DynamicModel::load() {
 */
 void DynamicModel::regenerateCollisionMaps() {
 
-    //this->items = Array2D<Item*>(this->map_size_x, this->map_size_y);
     this->highest_items = Array2D<Item*>(this->map_size_x, this->map_size_y);
-
-    this->flags = Array2D<int>(this->map_size_x, this->map_size_y);
     this->stack_height = Array2D<double>(this->map_size_x, this->map_size_y);
 
     for (int y = 0; y < map_size_y; y++) {
         for (int x = 0; x < map_size_x; x++) {
-
-            this->flags[x][y] = room->getModel()->isValidSquare(x, y) ? RoomModel::OPEN : RoomModel::CLOSED;
             this->stack_height[x][y] = room->getModel()->getSquareHeight(x, y);
-            
-            //this->items[x][y] = nullptr;
             this->highest_items[x][y] = nullptr;
         }
     }
@@ -77,23 +69,49 @@ void DynamicModel::regenerateCollisionMaps() {
             continue;
         }
 
-        this->highest_items[item->x][item->y] = item;
+        double stacked_height = 0;
 
-        bool valid = false;
+        if (item->getDefinition()->can_stack) {
+            stacked_height = item->getDefinition()->height;
+        }
+
+        this->highest_items[item->x][item->y] = item;
+        this->stack_height[item->x][item->y] += stacked_height;
+
+        std::cout << "ADD ITEM [" << item->x << ", " << item->y << "]" << endl;
+
+        auto furni = this->highest_items[item->x][item->y];
+
+        if (furni == nullptr) {
+            cout << "NULL!" << endl;
+        }
+
+        for (auto kvp : item->getAffectedTiles()) {
+
+            std::cout << "ADD AFFECTED ITEM [" << kvp.second.x << ", " << kvp.second.y << "]" << endl;
+
+            this->highest_items[kvp.second.x][kvp.second.y] = item;
+            this->stack_height[kvp.second.x][kvp.second.y] += stacked_height;
+        }
+    }
+}
+
+
+bool DynamicModel::isValidTile(int x, int y) {
+
+    Item *item = this->highest_items[x][y];
+
+    bool valid = room->getModel()->isValidSquare(x, y);
+    
+    if (item != nullptr) {
 
         if (item->getDefinition()->can_sit) {
             valid = true;
-        }
-
-        if (item->getDefinition()->interaction_type == "bed") {
+        } else if (item->getDefinition()->interaction_type == "bed") {
             valid = true;
-        }
-
-        if (item->getDefinition()->is_walkable) {
+        } else if (item->getDefinition()->is_walkable) {
             valid = true;
-        }
-
-        if (item->getDefinition()->interaction_type == "gate") {
+        } else if (item->getDefinition()->interaction_type == "gate") {
             if (item->extra_data == "1") {
                 valid = true;
             }
@@ -101,20 +119,9 @@ void DynamicModel::regenerateCollisionMaps() {
                 valid = false;
             }
         }
-
-        double stacked_height = 0;
-
-        if (item->getDefinition()->can_stack) {
-            stacked_height = item->getDefinition()->height;
-        }
-
-        this->addTileStates(item->x, item->y, stacked_height, valid);
-
-        for (auto kvp : item->getAffectedTiles()) {
-            this->highest_items[kvp.second.x][kvp.second.y] = item;
-            this->addTileStates(kvp.second.x, kvp.second.y, stacked_height, valid);
-        }
     }
+
+    return valid;
 }
 
 
@@ -127,12 +134,12 @@ void DynamicModel::regenerateCollisionMaps() {
 */
 void DynamicModel::addTileStates(int x, int y, double stack_height, bool valid) {
 
-    if (valid) {
+    /*if (valid) {
         this->flags[x][y] = RoomModel::OPEN;
     }
     else {
         this->flags[x][y] = RoomModel::CLOSED;
-    }
+    }*/
 
     this->stack_height[x][y] += stack_height;
 }
