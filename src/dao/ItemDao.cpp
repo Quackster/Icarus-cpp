@@ -12,6 +12,7 @@
 #include "mysql.h"
 
 #include "boot/Icarus.h"
+#include "misc/Utilities.h"
 
 #include "ItemDao.h"
 
@@ -47,13 +48,13 @@ std::map<int, ItemDefinition*> ItemDao::getItemDefinitions() {
             std::string::size_type sz;
             furni->height = std::stod(result_set->getString("stack_height"), &sz);
 
-            if (furni->height = 0.00) {
-                furni->height = 0.01;
+            if (Utilities::isEqual(furni->height, 0)) {
+                furni->height = 0.001;
             }
 
             furni->type = result_set->getString("type");
 
-            furni->can_stack = result_set->getInt("can_stack") == 1;
+            furni->can_stack = true;//result_set->getInt("can_stack") == 1;
             /**/furni->can_sit = result_set->getInt("can_sit") == 1;
             furni->sprite_id = result_set->getInt("sprite_id");
 

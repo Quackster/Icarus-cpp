@@ -248,3 +248,7 @@ std::string Utilities::base64_decode(const std::string &val) {
     });
 }
 
+bool Utilities::isEqual(double x, double y)
+{
+    return x == y;
+}
