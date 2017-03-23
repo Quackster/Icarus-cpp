@@ -270,6 +270,37 @@ std::map<int, Position> Item::getAffectedTiles() {
 }
 
 /*
+    Returns whether or not this tile can be walked on
+
+    @return boolean of walkable state
+*/
+bool Item::canWalk() {
+
+    // We assume the tile with the item cannot be accessed until checked
+    bool tile_valid = false;
+
+    if (this->getDefinition()->can_sit) {
+        tile_valid = true;
+    }
+
+    if (this->getDefinition()->interaction_type == "bed") {
+        tile_valid = true;
+    }
+
+    if (this->getDefinition()->is_walkable) {
+        tile_valid = true;
+    }
+
+    if (this->getDefinition()->interaction_type == "gate") {
+        if (this->extra_data == "1") {
+            tile_valid = true;
+        }
+    }
+
+    return tile_valid;
+}
+
+/*
     Serialise item for packet appending, this is used in almost everything when it comes to 
     handling items
 

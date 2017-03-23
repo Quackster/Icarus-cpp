@@ -121,27 +121,7 @@ bool DynamicModel::isValidTile(int x, int y) {
     bool tile_valid = room->getModel()->isValidSquare(x, y);
 
     if (item != nullptr) {
-
-        // We assume the tile with the item cannot be accessed until checked
-        tile_valid = false;
-
-        if (item->getDefinition()->can_sit) {
-            tile_valid = true;
-        }
-
-        if (item->getDefinition()->interaction_type == "bed") {
-            tile_valid = true;
-        }
-
-        if (item->getDefinition()->is_walkable) {
-            tile_valid = true;
-        }
-
-        if (item->getDefinition()->interaction_type == "gate") {
-            if (item->extra_data == "1") {
-                tile_valid = true;
-            }
-        }
+        tile_valid = item->canWalk();
     }
 
     // This is returned when there's no items found, it will

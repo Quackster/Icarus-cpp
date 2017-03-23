@@ -35,11 +35,14 @@ public:
     bool isFloorItem();
 
     std::map<int, Position> getAffectedTiles();
+    bool canWalk();
     void serialise(Response &response);
 
     ItemDefinition *getDefinition() { return this->item_definition; }
     Room *getRoom();
     BaseInteractor *getInteractor();
+
+
 
     int id = -1;
     int user_id = -1;

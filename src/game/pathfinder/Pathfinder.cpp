@@ -203,7 +203,7 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
                 }
 
                 if (item1 != nullptr && item2 != nullptr) {
-                    if (!item1->getDefinition()->is_walkable && !item2->getDefinition()->is_walkable) {
+                    if (!item1->canWalk() && !item2->canWalk()) {
                         return false;
                     }
                 }
