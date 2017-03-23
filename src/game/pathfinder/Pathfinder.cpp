@@ -188,18 +188,18 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
 
         double abs = std::abs(height1 - height2);
 
-        if (abs >= 1) {
-            return false;
-        }
-
         Item *item1 = room->getDynamicModel()->getItemAtPosition(current.x, current.y);
         Item *item2 = room->getDynamicModel()->getItemAtPosition(neighbour.x, neighbour.y);
 
-        if (item1 != nullptr && item2 != nullptr) {
-            if (abs <= 1) {
-                cout << "Called 2" << endl;
+        if (item1 != nullptr || item2 != nullptr) {
+
+            if (abs >= 1) {
+                return false;
+            }
+            else {
                 return true;
             }
+
         }
 
         return room->getDynamicModel()->isValidTile(current.x, current.y);
