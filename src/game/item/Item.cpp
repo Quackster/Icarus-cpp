@@ -279,19 +279,19 @@ bool Item::canWalk() {
     // We assume the tile with the item cannot be accessed until checked
     bool tile_valid = false;
 
-    if (this->getDefinition()->can_sit) {
+    if (this->item_definition->can_sit) {
         tile_valid = true;
     }
 
-    if (this->getDefinition()->interaction_type == "bed") {
+    if (this->item_definition->interaction_type == "bed") {
         tile_valid = true;
     }
 
-    if (this->getDefinition()->is_walkable) {
+    if (this->item_definition->is_walkable) {
         tile_valid = true;
     }
 
-    if (this->getDefinition()->interaction_type == "gate") {
+    if (this->item_definition->interaction_type == "gate") {
         if (this->extra_data == "1") {
             tile_valid = true;
         }
