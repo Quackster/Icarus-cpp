@@ -75,22 +75,32 @@ void DynamicModel::regenerateCollisionMaps() {
             stacked_height = item->getDefinition()->height;
         }
 
-        this->highest_items[item->x][item->y] = item;
-        this->stack_height[item->x][item->y] += stacked_height;
+        Item *highest_item = this->highest_items[item->x][item->y];
 
-        std::cout << "ADD ITEM [" << item->x << ", " << item->y << "]" << endl;
-
-        auto furni = this->highest_items[item->x][item->y];
-
-        if (furni == nullptr) {
-            cout << "NULL!" << endl;
+        if (highest_item == nullptr) {
+            this->highest_items[item->x][item->y] = item;
         }
+        else {
+            if (item->z > highest_item->z) {
+                this->highest_items[item->x][item->y] = item;
+            }
+        }
+        
+        this->stack_height[item->x][item->y] += stacked_height;
 
         for (auto kvp : item->getAffectedTiles()) {
 
-            std::cout << "ADD AFFECTED ITEM [" << kvp.second.x << ", " << kvp.second.y << "]" << endl;
+            Item *highest_item = this->highest_items[kvp.second.x][kvp.second.y];
 
-            this->highest_items[kvp.second.x][kvp.second.y] = item;
+            if (highest_item == nullptr) {
+                this->highest_items[kvp.second.x][kvp.second.y] = item;
+            }
+            else {
+                if (item->z > highest_item->z) {
+                    this->highest_items[kvp.second.x][kvp.second.y] = item;
+                }
+            }
+
             this->stack_height[kvp.second.x][kvp.second.y] += stacked_height;
         }
     }
@@ -107,11 +117,26 @@ bool DynamicModel::isValidTile(int x, int y) {
 
         if (item->getDefinition()->can_sit) {
             valid = true;
-        } else if (item->getDefinition()->interaction_type == "bed") {
+        }
+        else {
+            valid = false;
+        }
+
+        if (item->getDefinition()->interaction_type == "bed") {
             valid = true;
-        } else if (item->getDefinition()->is_walkable) {
+        }
+        else {
+            valid = false;
+        }
+
+        if (item->getDefinition()->is_walkable) {
             valid = true;
-        } else if (item->getDefinition()->interaction_type == "gate") {
+        }
+        else {
+            valid = false;
+        }
+
+        if (item->getDefinition()->interaction_type == "gate") {
             if (item->extra_data == "1") {
                 valid = true;
             }
@@ -119,7 +144,9 @@ bool DynamicModel::isValidTile(int x, int y) {
                 valid = false;
             }
         }
+
     }
+
 
     return valid;
 }
