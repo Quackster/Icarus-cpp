@@ -22,6 +22,7 @@ public:
 
     void load();
     void regenerateCollisionMaps();
+    void checkHighestItem(Item *item, int x, int y);
     Item *getItemAtPosition(int x, int y);
     void removeItem(Item *item);
     void addItem(Item *item);

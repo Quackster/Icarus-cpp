@@ -75,35 +75,39 @@ void DynamicModel::regenerateCollisionMaps() {
             stacked_height = item->getDefinition()->height;
         }
 
-        Item *highest_item = this->highest_items[item->x][item->y];
-
-        if (highest_item == nullptr) {
-            this->highest_items[item->x][item->y] = item;
-        }
-        else {
-            if (item->z > highest_item->z) {
-                this->highest_items[item->x][item->y] = item;
-            }
-        }
-        
+        this->checkHighestItem(item, item->x, item->y);
         this->stack_height[item->x][item->y] += stacked_height;
 
         for (auto kvp : item->getAffectedTiles()) {
 
-            Item *highest_item = this->highest_items[kvp.second.x][kvp.second.y];
-
-            if (highest_item == nullptr) {
-                this->highest_items[kvp.second.x][kvp.second.y] = item;
-            }
-            else {
-                if (item->z > highest_item->z) {
-                    this->highest_items[kvp.second.x][kvp.second.y] = item;
-                }
-            }
-
+            this->checkHighestItem(item, kvp.second.x, kvp.second.y);
             this->stack_height[kvp.second.x][kvp.second.y] += stacked_height;
         }
     }
+}
+
+/*
+    Checks to see if our given item is the highest or not
+    if it is, then we set it, or there's no item defined, it's also set as the foundation
+    to check upon
+    
+    @param Item instance
+    @param x coordinate
+    @param y coordinate
+*/
+void DynamicModel::checkHighestItem(Item *item, int x, int y) {
+
+    Item *highest_item = this->highest_items[x][y];
+
+    if (highest_item == nullptr) {
+        this->highest_items[x][y] = item;
+    }
+    else {
+        if (item->z > highest_item->z) {
+            this->highest_items[x][y] = item;
+        }
+    }
+
 }
 
 /*
@@ -121,36 +125,25 @@ bool DynamicModel::isValidTile(int x, int y) {
 
     if (item != nullptr) {
 
+        tile_valid = false;
+
         if (item->getDefinition()->can_sit) {
             tile_valid = true;
-        }
-        else {
-            tile_valid = false;
         }
 
         if (item->getDefinition()->interaction_type == "bed") {
             tile_valid = true;
         }
-        else {
-            tile_valid = false;
-        }
 
         if (item->getDefinition()->is_walkable) {
             tile_valid = true;
-        }
-        else {
-            tile_valid = false;
         }
 
         if (item->getDefinition()->interaction_type == "gate") {
             if (item->extra_data == "1") {
                 tile_valid = true;
             }
-            else {
-                tile_valid = false;
-            }
         }
-
     }
 
     // This is returned when there's no items found, it will
