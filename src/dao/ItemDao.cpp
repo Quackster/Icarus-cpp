@@ -54,7 +54,7 @@ std::map<int, ItemDefinition*> ItemDao::getItemDefinitions() {
 
             furni->type = result_set->getString("type");
 
-            furni->can_stack = true;//result_set->getInt("can_stack") == 1;
+            furni->can_stack = result_set->getInt("can_stack") == 1;
             /**/furni->can_sit = result_set->getInt("can_sit") == 1;
             furni->sprite_id = result_set->getInt("sprite_id");
 
