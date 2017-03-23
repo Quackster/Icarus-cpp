@@ -165,12 +165,12 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
         int map_size_x = room->getModel()->map_size_x;
         int map_size_y = room->getModel()->map_size_y;
 
-        if (neighbour.x >= map_size_x 
+        if (neighbour.x >= map_size_x
             || neighbour.y >= map_size_y) {
             return false;
         }
 
-        if (current.x >= map_size_x 
+        if (current.x >= map_size_x
             || current.y >= map_size_y) {
             return false;
         }
@@ -178,17 +178,34 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
         if (neighbour.x < 0 || neighbour.y < 0) {
             return false;
         }
-        
+
         if (current.x < 0 || current.y < 0) {
             return false;
         }
 
-        return room->getDynamicModel()->isValidTile(current.x, current.y);
+        double height1 = room->getDynamicModel()->getStackHeight(current.x, current.y);
+        double height2 = room->getDynamicModel()->getStackHeight(neighbour.x, neighbour.y);
 
+        double abs = std::abs(height1 - height2);
+
+        if (abs >= 1) {
+            return false;
+        }
+
+        Item *item1 = room->getDynamicModel()->getItemAtPosition(current.x, current.y);
+        Item *item2 = room->getDynamicModel()->getItemAtPosition(neighbour.x, neighbour.y);
+
+        if (item1 != nullptr && item2 != nullptr) {
+            if (abs <= 1) {
+                cout << "Called 2" << endl;
+                return true;
+            }
+        }
+
+        return room->getDynamicModel()->isValidTile(current.x, current.y);
     }
     catch (std::exception &e) {
         cout << "Pathfinder exception: " << e.what() << endl;
         return false;
     }
-
 }

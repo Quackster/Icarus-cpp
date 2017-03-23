@@ -23,5 +23,6 @@ private:
 
 public:
     static bool exists(std::string query);
+    static bool execute(std::string query);
 };
 

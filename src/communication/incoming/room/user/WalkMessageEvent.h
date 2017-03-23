@@ -51,9 +51,9 @@ public:
             return;
         }
 
-        if (!room->getDynamicModel()->isValidTile(room_user->goal.x, room_user->goal.y)) {
+        /*if (!room->getDynamicModel()->isValidTile(room_user->goal.x, room_user->goal.y)) {
             return;
-        }
+        }*/
 
         auto path = Pathfinder::makePath(room_user->position, room_user->goal, room);
 

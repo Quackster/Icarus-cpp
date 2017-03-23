@@ -126,10 +126,9 @@ void RoomUser::walk() {
         if (!this->next.isEmpty()) {
 
             Position next = this->next;
-            int height = this->getRoom()->getModel()->getSquareHeight(next.x, next.y);
 
+            this->height = this->room->getDynamicModel()->getStackHeight(next.x, next.y);
             this->position = next;
-            this->height = height;
         }
         else {
             this->setStatus("mv", "");
@@ -177,6 +176,8 @@ void RoomUser::stopWalking() {
     if (no_current_item) {
         this->current_item = nullptr;
     }
+
+
 }
 
 /*
@@ -196,6 +197,7 @@ void RoomUser::currentItemTrigger() {
 
         int item_height = item->z + item->getDefinition()->height;
         this->setRotation(item->rotation, true, false);
+
 
         if (item->getDefinition()->can_sit) {
             this->setStatus("sit", std::to_string(item_height + 0.04));
