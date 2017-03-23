@@ -19,13 +19,11 @@
 #include "communication/outgoing/room/item/PlaceItemMessageComposer.h"
 #include "communication/outgoing/room/item/MoveItemMessageComposer.h"
 
-
 /*
     The constructor for DynamicModel
 */
 DynamicModel::DynamicModel(Room *room) :
     room(room),
-    //items(Array2D<Item*>(0, 0)),
     highest_items(Array2D<Item*>(0, 0)),
     stack_height(Array2D<double>(0, 0)) {
 
@@ -107,7 +105,6 @@ void DynamicModel::checkHighestItem(Item *item, int x, int y) {
             this->highest_items[x][y] = item;
         }
     }
-
 }
 
 /*
@@ -125,6 +122,7 @@ bool DynamicModel::isValidTile(int x, int y) {
 
     if (item != nullptr) {
 
+        // We assume the tile with the item cannot be accessed until checked
         tile_valid = false;
 
         if (item->getDefinition()->can_sit) {
