@@ -190,11 +190,10 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
 
     if (item1 != nullptr || item2 != nullptr) {
 
-        if (abs >= 1) {
+        if (abs >= 0.9) {
             return false;
         }
-
-        if (abs <= 0.2) {
+        else {
 
             if (item2 != nullptr) {
                 if (item2->getDefinition()->interaction_type == "gate") {
@@ -203,7 +202,9 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
                     }
                 }
 
-                return item2->canWalk();
+                if (item2->getDefinition()->is_walkable) {
+                    return true;
+                }
             }
 
             if (item1 != nullptr) {
@@ -213,7 +214,9 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
                     }
                 }
 
-                return item1->canWalk();
+                if (item1->getDefinition()->is_walkable) {
+                    return true;
+                }
             }
 
             return true;

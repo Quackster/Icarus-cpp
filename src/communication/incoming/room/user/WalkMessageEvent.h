@@ -30,12 +30,6 @@ public:
         RoomUser *room_user = player->getRoomUser();
         room_user->awake();
 
-
-        if (!room->getDynamicModel()->isValidTile(goal_x, goal_y)) {
-            std::cout << "no valid tile" << endl;
-            return;
-        }
-
         room_user->goal.x = goal_x;
         room_user->goal.y = goal_y;
 
