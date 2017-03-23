@@ -106,49 +106,56 @@ void DynamicModel::regenerateCollisionMaps() {
     }
 }
 
+/*
+    Checks against the database of items and room model if the
+    requested tile is avaliable to walk on
 
+    @param x coordinate
+    @param y coordinate
+    @return boolean: if tile is valid or not
+*/
 bool DynamicModel::isValidTile(int x, int y) {
 
     Item *item = this->highest_items[x][y];
+    bool tile_valid = room->getModel()->isValidSquare(x, y);
 
-    bool valid = room->getModel()->isValidSquare(x, y);
-    
     if (item != nullptr) {
 
         if (item->getDefinition()->can_sit) {
-            valid = true;
+            tile_valid = true;
         }
         else {
-            valid = false;
+            tile_valid = false;
         }
 
         if (item->getDefinition()->interaction_type == "bed") {
-            valid = true;
+            tile_valid = true;
         }
         else {
-            valid = false;
+            tile_valid = false;
         }
 
         if (item->getDefinition()->is_walkable) {
-            valid = true;
+            tile_valid = true;
         }
         else {
-            valid = false;
+            tile_valid = false;
         }
 
         if (item->getDefinition()->interaction_type == "gate") {
             if (item->extra_data == "1") {
-                valid = true;
+                tile_valid = true;
             }
             else {
-                valid = false;
+                tile_valid = false;
             }
         }
 
     }
 
-
-    return valid;
+    // This is returned when there's no items found, it will
+    // just check the default model if the tile is valid
+    return tile_valid;
 }
 
 
