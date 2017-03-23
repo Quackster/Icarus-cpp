@@ -77,16 +77,7 @@ void DynamicModel::regenerateCollisionMaps() {
             continue;
         }
 
-        Item *highest_item = this->highest_items[item->x][item->y];
-
-        if (highest_item == nullptr) {
-            this->highest_items[item->x][item->y] = item;
-        }
-        else {
-            if (item->z > highest_item->z) {
-                this->highest_items[item->x][item->y] = item;
-            }
-        }
+        this->highest_items[item->x][item->y] = item;
 
         bool valid = false;
 
@@ -120,18 +111,7 @@ void DynamicModel::regenerateCollisionMaps() {
         this->addTileStates(item->x, item->y, stacked_height, valid);
 
         for (auto kvp : item->getAffectedTiles()) {
-
-            Item *highest_item = this->highest_items[kvp.second.x][kvp.second.y];
-
-            if (highest_item == nullptr) {
-                this->highest_items[kvp.second.x][kvp.second.y] = item;
-            }
-            else {
-                if (item->z > highest_item->z) {
-                    this->highest_items[kvp.second.x][kvp.second.y] = item;
-                }
-            }
-
+            this->highest_items[kvp.second.x][kvp.second.y] = item;
             this->addTileStates(kvp.second.x, kvp.second.y, stacked_height, valid);
         }
     }
