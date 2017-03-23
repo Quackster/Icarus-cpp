@@ -44,18 +44,14 @@ std::map<int, ItemDefinition*> ItemDao::getItemDefinitions() {
             furni->item_name = result_set->getString("item_name");
             furni->width = result_set->getInt("width");
             furni->length = result_set->getInt("length");
-
+            furni->can_stack = result_set->getInt("can_stack") == 1;
+            
             std::string::size_type sz;
             furni->height = std::stod(result_set->getString("stack_height"), &sz);
-
-            if (Utilities::isEqual(furni->height, 0)) {
-                furni->height = 0.001;
-            }
-
             furni->type = result_set->getString("type");
 
-            furni->can_stack = result_set->getInt("can_stack") == 1;
-            /**/furni->can_sit = result_set->getInt("can_sit") == 1;
+            furni->can_stack = true;
+            furni->can_sit = result_set->getInt("can_sit") == 1;
             furni->sprite_id = result_set->getInt("sprite_id");
 
             furni->is_walkable = result_set->getInt("is_walkable") == 1;
@@ -74,6 +70,14 @@ std::map<int, ItemDefinition*> ItemDao::getItemDefinitions() {
             furni->requires_rights = result_set->getInt("requires_rights") == 1;
             furni->is_arrow = result_set->getInt("is_arrow");
             furnitures.insert(std::make_pair(furni->id, furni));
+
+            if (Utilities::isEqual(furni->height, 0)) {
+                furni->height = 0.01;
+            }
+
+            if (furni->can_sit) {
+                furni->height = 0.01;
+            }
 
         }
     }

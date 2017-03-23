@@ -295,6 +295,9 @@ bool Item::canWalk() {
         if (this->extra_data == "1") {
             tile_valid = true;
         }
+        else {
+            tile_valid = false;
+        }
     }
 
     return tile_valid;

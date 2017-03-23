@@ -30,7 +30,9 @@ public:
         RoomUser *room_user = player->getRoomUser();
         room_user->awake();
 
-        if (room_user->goal.x == goal_x && room_user->goal.y == goal_y) {
+
+        if (!room->getDynamicModel()->isValidTile(goal_x, goal_y)) {
+            std::cout << "no valid tile" << endl;
             return;
         }
 
@@ -40,20 +42,9 @@ public:
         Position goal = room_user->goal;
         Position current = room_user->position;
 
-        int map_size_x = room->getModel()->map_size_x;
-        int map_size_y = room->getModel()->map_size_y;
-
-        if (goal.x >= map_size_x || goal.y >= map_size_y) {
-            return;
-        }
-
         if (goal.x == current.x && goal.y == current.y) {
             return;
         }
-
-        /*if (!room->getDynamicModel()->isValidTile(room_user->goal.x, room_user->goal.y)) {
-            return;
-        }*/
 
         auto path = Pathfinder::makePath(room_user->position, room_user->goal, room);
 

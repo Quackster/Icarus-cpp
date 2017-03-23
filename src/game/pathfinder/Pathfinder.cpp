@@ -160,63 +160,65 @@ std::shared_ptr<PathfinderNode> Pathfinder::makePathReversed(Position start, Pos
 */
 bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, bool is_final_move) {
 
-    try {
 
-        int map_size_x = room->getModel()->map_size_x;
-        int map_size_y = room->getModel()->map_size_y;
+    int map_size_x = room->getModel()->map_size_x;
+    int map_size_y = room->getModel()->map_size_y;
 
-        if (neighbour.x >= map_size_x
-            || neighbour.y >= map_size_y) {
+    if (neighbour.x >= map_size_x || neighbour.y >= map_size_y) {
+        return false;
+    }
+
+    if (current.x >= map_size_x || current.y >= map_size_y) {
+        return false;
+    }
+
+    if (neighbour.x < 0 || neighbour.y < 0) {
+        return false;
+    }
+
+    if (current.x < 0 || current.y < 0) {
+        return false;
+    }
+
+    double height1 = room->getDynamicModel()->getStackHeight(current.x, current.y);
+    double height2 = room->getDynamicModel()->getStackHeight(neighbour.x, neighbour.y);
+
+    double abs = std::abs(height1 - height2);
+
+    Item *item1 = room->getDynamicModel()->getItemAtPosition(current.x, current.y);
+    Item *item2 = room->getDynamicModel()->getItemAtPosition(neighbour.x, neighbour.y);
+
+    if (item1 != nullptr || item2 != nullptr) {
+
+        if (abs >= 1) {
             return false;
         }
 
-        if (current.x >= map_size_x
-            || current.y >= map_size_y) {
-            return false;
-        }
+        if (abs <= 0.2) {
 
-        if (neighbour.x < 0 || neighbour.y < 0) {
-            return false;
-        }
-
-        if (current.x < 0 || current.y < 0) {
-            return false;
-        }
-
-        double height1 = room->getDynamicModel()->getStackHeight(current.x, current.y);
-        double height2 = room->getDynamicModel()->getStackHeight(neighbour.x, neighbour.y);
-
-        double abs = std::abs(height1 - height2);
-
-        Item *item1 = room->getDynamicModel()->getItemAtPosition(current.x, current.y);
-        Item *item2 = room->getDynamicModel()->getItemAtPosition(neighbour.x, neighbour.y);
-
-        if (item1 != nullptr || item2 != nullptr) {
-
-            if (abs >= 0.9) {
-                return false;
-            }
-            else {
-
-                if (abs == 0) {
-                    return true;
-                }
-
-                if (item1 != nullptr && item2 != nullptr) {
-                    if (!item1->canWalk() && !item2->canWalk()) {
+            if (item2 != nullptr) {
+                if (item2->getDefinition()->interaction_type == "gate") {
+                    if (item2->extra_data != "1") {
                         return false;
                     }
                 }
 
-                return true;
+                return item2->canWalk();
             }
 
-        }
+            if (item1 != nullptr) {
+                if (item1->getDefinition()->interaction_type == "gate") {
+                    if (item1->extra_data != "1") {
+                        return false;
+                    }
+                }
 
-        return room->getDynamicModel()->isValidTile(current.x, current.y);
+                return item1->canWalk();
+            }
+
+            return true;
+        }
     }
-    catch (std::exception &e) {
-        cout << "Pathfinder exception: " << e.what() << endl;
-        return false;
-    }
+
+    return room->getDynamicModel()->isValidTile(current.x, current.y);
 }
