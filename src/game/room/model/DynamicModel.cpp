@@ -72,8 +72,10 @@ void DynamicModel::regenerateCollisionMaps() {
         }
 
         this->checkHighestItem(item, item->x, item->y);
-        this->tiles[item->x][item->y].height += stacked_height;
 
+        this->tiles[item->x][item->y].height += stacked_height;
+        this->tiles[item->x][item->y].items.push_back(item);
+        
         for (auto kvp : item->getAffectedTiles()) {
 
             this->checkHighestItem(item, kvp.second.x, kvp.second.y);
@@ -235,10 +237,26 @@ void DynamicModel::handleItemAdjustment(Item *item, bool rotation_only) {
             item->z = this->getStackHeight(item->x, item->y);
         }
         else {
-            
+
         }
     }*/
-item->z = this->getStackHeight(item->x, item->y);
+
+    if (rotation_only) {
+
+        for (Item *items : this->getTileAtPosition(item->x, item->y).items) {
+
+            if (items != item && item->z <= items->z) {
+
+                items->rotation = item->rotation;
+                items->updateStatus();
+
+            }
+        }
+    }
+    else {
+        item->z = this->getStackHeight(item->x, item->y);
+    }
+
     item->updateEntities();
 }
 
