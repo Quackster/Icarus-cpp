@@ -16,6 +16,7 @@
 #include "game/item/Item.h"
 #include "game/item/definitions/ItemDefinition.h"
 
+#include "game/room/model/tile/RoomTile.h"
 #include "game/room/model/DynamicModel.h"
 
 /*
@@ -188,13 +189,13 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
         return false;
     }
 
-    double height1 = room->getDynamicModel()->getStackHeight(current.x, current.y);
-    double height2 = room->getDynamicModel()->getStackHeight(neighbour.x, neighbour.y);
+    RoomTile from_tile = room->getDynamicModel()->getTileAtPosition(current.x, current.y);
+    RoomTile to_tile = room->getDynamicModel()->getTileAtPosition(neighbour.x, neighbour.y);
 
-    double abs = std::abs(height1 - height2);
+    double abs = std::abs(from_tile.height - to_tile.height);
 
-    Item *from_item = room->getDynamicModel()->getItemAtPosition(current.x, current.y);
-    Item *to_item = room->getDynamicModel()->getItemAtPosition(neighbour.x, neighbour.y);
+    Item *from_item = from_tile.highest_item;
+    Item *to_item = to_tile.highest_item;
 
     if (from_item != nullptr || to_item != nullptr) {
 

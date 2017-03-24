@@ -158,6 +158,7 @@
     <ClCompile Include="src\dao\RoomDao.cpp" />
     <ClCompile Include="src\game\room\model\RoomModel.cpp" />
     <ClCompile Include="src\game\room\model\Rotation.cpp" />
+    <ClCompile Include="src\game\room\model\tile\RoomTile.cpp" />
     <ClCompile Include="src\game\room\Room.cpp" />
     <ClCompile Include="src\game\room\RoomManager.cpp" />
     <ClCompile Include="src\game\room\RoomUser.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="src\game\catalogue\CataloguePage.h" />
     <ClInclude Include="src\game\item\inventory\Inventory.h" />
     <ClInclude Include="src\game\item\definitions\ItemType.h" />
+    <ClInclude Include="src\game\room\model\tile\RoomTile.h" />
     <ClInclude Include="src\misc\Array2D.h" />
     <ClInclude Include="src\plugin\events\player\PlayerMoveEvent.h" />
     <ClInclude Include="src\communication\incoming\catalogue\CatalogueTabMessageEvent.h" />

@@ -11,6 +11,7 @@
 #include "DynamicModel.h"
 
 #include "game/room/Room.h"
+#include "tile/RoomTile.h"
 
 #include "game/item/Item.h"
 #include "game/item/definitions/ItemDefinition.h"
@@ -23,9 +24,7 @@
     The constructor for DynamicModel
 */
 DynamicModel::DynamicModel(Room *room) :
-    room(room),
-    highest_items(Array2D<Item*>(0, 0)),
-    stack_height(Array2D<double>(0, 0)) {
+    room(room) {
 
     this->map_size_x = room->getModel()->map_size_x;
     this->map_size_y = room->getModel()->map_size_y;
@@ -47,13 +46,9 @@ void DynamicModel::load() {
 */
 void DynamicModel::regenerateCollisionMaps() {
 
-    this->highest_items = Array2D<Item*>(this->map_size_x, this->map_size_y);
-    this->stack_height = Array2D<double>(this->map_size_x, this->map_size_y);
 
     for (int y = 0; y < map_size_y; y++) {
         for (int x = 0; x < map_size_x; x++) {
-            this->stack_height[x][y] = room->getModel()->getSquareHeight(x, y);
-            this->highest_items[x][y] = nullptr;
         }
     }
 
@@ -74,12 +69,10 @@ void DynamicModel::regenerateCollisionMaps() {
         }
 
         this->checkHighestItem(item, item->x, item->y);
-        this->stack_height[item->x][item->y] += stacked_height;
 
         for (auto kvp : item->getAffectedTiles()) {
 
             this->checkHighestItem(item, kvp.second.x, kvp.second.y);
-            this->stack_height[kvp.second.x][kvp.second.y] += stacked_height;
         }
     }
 }
@@ -95,14 +88,11 @@ void DynamicModel::regenerateCollisionMaps() {
 */
 void DynamicModel::checkHighestItem(Item *item, int x, int y) {
 
-    Item *highest_item = this->highest_items[x][y];
 
     if (highest_item == nullptr) {
-        this->highest_items[x][y] = item;
     }
     else {
         if (item->z > highest_item->z) {
-            this->highest_items[x][y] = item;
         }
     }
 }
@@ -117,7 +107,6 @@ void DynamicModel::checkHighestItem(Item *item, int x, int y) {
 */
 bool DynamicModel::isValidTile(int x, int y) {
 
-    Item *item = this->highest_items[x][y];
     bool tile_valid = room->getModel()->isValidSquare(x, y);
 
     if (item != nullptr) {
@@ -139,7 +128,26 @@ bool DynamicModel::isValidTile(int x, int y) {
     @return Item pointer
 */
 Item *DynamicModel::getItemAtPosition(int x, int y) {
-    return this->highest_items[x][y];
+}
+
+/*
+    Returns an tile instance at a given position
+
+    @param x coordinate
+    @param y coordinate
+    @return RoomTile reference
+*/
+RoomTile &DynamicModel::getTileAtPosition(int x, int y) {
+}
+
+/*
+    Returns the current tile height
+
+    @param x coordinate
+    @param y coordinate
+    @return height in double type
+*/
+double DynamicModel::getStackHeight(int x, int y) {
 }
 
 /*

@@ -20,11 +20,10 @@ public:
     RoomModel(std::string name, std::string heightmap, int door_x, int door_y, int door_z, int door_rotation);
     ~RoomModel();
 
-    std::string getSquareChar(int x, int y) const { return this->square_char[x * map_size_y + y]; }
-    double getSquareHeight(int x, int y) const { return this->square_height[x * map_size_y + y]; }
-    const bool isValidSquare(int x, int y) const { return squares[x * map_size_y + y] == 0; }
-    
-    int *getSquares() { return squares; }
+    std::string getSquareChar(int x, int y);
+    double getSquareHeight(int x, int y);
+    const bool isValidSquare(int x, int y);
+    std::map<int, std::map<int, int>> &getSquares();
 
     const int getRandomX();
     const int getRandomY();
@@ -41,7 +40,7 @@ public:
     int map_size_y;
 
 private:
-    std::string *square_char;// [MAX_SIZE_X][MAX_SIZE_Y];
-    int *squares;
-    double *square_height;
+    std::map<int, std::map<int, std::string>> square_chars;
+    std::map<int, std::map<int, int>> squares;
+    std::map<int, std::map<int, double>> square_height;
 };

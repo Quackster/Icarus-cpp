@@ -156,6 +156,9 @@
     <ClCompile Include="src\game\item\interactor\InteractorManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\game\room\model\tile\RoomTile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\communication\incoming\MessageEvent.h">
@@ -726,6 +729,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\misc\Array2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\room\model\tile\RoomTile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
