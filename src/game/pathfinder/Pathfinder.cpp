@@ -185,41 +185,34 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
 
     double abs = std::abs(height1 - height2);
 
-    Item *item1 = room->getDynamicModel()->getItemAtPosition(current.x, current.y);
-    Item *item2 = room->getDynamicModel()->getItemAtPosition(neighbour.x, neighbour.y);
+    Item *from_item = room->getDynamicModel()->getItemAtPosition(current.x, current.y);
+    Item *to_item = room->getDynamicModel()->getItemAtPosition(neighbour.x, neighbour.y);
 
-    if (item1 != nullptr || item2 != nullptr) {
+    if (from_item != nullptr || to_item != nullptr) {
 
         if (abs >= 0.9) {
             return false;
         }
         else {
 
-            if (item2 != nullptr) {
-                if (item2->getDefinition()->interaction_type == "gate") {
-                    if (item2->extra_data != "1") {
-                        return false;
-                    }
-                }
-
-                if (item2->getDefinition()->is_walkable) {
-                    return true;
-                }
+            // If user selected to walk from a blank tile to a tile with an item on it
+            if (to_item != nullptr && from_item == nullptr) {
+                return to_item->canWalk();
             }
 
-            if (item1 != nullptr) {
-                if (item1->getDefinition()->interaction_type == "gate") {
-                    if (item1->extra_data != "1") {
-                        return false;
-                    }
-                }
-
-                if (item1->getDefinition()->is_walkable) {
-                    return true;
-                }
+            // If user selected to walk from a populated tile to a blank tile
+            if (from_item != nullptr && to_item == nullptr) {
+                return from_item->canWalk();
             }
 
-            return true;
+            // If user is walking from a populated tile to another populated tile
+            if (from_item != nullptr && to_item != nullptr) {   
+                if (from_item->canWalk() && to_item->canWalk()) {
+                    return true;
+                } else {
+                    return to_item->getDefinition()->interaction_type == "gate" ? (to_item->extra_data == "1") : (abs <= 0.2);
+                }
+            }
         }
     }
 
