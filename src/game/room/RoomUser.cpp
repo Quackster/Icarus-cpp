@@ -157,7 +157,7 @@ void RoomUser::stopWalking() {
 
     bool no_current_item = false;
 
-    Item *item = this->room->getDynamicModel()->getItemAtPosition(this->position.x, this->position.y);
+    Item *item = this->room->getDynamicModel()->getItem(this->position.x, this->position.y);
 
     if (item != nullptr) {
         if (item->getDefinition()->can_sit || item->getDefinition()->interaction_type == "bed") {

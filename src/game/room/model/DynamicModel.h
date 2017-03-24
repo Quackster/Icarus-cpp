@@ -26,8 +26,8 @@ public:
     void regenerateCollisionMaps();
     void checkHighestItem(Item *item, int x, int y);
 
-    Item *getItemAtPosition(int x, int y);
-    RoomTile &getTileAtPosition(int x, int y);
+    Item *getItem(int x, int y);
+    RoomTile &getTile(int x, int y);
     double getStackHeight(int x, int y);
 
     void removeItem(Item *item);

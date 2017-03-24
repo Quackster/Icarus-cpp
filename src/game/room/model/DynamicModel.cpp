@@ -138,7 +138,7 @@ bool DynamicModel::isValidTile(int x, int y) {
     @param y coordinate
     @return Item pointer
 */
-Item *DynamicModel::getItemAtPosition(int x, int y) {
+Item *DynamicModel::getItem(int x, int y) {
     return this->tiles[x][y].highest_item;
 }
 
@@ -149,7 +149,7 @@ Item *DynamicModel::getItemAtPosition(int x, int y) {
     @param y coordinate
     @return RoomTile reference
 */
-RoomTile &DynamicModel::getTileAtPosition(int x, int y) {
+RoomTile &DynamicModel::getTile(int x, int y) {
     return this->tiles[x][y];
 }
 
@@ -243,7 +243,7 @@ void DynamicModel::handleItemAdjustment(Item *item, bool rotation_only) {
 
     if (rotation_only) {
 
-        for (Item *items : this->getTileAtPosition(item->x, item->y).items) {
+        for (Item *items : this->getTile(item->x, item->y).items) {
 
             if (items != item && item->z <= items->z) {
 

@@ -189,8 +189,8 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
         return false;
     }
 
-    RoomTile from_tile = room->getDynamicModel()->getTileAtPosition(current.x, current.y);
-    RoomTile to_tile = room->getDynamicModel()->getTileAtPosition(neighbour.x, neighbour.y);
+    RoomTile from_tile = room->getDynamicModel()->getTile(current.x, current.y);
+    RoomTile to_tile = room->getDynamicModel()->getTile(neighbour.x, neighbour.y);
 
     double abs = std::abs(from_tile.height - to_tile.height);
 
