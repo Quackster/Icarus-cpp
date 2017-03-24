@@ -212,15 +212,10 @@ void DynamicModel::handleItemAdjustment(Item *item, bool rotation_only) {
         Item *found_item = this->getItemAtPosition(item->x, item->y);
 
         if (found_item != nullptr) {
-            if (found_item->getDefinition()->can_stack) {
-                item->z = this->getStackHeight(item->x, item->y);// +(item->getDefinition()->can_stack ? 0.99 : 0);
-            }
-            else {
-                item->z = this->room->getModel()->getSquareHeight(item->x, item->y);
-            }
+            item->z = this->getStackHeight(item->x, item->y);
         }
         else {
-            item->z = this->room->getModel()->getSquareHeight(item->x, item->y);
+            item->z = this->getStackHeight(item->x, item->y);
         }
     }
 

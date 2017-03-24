@@ -71,11 +71,7 @@ std::map<int, ItemDefinition*> ItemDao::getItemDefinitions() {
             furni->is_arrow = result_set->getInt("is_arrow");
             furnitures.insert(std::make_pair(furni->id, furni));
 
-            if (Utilities::isEqual(furni->height, 0)) {
-                furni->height = 0.01;
-            }
-
-            if (furni->can_sit) {
+            if (Utilities::isEqual(furni->height, 0) || furni->can_sit || furni->interaction_type == "bed") {
                 furni->height = 0.01;
             }
 
