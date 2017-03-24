@@ -46,9 +46,12 @@ void DynamicModel::load() {
 */
 void DynamicModel::regenerateCollisionMaps() {
 
+    //this->tiles = new RoomTile[this->map_size_x * this->map_size_y];
 
     for (int y = 0; y < map_size_y; y++) {
         for (int x = 0; x < map_size_x; x++) {
+            this->tiles[x][y] = RoomTile();
+            this->tiles[x][y].height = room->getModel()->getSquareHeight(x, y);
         }
     }
 
@@ -69,10 +72,12 @@ void DynamicModel::regenerateCollisionMaps() {
         }
 
         this->checkHighestItem(item, item->x, item->y);
+        this->tiles[item->x][item->y].height += stacked_height;
 
         for (auto kvp : item->getAffectedTiles()) {
 
             this->checkHighestItem(item, kvp.second.x, kvp.second.y);
+            this->tiles[kvp.second.x][kvp.second.y].height += stacked_height;
         }
     }
 }
@@ -88,11 +93,14 @@ void DynamicModel::regenerateCollisionMaps() {
 */
 void DynamicModel::checkHighestItem(Item *item, int x, int y) {
 
+    Item *highest_item = this->tiles[x][y].highest_item;
 
     if (highest_item == nullptr) {
+        this->tiles[x][y].highest_item = item;
     }
     else {
         if (item->z > highest_item->z) {
+            this->tiles[x][y].highest_item = item;
         }
     }
 }
@@ -107,6 +115,7 @@ void DynamicModel::checkHighestItem(Item *item, int x, int y) {
 */
 bool DynamicModel::isValidTile(int x, int y) {
 
+    Item *item = this->tiles[x][y].highest_item;
     bool tile_valid = room->getModel()->isValidSquare(x, y);
 
     if (item != nullptr) {
@@ -128,6 +137,7 @@ bool DynamicModel::isValidTile(int x, int y) {
     @return Item pointer
 */
 Item *DynamicModel::getItemAtPosition(int x, int y) {
+    return this->tiles[x][y].highest_item;
 }
 
 /*
@@ -138,6 +148,7 @@ Item *DynamicModel::getItemAtPosition(int x, int y) {
     @return RoomTile reference
 */
 RoomTile &DynamicModel::getTileAtPosition(int x, int y) {
+    return this->tiles[x][y];
 }
 
 /*
@@ -148,6 +159,7 @@ RoomTile &DynamicModel::getTileAtPosition(int x, int y) {
     @return height in double type
 */
 double DynamicModel::getStackHeight(int x, int y) {
+    return this->tiles[x][y].height;
 }
 
 /*
