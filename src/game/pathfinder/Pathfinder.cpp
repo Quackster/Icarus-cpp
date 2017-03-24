@@ -198,7 +198,10 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
 
     if (from_item != nullptr || to_item != nullptr) {
 
-        if (abs >= 0.9) {
+        double max_item = 1.2;
+        double min_item = 0.8;
+
+        if (abs >= max_item) {
             return false;
         }
         else {
@@ -214,8 +217,19 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
             if (from_item != nullptr && to_item != nullptr) {   
                 if (from_item->canWalk() && to_item->canWalk()) {
                     return true;
-                } else {
-                    return to_item->getDefinition()->interaction_type == "gate" ? (to_item->extra_data == "1") : (abs <= 0.2);
+                }
+
+                if (!from_item->canWalk() && !to_item->canWalk()) {
+                    return (to_item->getDefinition()->interaction_type == "gate" ? (to_item->extra_data == "1") : (abs <= min_item)) 
+                        && (from_item->getDefinition()->interaction_type == "gate" ? (from_item->extra_data == "1") : (abs <= min_item));
+                }
+
+                if (from_item->canWalk() && !to_item->canWalk()) {
+                    return to_item->getDefinition()->interaction_type == "gate" ? (to_item->extra_data == "1") : (abs <= min_item);
+                }
+
+                if (!from_item->canWalk() && to_item->canWalk()) {
+                    return from_item->getDefinition()->interaction_type == "gate" ? (from_item->extra_data == "1") : (abs <= min_item);
                 }
             }
         }

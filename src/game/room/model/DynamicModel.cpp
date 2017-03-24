@@ -208,17 +208,17 @@ void DynamicModel::updateItemPosition(Item *item, bool rotation_only) {
 */
 void DynamicModel::handleItemAdjustment(Item *item, bool rotation_only) {
 
-    if (!rotation_only) {
+    /*if (!rotation_only) {
         Item *found_item = this->getItemAtPosition(item->x, item->y);
 
         if (found_item != nullptr) {
             item->z = this->getStackHeight(item->x, item->y);
         }
         else {
-            item->z = this->getStackHeight(item->x, item->y);
+            
         }
-    }
-
+    }*/
+item->z = this->getStackHeight(item->x, item->y);
     item->updateEntities();
 }
 
