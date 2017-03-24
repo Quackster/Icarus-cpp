@@ -180,6 +180,14 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
         return false;
     }
 
+    if (!room->getModel()->isValidSquare(current.x, current.y)) {
+        return false;
+    }
+
+    if (!room->getModel()->isValidSquare(neighbour.x, neighbour.y)) {
+        return false;
+    }
+
     double height1 = room->getDynamicModel()->getStackHeight(current.x, current.y);
     double height2 = room->getDynamicModel()->getStackHeight(neighbour.x, neighbour.y);
 
@@ -195,17 +203,14 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
         }
         else {
 
-            // If user selected to walk from a blank tile to a tile with an item on it
             if (to_item != nullptr && from_item == nullptr) {
                 return to_item->canWalk();
             }
 
-            // If user selected to walk from a populated tile to a blank tile
             if (from_item != nullptr && to_item == nullptr) {
                 return from_item->canWalk();
             }
 
-            // If user is walking from a populated tile to another populated tile
             if (from_item != nullptr && to_item != nullptr) {   
                 if (from_item->canWalk() && to_item->canWalk()) {
                     return true;
