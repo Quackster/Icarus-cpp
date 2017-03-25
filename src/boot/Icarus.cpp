@@ -52,7 +52,7 @@ void Icarus::boot() {
     RECT r;
     GetWindowRect(console, &r); //stores the console's current dimensions
 
-    MoveWindow(console, r.left, r.top, 1400, 800, TRUE); // 800 width, 100 height
+    MoveWindow(console, r.left, r.top, 1000, 530, TRUE); // 800 width, 100 height
 #endif
 
     cout << endl;
@@ -66,9 +66,9 @@ void Icarus::boot() {
     cout << " @author: Quackster" << endl;
     cout << endl;
     cout << " @contributors: " << endl
-        << " - LeonHartley (various ideas and fixes) " << endl
-        << " - active911 (mysql database pooling library)" << endl;
-         //<< " - Cecer (pathfinder additions) " << endl;
+        << " - LeonHartley (various ideas and fixes)          /     - scottstamp851 (giving me a server)" << endl
+        << " - active911 (mysql database pooling library)     /     - Sledmore (helping me with headers)" << endl
+        << " - Cecer (pathfinder additions) " << endl;
     cout << endl;
 
     boost::filesystem::path dir("config");
