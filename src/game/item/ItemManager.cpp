@@ -26,7 +26,7 @@ ItemManager::ItemManager() :
     std::map<std::string, std::string> interaction_types;
 
     for (auto furniture : this->id_lookup) {
-        this->sprite_lookup[furniture.first] = furniture.second;
+        this->sprite_lookup[furniture.second->sprite_id] = furniture.second->id;
     }
 }
 
@@ -54,7 +54,7 @@ ItemDefinition *ItemManager::getDefinitionByID(int item_id) {
 ItemDefinition *ItemManager::getDefinitionBySpriteID(int item_id) {
 
     if (this->sprite_lookup.count(item_id) > 0) {
-        return this->sprite_lookup.find(item_id)->second;
+        return this->getDefinitionByID(sprite_lookup.find(item_id)->second);
     }
 
     return nullptr;

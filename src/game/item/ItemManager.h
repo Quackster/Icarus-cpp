@@ -25,7 +25,7 @@ public:
 
 private:
     std::map<int, ItemDefinition*> id_lookup;
-    std::map<int, ItemDefinition*> sprite_lookup;
+    std::map<int, int> sprite_lookup;
 
     InteractorManager *interactor_manager;
 };
