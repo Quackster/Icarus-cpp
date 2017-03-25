@@ -26,8 +26,8 @@ public:
         // Call default interactor, but here we need to re-do the collision map because 
         // it's a gate!
 
-        BaseInteractor *default = Icarus::getGame()->getItemManager()->getInteractorManager()->getInteractor("default");
-        default->onInteract(room, item);
+        BaseInteractor *base = Icarus::getGame()->getItemManager()->getInteractorManager()->getInteractor("default");
+        base->onInteract(room, item);
 
         // Redo collision map to allow people to walk through, or block people!
         room->getDynamicModel()->regenerateCollisionMaps();
