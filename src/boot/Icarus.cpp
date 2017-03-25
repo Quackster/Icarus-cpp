@@ -47,6 +47,14 @@ void Icarus::boot() {
     typedef std::chrono::high_resolution_clock Time;
     typedef std::chrono::milliseconds ms;
 
+#if defined(WIN32_LEAN_AND_MEAN)  
+    HWND console = GetConsoleWindow();
+    RECT r;
+    GetWindowRect(console, &r); //stores the console's current dimensions
+
+    MoveWindow(console, r.left, r.top, 1400, 800, TRUE); // 800 width, 100 height
+#endif
+
     cout << endl;
     cout << " ##################################" << endl;
     cout << " ###       Icarus Emulator       ##" << endl;
@@ -57,10 +65,10 @@ void Icarus::boot() {
     cout << endl;
     cout << " @author: Quackster" << endl;
     cout << endl;
-    cout << " @contributors: " << endl 
-         << " - active911 " << endl
-         << " - LeonHartley " << endl 
-         << " - Cecer " << endl;
+    cout << " @contributors: " << endl
+        << " - LeonHartley (various ideas and fixes) " << endl
+        << " - active911 (mysql database pooling library)" << endl;
+         //<< " - Cecer (pathfinder additions) " << endl;
     cout << endl;
 
     boost::filesystem::path dir("config");

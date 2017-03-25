@@ -50,7 +50,7 @@ void DynamicModel::regenerateCollisionMaps() {
 
     for (int y = 0; y < map_size_y; y++) {
         for (int x = 0; x < map_size_x; x++) {
-            this->tiles[x][y] = RoomTile();
+            this->tiles[x][y] = RoomTile(this->room);
             this->tiles[x][y].height = room->getModel()->getSquareHeight(x, y);
         }
     }
@@ -74,7 +74,7 @@ void DynamicModel::regenerateCollisionMaps() {
         this->checkHighestItem(item, item->x, item->y);
 
         this->tiles[item->x][item->y].height += stacked_height;
-        this->tiles[item->x][item->y].items.push_back(item);
+        this->tiles[item->x][item->y].getItems().push_back(item);
         
         for (auto kvp : item->getAffectedTiles()) {
 
@@ -95,14 +95,14 @@ void DynamicModel::regenerateCollisionMaps() {
 */
 void DynamicModel::checkHighestItem(Item *item, int x, int y) {
 
-    Item *highest_item = this->tiles[x][y].highest_item;
+    Item *highest_item = this->tiles[x][y].getHighestItem();
 
     if (highest_item == nullptr) {
-        this->tiles[x][y].highest_item = item;
+        this->tiles[x][y].setHighestItem(item);
     }
     else {
         if (item->z > highest_item->z) {
-            this->tiles[x][y].highest_item = item;
+            this->tiles[x][y].setHighestItem(item);
         }
     }
 }
@@ -117,7 +117,7 @@ void DynamicModel::checkHighestItem(Item *item, int x, int y) {
 */
 bool DynamicModel::isValidTile(int x, int y) {
 
-    Item *item = this->tiles[x][y].highest_item;
+    Item *item = this->tiles[x][y].getHighestItem();
     bool tile_valid = room->getModel()->isValidSquare(x, y);
 
     if (item != nullptr) {
@@ -139,7 +139,7 @@ bool DynamicModel::isValidTile(int x, int y) {
     @return Item pointer
 */
 Item *DynamicModel::getItem(int x, int y) {
-    return this->tiles[x][y].highest_item;
+    return this->tiles[x][y].getHighestItem();
 }
 
 /*
@@ -195,6 +195,8 @@ void DynamicModel::removeItem(Item *item) {
 void DynamicModel::addItem(Item *item) {
 
     item->room_id = room->id;
+    item->extra_data = "";
+
     this->room->getItems().push_back(item);
 
     if (item->isFloorItem()) {
@@ -242,14 +244,10 @@ void DynamicModel::handleItemAdjustment(Item *item, bool rotation_only) {
     }*/
 
     if (rotation_only) {
-
-        for (Item *items : this->getTile(item->x, item->y).items) {
-
+        for (Item *items : this->getTile(item->x, item->y).getItems()) {
             if (items != item && item->z <= items->z) {
-
                 items->rotation = item->rotation;
                 items->updateStatus();
-
             }
         }
     }

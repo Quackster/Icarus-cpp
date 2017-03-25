@@ -10,4 +10,8 @@
 using std::endl;
 using std::cout;
 
+#if defined(WIN32_LEAN_AND_MEAN) 
+#include <Windows.h>
+#endif
+
 // TODO: reference additional headers your program requires here

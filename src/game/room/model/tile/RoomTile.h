@@ -10,14 +10,23 @@
 #include <vector>
 
 class Item;
+class Room;
 class RoomTile {
 
 public:
     RoomTile();
+    RoomTile(Room *room);
     ~RoomTile();
-
-    std::vector<Item*> items;
-    Item *highest_item = nullptr;
-
+    
     double height = 0.0;
+
+    std::vector<Item*> &getItems();
+    Item *getHighestItem();
+    void setHighestItem(Item *item);
+    
+
+private:
+    Room *room;
+    std::vector<Item*> items;
+    Item *highest_item;
 };

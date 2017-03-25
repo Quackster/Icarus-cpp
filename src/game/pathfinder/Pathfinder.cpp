@@ -194,8 +194,8 @@ bool Pathfinder::isValidStep(Room *room, Position current, Position neighbour, b
 
     double abs = std::abs(from_tile.height - to_tile.height);
 
-    Item *from_item = from_tile.highest_item;
-    Item *to_item = to_tile.highest_item;
+    Item *from_item = from_tile.getHighestItem();
+    Item *to_item = to_tile.getHighestItem();
 
     if (from_item != nullptr || to_item != nullptr) {
 
