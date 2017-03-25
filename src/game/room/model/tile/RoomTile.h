@@ -28,5 +28,5 @@ public:
 private:
     Room *room;
     std::vector<Item*> items;
-    Item *highest_item;
+    Item *highest_item = nullptr;
 };
