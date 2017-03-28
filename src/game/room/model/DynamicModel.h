@@ -11,8 +11,6 @@
 #include <vector>
 #include <map>
 
-#include "misc/Array2D.h"
-
 class Room;
 class Item;
 class RoomTile;
@@ -40,14 +38,7 @@ public:
 
 private:
     Room *room;
-    std::mutex mtx;
-
-    //Array2D<Item*> items;
     std::map<int, std::map<int, RoomTile>> tiles;
-    //Array2D<double> stack_height;
-
-    //int *tile_flags = nullptr;
-    //double *tile_height = nullptr;
 
     int map_size_x;
     int map_size_y;

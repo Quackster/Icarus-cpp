@@ -25,11 +25,11 @@ public:
     Player *getPlayerById(int user_id);
     Player *getPlayerByUsername(std::string user_name);
 
-    std::map<int, Player*> *getPlayersIDLookup() { return this->authenticated_sessions; }
+    std::map<int, Player*> *getPlayersIDLookup() { return this->authenticated_sessions_id; }
     std::map<std::string, Player*> *getPlayersUsernameLookup() { return this->authenticated_sessions_username; }
 
 private:
-    std::map<int, Player*> *sessions;
-    std::map<int, Player*> *authenticated_sessions;
+    std::map<int, Player*> *player_connections;
+    std::map<int, Player*> *authenticated_sessions_id;
     std::map<std::string, Player*> *authenticated_sessions_username;
 };

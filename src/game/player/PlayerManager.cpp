@@ -16,8 +16,8 @@
     Initialises the map for storing sessions along with their connection ID
 */
 PlayerManager::PlayerManager() : 
-    sessions(new std::map<int, Player*>()),
-    authenticated_sessions(new std::map<int, Player*>()),
+    player_connections(new std::map<int, Player*>()),
+    authenticated_sessions_id(new std::map<int, Player*>()),
     authenticated_sessions_username(new std::map<std::string, Player*>()) {
 }
 
@@ -28,7 +28,7 @@ PlayerManager::PlayerManager() :
 */
 PlayerManager::~PlayerManager() {
 
-    for (auto pair : *sessions) {      
+    for (auto pair : *player_connections) {      
         delete pair.second; 
     }
 
@@ -36,8 +36,8 @@ PlayerManager::~PlayerManager() {
     //   as they share the same pointer with "sessions"
 
     // Delete sessions map
-    delete sessions;
-    delete authenticated_sessions;
+    delete player_connections;
+    delete authenticated_sessions_id;
     delete authenticated_sessions_username;
 }
 
@@ -49,8 +49,8 @@ PlayerManager::~PlayerManager() {
 */
 void PlayerManager::addSession(Player *player, int connection_id) {
 
-    if (!this->sessions->count(connection_id)) {
-        this->sessions->insert(std::make_pair(connection_id, player));
+    if (!this->player_connections->count(connection_id)) {
+        this->player_connections->insert(std::make_pair(connection_id, player));
     }
 }
 
@@ -62,16 +62,16 @@ void PlayerManager::addSession(Player *player, int connection_id) {
 */
 void PlayerManager::removeSession(int connection_id) {
 
-    if (this->sessions->count(connection_id)) {
+    if (this->player_connections->count(connection_id)) {
 
         // Find session to delete
         Player *session = this->getSession(connection_id);
 
         // Remove session from map, remove it early to prevent any issues
-        this->sessions->erase(connection_id);
+        this->player_connections->erase(connection_id);
 
         if (session->getDetails() != nullptr) {
-            this->authenticated_sessions->erase(session->getDetails()->id);
+            this->authenticated_sessions_id->erase(session->getDetails()->id);
             this->authenticated_sessions_username->erase(session->getDetails()->username);
         }
 
@@ -94,7 +94,7 @@ void PlayerManager::removeSession(int connection_id) {
     @return whether or not connection ID exists
 */
 bool PlayerManager::containsSession(int connection_id) {
-    return this->sessions->count(connection_id) == 1;
+    return this->player_connections->count(connection_id) == 1;
 }
 
 /*
@@ -106,8 +106,8 @@ bool PlayerManager::containsSession(int connection_id) {
 */
 Player *PlayerManager::getSession(int connection_id) {
 
-    if (this->sessions->count(connection_id)) {
-        return this->sessions->find(connection_id)->second;
+    if (this->player_connections->count(connection_id)) {
+        return this->player_connections->find(connection_id)->second;
     }
     else {
         return nullptr;
@@ -122,8 +122,8 @@ Player *PlayerManager::getSession(int connection_id) {
 */
 Player *PlayerManager::getPlayerById(int user_id) {
 
-    if (this->authenticated_sessions->count(user_id)) {
-        return this->authenticated_sessions->find(user_id)->second;
+    if (this->authenticated_sessions_id->count(user_id)) {
+        return this->authenticated_sessions_id->find(user_id)->second;
     }
     else {
         return nullptr;

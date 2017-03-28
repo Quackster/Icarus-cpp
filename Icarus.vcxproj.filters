@@ -728,9 +728,6 @@
     <ClInclude Include="src\game\item\interactor\interactors\GateInteractor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\misc\Array2D.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\game\room\model\tile\RoomTile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
