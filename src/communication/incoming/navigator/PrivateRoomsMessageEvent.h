@@ -9,10 +9,6 @@
 #pragma once
 #include "boot/Icarus.h"
 #include "communication/incoming/MessageEvent.h"
-#include "communication/outgoing/navigator/FlatCategoriesMessageComposer.h"
-#include "communication/outgoing/navigator/NavigatorCategoriesComposer.h"
-#include "communication/outgoing/navigator/NavigatorMetaDataComposer.h"
-#include "communication/outgoing/navigator/NavigatorPreferencesMessageComposer.h"
 
 class PrivateRoomsMessageEvent : public MessageEvent {
 
@@ -21,6 +17,7 @@ public:
 
     void handle(Player *player, Request &request) {
 
-
+        RoomPopulator *populator = Icarus::getGame()->getNavigatorManager()->getPopulator("MyRoomPopulator");
+        player->send(SearchResultSetComposer(player, populator));
     }
 };

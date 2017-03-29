@@ -28,7 +28,7 @@ public:
     }
 
     const int getHeader() const {
-        return Outgoing::InitialRoomInfoMessageComposer;
+        return Outgoing::RoomModelMessageComposer;
     }
 
 private:

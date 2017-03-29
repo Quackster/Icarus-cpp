@@ -25,7 +25,8 @@
 
 // Navigator
 #include "navigator/SearchNewNavigatorEvent.h"
-#include "navigator/GetPublicRooms.h"
+#include "navigator/PublicRoomsMessageEvent.h"
+#include "navigator/PrivateRoomsMessageEvent.h"
 #include "navigator/CreateRoomMessageEvent.h"
 
 // Room
@@ -88,8 +89,6 @@
 */
 MessageHandler::MessageHandler() {
 
-    this->createEvent(Incoming::GetPublicRooms, new NewNavigatorMessageEvent());
-
     // Login
    this->createEvent(Incoming::InitCryptoMessageEvent, new InitCryptoMessageEvent());
    this->createEvent(Incoming::AuthenticateMessageEvent, new AuthenticateMessageEvent());
@@ -103,13 +102,18 @@ MessageHandler::MessageHandler() {
    this->createEvent(Incoming::EventLogMessageEvent, new EventLogMessageEvent());
     
     // Navigator
+   this->createEvent(Incoming::PublicRoomsMessageEvent, new PublicRoomsMessageEvent());
+   this->createEvent(Incoming::PrivateRoomsMessageEvent, new PrivateRoomsMessageEvent());
+
+   // Room
+   this->createEvent(Incoming::EnterRoomMessageEvent, new EnterRoomMessageEvent());
+
+
    /*this->createEvent(Incoming::SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
    this->createEvent(Incoming::GetPublicRooms, new NewNavigatorMessageEvent());
    this->createEvent(Incoming::LeaveRoomMessageEvent, new LeaveRoomMessageEvent());
    this->createEvent(Incoming::CreateRoomMessageEvent, new CreateRoomMessageEvent());
 
-    // Room
-   this->createEvent(Incoming::RoomInfoMessageEvent, new RoomInfoMessageEvent());
    this->createEvent(Incoming::EnterRoomMessageEvent, new EnterRoomMessageEvent());
    this->createEvent(Incoming::HeightMapMessageEvent, new HeightMapMessageEvent());
    this->createEvent(Incoming::UserWalkMessageEvent, new WalkMessageEvent());
@@ -202,13 +206,26 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
             header != Incoming::AuthenticateMessageEvent) {
 
             if (!player->authenticated()) {
-                //printf("Player tried to send packet while not logged in, scripting maybe?\n");
-                //player->close();
-                //return;
+                printf("Player tried to send packet while not logged in, scripting maybe?\n");
+                player->close();
+                return;
             }
         }
 
-        this->messages.find(header)->second->handle(player, request);
+        if (header == 230) {
+            Response respnse(309);
+            respnse.writeString("IcIrDs43103s19014d5a1dc291574a508bc80a64663e61a00");
+            player->getNetworkConnection()->send(respnse);
+        } else if (header == 215) {
+            Response respnse(297);
+            respnse.writeInt(0);
+            player->getNetworkConnection()->send(respnse);
+        }
+        else {
+
+            this->messages.find(header)->second->handle(player, request);
+
+        }
 
         if (Icarus::getLogConfiguration()->getBool("log.message.handled")) {
             cout << " [MessageHandler] Handled message " << header << " for event (" << typeid(*this->messages.find(header)->second).name() << ") " << endl;

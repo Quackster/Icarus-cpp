@@ -7,6 +7,7 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+#include <sstream>
 
 #include "communication/incoming/MessageEvent.h"
 
@@ -80,6 +81,15 @@ public:
                 }
             }
         }
+
+        std::stringstream ss;
+        ss << "/client/private/";
+        ss << std::to_string(room->id);
+        ss << "/id";
+
+        Response response(166);
+        response.writeString(ss.str());
+        player->getNetworkConnection()->send(response);
 
         room->enter(player); // call method to finalise enter room
     }

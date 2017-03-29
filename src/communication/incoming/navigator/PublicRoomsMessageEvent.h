@@ -9,13 +9,7 @@
 #pragma once
 #include "boot/Icarus.h"
 #include "communication/incoming/MessageEvent.h"
-#include "communication/outgoing/navigator/FlatCategoriesMessageComposer.h"
-#include "communication/outgoing/navigator/NavigatorCategoriesComposer.h"
-#include "communication/outgoing/navigator/NavigatorMetaDataComposer.h"
-#include "communication/outgoing/navigator/NavigatorPreferencesMessageComposer.h"
 
-#include "communication/outgoing/user/CreditsMessageComposer.h"
-#include "communication/outgoing/user/UserObjectMessageComposer.h"
 class PublicRoomsMessageEvent : public MessageEvent {
 
 public:

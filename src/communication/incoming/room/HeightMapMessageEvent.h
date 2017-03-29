@@ -12,9 +12,6 @@
 
 #include "communication/incoming/MessageEvent.h"
 
-#include "communication/outgoing/room/model/FloorMapMessageComposer.h"
-#include "communication/outgoing/room/model/HeightMapMessageComposer.h"
-
 #include "communication/outgoing/room/RoomDataMessageComposer.h"
 #include "communication/outgoing/room/entry/RoomOwnerRightsComposer.h"
 
@@ -41,9 +38,6 @@ public:
        
         player->getRoomUser()->in_room = true;
         player->getRoomUser()->is_loading_room = false;
-
-        player->send(HeightMapMessageComposer(room));
-        player->send(FloorMapMessageComposer(room));
 
         player->send(WallItemsMessageComposer(room->getItems(WALL_ITEM)));
         player->send(FloorItemsMessageComposer(room->getItems(FLOOR_ITEM)));

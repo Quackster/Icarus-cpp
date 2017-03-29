@@ -27,8 +27,8 @@ public:
         RoomModel *model = room->getModel();
 
         Response response = this->createResponse();
-        response.writeBool(true);
-        response.writeInt(room->getData()->wall_height);
+        //response.writeBool(true);
+        //response.writeInt(room->getData()->wall_height);
         response.writeString(model->floor_map);
 
         return response;

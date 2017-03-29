@@ -21,7 +21,7 @@ public:
 
     const Response compose() const {
         Response response = this->createResponse();
-        response.writeInt(rights_level);
+        //response.writeInt(rights_level);
         return response;
     }
 

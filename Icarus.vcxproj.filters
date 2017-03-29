@@ -473,18 +473,6 @@
     <ClInclude Include="src\communication\outgoing\navigator\CreateRoomMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\outgoing\navigator\FlatCategoriesMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\navigator\NavigatorCategoriesComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\navigator\NavigatorMetaDataComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\navigator\NavigatorPreferencesMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\communication\outgoing\navigator\SearchResultSetComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>

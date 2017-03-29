@@ -18,6 +18,9 @@
 #include "game/item/Item.h"
 #include "game/bot/Bot.h"
 
+#include "communication/outgoing/room/model/FloorMapMessageComposer.h"
+#include "communication/outgoing/room/model/HeightMapMessageComposer.h"
+
 #include "communication/outgoing/user/HotelViewMessageComposer.h"
 #include "communication/outgoing/room/entry/RoomRatingMessageComposer.h"
 #include "communication/outgoing/room/entry/RoomModelMessageComposer.h"
@@ -116,7 +119,15 @@ void Room::enter(Entity *entity) {
     this->disposed = false;
     room_user->is_loading_room = true;
 
+    Response respnse(309);
+    respnse.writeString("IcIrDs43103s19014d5a1dc291574a508bc80a64663e61a00");
+    player->getNetworkConnection()->send(respnse);
+
     player->send(RoomModelMessageComposer(this->getModel()->name, this->id));
+
+    player->send(HeightMapMessageComposer(this));
+    player->send(FloorMapMessageComposer(this));
+
     player->send(RoomRatingMessageComposer(room_data->score));
 
     int floor = stoi(room_data->floor);
@@ -154,8 +165,12 @@ void Room::enter(Entity *entity) {
         }
     }
 
-    this->send(UserDisplayMessageComposer(player));
-    this->send(UserStatusMessageComposer(player));
+    Response response(370);
+    response.writeString("-1");
+    player->getNetworkConnection()->send(response);
+
+    //this->send(UserDisplayMessageComposer(player));
+    //this->send(UserStatusMessageComposer(player));
 
     player->send(PrepareRoomMessageComposer(this->id));
 }
@@ -227,46 +242,52 @@ void Room::kickPlayers() {
 void Room::serialise(Response &response, const bool enter_room) {
 
     response.writeInt(this->id);
+    response.writeBool(false);
     response.writeString(this->room_data->name);
-    response.writeInt(this->room_data->owner_id);
-    response.writeString(this->room_data->owner_name); // Owner name
-    response.writeInt(this->room_data->state);
+    response.writeString(this->room_data->owner_name);
+    response.writeInt(this->room_data->state); // room state
     response.writeInt(this->room_data->users_now); // Users now
     response.writeInt(this->room_data->users_max);
     response.writeString(this->room_data->description);
-    response.writeInt(this->room_data->trade_state);
+    response.writeInt(1);// Response.AppendBoolean(true); // dunno!
+    response.writeBool(this->room_data->trade_state); // can trade?
     response.writeInt(this->room_data->score);
     response.writeInt(0);
-    response.writeInt(this->room_data->category);
+    response.writeString("");
     response.writeInt(this->room_data->tags.size());
 
     for (std::string tag : this->room_data->tags) {
         response.writeString(tag);
     }
 
-    int response_type = 0;
+    response.writeInt(0);
+    response.writeInt(0);
+    response.writeInt(0);
 
-    if (enter_room) {
-        response_type = 32;
-    }
+    /*       
+            response.writeInt(1);
+            response.writeBool(false);
+            response.writeString("Alex's Room");
+            response.writeString("Alex");
+            response.writeInt(0); // room state
+            response.writeInt(1);
+            response.writeInt(24);
+            response.writeString("Epik room desc");
+            response.writeInt(1);// Response.AppendBoolean(true); // dunno!
+            response.writeBool(true); // can trade?
+            response.writeInt(1337);
+            response.writeInt(0);
+            response.writeString("");
+            string[] Tags = new string[] { "tag1", "tag2" };
+            response.writeInt(Tags.Length);
+            foreach (string Tag in Tags)
+            {
+                response.writeString(Tag);
+            }
 
-    if (this->room_data->private_room) {
-        response_type += 8;
-    }
-
-    if (this->room_data->allow_pets) {
-        response_type += 16;
-    }
-
-    if (this->room_data->thumbnail.length() > 0) {
-        response_type += 1;
-    }
-
-    response.writeInt(response_type);
-
-    if (this->room_data->thumbnail.length() > 0) {
-        response.writeString(this->room_data->thumbnail);
-    }
+            response.writeInt(0);
+            response.writeInt(0);
+            response.writeInt(0);*/
 }
 
 /*

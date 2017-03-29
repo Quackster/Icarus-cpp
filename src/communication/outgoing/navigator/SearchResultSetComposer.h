@@ -18,69 +18,35 @@
 class SearchResultSetComposer : public MessageComposer {
 
 public:
-    SearchResultSetComposer(Player* player, NavigatorTab *tab, std::string query) : 
-        player(player), 
-        tab(tab), 
-        query(query) { }
+    SearchResultSetComposer(Player *player, RoomPopulator *populator) :
+        player(player),
+        populator(populator) { }
 
     const Response compose() const {
         Response response = this->createResponse();
+        response.writeInt(0);
+        response.writeInt(5);
+        response.writeString("");
 
-        response.writeString(tab->getTabName());
-        response.writeString(query);
-
-        if (query.length() == 0) {
-            
-            std::vector<NavigatorTab*> tabs;
-            bool room_limit = true;
-
-            if (tab->getChildId() != -1) {
-                tabs.push_back(tab);
-                room_limit = false;
-            }
-            else {
-                auto child_tabs = tab->getChildTabs();
-                tabs.insert(tabs.end(), child_tabs.begin(), child_tabs.end());
-            }
-
-            response.writeInt(tabs.size());
-
-            for (auto navigator_tab : tabs) {
-                response.writeString(navigator_tab->getTabName());
-                response.writeString(navigator_tab->getTitle());
-
-                if (room_limit) {
-                    response.writeInt(room_limit ? (int)navigator_tab->getButtonType() : 2); // force no button
-                    response.writeBool(navigator_tab->getClosed()); // force collapsed
-                }
-                else {
-                    response.writeInt(2);
-                    response.writeBool(false);
-                }
-
-                response.writeInt(navigator_tab->getThumbnail());
-
-                RoomPopulator *populator = Icarus::getGame()->getNavigatorManager()->getPopulator(navigator_tab->getPopulatorName());
-                std::vector<Room*> rooms = populator->populate(room_limit, player);
-
-                response.writeInt(rooms.size());
-
-                for (Room *room : rooms) {
-                    room->serialise(response);
-                }
-
-                // If the populator inherits the disposable class, the items MUST be deleted!
-                DisposablePopulator *disposable = dynamic_cast<DisposablePopulator*>(populator);
-
-                if (disposable) {
-                    disposable->dispose(rooms);
-                }
-            }
-        }
-        else {
+        if (populator == nullptr) {
             response.writeInt(0);
-        }
+        } 
+        else {
+            std::vector<Room*> rooms = populator->populate(false, player);
 
+            response.writeInt(rooms.size());
+
+            for (Room *room : rooms) {
+                room->serialise(response);
+            }
+
+            DisposablePopulator *disposable = dynamic_cast<DisposablePopulator*>(populator);
+
+            if (disposable) {
+                disposable->dispose(rooms);
+            }
+
+        } 
         return response;
     }
 
@@ -89,7 +55,6 @@ public:
     }
 
 private:
-    Player* player;
-    NavigatorTab *tab;
-    std::string query;
+    Player *player;
+    RoomPopulator *populator;
 };

@@ -27,16 +27,7 @@ public:
         RoomModel *model = room->getModel();
 
         Response response = this->createResponse();
-
-        response.writeInt(model->map_size_x);
-        response.writeInt(model->map_size_x * model->map_size_x);
-
-        for (int y = 0; y < model->map_size_y; y++) {
-            for (int x = 0; x < model->map_size_x; x++) {
-                //response.writeShort(model->getSquareHeight(x, y) * 256);
-            }
-        }
-
+        response.writeString(model->height_map);
         return response;
     }
 

@@ -12,17 +12,20 @@ class Incoming {
 public:
     static const int InitCryptoMessageEvent = 206;//3659
     static const int AuthenticateMessageEvent = 415;//1490
+    static const int PublicRoomsMessageEvent = 380;//2845
+    static const int PrivateRoomsMessageEvent = 434;
+    static const int EnterRoomMessageEvent = 391;//2258
+
     static const int InfoRetrieveMessageEvent = 2629;//1978
     static const int CurrencyBalanceMessageEvent = 1051;//1277
     static const int LatencyTestMessageEvent = 878;//3307
     static const int LeaveRoomMessageEvent = 1429;//3781
-    static const int GetPublicRooms = 380;//2845
+    static const int RoomInfoMessageEvent = 391;//3494
+
     static const int SearchNewNavigatorEvent = 618;//1786
     static const int UserWalkMessageEvent = 2121;//2261
-    static const int EnterRoomMessageEvent = 189;//2258
     static const int HeightMapMessageEvent = 3925;//815
     static const int EventLogMessageEvent = 143;//1787
-    static const int RoomInfoMessageEvent = 2247;//3494
     static const int MessengerInitMessageEvent = 2782;//733
     static const int MessengerUpdateMessageEvent = -3412;//3412
     static const int MessengerSearchMessageEvent = 1194;//2760

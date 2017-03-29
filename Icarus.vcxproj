@@ -300,10 +300,6 @@
     <ClInclude Include="src\communication\outgoing\messenger\RemoveFriendMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\CreateRoomMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\CanCreateRoomMessageComposer.h" />
-    <ClInclude Include="src\communication\outgoing\navigator\NavigatorPreferencesMessageComposer.h" />
-    <ClInclude Include="src\communication\outgoing\navigator\FlatCategoriesMessageComposer.h" />
-    <ClInclude Include="src\communication\outgoing\navigator\NavigatorCategoriesComposer.h" />
-    <ClInclude Include="src\communication\outgoing\navigator\NavigatorMetaDataComposer.h" />
     <ClInclude Include="src\communication\outgoing\navigator\SearchResultSetComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\doorbell\AcceptUserInsideRoomMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\room\doorbell\RoomEnterErrorMessageComposer.h" />
