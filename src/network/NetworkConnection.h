@@ -30,8 +30,8 @@ public:
     void handleData(Request request);
     void send(Response &response);
     void send(const MessageComposer &composer);
-    void writeData(const char* data, int length);
-    void writeData(std::string data) { this->writeData(data.c_str(), (int)data.length() + 1); }
+    void writeData(const char *data, unsigned int length);
+    void writeData(std::string data) { this->writeData(data.c_str(), (int)data.length()); }
     void sendPolicy();
     int getConnectionId();// { return connectionID; };
     bool getConnectionState();// { return connectionState; };

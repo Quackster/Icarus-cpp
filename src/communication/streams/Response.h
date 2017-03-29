@@ -26,7 +26,9 @@ public:
 
     void writeString(std::string str);
     void write(std::string str);
-    char *getBytes();
+
+    std::string getContentString();
+    std::vector<char> &getBytes();
 
     int getSize() { return size; }
     int getHeader() { return header; };

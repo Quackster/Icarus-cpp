@@ -50,11 +50,11 @@ void NetworkConnection::recieveData() {
             //    then we send the flash policy back
 
             if (buffer[0] == 60) {
-                this->sendPolicy();               
+                this->sendPolicy();     
                 this->recieveData();
             }
             else {
-                int decoded_length = Base64Encoding::decodeB64(std::string({ buffer[1], buffer[2] }));
+                int decoded_length = Base64Encoding::decodeB64(std::string({ buffer[0], buffer[1], buffer[2] }));
 
                 // Read rest of message, to prevent any combined packets
                 socket.async_receive(boost::asio::buffer(buffer, decoded_length), [this, self, decoded_length](boost::system::error_code ec, std::size_t length) {
@@ -64,8 +64,6 @@ void NetworkConnection::recieveData() {
 
                         if (request.getMessageId() > 0) {
                             this->handleData(request);
-
-
                             this->recieveData();
                         }
                     }
@@ -85,7 +83,6 @@ void NetworkConnection::recieveData() {
                 }
             }
         }
-
     });
 }
 
@@ -156,38 +153,14 @@ void NetworkConnection::handleData(Request request) {
 
 }
 
+
 /*
     Send response class to socket
 
     @return none
 */
 void NetworkConnection::send(Response &response) {
-    char *bytes = response.getBytes();
-    int size = response.getSize();
-
-    std::cout << "Response: " << std::string(bytes).length() << " / " << size << endl;
-
-    this->writeData(bytes, size);
-}
-
-/*
-    Write data handle
-
-    @return none
-*/
-void NetworkConnection::writeData(const char* data, int length) {
-
-    if (!this->connection_state) {
-        return; // Person disconnected, stop listing for data, in case somehow it still is (when it shouldn't) ;)
-    }
-
-    auto self(shared_from_this());
-
-    boost::asio::async_write(socket, boost::asio::buffer(data, /*this->max_length*/length), [this, self, data](boost::system::error_code ec, std::size_t length) {
-        if (!ec) {
-            // send success
-        }
-    });
+    this->writeData(response.getBytes().data(), response.getBytes().size());
 }
 
 /*
@@ -197,9 +170,28 @@ void NetworkConnection::writeData(const char* data, int length) {
 */
 void NetworkConnection::send(const MessageComposer &composer) {
     Response response = composer.compose();
-    this->writeData(response.getBytes(), response.getSize());
+    this->writeData(response.getBytes().data(), response.getSize());
 }
 
+/*
+    Write data handle
+
+    @return none
+*/
+void NetworkConnection::writeData(const char* data, unsigned int length) {
+
+    if (!this->connection_state) {
+        return; // Person disconnected, stop listing for data, in case somehow it still is (when it shouldn't) ;)
+    }
+
+    auto self(shared_from_this());
+
+    boost::asio::async_write(socket, boost::asio::buffer(data, length), [this, self, data](boost::system::error_code ec, std::size_t length) {
+        if (!ec) {
+            // send success
+        }
+    });
+}
 
 
 /*
@@ -210,8 +202,19 @@ void NetworkConnection::send(const MessageComposer &composer) {
 */
 void NetworkConnection::sendPolicy() {
     
-    this->writeData("<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0");
-    
+    const char *xml_policy =
+        "<?xml version=\"1.0\"?>\r\n"
+        "<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n"
+        "<cross-domain-policy>\r\n"
+        "<allow-access-from domain=\"*\" to-ports=\"1-31111\" />\r\n"
+        "</cross-domain-policy>\x0";
+
+    this->writeData(xml_policy, strlen(xml_policy) + 1);
+
+    if (Icarus::getLogConfiguration()->getBool("log.network.rawpacket")) {
+        cout << " [SESSION] [CONNECTION: " << this->connection_id << "] Sent policy request" << endl;
+    }
+
     auto self(shared_from_this());
     socket.async_receive(boost::asio::buffer(buffer, 19), [this, self](boost::system::error_code ec, std::size_t length) {});
 }

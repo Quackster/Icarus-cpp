@@ -67,7 +67,14 @@ void Response::write(std::string str) {
     }
 }
 
-char *Response::getBytes() {
+std::string Response::getContentString() {
+
+    std::vector<char> the_copy(this->message);
+    the_copy.push_back('\0');
+    return std::string(the_copy.data());
+}
+
+std::vector<char> &Response::getBytes() {
 
     if (!used) {
         used = true;
@@ -79,5 +86,5 @@ char *Response::getBytes() {
         this->message.push_back((char)1);
     }
 
-    return message.data();
+    return this->message;
 }
