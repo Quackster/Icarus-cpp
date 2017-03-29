@@ -1,5 +1,5 @@
 /**
-* Icarus - A multi-platform C++ server
+* Roseau - A multi-platform C++ server
 *
 * Copyright 2016 Alex "Quackster" Miller
 *
@@ -7,45 +7,35 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
-
-#include <memory>
-#include <vector>
 #include <string>
-#include <cstring> // Required for G++/GCC compilation with function "strlen"
+#include <vector>
 
 class Response
 {
-
 public:
-    Response() : header(0) {};
-    Response(short header);
+    Response(int header);
     ~Response();
+
+    void set(int header);
     void writeInt(int number);
-    void writeInt(bool flag) { this->writeInt(flag ? 1 : 0);  }
-    void writeInt(size_t number) { this->writeInt((int)number); }
-    void writeBool(bool flag) {
-        this->message.push_back(flag ? (char)1 : (char)0);
-        this->index = this->index + 1;
+    void writeBool(bool state);
+
+    void writeString(int i) {
+        this->writeString(std::to_string(i));
     }
-    void writeShort(short numberr);
-    void writeString(const char* str) { this->writeCChar(str); };
-    void writeString(int str) { this->writeString(std::to_string(str)); };
-    void writeString(std::string str) { this->writeCChar(str.c_str()); };
 
-    char *getData();
-    //char *getBytes(short num);
-    //char *getBytes(int num, bool reverse = false);
+    void writeString(std::string str);
+    void write(std::string str);
+    char *getBytes();
 
-    int getBytesWritten() { return index + 4/*the length at the start*/;  }
-    std::vector<char> getMessage() { return message; }
-    int getHeader() { return header; }
+    int getSize() { return (int)bytes.size(); }
+    int getHeader() { return header; };
 
 private:
-    short header;
-    int index;
-    bool used;
-    std::vector <char> message;
-    void writeCChar(const char* str);
-    enum { MAX_RESPONSE_SIZE = 1024 };
+    std::vector<char> bytes;
+    bool used = false;
+    int header;
 };
+
+
 

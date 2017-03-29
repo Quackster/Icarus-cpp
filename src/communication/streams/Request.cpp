@@ -9,6 +9,9 @@
 #include "stdafx.h"
 #include "Request.h"
 
+#include "misc/encoding/Base64Encoding.h"
+#include "misc/encoding/WiredEncoding.h"
+
 /*
 Request constructor
 
@@ -20,7 +23,7 @@ Request::Request(int length, char *full_message) :
     offset(0) {
 
     if (length > 0) {
-        this->header = this->readShort();
+        this->header = this->readB64();
     }
 }
 
@@ -44,11 +47,9 @@ Read an integer represented as 16 bits
 
 @return integer
 */
-short Request::readShort() {
+int Request::readB64() {
 
-    short number = (short)(
-        (0xff & bytes[offset]) << 8 |
-        (0xff & bytes[offset + 1]) << 0);
+    short number = Base64Encoding::decodeB64(std::string({ bytes[offset], bytes[offset + 1] }));
 
     offset = offset + 2;
     return number;
@@ -62,13 +63,11 @@ Read an integer represented as 32 bits
 */
 long Request::readInt() {
 
-    long result = (int)bytes[offset + 3] & 0xff;
-    result |= ((int)bytes[offset + 2] & 0xff) << 8;
-    result |= ((int)bytes[offset + 1] & 0xff) << 16;
-    result |= ((int)bytes[offset] & 0xff) << 24;
+    int length = 0;
+    long result = WiredEncoding::decode(readBytesFreezeCursor(6).data(), length);
 
-    offset = offset + 4;
-    return result & 0xFFFFFFFFL;
+    offset = offset + length;
+    return result;
 
 }
 
@@ -80,21 +79,27 @@ Read a string with a 16bit length prefixed
 std::string Request::readString() {
     std::string str;
 
-    try {
+    int length = this->readB64();
 
-        int length = readShort();
+    for (int i = 0; i < length; i++) {
+        str += this->bytes[offset++];
+    }
 
-        for (int i = 0; i < length; i++) {
-            str += this->bytes[offset++];
-        }
-    }
-    catch (std::exception &e) {
-        cout << "Error reading packet: " << e.what() << endl;
-    }
-    catch (...) {
-        cout << "Error reading packet... " << endl;
-    }
 
     return str;
 }
 
+std::vector<char> Request::readBytesFreezeCursor(int num_bytes) {
+
+    if (num_bytes > this->getRemainingData())
+        num_bytes = this->getRemainingData();
+
+    std::vector<char> bzData;
+    bzData.resize(num_bytes);
+
+    for (int x = 0, y = offset; x < num_bytes; x++, y++) {
+        bzData.at(x) = this->bytes[y];
+    }
+
+    return bzData;
+}

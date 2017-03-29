@@ -33,7 +33,7 @@ public:
 
         for (int y = 0; y < model->map_size_y; y++) {
             for (int x = 0; x < model->map_size_x; x++) {
-                response.writeShort(model->getSquareHeight(x, y) * 256);
+                //response.writeShort(model->getSquareHeight(x, y) * 256);
             }
         }
 

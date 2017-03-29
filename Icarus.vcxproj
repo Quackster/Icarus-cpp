@@ -163,6 +163,8 @@
     <ClCompile Include="src\game\room\RoomManager.cpp" />
     <ClCompile Include="src\game\room\RoomUser.cpp" />
     <ClCompile Include="src\game\room\tasks\RoomRunnable.cpp" />
+    <ClCompile Include="src\misc\encoding\Base64Encoding.cpp" />
+    <ClCompile Include="src\misc\encoding\WiredEncoding.cpp" />
     <ClCompile Include="src\network\rcon\RconConnection.cpp" />
     <ClCompile Include="src\network\rcon\RconServer.cpp" />
     <ClCompile Include="src\thread\ExecutorService.cpp" />
@@ -226,6 +228,8 @@
     <ClInclude Include="src\game\item\inventory\Inventory.h" />
     <ClInclude Include="src\game\item\definitions\ItemType.h" />
     <ClInclude Include="src\game\room\model\tile\RoomTile.h" />
+    <ClInclude Include="src\misc\encoding\Base64Encoding.h" />
+    <ClInclude Include="src\misc\encoding\WiredEncoding.h" />
     <ClInclude Include="src\plugin\events\player\PlayerMoveEvent.h" />
     <ClInclude Include="src\communication\incoming\catalogue\CatalogueTabMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\messenger\MessengerUpdateMessageEvent.h" />

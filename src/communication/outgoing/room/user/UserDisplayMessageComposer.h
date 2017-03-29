@@ -68,11 +68,11 @@ public:
                 response.writeString("Alex");
 
                 response.writeInt(5);
-                response.writeShort(1);
+                /*response.writeShort(1);
                 response.writeShort(2);
                 response.writeShort(3);
                 response.writeShort(4);
-                response.writeShort(5);
+                response.writeShort(5);*/
             }
         }
 

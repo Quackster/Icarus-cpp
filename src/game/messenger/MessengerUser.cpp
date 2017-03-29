@@ -48,7 +48,7 @@ void MessengerUser::serialise(Response &response, const bool force_offline, bool
     response.writeBool(true);
     response.writeBool(false);
     response.writeBool(false);
-    response.writeShort(0);
+    //response.writeShort(0);
 }
 
 void MessengerUser::serialiseSearch(Response &response) {

@@ -11,13 +11,15 @@
 #include "boot/Icarus.h"
 #include "NetworkConnection.h"
 
+#include "misc/encoding/Base64Encoding.h"
+
 /*
-NetworkConnection constructor
+    NetworkConnection constructor
 
-@param connection id
-@param tcp::socket connection socket
+    @param connection id
+    @param tcp::socket connection socket
 
-@return instance
+    @return instance
 */
 NetworkConnection::NetworkConnection(int connection_id, tcp::socket socket) : 
     connection_id(connection_id), 
@@ -27,9 +29,9 @@ NetworkConnection::NetworkConnection(int connection_id, tcp::socket socket) :
 NetworkConnection::~NetworkConnection() { }
 
 /*
-Receive data handle
+    Receive data handle
 
-@return none
+    @return none
 */
 void NetworkConnection::recieveData() {
 
@@ -39,8 +41,8 @@ void NetworkConnection::recieveData() {
 
     auto self(shared_from_this());
 
-    // only 4 bytes for now, the length
-    socket.async_receive(boost::asio::buffer(buffer, 4), [this, self](boost::system::error_code ec, std::size_t length) {
+    // only 3 bytes for now, the length
+    socket.async_receive(boost::asio::buffer(buffer, 3), [this, self](boost::system::error_code ec, std::size_t length) {
 
         if (!ec) {
 
@@ -48,25 +50,22 @@ void NetworkConnection::recieveData() {
             //    then we send the flash policy back
 
             if (buffer[0] == 60) {
-                this->sendPolicy();
+                this->sendPolicy();               
                 this->recieveData();
             }
             else {
-
-                long message_length = (int)buffer[3] & 0xff;
-                message_length |= ((int)buffer[2] & 0xff) << 8;
-                message_length |= ((int)buffer[1] & 0xff) << 16;
-                message_length |= ((int)buffer[1] & 0xff) << 24;
-
+                int decoded_length = Base64Encoding::decodeB64(std::string({ buffer[1], buffer[2] }));
 
                 // Read rest of message, to prevent any combined packets
-                socket.async_receive(boost::asio::buffer(buffer, message_length), [this, self, message_length](boost::system::error_code ec, std::size_t length) {
+                socket.async_receive(boost::asio::buffer(buffer, decoded_length), [this, self, decoded_length](boost::system::error_code ec, std::size_t length) {
 
                     if (length > 0) {
-                        Request request(message_length, buffer);
+                        Request request(decoded_length, buffer);
 
                         if (request.getMessageId() > 0) {
                             this->handleData(request);
+
+
                             this->recieveData();
                         }
                     }
@@ -123,7 +122,37 @@ void NetworkConnection::handleData(Request request) {
         cout << endl;
     }
     
-    Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getPlayerManager()->getSession(this->connection_id));
+    if (request.getMessageId() == 206) {
+        Response response(257);
+        response.writeInt(9);
+        response.writeInt(0);
+        response.writeInt(0);
+        response.writeInt(1);
+        response.writeInt(1);
+        response.writeInt(3);
+        response.writeInt(0);
+        response.writeInt(2);
+        response.writeInt(1);
+        response.writeInt(4);
+        response.writeInt(0);
+        response.writeInt(5);
+        response.writeString("dd-MM-yyyy");
+        response.writeInt(7);
+        response.writeBool(false);
+        response.writeInt(8);
+        response.writeString("hotel-co.uk");
+        response.writeInt(9);
+        response.writeBool(false);
+        this->send(response);
+    }
+
+    if (request.getMessageId() == 415) {
+
+        this->send(Response(2));
+        this->send(Response(3));
+    }
+
+    //Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getPlayerManager()->getSession(this->connection_id));
 
 }
 
@@ -133,7 +162,12 @@ void NetworkConnection::handleData(Request request) {
     @return none
 */
 void NetworkConnection::send(Response response) {
-    this->writeData(response.getData(), response.getBytesWritten());
+    char *bytes = response.getBytes();
+    int size = response.getSize();
+
+    std::cout << "response size: " << response.getSize() << endl;
+
+    this->writeData(bytes, size);
 }
 
 /*
@@ -163,7 +197,7 @@ void NetworkConnection::writeData(const char* data, int length) {
 */
 void NetworkConnection::send(const MessageComposer &composer) {
     Response response = composer.compose();
-    this->writeData(response.getData(), response.getBytesWritten());
+    this->writeData(response.getBytes(), response.getSize());
 }
 
 
@@ -176,12 +210,10 @@ void NetworkConnection::send(const MessageComposer &composer) {
 */
 void NetworkConnection::sendPolicy() {
     
-    cout << "sending policy";
-
     this->writeData("<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0");
     
     auto self(shared_from_this());
-    socket.async_receive(boost::asio::buffer(buffer, 18), [this, self](boost::system::error_code ec, std::size_t length) {});
+    socket.async_receive(boost::asio::buffer(buffer, 19), [this, self](boost::system::error_code ec, std::size_t length) {});
 }
 
 /*

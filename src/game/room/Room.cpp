@@ -228,7 +228,7 @@ void Room::serialise(Response &response, const bool enter_room) {
 
     response.writeInt(this->id);
     response.writeString(this->room_data->name);
-    response.writeInt(this->room_data->owner);
+    response.writeInt(this->room_data->owner_id);
     response.writeString(this->room_data->owner_name); // Owner name
     response.writeInt(this->room_data->state);
     response.writeInt(this->room_data->users_now); // Users now

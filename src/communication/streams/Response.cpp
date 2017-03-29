@@ -1,5 +1,5 @@
 /**
-* Icarus - A multi-platform C++ server
+* Roseau - A multi-platform C++ server
 *
 * Copyright 2016 Alex "Quackster" Miller
 *
@@ -7,114 +7,80 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #include "stdafx.h"
+
 #include "Response.h"
 
-/*
-Response constructor, it will initialise the deque, and append the header in raw bytes
+#include "misc/encoding/Base64Encoding.h"
+#include "misc/encoding/WiredEncoding.h"
 
-@parameter header as short
-@return response instance
-*/
-Response::Response(short header) : 
-    header(header), 
-    index(0), 
-    used(false), 
-    message(std::vector<char>(0)) {
-
-    this->writeShort(header);
+Response::Response(int header) {
+    this->set(header);
 }
 
 Response::~Response() { }
 
-
-/*
-Writes a given integer in 4 bytes in little-endian format to the deque
-and increases the bytes written by 4
-
-@return char array
-*/
-void Response::writeInt(int value) {
-
-    char output[4];
-
-    output[0] = (char)(value >> 24);
-    output[1] = (char)(value >> 16);
-    output[2] = (char)(value >> 8);
-    output[3] = (char)(value);
-
-    for (int i = 0; i < 4; i++) {
-        this->message.push_back(output[i]);
-    }
-
-    this->index = this->index + 4;
+void Response::set(int header) {
+    this->header = header;
+    this->bytes = std::vector<char>();
+    this->used = false;
 }
+void Response::writeInt(int number) {
 
-/*
-Writes a given short in 2 bytes in little-endian format to the deque
-and increases the bytes written by 2
-
-@return none
-*/
-void Response::writeShort(short number) {
-
-    char output[2];
-
-    output[0] = (char)(number >> 8) & 0xff;
-    output[1] = (char)number & 0xff;
+    char *encoded = WiredEncoding::encode(number);
 
     for (int i = 0; i < 2; i++) {
-        this->message.push_back(output[i]);
+        this->bytes.push_back(encoded[i]);
     }
 
-    this->index = this->index + 2;
-    //delete[] bytes;
+}
+void Response::writeBool(bool state) {
+
+    if (state) {
+        this->bytes.push_back(WiredEncoding::POSITIVE);
+    }
+    else {
+        this->bytes.push_back(WiredEncoding::NEGATIVE);
+    }
 }
 
-/*
-Writes a given string with length prefixed in UTF-8 format
-and increases the bytes written by 2, and including the length of the string
+void Response::writeString(std::string str) {
 
-@return none
-*/
-void Response::writeCChar(const char* str) {
-
-    short length = (short)strlen(str);
-    this->writeShort(length);
-
-    for (int i = 0; i < length; i++) {
-        this->message.push_back(str[i]);
+    for (int i = 0; i < str.length(); i++) {
+        this->bytes.push_back(str.c_str()[i]);
     }
 
-    this->index = this->index + length;
+    this->bytes.push_back((char)2);
 }
 
+void Response::write(std::string str) {
 
-/*
-Gets the entire collection of chars from deque into a single char array
-with 32 bit length prefixed
+    for (int i = 0; i < str.length(); i++) {
+        this->bytes.push_back(str.c_str()[i]);
+    }
+}
 
-@return char array of packet
-*/
-char* Response::getData() {
-    
-    if (!this->used) {
-        this->used = true;
+char *Response::getBytes() {
 
-        // Get the size in raw 4 int 32 length prefixed, but reversed
-        // as this needs to be inserted at the front
-        //char* size = this->getBytes(this->index, true);
+    if (!used) {
+        used = true;
+        std::vector<char> output;
 
-        char size[4];
+        const char *message_header = Base64Encoding::encodeB64(this->header);
 
-        size[0] = (char)this->index & 0xff;
-        size[1] = (char)(this->index >> 8) & 0xff;
-        size[2] = (char)(this->index >> 16) & 0xff;
-        size[3] = (char)(this->index >> 24) & 0xff;
+        output.push_back(message_header[0]);
+        output.push_back(message_header[1]);
 
-        for (int i = 0; i < 4; i++) {
-            this->message.insert(this->message.begin(), size[i]);
+        for (int i = 0; i < this->bytes.size(); i++)
+        {
+            //std::cout << "SENT: " << this->bytes.at(i) << " / " << 3 << endl;
+            output.push_back(this->bytes.at(i));
         }
+
+        output.push_back((char)1);
+
+        this->bytes.clear();
+        this->bytes = output;
     }
-        
-    return this->message.data();
+
+    return bytes.data();
 }
