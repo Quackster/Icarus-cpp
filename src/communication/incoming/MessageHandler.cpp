@@ -26,7 +26,7 @@
 
 // Navigator
 #include "navigator/SearchNewNavigatorEvent.h"
-#include "navigator/NewNavigatorMessageEvent.h"
+#include "navigator/GetPublicRooms.h"
 #include "navigator/CreateRoomMessageEvent.h"
 
 // Room
@@ -89,8 +89,10 @@
 */
 MessageHandler::MessageHandler() {
 
+    this->createEvent(Incoming::GetPublicRooms, new NewNavigatorMessageEvent());
+
     // Login
-   this->createEvent(Incoming::VersionCheckMessageEvent, new VersionCheckMessageEvent());
+   /*this->createEvent(Incoming::VersionCheckMessageEvent, new VersionCheckMessageEvent());
    this->createEvent(Incoming::UniqueIDMessageEvent, new UniqueIDMessageEvent());
    this->createEvent(Incoming::AuthenticateMessageEvent, new AuthenticateMessageEvent());
 
@@ -104,7 +106,7 @@ MessageHandler::MessageHandler() {
     
     // Navigator
    this->createEvent(Incoming::SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
-   this->createEvent(Incoming::NewNavigatorMessageEvent, new NewNavigatorMessageEvent());
+   this->createEvent(Incoming::GetPublicRooms, new NewNavigatorMessageEvent());
    this->createEvent(Incoming::LeaveRoomMessageEvent, new LeaveRoomMessageEvent());
    this->createEvent(Incoming::CreateRoomMessageEvent, new CreateRoomMessageEvent());
 
@@ -153,7 +155,7 @@ MessageHandler::MessageHandler() {
    this->createEvent(Incoming::PurchaseObjectMessageEvent, new PurchaseObjectMessageEvent());
 
    // Item
-   this->createEvent(Incoming::InventoryMessageEvent, new InventoryMessageEvent());
+   this->createEvent(Incoming::InventoryMessageEvent, new InventoryMessageEvent());*/
 
 }
 
@@ -203,9 +205,9 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
             header != Incoming::AuthenticateMessageEvent) {
 
             if (!player->authenticated()) {
-                printf("Player tried to send packet while not logged in, scripting maybe?\n");
-                player->close();
-                return;
+                //printf("Player tried to send packet while not logged in, scripting maybe?\n");
+                //player->close();
+                //return;
             }
         }
 

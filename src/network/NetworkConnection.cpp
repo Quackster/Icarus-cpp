@@ -152,7 +152,7 @@ void NetworkConnection::handleData(Request request) {
         this->send(Response(3));
     }
 
-    //Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getPlayerManager()->getSession(this->connection_id));
+    Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getPlayerManager()->getSession(this->connection_id));
 
 }
 
@@ -161,11 +161,11 @@ void NetworkConnection::handleData(Request request) {
 
     @return none
 */
-void NetworkConnection::send(Response response) {
+void NetworkConnection::send(Response &response) {
     char *bytes = response.getBytes();
     int size = response.getSize();
 
-    std::cout << "response size: " << response.getSize() << endl;
+    std::cout << "Response: " << std::string(bytes).length() << " / " << size << endl;
 
     this->writeData(bytes, size);
 }

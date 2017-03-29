@@ -27,9 +27,10 @@ void Response::set(int header) {
 }
 void Response::writeInt(int number) {
 
-    char *encoded = WiredEncoding::encode(number);
+    int total_bytes = -1;
+    char *encoded = WiredEncoding::encode(number, total_bytes);
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < total_bytes; i++) {
         this->message.push_back(encoded[i]);
     }
 
@@ -69,8 +70,11 @@ void Response::write(std::string str) {
 char *Response::getBytes() {
 
     if (!used) {
+
         used = true;
+
         std::vector<char> output;
+        //output.resize(this->size);
 
         const char *message_header = Base64Encoding::encodeB64(this->header);
 
@@ -85,8 +89,9 @@ char *Response::getBytes() {
 
         output.push_back((char)1);
 
-        this->bytes = output.data();
+        this->message.clear();
+        this->message = output;
     }
 
-    return bytes;
+    return message.data();
 }

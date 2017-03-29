@@ -5,7 +5,7 @@ public:
     static const char NEGATIVE = (char)72; // 'H'
     static const char POSITIVE = (char)73; // 'I'
 
-    static char *encode(int i);
+    static char *encode(int i, int &total_bytes);
     static int decode(char *data, int &total_bytes);
 };
 

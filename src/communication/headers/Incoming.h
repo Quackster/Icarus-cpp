@@ -17,7 +17,7 @@ public:
     static const int CurrencyBalanceMessageEvent = 1051;//1277
     static const int LatencyTestMessageEvent = 878;//3307
     static const int LeaveRoomMessageEvent = 1429;//3781
-    static const int NewNavigatorMessageEvent = 1540;//2845
+    static const int GetPublicRooms = 380;//2845
     static const int SearchNewNavigatorEvent = 618;//1786
     static const int UserWalkMessageEvent = 2121;//2261
     static const int EnterRoomMessageEvent = 189;//2258

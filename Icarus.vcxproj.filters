@@ -209,9 +209,6 @@
     <ClInclude Include="src\communication\incoming\navigator\CreateRoomMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\incoming\navigator\NewNavigatorMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\communication\incoming\navigator\SearchNewNavigatorEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -741,6 +738,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\misc\encoding\WiredEncoding.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\navigator\GetPublicRooms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

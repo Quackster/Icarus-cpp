@@ -268,7 +268,7 @@
     <ClInclude Include="src\communication\incoming\misc\LatencyTestMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\CreateRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\CanCreateRoomMessageEvent.h" />
-    <ClInclude Include="src\communication\incoming\navigator\NewNavigatorMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\navigator\GetPublicRooms.h" />
     <ClInclude Include="src\communication\incoming\navigator\SearchNewNavigatorEvent.h" />
     <ClInclude Include="src\communication\incoming\room\doorbell\EnterDoorbellMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\doorbell\AnswerDoorbellMessageEvent.h" />
