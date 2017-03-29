@@ -28,13 +28,17 @@ public:
     void write(std::string str);
     char *getBytes();
 
-    int getSize() { return (int)bytes.size(); }
+    int getSize() { return size; }
     int getHeader() { return header; };
 
 private:
-    std::vector<char> bytes;
+
+    std::vector<char> message;
+    char *bytes;
     bool used = false;
+
     int header;
+    int size;
 };
 
 

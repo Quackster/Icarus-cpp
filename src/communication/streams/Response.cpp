@@ -21,41 +21,48 @@ Response::~Response() { }
 
 void Response::set(int header) {
     this->header = header;
-    this->bytes = std::vector<char>();
+    this->message = std::vector<char>();
     this->used = false;
+    this->size = 3; // header + chr 1 at the end
 }
 void Response::writeInt(int number) {
 
     char *encoded = WiredEncoding::encode(number);
 
     for (int i = 0; i < 2; i++) {
-        this->bytes.push_back(encoded[i]);
+        this->message.push_back(encoded[i]);
     }
 
+    this->size = this->size + 2;
 }
 void Response::writeBool(bool state) {
 
     if (state) {
-        this->bytes.push_back(WiredEncoding::POSITIVE);
+        this->message.push_back(WiredEncoding::POSITIVE);
     }
     else {
-        this->bytes.push_back(WiredEncoding::NEGATIVE);
+        this->message.push_back(WiredEncoding::NEGATIVE);
     }
+
+    this->size = this->size + 1;
 }
 
 void Response::writeString(std::string str) {
 
     for (int i = 0; i < str.length(); i++) {
-        this->bytes.push_back(str.c_str()[i]);
+        this->message.push_back(str.c_str()[i]);
+        this->size = this->size + 1;
     }
 
-    this->bytes.push_back((char)2);
+    this->message.push_back((char)2);
+    this->size = this->size + 1;
 }
 
 void Response::write(std::string str) {
 
     for (int i = 0; i < str.length(); i++) {
-        this->bytes.push_back(str.c_str()[i]);
+        this->message.push_back(str.c_str()[i]);
+        this->size = this->size + 1;
     }
 }
 
@@ -70,17 +77,16 @@ char *Response::getBytes() {
         output.push_back(message_header[0]);
         output.push_back(message_header[1]);
 
-        for (int i = 0; i < this->bytes.size(); i++)
+        for (int i = 0; i < this->message.size(); i++)
         {
             //std::cout << "SENT: " << this->bytes.at(i) << " / " << 3 << endl;
-            output.push_back(this->bytes.at(i));
+            output.push_back(this->message.at(i));
         }
 
         output.push_back((char)1);
 
-        this->bytes.clear();
-        this->bytes = output;
+        this->bytes = output.data();
     }
 
-    return bytes.data();
+    return bytes;
 }
