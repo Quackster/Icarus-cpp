@@ -137,6 +137,17 @@ void NetworkConnection::send(Response response) {
 }
 
 /*
+    Send compose class to socket
+
+    @return none
+*/
+void NetworkConnection::send(const MessageComposer &composer) {
+    Response response = composer.compose();
+    this->writeData(response.getData(), response.getBytesWritten());
+}
+
+
+/*
     Write data handle
 
     @return none
@@ -156,17 +167,6 @@ void NetworkConnection::writeData(const char* data, int length) {
     });
 }
 
-/*
-    Send compose class to socket
-
-    @return none
-*/
-void NetworkConnection::send(const MessageComposer &composer) {
-    Response response = composer.compose();
-    this->writeData(response.getData(), response.getBytesWritten());
-}
-
-
 
 /*
     Send policy to the socket
@@ -175,8 +175,6 @@ void NetworkConnection::send(const MessageComposer &composer) {
 
 */
 void NetworkConnection::sendPolicy() {
-    
-    cout << "sending policy";
 
     this->writeData("<?xml version=\"1.0\"?>\r\n<!DOCTYPE cross-domain-policy SYSTEM \"/xml/dtds/cross-domain-policy.dtd\">\r\n<cross-domain-policy>\r\n<allow-access-from domain=\"*\" to-ports=\"*\" />\r\n</cross-domain-policy>\0");
     
