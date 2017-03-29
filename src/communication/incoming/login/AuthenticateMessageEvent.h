@@ -12,10 +12,8 @@
 
 #include "communication/incoming/MessageEvent.h"
 #include "communication/outgoing/login/AuthenticateMessageComposer.h"
-#include "communication/outgoing/login/UniqueMachineIDMessageComposer.h"
+#include "communication/outgoing/login/UserRightsMessageComposer.h"
 #include "communication/outgoing/login/HomeRoomMessageComposer.h"
-#include "communication/outgoing/login/LandingWidgetMessageComposer.h"
-#include "communication/outgoing/login/AvailabilityMessageComposer.h"
 
 #include "dao/UserDao.h"
 
@@ -45,21 +43,22 @@ public:
             session->setDetails(details);
         }
 
+
+        session->send(UserRightsMessageComposer());// session->getUniqueId()));
         session->send(AuthenticateMessageComposer());
-        session->send(UniqueMachineIDMessageComposer(""));// session->getUniqueId()));
-        session->send(HomeRoomMessageComposer(0, false));
+       // session->send(HomeRoomMessageComposer(0, false));
 
         //UserRightsMessageComposer = 3315;
-        Response response(3315);
+        /*Response response(3315);
         response.writeInt(2);
         response.writeInt(7);
         response.writeBool(false);
-        session->getNetworkConnection()->send(response);
+        session->getNetworkConnection()->send(response);*/
 
-        session->send(LandingWidgetMessageComposer());
-        session->send(AvailabilityMessageComposer());
+        //session->send(LandingWidgetMessageComposer());
+        //session->send(AvailabilityMessageComposer());
         session->login();
-        
+
         //[0][0][0][10]D[0][12]bonusbag16_2[0][0]#"[0][0][0]x[0][0][0]x
         /*Response response(266);
         response.writeString("A2 DIGITV"); // product data id

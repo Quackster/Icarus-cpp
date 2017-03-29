@@ -188,8 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Icarus - Copy\src\game\catalogue\CataloguePage.h" />
+    <ClInclude Include="src\communication\incoming\navigator\PrivateRoomsMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\item\InteractItemMessageEvent.h" />
-    <ClInclude Include="src\communication\outgoing\login\AvailabilityMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\login\SessionParamsMessageComposer.h" />
     <ClInclude Include="src\game\item\interactor\InteractorManager.h" />
     <ClInclude Include="src\game\item\interactor\BaseInteractor.h" />
     <ClInclude Include="src\game\item\interactor\interactors\DefaultInteractor.h" />
@@ -251,8 +252,7 @@
     <ClInclude Include="src\communication\headers\Outgoing.h" />
     <ClInclude Include="src\communication\incoming\DefaultMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\login\AuthenticateMessageEvent.h" />
-    <ClInclude Include="src\communication\incoming\login\UniqueIDMessageEvent.h" />
-    <ClInclude Include="src\communication\incoming\login\VersionCheckMessageEvent.h" />
+    <ClInclude Include="src\communication\incoming\login\InitCryptoMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\MessageEvent.h" />
     <ClInclude Include="src\communication\incoming\MessageHandler.h" />
     <ClInclude Include="src\communication\incoming\messenger\MessengerInviteMessageEvent.h" />
@@ -268,7 +268,7 @@
     <ClInclude Include="src\communication\incoming\misc\LatencyTestMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\CreateRoomMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\CanCreateRoomMessageEvent.h" />
-    <ClInclude Include="src\communication\incoming\navigator\GetPublicRooms.h" />
+    <ClInclude Include="src\communication\incoming\navigator\PublicRoomsMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\navigator\SearchNewNavigatorEvent.h" />
     <ClInclude Include="src\communication\incoming\room\doorbell\EnterDoorbellMessageEvent.h" />
     <ClInclude Include="src\communication\incoming\room\doorbell\AnswerDoorbellMessageEvent.h" />
@@ -285,8 +285,7 @@
     <ClInclude Include="src\communication\outgoing\DefaultComposer.h" />
     <ClInclude Include="src\communication\outgoing\login\AuthenticateMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\login\HomeRoomMessageComposer.h" />
-    <ClInclude Include="src\communication\outgoing\login\LandingWidgetMessageComposer.h" />
-    <ClInclude Include="src\communication\outgoing\login\UniqueMachineIDMessageComposer.h" />
+    <ClInclude Include="src\communication\outgoing\login\UserRightsMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\MessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\messenger\MessageInviteMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\messenger\FollowErrorMessageComposer.h" />
@@ -328,7 +327,6 @@
     <ClInclude Include="src\communication\outgoing\room\user\UserStatusMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\user\CreditsMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\user\HotelViewMessageComposer.h" />
-    <ClInclude Include="src\communication\outgoing\user\SendPerkAllowancesMessageComposer.h" />
     <ClInclude Include="src\communication\outgoing\user\UserObjectMessageComposer.h" />
     <ClInclude Include="src\communication\streams\Request.h" />
     <ClInclude Include="src\communication\streams\Response.h" />

@@ -13,8 +13,7 @@
 
 // Login
 #include "login/AuthenticateMessageEvent.h"
-#include "login/UniqueIDMessageEvent.h"
-#include "login/VersionCheckMessageEvent.h"
+#include "login/InitCryptoMessageEvent.h"
 
 // User
 #include "user/InfoRetrieveMessageEvent.h"
@@ -92,8 +91,7 @@ MessageHandler::MessageHandler() {
     this->createEvent(Incoming::GetPublicRooms, new NewNavigatorMessageEvent());
 
     // Login
-   /*this->createEvent(Incoming::VersionCheckMessageEvent, new VersionCheckMessageEvent());
-   this->createEvent(Incoming::UniqueIDMessageEvent, new UniqueIDMessageEvent());
+   this->createEvent(Incoming::InitCryptoMessageEvent, new InitCryptoMessageEvent());
    this->createEvent(Incoming::AuthenticateMessageEvent, new AuthenticateMessageEvent());
 
     // User
@@ -105,7 +103,7 @@ MessageHandler::MessageHandler() {
    this->createEvent(Incoming::EventLogMessageEvent, new EventLogMessageEvent());
     
     // Navigator
-   this->createEvent(Incoming::SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
+   /*this->createEvent(Incoming::SearchNewNavigatorEvent, new SearchNewNavigatorEvent());
    this->createEvent(Incoming::GetPublicRooms, new NewNavigatorMessageEvent());
    this->createEvent(Incoming::LeaveRoomMessageEvent, new LeaveRoomMessageEvent());
    this->createEvent(Incoming::CreateRoomMessageEvent, new CreateRoomMessageEvent());
@@ -200,8 +198,7 @@ void MessageHandler::invoke(int header, Request &request, Player *player) {
     
     if (this->messages.count(header)) {
 
-        if (header != Incoming::VersionCheckMessageEvent &&
-            header != Incoming::UniqueIDMessageEvent &&
+        if (header != Incoming::InitCryptoMessageEvent &&
             header != Incoming::AuthenticateMessageEvent) {
 
             if (!player->authenticated()) {

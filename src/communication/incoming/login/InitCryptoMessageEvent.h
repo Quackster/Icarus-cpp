@@ -7,19 +7,19 @@
 * (see https://creativecommons.org/licenses/by-nc-sa/4.0/, or LICENSE.txt for a full license
 */
 #pragma once
+#include "boot/Icarus.h"
+
 #include "communication/incoming/MessageEvent.h"
-#include "communication/outgoing/login/AuthenticateMessageComposer.h"
+#include "communication/outgoing/login/SessionParamsMessageComposer.h"
 
 #include "dao/UserDao.h"
 
-class UniqueIDMessageEvent : public MessageEvent {
+class InitCryptoMessageEvent : public MessageEvent {
 
 public:
-    UniqueIDMessageEvent() { }
+    InitCryptoMessageEvent() { }
 
     void handle(Player *player, Request &request) {
-
-        request.readString(); // read junk str
-        player->setUniqueId(request.readString());
+        player->send(SessionParamsMessageComposer());
     }
 };

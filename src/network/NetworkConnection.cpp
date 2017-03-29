@@ -118,36 +118,6 @@ void NetworkConnection::handleData(Request request) {
 
         cout << endl;
     }
-    
-    if (request.getMessageId() == 206) {
-        Response response(257);
-        response.writeInt(9);
-        response.writeInt(0);
-        response.writeInt(0);
-        response.writeInt(1);
-        response.writeInt(1);
-        response.writeInt(3);
-        response.writeInt(0);
-        response.writeInt(2);
-        response.writeInt(1);
-        response.writeInt(4);
-        response.writeInt(0);
-        response.writeInt(5);
-        response.writeString("dd-MM-yyyy");
-        response.writeInt(7);
-        response.writeBool(false);
-        response.writeInt(8);
-        response.writeString("hotel-co.uk");
-        response.writeInt(9);
-        response.writeBool(false);
-        this->send(response);
-    }
-
-    if (request.getMessageId() == 415) {
-
-        this->send(Response(2));
-        this->send(Response(3));
-    }
 
     Icarus::getMessageHandler()->invoke(request.getMessageId(), request, Icarus::getPlayerManager()->getSession(this->connection_id));
 

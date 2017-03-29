@@ -10,9 +10,8 @@
 class Incoming {
 
 public:
-    static const int VersionCheckMessageEvent = 4000;//4000
-    static const int UniqueIDMessageEvent = 3521;//3659
-    static const int AuthenticateMessageEvent = 1989;//1490
+    static const int InitCryptoMessageEvent = 206;//3659
+    static const int AuthenticateMessageEvent = 415;//1490
     static const int InfoRetrieveMessageEvent = 2629;//1978
     static const int CurrencyBalanceMessageEvent = 1051;//1277
     static const int LatencyTestMessageEvent = 878;//3307

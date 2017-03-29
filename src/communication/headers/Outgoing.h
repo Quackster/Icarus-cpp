@@ -10,7 +10,10 @@
 class Outgoing {
 
 public:
-    static const int AuthenticationOKMessageComposer = 1079;//1552
+    static const int SessionParamsMessageComposer = 257;
+    static const int UserRightsMessageComposer = 2;//3683
+    static const int AuthenticationOKMessageComposer = 3;//1552
+
     static const int CreateRoomMessageComposer = 3001;//106
     static const int CreditsMessageComposer = 1958;//2588
     static const int FlatCategoriesMessageComposer = 3379;//1625
@@ -44,7 +47,6 @@ public:
     static const int SearchResultSetComposer = 1089;//2247
     static const int SecretKeyMessageComposer = 696;//690
     static const int SendPerkAllowancesMessageComposer = 1790;//2028
-    static const int UniqueMachineIDMessageComposer = 3731;//3683
     static const int UserDisplayMessageComposer = 3857;//504
     static const int RemoveUserMessageComposer = 3839;//3475
     static const int UserObjectMessageComposer = 845;//3762
@@ -82,6 +84,4 @@ public:
     static const int MoveWallItemMessageComposer = 3408;//3630
     static const int RemoveItemMessageComposer = 2362;//1744
     static const int RemoveWallItemMessageComposer = 209;//2793
-    static const int CommunityGoalHallOfFameWidget = 2208;
-    static const int AvailabilityMessageComposer = 3690;
 };

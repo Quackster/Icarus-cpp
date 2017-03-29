@@ -9,16 +9,18 @@
 #pragma once
 #include "boot/Icarus.h"
 #include "communication/incoming/MessageEvent.h"
-#include "communication/outgoing/user/CreditsMessageComposer.h"
-#include "communication/outgoing/user/UserObjectMessageComposer.h"
-//#include "communication/outgoing/user/SendPerkAllowancesMessageComposer.h"
+#include "communication/outgoing/navigator/FlatCategoriesMessageComposer.h"
+#include "communication/outgoing/navigator/NavigatorCategoriesComposer.h"
+#include "communication/outgoing/navigator/NavigatorMetaDataComposer.h"
+#include "communication/outgoing/navigator/NavigatorPreferencesMessageComposer.h"
 
-class InfoRetrieveMessageEvent : public MessageEvent {
+class PrivateRoomsMessageEvent : public MessageEvent {
 
 public:
-    InfoRetrieveMessageEvent() { }
+    PrivateRoomsMessageEvent() { }
 
     void handle(Player *player, Request &request) {
+
 
     }
 };

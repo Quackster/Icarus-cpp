@@ -9,18 +9,20 @@
 #pragma once
 #include "communication/outgoing/MessageComposer.h"
 
-class LandingWidgetMessageComposer : public MessageComposer {
+class UserRightsMessageComposer : public MessageComposer {
 
 public:
-    LandingWidgetMessageComposer() { }
+    UserRightsMessageComposer() { }
 
     const Response compose() const {
         Response response = this->createResponse();
-        response.writeInt(0);
         return response;
     }
 
     const int getHeader() const {
-        return Outgoing::LandingWidgetMessageComposer;
+        return Outgoing::UserRightsMessageComposer;
     }
+
+private:
+    std::string machine_id;
 };

@@ -16,12 +16,10 @@
 
 #include "communication/outgoing/user/CreditsMessageComposer.h"
 #include "communication/outgoing/user/UserObjectMessageComposer.h"
-#include "communication/outgoing/user/SendPerkAllowancesMessageComposer.h"
-
-class NewNavigatorMessageEvent : public MessageEvent {
+class PublicRoomsMessageEvent : public MessageEvent {
 
 public:
-    NewNavigatorMessageEvent() { }
+    PublicRoomsMessageEvent() { }
 
     void handle(Player *player, Request &request) {
 

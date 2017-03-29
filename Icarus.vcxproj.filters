@@ -239,12 +239,6 @@
     <ClInclude Include="src\communication\outgoing\login\HomeRoomMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\outgoing\login\LandingWidgetMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\login\UniqueMachineIDMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\communication\outgoing\messenger\FollowErrorMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -300,9 +294,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\outgoing\user\HotelViewMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\outgoing\user\SendPerkAllowancesMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\communication\outgoing\user\UserObjectMessageComposer.h">
@@ -632,12 +623,6 @@
     <ClInclude Include="src\communication\incoming\login\AuthenticateMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\incoming\login\UniqueIDMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\communication\incoming\login\VersionCheckMessageEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\communication\outgoing\catalogue\PurchaseErrorMessageComposer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -707,9 +692,6 @@
     <ClInclude Include="src\game\room\misc\RoomNewbieItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\outgoing\login\AvailabilityMessageComposer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\game\navigator\populators\FriendsPopulator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -740,7 +722,19 @@
     <ClInclude Include="src\misc\encoding\WiredEncoding.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\communication\incoming\navigator\GetPublicRooms.h">
+    <ClInclude Include="src\communication\incoming\login\InitCryptoMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\login\UserRightsMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\outgoing\login\SessionParamsMessageComposer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\navigator\PublicRoomsMessageEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\communication\incoming\navigator\PrivateRoomsMessageEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
