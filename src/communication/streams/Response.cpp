@@ -70,27 +70,13 @@ void Response::write(std::string str) {
 char *Response::getBytes() {
 
     if (!used) {
-
         used = true;
-
-        std::vector<char> output;
-        //output.resize(this->size);
 
         const char *message_header = Base64Encoding::encodeB64(this->header);
 
-        output.push_back(message_header[0]);
-        output.push_back(message_header[1]);
-
-        for (int i = 0; i < this->message.size(); i++)
-        {
-            //std::cout << "SENT: " << this->bytes.at(i) << " / " << 3 << endl;
-            output.push_back(this->message.at(i));
-        }
-
-        output.push_back((char)1);
-
-        this->message.clear();
-        this->message = output;
+        this->message.insert(this->message.begin(), message_header[1]);
+        this->message.insert(this->message.begin(), message_header[0]);
+        this->message.push_back((char)1);
     }
 
     return message.data();
