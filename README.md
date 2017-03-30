@@ -91,11 +91,14 @@ Run this command
 
 - Boost library (should be using 1.63) 
 
-```sudo apt-get install libboost-dev```
+```sudo apt-get install libboost-all-dev```
 
 - MySQL C++ Connector
 
-```sudo apt-get install  libmysqlcppconn-dev```
+```sudo apt-get install libmysqlcppconn-dev```
+
+```sudo apt-get install libmysqlclient-dev```
+
 
 **Compile**
 
