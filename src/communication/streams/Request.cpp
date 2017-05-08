@@ -78,23 +78,14 @@ Read a string with a 16bit length prefixed
 @return string
 */
 std::string Request::readString() {
-    std::string str;
+	std::string str;
 
-    try {
+	int length = readShort();
 
-        int length = readShort();
+	for (int i = 0; i < length; i++) {
+		str += this->bytes[offset++];
+	}
 
-        for (int i = 0; i < length; i++) {
-            str += this->bytes[offset++];
-        }
-    }
-    catch (std::exception &e) {
-        cout << "Error reading packet: " << e.what() << endl;
-    }
-    catch (...) {
-        cout << "Error reading packet... " << endl;
-    }
-
-    return str;
+	return str;
 }
 
